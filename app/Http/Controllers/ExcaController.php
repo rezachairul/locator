@@ -1,0 +1,150 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Exca;
+use Illuminate\Http\Request;
+
+class ExcaController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $title = 'Excavator';
+        $excas = Exca::all();
+
+        // Mapping untuk label
+        $pitLabels = [
+            'qsv1s' => 'QSV1S',
+            'qsv3' => 'QSV3'
+        ];
+
+        $loadingUnitLabels = [
+            'fex400_441' => 'FEX400-441',
+            'fex400_419' => 'FEX400-419',
+            'fex400_449' => 'FEX400-449',
+            'fex400_454' => 'FEX400-454',
+            'fex400_456' => 'FEX400-456'
+        ];
+
+        $materialLabels = [
+            's' => 'S',
+            'm' => 'M',
+            'c' => 'C',
+            'b' => 'B',
+            'nb' => 'NB',
+            'otr' => 'OTR'
+        ];
+
+        foreach ($excas as $exca) {
+            $exca->pit_label = $pitLabels[$exca->pit] ?? $exca->pit;
+            $exca->loading_unit_label = $loadingUnitLabels[$exca->loading_unit] ?? $exca->loading_unit;
+            $exca->material_label = $materialLabels[$exca->material] ?? $exca->material;
+        }
+
+        return view('exca/excavator', compact('title', 'excas'));
+    }
+
+
+    public function create()
+    {
+        //
+    }
+
+
+    public function store(Request $request)
+    {
+        // dd($request->all()); 
+        $request->validate([
+            'pit' => 'required|in:qsv1s,qsv3',
+            'loading_unit' => 'required|in:fex400_441,fex400_419,fex400_449,fex400_454,fex400_456',
+            'easting' => 'required|numeric',
+            'northing' => 'required|numeric',
+            'elevation' => 'required|numeric',
+            'material' => 'required|in:s,m,c,b,nb,otr',
+            'dop' => 'required',
+        ]);        
+
+        Exca::create([
+            'pit' => $request->pit,
+            'loading_unit' => $request->loading_unit,
+            'easting' => $request->easting,
+            'northing' => $request->northing,
+            'elevation' => $request->elevation,
+            'material' => $request->material,
+            'dop' => $request->dop,
+        ]);
+
+        return redirect()->route('exca.index')->with('success', 'Berhasil Tambah Data Excavator');
+    }
+
+    public function show(exca $exca)
+    {
+        //
+    }
+
+    public function edit($id)
+    {
+        // Mengambil data Excavator berdasarkan ID, jika tidak ditemukan akan melemparkan 404 error
+        $exca = Exca::findOrFail($id);
+        dd($exca);
+        $title = 'Edit Excavator';
+
+        // Mengirimkan variabel $exca dan $title ke view 'exca.update'
+        return view('exca.update', compact('exca', 'title'));
+    }    
+    
+    // public function edit($id)
+    // {
+    //     $exca = Exca::findOrFail($id);
+    //     $title = 'Edit Excavator';
+        
+        
+    //     if (!$exca) {
+    //         return redirect()->route('exca.index')->with('error', 'Data Excavator tidak ditemukan');
+    //     }
+
+    //     return view('exca.update', compact('exca'));
+    // }
+
+    public function update(Request $request, $id)
+    {
+        // dd($request->all());
+        $request->validate([
+            'pit' => 'required|in:qsv1s,qsv3',
+            'loading_unit' => 'required|in:fex400_441,fex400_419,fex400_449,fex400_454,fex400_456',
+            'easting' => 'required|numeric',
+            'northing' => 'required|numeric',
+            'elevation' => 'required|numeric',
+            'material' => 'required|in:s,m,c,b,nb,otr',
+            'dop' => 'required',
+        ]);
+        
+        $exca = Exca::findOrFail($id);
+        
+        if (!$exca) {
+            return redirect()->route('exca.index')->with('error', 'Data Excavator tidak ditemukan');
+        }
+
+        $exca->update([
+            'pit' => $request->pit,
+            'loading_unit' => $request->loading_unit,
+            'easting' => $request->easting,
+            'northing' => $request->northing,
+            'elevation' => $request->elevation,
+            'material' => $request->material,
+            'dop' => $request->dop,
+        ]);
+
+        return redirect()->route('exca.index')->with('success', 'Data Excavator berhasil diperbarui');
+    }
+
+    public function destroy(exca $exca)
+    {
+        $exca->delete();
+        return redirect()->route('exca.index')->with('success', 'Item deleted successfully.');
+    }
+
+}
