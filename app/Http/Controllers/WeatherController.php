@@ -14,6 +14,9 @@ class WeatherController extends Controller
     {
         $title = 'Weather';
         $weathers = Weather::all();
+        
+        // Ambil data cuaca terbaru
+        $latestWeather = Weather::latest()->first();
 
         //Mapping Labels
         $cuacaLabels = [
@@ -32,7 +35,7 @@ class WeatherController extends Controller
         }
 
 
-        return view('weather/weather', compact('title', 'weathers'));
+        return view('weather/weather', compact('title', 'weathers',  'latestWeather'));
     }
 
     /**

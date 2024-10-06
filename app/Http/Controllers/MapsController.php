@@ -79,7 +79,7 @@ class MapsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Maps $maps)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -87,8 +87,13 @@ class MapsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Maps $maps)
+    public function destroy($id)
     {
-        //
+
+        // Hapus file dari penyimpanan
+        // dd($id);
+        $maps = Maps::find($id);
+        $maps->delete();
+        return redirect()->route('maps.index')->with('success', 'File deleted successfully!');
     }
 }

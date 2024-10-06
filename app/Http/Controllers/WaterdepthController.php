@@ -77,8 +77,13 @@ class WaterdepthController extends Controller
      */
     public function destroy(WaterDepth $waterdepth)
     {   
-        // dd($waterDepth);
+        // dd($waterdepth);
+        // // $waterdepth->delete();
+        // WaterDepth::destroy($waterdepth->id);
+
+        // dd($waterdepth->id); // Periksa ID yang dihapus
         $waterdepth->delete();
+
         return redirect()->route('waterdepth.index')->with('Success', 'Data Delete successfully.');
     }
 }

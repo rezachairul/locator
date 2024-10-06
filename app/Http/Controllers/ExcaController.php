@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Exca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class ExcaController extends Controller
 {
@@ -96,18 +98,6 @@ class ExcaController extends Controller
         return view('exca.update', compact('exca', 'title'));
     }    
     
-    // public function edit($id)
-    // {
-    //     $exca = Exca::findOrFail($id);
-    //     $title = 'Edit Excavator';
-        
-        
-    //     if (!$exca) {
-    //         return redirect()->route('exca.index')->with('error', 'Data Excavator tidak ditemukan');
-    //     }
-
-    //     return view('exca.update', compact('exca'));
-    // }
 
     public function update(Request $request, $id)
     {
@@ -143,7 +133,9 @@ class ExcaController extends Controller
 
     public function destroy(exca $exca)
     {
+        // Menghapus data excavator
         $exca->delete();
+        // Exca::destroy($exca->id);
         return redirect()->route('exca.index')->with('success', 'Item deleted successfully.');
     }
 
