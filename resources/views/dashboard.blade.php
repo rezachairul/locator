@@ -3,8 +3,8 @@
     <div class="grid gap-6 mb-8 md:grid-cols-4 xl:grid-cols-4">
         <!-- Excavator -->
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 invert-icon">
-            <div class="p-3 mr-4 text-yellow-500 bg-yelow-100 rounded-full dark:text-yellow-100 dark:bg-yellow-500" >
-                <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-5 w-5 hover:scale-125 transition">
+            <div class="p-3 mr-4" >
+                <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-6 w-6 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -17,8 +17,8 @@
         </div>
         <!-- Dumping Truck -->
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 invert-icon">
-            <div class="p-3 mr-4 text-emerald-500 bg-emerald-100 rounded-full dark:text-emerald-100 dark:bg-emerald-500" >
-                <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-5 w-5 hover:scale-125 transition">
+            <div class="p-3 mr-4" >
+                <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-6 w-6 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -30,9 +30,9 @@
             </div>
         </div>
         <!-- Weather -->
-        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 invert-icon">
-            <div class="p-3 mr-4 text-purple-500 bg-purple-100 rounded-full dark:text-purple-100 dark:bg-purple-500" >
-                <img src="{{ asset('assets/img/cloud.png') }}" alt="Logo" class="h-5 w-5 hover:scale-125 transition">
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+            <div class="p-3 mr-4" >
+                <img src="{{ asset('assets/img/cuaca-icons/hujan_petir.png') }}" alt="Logo" class="w-10 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -45,8 +45,8 @@
         </div>
         <!-- Water Depth -->
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 invert-icon">
-            <div class="p-3 mr-4 text-sky-500 bg-sky-100 rounded-full dark:text-sky-100 dark:bg-sky-500" >
-                <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-5 w-5 hover:scale-125 transition">
+            <div class="p-3 mr-4" >
+                <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-6 w-6 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >

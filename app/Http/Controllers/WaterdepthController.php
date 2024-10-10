@@ -63,27 +63,26 @@ class WaterdepthController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, WaterDepth $waterDepth)
-    {
+    {     
         $request->validate([
             'shift' => 'required|string|max:255',
             'qsv_1' => 'required|numeric',
             'h4' => 'required|numeric',
         ]);
+        $waterDepth = WaterDepth::findOrFail($waterDepth);
+        $waterDepth->update($request->all());
+
         return redirect()->route('waterdepth.index')->with('success', 'Data update successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WaterDepth $waterdepth)
-    {   
-        // dd($waterdepth);
-        // // $waterdepth->delete();
-        // WaterDepth::destroy($waterdepth->id);
-
-        // dd($waterdepth->id); // Periksa ID yang dihapus
+    public function destroy($id)
+    { 
+        // dd($id);
+        $waterdepth = WaterDepth::findOrFail($id);
         $waterdepth->delete();
-
         return redirect()->route('waterdepth.index')->with('Success', 'Data Delete successfully.');
     }
 }

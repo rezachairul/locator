@@ -82,9 +82,10 @@ class DumpingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dumping $dumping)
+    public function destroy($id)
     {
-        
+        // dd($id);
+        $dumping = Dumping::findOrFail($id);
         $dumping->delete();
         return redirect()->route('dumping.index')->with('success', 'Item deleted successfully.');
     }

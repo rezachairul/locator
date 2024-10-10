@@ -73,7 +73,6 @@
                     applyTheme();
                 });
             }
-
             const modalToggleBtns = document.querySelectorAll('[data-modal-toggle]');
             const modalHideBtns = document.querySelectorAll('[data-modal-hide]');
 
@@ -129,19 +128,135 @@
             document.getElementById('deleteButton').click();
             document.getElementById('updateProductButton').click();
         }
-    </script>
 
-    <script>
         function ubahGambarCuaca() {
             const selectElement = document.getElementById('cuaca');
             const cuacaTerpilih = selectElement.value;
             const gambarCuaca = document.getElementById('cuaca-icon');
             
             // Ubah path gambar sesuai dengan value dari select
-            gambarCuaca.src = 'assets/img/cuaca-icons/' + cuacaTerpilih + '.png';
+            gambarCuaca.src = 'assets/img/cuaca-icons/' + cuacaTerpilih + '.png'; 
         }
+      
     </script>
 
 
+
+
+
+
+// <!-- Script -->
+// <!-- <script>
+//     function scrollToTop() {
+//         window.scrollTo({ top: 0, behavior: 'smooth' });
+//     }
+
+//     function applyTheme() {
+//         const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+//         const icons = document.querySelectorAll('.invert-icon img');
+
+//         icons.forEach(icon => {
+//             icon.style.filter = theme === 'light' ? 'invert(1)' : 'invert(0)';
+//         });
+//     }
+
+//     document.addEventListener("DOMContentLoaded", function() {
+//         applyTheme();
+//         const themeToggleButton = document.getElementById('theme-toggle');
+//         if (themeToggleButton) {
+//             themeToggleButton.addEventListener('click', function() {
+//                 document.body.classList.toggle('dark');
+//                 applyTheme();
+//             });
+//         }
+
+//         const modalToggleBtns = document.querySelectorAll('[data-modal-toggle]');
+//         const modalHideBtns = document.querySelectorAll('[data-modal-hide]');
+
+//         modalToggleBtns.forEach(btn => {
+//             btn.addEventListener('click', () => {
+//                 const modalId = btn.getAttribute('data-modal-toggle');
+//                 const modal = document.getElementById(modalId);
+//                 if (modal) {
+//                     modal.classList.toggle('hidden');
+//                 }
+//             });
+//         });
+
+//         modalHideBtns.forEach(btn => {
+//             btn.addEventListener('click', () => {
+//                 const modalId = btn.getAttribute('data-modal-hide');
+//                 const modal = document.getElementById(modalId);
+//                 if (modal) {
+//                     modal.classList.add('hidden');
+//                 }
+//             });
+//         });
+
+//         // Mengubah favicon berdasarkan halaman saat ini
+//         const currentPage = window.location.pathname;
+//         const favicon = document.getElementById("favicon");
+//         const iconMap = {
+//             "maps": 'maps.png',
+//             "dashboard": 'excavator.png',
+//             "exca": 'excavator.png',
+//             "dump": 'dump-truck.png',
+//             "weather": 'cloud.png',
+//             "waterdepth": 'water-waves.png'
+//         };
+
+//         for (const [key, value] of Object.entries(iconMap)) {
+//             if (currentPage.includes(key)) {
+//                 favicon.href = `{{ asset('assets/img/${value}') }}?v=${new Date().getTime()}`;
+//                 break;
+//             }
+//         }
+
+//         // Event listener untuk tombol modal
+//         const modalOpenButtons = document.querySelectorAll('.modalOpenButton');
+//         modalOpenButtons.forEach(button => {
+//             button.addEventListener('click', () => {
+//                 const itemId = button.getAttribute('data-id');
+//                 const itemUrl = button.getAttribute('data-url');
+                
+//                 // Update action URL pada form delete
+//                 document.getElementById('deleteForm').action = itemUrl;
+//             });
+//         });
+
+//         // Event listener untuk konfirmasi delete
+//         const confirmDeleteButton = document.getElementById('confirmDeleteButton');
+//         if (confirmDeleteButton) {
+//             confirmDeleteButton.addEventListener('click', function() {
+//                 document.getElementById('deleteForm').submit(); // Submit form delete
+//             });
+//         };
+//     });
+
+//     function submitForm() {
+//         const form = document.getElementById('createForm');
+//         const modal = document.getElementById('defaultModal');
+        
+//         if (modal) {
+//             modal.classList.add('hidden');
+//         }
+
+//         document.getElementById('defaultModalButton').click();
+//         document.getElementById('deleteButton').click();
+//         document.getElementById('updateProductButton').click();
+//     }
+
+//     function ubahGambarCuaca() {
+//         const selectElement = document.getElementById('cuaca');
+//         const cuacaTerpilih = selectElement.value;
+//         const gambarCuaca = document.getElementById('cuaca-icon');
+        
+//         // Ubah path gambar sesuai dengan value dari select
+//         gambarCuaca.src = 'assets/img/cuaca-icons/' + cuacaTerpilih + '.png';
+//     }
+// </script> -->
+
+
+    
 </body>
 </html>

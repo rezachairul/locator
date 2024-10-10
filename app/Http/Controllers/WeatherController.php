@@ -91,9 +91,10 @@ class WeatherController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Weather $weather)
+    public function destroy($id)
     {   
-        
+        // dd($id);
+        $weather = Weather::findOrFail($id);
         $weather->delete();
         return redirect()->route('weather.index')->with('Success', 'Item deleted successfully');
     }

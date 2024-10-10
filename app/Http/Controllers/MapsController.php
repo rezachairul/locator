@@ -14,7 +14,6 @@ class MapsController extends Controller
     {
         $title = 'Maps';
         $maps = Maps::all();
-
         return view('maps/maps',compact('title', 'maps'));
     }
 
@@ -32,17 +31,14 @@ class MapsController extends Controller
     public function store(Request $request)
     {
         
-        // dd($request->all());
-        // Validasi input
-        // $request->validate([
-        //     'fileName' => 'required',
-        //     'file' => 'required|mimes:pdf,doc,docx,jpg,jpeg,png,gif,bmp,ecw|file|max:51200', 
-        // ]);
+        // ddd($request->all());
+
         $request->validate([
             'fileName' => 'required',
             'file' => 'required|mimetypes:application/octet-stream|max:51200', // tambahkan MIME type ECW
         ]);
-
+  
+         
         // Mendapatkan nama asli file
         $originalName = $request->file('file')->getClientOriginalName();
         
@@ -89,11 +85,9 @@ class MapsController extends Controller
      */
     public function destroy($id)
     {
-
-        // Hapus file dari penyimpanan
         // dd($id);
-        $maps = Maps::find($id);
+        $maps = Maps::findOrFail($id);
         $maps->delete();
-        return redirect()->route('maps.index')->with('success', 'File deleted successfully!');
+        return redirect()->route('maps.index');
     }
 }

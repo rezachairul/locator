@@ -22,51 +22,56 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="#">
-                @csrf
-                <div class="mt-2 mb-4 sm:col-span-2">
-                    <div class="mt-6 sm:col-span-2">
-                        <label for="shift"
-                            class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Shift</label>
-                        <input type="text" name="shift" id="shift"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Shift" required="">
+            @if (isset($waterdepth))
+                <form action="{{route('waterdepth.update', $waterdepth->id)}}" method="post">
+                    @method('PUT')
+                    @csrf
+                    <div class="mt-2 mb-4 sm:col-span-2">
+                        <div class="mt-6 sm:col-span-2">
+                            <label for="shift"
+                                class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Shift</label>
+                            <input type="text" name="shift" id="shift"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Shift" value="{{$waterdepth->shift}}" required="">
+                        </div>
+                        <div class="mt-6 sm:col-span-2">
+                            <label for="qsv_1" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Elevasi
+                                SUMP QSV-1</label>
+                            <input type="text" name="qsv_1" id="qsv_1"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Elevasi SUMP QSV-1" value="{{$waterdepth->qsv_1}}" required="">
+                        </div>
+                        <div class="mt-6 sm:col-span-2">
+                            <label for="h4" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Elevasi
+                                SUMP H-4</label>
+                            <input type="text" name="h4" id="h4"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Elevasi SUMP H4" value="{{$waterdepth->h4}}" required="">
+                        </div>
                     </div>
-                    <div class="mt-6 sm:col-span-2">
-                        <label for="qsv_1" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Elevasi
-                            SUMP QSV-1</label>
-                        <input type="text" name="qsv_1" id="qsv_1"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Elevasi SUMP QSV-1" required="">
-                    </div>
-                    <div class="mt-6 sm:col-span-2">
-                        <label for="h4" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Elevasi
-                            SUMP H-4</label>
-                        <input type="text" name="h4" id="h4"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Elevasi SUMP H4" required="">
-                    </div>
-                </div>
-                <button type="submit"
-                    class="text-white inline-flex m-1 items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                    <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    Add new Data {{$title}}
-                </button>
-                <button type="button"
-                    class="text-red-600 inline-flex m-1 items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                    <svg class="mr-1 -ml-1 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                            d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                    Cancel
-                </button>
-            </form>
+                    <button type="submit"
+                        class="text-white inline-flex m-1 items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        Add new Data {{$title}}
+                    </button>
+                    <button type="button"
+                        class="text-red-600 inline-flex m-1 items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                        <svg class="mr-1 -ml-1 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                            height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                        Cancel
+                    </button>
+                </form>
+            @else
+                <p>Data tidak ditemukan.</p>             
+            @endif
         </div>
     </div>
 </div>

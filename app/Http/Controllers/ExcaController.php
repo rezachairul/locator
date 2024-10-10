@@ -131,11 +131,11 @@ class ExcaController extends Controller
         return redirect()->route('exca.index')->with('success', 'Data Excavator berhasil diperbarui');
     }
 
-    public function destroy(exca $exca)
+    public function destroy($id)
     {
-        // Menghapus data excavator
+        dd($id);
+        $exca = Exca::findOrFail($id);
         $exca->delete();
-        // Exca::destroy($exca->id);
         return redirect()->route('exca.index')->with('success', 'Item deleted successfully.');
     }
 

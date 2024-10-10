@@ -5,6 +5,7 @@ use App\Http\Controllers\ExcaController;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\WaterdepthController;
 use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController;
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/dumping', DumpingController::class);
     Route::resource('/weather', WeatherController::class);
     Route::resource('/waterdepth', WaterdepthController::class);
+    Route::resource('/test', TestController::class);
 });
 
 
