@@ -50,7 +50,6 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/dumping', DumpingController::class);
     Route::resource('/weather', WeatherController::class);
     Route::resource('/waterdepth', WaterdepthController::class);
-    Route::resource('/test', TestController::class);
 });
 
 
