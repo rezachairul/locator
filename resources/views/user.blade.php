@@ -42,7 +42,7 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Excavator</span>
+                                <span class="ml-4">Excavator | Jumlah</span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
@@ -50,7 +50,7 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Dump-Truck</span>
+                                <span class="ml-4">Dump Point | Jumlah</span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
@@ -58,7 +58,7 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/cloud.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Weather</span>
+                                <span class="ml-4">Curah | Cuaca saat ini</span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
@@ -66,7 +66,7 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Weather</span>
+                                <span class="ml-4">Kedalaman Air saat ini</span>
                             </div>
                         </li>
                     </ul>
@@ -147,7 +147,7 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Excavator</span>
+                                <span class="ml-4">Excavator | Jumlah</span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
@@ -155,7 +155,7 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Dump-Truck</span>
+                                <span class="ml-4">Dump Point | Jumlah</span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
@@ -163,7 +163,7 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/cloud.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Weather</span>
+                                <span class="ml-4">Curah Hujan | Cuaca saat ini</span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
@@ -171,7 +171,7 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Weather</span>
+                                <span class="ml-4">Kedalaman Air saat ini</span>
                             </div>
                         </li>
                     </ul>

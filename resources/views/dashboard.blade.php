@@ -23,7 +23,7 @@
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
                     Dumping Point
-                </p>
+                </p> 
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200" >
                     2
                 </p>
@@ -60,8 +60,8 @@
     </div>
     <br>
 
-    <!-- Cards Notice -->
-    <div class="min-w-0 p-4 text-white bg-white rounded-lg shadow-xs dark:bg-gray-800" >
+    <!-- Cards Maps -->
+    <!-- <div class="min-w-0 p-4 text-white bg-white rounded-lg shadow-xs dark:bg-gray-800" >
         <h4 class="mb-2 font-semibold my-6 text-xl text-gray-700 dark:text-gray-200">
             Maps
         </h4>
@@ -75,8 +75,8 @@
         <div class="relative w-full h-96">
             <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-xs" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8297.885022528028!2d117.42045017766056!3d2.02715899014462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x320def43f33ea91b%3A0x7e4dcd38dcbb294c!2sWorkshop%20MTL%20Binungan%20KM1!5e1!3m2!1sid!2sid!4v1721883321328!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-    </div>
-    <br>
+    </div> -->
+    <!-- <br> -->
 
     <!-- Table -->
     <h4 class="mt-10 mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
