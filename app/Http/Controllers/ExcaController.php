@@ -133,7 +133,7 @@ class ExcaController extends Controller
 
     public function destroy($id)
     {
-        dd($id);
+        // dd($id);
         $exca = Exca::findOrFail($id);
         $exca->delete();
         return redirect()->route('exca.index')->with('success', 'Item deleted successfully.');
