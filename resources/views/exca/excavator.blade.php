@@ -32,16 +32,20 @@
             <table class="whitespace-nowrap min-w-full">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
-                        <th class="px-4 py-3 text-center">ID</th>
-                        <th class="px-4 py-3 text-center">PIT</th>
-                        <th class="px-4 py-3 text-center">Loading Unit</th>
-                        <th class="px-4 py-3 text-center">Easting</th>
-                        <th class="px-4 py-3 text-center">Northing</th>
-                        <th class="px-4 py-3 text-center">Elevasi</th>
-                        <th class="px-4 py-3 text-center">Material</th>
-                        <th class="px-4 py-3 text-center">DOP</th>
-                        <th class="px-4 py-3 text-center">Date</th>
-                        <th class="px-4 py-3 text-center">Actions</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">ID</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">PIT</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Loading Unit</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Easting</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Northing</th>
+                        <th class="px-4 py-3 text-center" colspan="2">Elevation</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Material</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">DOP</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Date</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Actions</th>
+                    </tr>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-4 py-3 text-center">RL</th>
+                        <th class="px-4 py-3 text-center">Actual</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" >
@@ -70,7 +74,10 @@
                                 {{ $exca->northing }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                {{ $exca->elevation }}
+                                {{ $exca->elevation_rl }}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{ $exca->elevation_actual }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
                                 {{ $exca->material_label }}

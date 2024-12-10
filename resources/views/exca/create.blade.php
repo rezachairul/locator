@@ -51,21 +51,26 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Easting</label>
                         <input type="text" name="easting" id="easting"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Input Easting" required>
+                            placeholder="Easting" required>
                     </div>
                     <div>
                         <label for="northing"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Northing</label>
                         <input type="text" name="northing" id="northing"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Input Northing" required>
+                            placeholder="Northing" required>
                     </div>
                     <div>
                         <label for="elevation" 
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Elevation</label>
-                        <input type="text" name="elevation" id="elevation"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Input Elevation" required>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" name="elevation_rl" id="elevation_rl"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Elevation RL" required>
+                            <input type="text" name="elevation_actual" id="elevation_actual"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Elevation Actual" required>
+                        </div>
                     </div>
                     <div>
                         <label for="material"
@@ -85,7 +90,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DOP</label>
                         <input type="text" name="dop" id="dop"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Input DOP" required>
+                            placeholder="DOP" required>
                     </div>
                 </div>
                 <button type="submit"

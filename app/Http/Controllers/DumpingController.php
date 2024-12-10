@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Exca;
 use App\Models\Dumping;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class DumpingController extends Controller
 {
@@ -44,13 +46,15 @@ class DumpingController extends Controller
             'disposial' => 'required | in:ipdsidewallutara,ss3',
             'easting' => 'required | numeric',
             'northing' => 'required | numeric',
-            'elevation' => 'required | numeric',
+            'elevation_rl' => 'required|numeric',
+            'elevation_actual' => 'required|numeric',
         ]);
         Dumping::create([
             'disposial' => $request->disposial,
             'easting' => $request->easting,
             'northing' => $request->northing,
-            'elevation' => $request->elevation,
+            'elevation_rl' => $request->elevation_rl,
+            'elevation_actual' => $request->elevation_actual,
         ]);
         return redirect()->route('dumping.index')->with('succes', 'Data added successfully.');
     }

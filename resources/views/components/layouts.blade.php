@@ -40,6 +40,7 @@
             </div>
         </div>
 
+
         <script>
             function scrollToTop() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -61,6 +62,7 @@
                         applyTheme();
                     });
                 }
+
                 const modalToggleBtns = document.querySelectorAll('[data-modal-toggle]');
                 const modalHideBtns = document.querySelectorAll('[data-modal-hide]');
 
@@ -70,6 +72,8 @@
                         const modal = document.getElementById(modalId);
                         if (modal) {
                             modal.classList.toggle('hidden');
+                        } else {
+                            console.error(`Modal with ID ${modalId} not found`);
                         }
                     });
                 });
@@ -125,6 +129,108 @@
             }
         
         </script>
+
+        <!-- nyoba -->
+        <!-- <script>
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function applyTheme() {
+                const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+                const icons = document.querySelectorAll('.invert-icon img');
+
+                icons.forEach(icon => {
+                    icon.style.filter = theme === 'light' ? 'invert(1)' : 'invert(0)';
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                // Inisialisasi tema
+                applyTheme();
+                const themeToggleButton = document.getElementById('theme-toggle');
+                if (themeToggleButton) {
+                    themeToggleButton.addEventListener('click', function () {
+                        document.body.classList.toggle('dark');
+                        applyTheme();
+                    });
+                }
+
+                // Handler untuk modal
+                document.querySelectorAll('.modalActionButton').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const action = button.getAttribute('data-action');
+                        const modalId = button.getAttribute('data-modal-id');
+                        const endpoint = button.getAttribute('data-endpoint');
+                        const modal = document.getElementById(modalId);
+
+                        if (!modal) return;
+
+                        const form = modal.querySelector('form');
+                        switch (action) {
+                            case 'create':
+                                if (form) {
+                                    form.action = endpoint;
+                                    form.reset(); // Reset semua input
+                                }
+                                break;
+
+                            case 'update':
+                                if (form) {
+                                    form.action = endpoint;
+
+                                    // Ambil data dari atribut data-data
+                                    const data = JSON.parse(button.getAttribute('data-data'));
+                                    for (const key in data) {
+                                        const input = form.querySelector(`[name="${key}"]`);
+                                        if (input) {
+                                            input.value = data[key];
+                                        }
+                                    }
+                                }
+                                break;
+
+                            case 'delete':
+                                if (form) {
+                                    form.action = endpoint;
+                                }
+                                break;
+                        }
+
+                        // Tampilkan modal
+                        modal.classList.remove('hidden');
+                    });
+                });
+
+                // Mengubah favicon berdasarkan halaman saat ini
+                const currentPage = window.location.pathname;
+                const favicon = document.getElementById("favicon");
+                const iconMap = {
+                    "maps": 'maps.png',
+                    "dashboard": 'excavator.png',
+                    "exca": 'excavator.png',
+                    "dump": 'dump-truck.png',
+                    "weather": 'cloud.png',
+                    "waterdepth": 'water-waves.png'
+                };
+
+                for (const [key, value] of Object.entries(iconMap)) {
+                    if (currentPage.includes(key)) {
+                        favicon.href = `{{ asset('assets/img/${value}') }}?v=${new Date().getTime()}`;
+                        break;
+                    }
+                }
+            });
+
+            function ubahGambarCuaca() {
+                const selectElement = document.getElementById('cuaca');
+                const cuacaTerpilih = selectElement.value;
+                const gambarCuaca = document.getElementById('cuaca-icon');
+
+                // Ubah path gambar sesuai dengan value dari select
+                gambarCuaca.src = 'assets/img/cuaca-icons/' + cuacaTerpilih + '.png';
+            }
+        </script> -->
     
     </body>
 </html>

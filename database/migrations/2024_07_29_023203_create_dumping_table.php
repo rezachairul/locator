@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('excas', function (Blueprint $table) {
+        Schema::create('dumpings', function (Blueprint $table) {
             $table->id();
-            $table->enum('pit',['qsv1s', 'qsv3']);
-            $table->enum('loading_unit',['fex400_441', 'fex400_419', 'fex400_449', 'fex400_454', 'fex400_456']);
+            $table->enum('disposial', ['ipdsidewallutara', 'ss3']);
             $table->float('easting');
             $table->float('northing');
             $table->float('elevation_rl');
             $table->float('elevation_actual');
-            $table->enum('material',['s', 'm', 'c', 'b', 'nb', 'otr']);
-            $table->char('dop');
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('excas');
+        Schema::dropIfExists('dumpings');
     }
 };

@@ -14,6 +14,8 @@ class WaterdepthController extends Controller
     {
         $title = 'Water Depth';
         $waterdepths = Waterdepth::all();
+        // Menambahkan pengurutan berdasarkan 'id' secara ascending
+        $waterdepths = WaterDepth::orderBy('id', 'asc')->get();
         return view('waterdepth/waterdepth', compact('title', 'waterdepths'));
     }
 
@@ -54,26 +56,41 @@ class WaterdepthController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(WaterDepth $waterDepth)
+    public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, WaterDepth $waterDepth)
-    {     
+    
+
+    public function update(Request $request, $id)
+    {
+        // Mencari model berdasarkan ID
+        $waterDepth = WaterDepth::find($id);
+
+        // Cek jika data tidak ditemukan
+        if (!$waterDepth) {
+            return redirect()->route('waterdepth.index')->with('error', 'Data not found');
+        }
+
+        // Validasi input
         $request->validate([
             'shift' => 'required|string|max:255',
             'qsv_1' => 'required|numeric',
             'h4' => 'required|numeric',
         ]);
-        $waterDepth = WaterDepth::findOrFail($waterDepth);
-        $waterDepth->update($request->all());
+        
+        // Update data 
+        $waterDepth->update([
+            'shift' => $request->shift,
+            'qsv_1' => $request->qsv_1,
+            'h4' => $request->h4,
+        ]);
 
-        return redirect()->route('waterdepth.index')->with('success', 'Data update successfully.');
+        return redirect()->route('waterdepth.index')->with('success', 'Data updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Exca extends Model
 {
@@ -15,9 +17,11 @@ class Exca extends Model
         'loading_unit',
         'easting',
         'northing',
-        'elevation',
+        'elevation_rl',
+        'elevation_actual',
         'material',
         'dop',
+        'dumpings_id',
     ];
 
     public function dumpings()
@@ -61,4 +65,9 @@ class Exca extends Model
 
         return $materialLabels[$this->material] ?? $this->material;
     }
+
+    // public function dumping():BelongsTo
+    // {
+    //     return $this->belongsTo(Dumping::class);
+    // }
 }

@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dumpings', function (Blueprint $table) {
+        Schema::create('materials', function (Blueprint $table) {
             $table->id();
-            $table->enum('disposial', ['ipdsidewallutara', 'ss3']);
-            $table->float('easting');
-            $table->float('northing');
-            $table->float('elevation');
-            //$table->foreignId('exca_id')->constrained()->onDelete('cascade');
+            $table->string('name');
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dumping');
+        Schema::dropIfExists('materials');
     }
 };

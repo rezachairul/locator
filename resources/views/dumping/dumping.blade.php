@@ -32,14 +32,18 @@
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
-                        <th class="px-4 py-3 text-center">ID</th>
-                        <th class="px-4 py-3 text-center">Disposial</th>
-                        <th class="px-4 py-3 text-center">Easting</th>
-                        <th class="px-4 py-3 text-center">Northing</th>
-                        <th class="px-4 py-3 text-center">Elevasi</th>
-                        <th class="px-4 py-3 text-center">Material</th>
-                        <th class="px-4 py-3 text-center">Date</th>
-                        <th class="px-4 py-3 text-center">Actions</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">ID</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Disposial</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Easting</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Northing</th>
+                        <th class="px-4 py-3 text-center" colspan="2">Elevation</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Material</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Date</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">Actions</th>
+                    </tr>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-4 py-3 text-center">RL</th>
+                        <th class="px-4 py-3 text-center">Actual</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" >
@@ -53,7 +57,7 @@
                                     <div class="items-center">
                                         <p class="font-semibold">{{$dumping->disposial}}</p>
                                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                                            1
+                                            belum ada relasi foreign
                                         </p>
                                     </div>
                                 </div>
@@ -65,10 +69,13 @@
                                 {{$dumping->northing}}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                {{$dumping->elevation}}
+                                {{ $dumping->elevation_rl }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                Belum ada <!-- {{$dumping->material}} -->
+                                {{ $dumping->elevation_actual }}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center">
+                                belum ada relasi foreign
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
                                 {{$dumping->created_at->format('d-m-Y')}}
