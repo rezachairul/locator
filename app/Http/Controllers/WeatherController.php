@@ -34,6 +34,8 @@ class WeatherController extends Controller
             $weather->cuaca_label = $cuacaLabels[$weather->cuaca] ?? $weather->cuaca;
         }
 
+        //Menambahkan pengurutan berdasarkan 'id' secara ascending
+        $weathers = Weather::orderBy('id', 'asc')->get();
 
         return view('weather/weather', compact('title', 'weathers',  'latestWeather'));
     }
@@ -61,7 +63,7 @@ class WeatherController extends Controller
             'cuaca' => $request->cuaca,
             'curah_hujan' => $request->curah_hujan,
         ]);
-        return redirect()->route('weather.index')->with('Success', 'Berhasil Tambah Data Cuaca');
+        return redirect()->route('weather.index')->with('Success', 'Data added successfully.');
     }
 
     /**
@@ -83,9 +85,30 @@ class WeatherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Weather $weather)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        // Mencari model berdasarkan ID
+        $weather = Weather::find($id);
+
+        // Cek jika data tidak ditemukan
+        if(!$weather){
+            return redirect()->route('weather.index')->with('error', 'Data not found');
+        }
+
+        // Validasi input
+        $request->validate([
+            'cuaca' => 'required|in:cerah,cerah_berawan,berawan,berawan_tebal,hujan_ringan,hujan_sedang,hujan_lebat,hujan_petir,kabut',
+            'curah_hujan' => 'required|numeric',
+        ]);
+
+        // Update data
+        $weather->update([
+            'cuaca' => $request->cuaca,
+            'curah_hujan' => $request->curah_hujan,
+        ]);
+
+        return redirect()->route('weather.index')->with('Success', 'Data updated successfully.');
     }
 
     /**
