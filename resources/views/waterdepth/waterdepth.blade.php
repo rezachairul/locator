@@ -32,7 +32,7 @@
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3 text-center">Nomor</th>
+                        <th class="px-4 py-3 text-center">No</th>
                         <th class="px-4 py-3 text-center">Shift</th>
                         <th class="px-4 py-3 text-center">Elevasi SUMP QSV-1</th>
                         <th class="px-4 py-3 text-center">Elevasi SUMP H-4</th>

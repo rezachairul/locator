@@ -49,10 +49,10 @@
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3 text-center">ID</th>
+                        <th class="px-4 py-3 text-center">No</th>
                         <th class="px-4 py-3 text-center">Nama File</th>
                         <th class="px-4 py-3 text-center">File</th>
-                        <th class="px-4 py-3 text-center">Date & Time</th>
+                        <th class="px-4 py-3 text-center">Date</th>
                         <th class="px-4 py-3 text-center">Actions</th>
                     </tr>
                 </thead>
@@ -113,7 +113,7 @@
                                                     <div>
                                                         <label for="file" class="block mt-3 mb-1 text-sm font-medium text-gray-900 dark:text-white text-left">File</label>
                                                         <p class="text-sm text-gray-500 mt-1 mb-2 text-left">File saat ini: {{ basename($map->file) }}</p>
-                                                        <input type="file" name="file" id="file" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Unggah file baru (opsional)" required autofocus value="{{old('file', $map->file)}}">
+                                                        <input type="file" name="file" id="file" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Unggah file baru (opsional)" autofocus value="{{old('file', $map->file)}}">
                                                     </div>
                                                 </div>
                                                 <button type="submit" class="text-white m-1 inline-flex items-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">

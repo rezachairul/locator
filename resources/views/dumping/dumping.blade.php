@@ -32,7 +32,7 @@
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
-                        <th class="px-4 py-3 text-center" rowspan="2">ID</th>
+                        <th class="px-4 py-3 text-center" rowspan="2">No</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Disposial</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Easting</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Northing</th>
@@ -118,7 +118,7 @@
                                                         <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
                                                             <div>
                                                                 <label for="disposial"
-                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Waste Dump</label>
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left ">Waste Dump</label>
                                                                 <select id="disposial" name="disposial"
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                     required="">
@@ -128,27 +128,27 @@
                                                             </div>
                                                             <div>
                                                                 <label for="northing"
-                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Northing</label>
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left ">Northing</label>
                                                                 <input type="text" name="northing" id="northing"
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                     placeholder="Input Northing" required autofocus value="{{old('easting', $dumping->easting)}}">
                                                             </div>
                                                             <div>
                                                                 <label for="easting"
-                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Easting</label>
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left ">Easting</label>
                                                                 <input type="text" name="easting" id="easting"
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                     placeholder="Input Easting" required autofocus value="{{old('easting', $dumping->easting)}}">
                                                             </div>
                                                             <div>
                                                                 <label for="elevation" 
-                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Elevation</label>
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left ">Elevation</label>
                                                                 <div class="grid grid-cols-2 gap-4">
                                                                     <input type="text" name="elevation_rl" id="elevation_rl"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm text-left rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm text-left  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                         placeholder="Elevation RL" required autofocus value="{{old('elevation_rl', $dumping->elevation_rl)}}">
                                                                     <input type="text" name="elevation_actual" id="elevation_actual"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm text-left rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm text-left  rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                         placeholder="Elevation Actual" required autofocus value="{{old('elevation_actual', $dumping->elevation_actual)}}">
                                                                 </div>
                                                             </div>

@@ -84,6 +84,11 @@
                         if (modal) {
                             modal.classList.add('hidden');
                         }
+                        // Reset form di dalam modal
+                        const form = modal.querySelector('form');
+                        if (form) {
+                            form.reset();
+                        }
                     });
                 });
                 // Mengubah favicon berdasarkan halaman saat ini

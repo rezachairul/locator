@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Maps;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class MapsController extends Controller
 {
@@ -80,39 +83,73 @@ class MapsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request);
-        // Mencari model berdasarkan ID
+        // Cari data berdasarkan ID
         $maps = Maps::find($id);
 
-        // Cek jika data tidak ditemukan
-        if(!$maps){
-            return redirect()->route('maps.index')->with('error', 'Data not found');
+        // Jika data tidak ditemukan, kembalikan dengan pesan error
+        if (!$maps) {
+            return redirect()->route('maps.index')->with('error', 'Data tidak ditemukan.');
         }
 
         // Validasi input
         $request->validate([
-            'fileName' => 'required',
-            'file' => 'required|mimetypes:application/octet-stream|max:51200', // tambahkan MIME type ECW
-        ]);  
-         
-        // Mendapatkan nama asli file
-        $originalName = $request->file('file')->getClientOriginalName();
-        
-        // Simpan file ke folder yang diinginkan
-        $path = $request->file('file')->storeAs('uploads', $originalName, 'public'); // menyimpan file dengan nama asli
-
-        // Maps::update([
-        //     'fileName' => $request->fileName,
-        //     'file' => $path, // menyimpan path file yang disimpan
-        // ]);
-
-        $maps->update([
-            'fileName' => $request->fileName,
-            'file' => $path, // menyimpan path file yang disimpan
+            'fileName' => 'required|string|max:255', // Pastikan nama file tidak kosong
+            'file' => 'nullable|mimetypes:application/octet-stream|max:51200', // File opsional
         ]);
 
-        return redirect()->route('maps.index')->with('Success', 'Data updated successfully.');
+        // Update nama file
+        $maps->fileName = $request->fileName;
+
+        // Cek apakah ada file baru yang diunggah
+        if ($request->hasFile('file')) {
+            // Hapus file lama jika ada
+            if ($maps->file && Storage::exists($maps->file)) {
+                Storage::delete($maps->file);
+            }
+
+            // Simpan file baru
+            $originalName = $request->file('file')->getClientOriginalName();
+            $path = $request->file('file')->storeAs('uploads', $originalName, 'public');
+            $maps->file = $path;
+        }
+
+        // Simpan perubahan
+        $maps->save();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('maps.index')->with('success', 'Data berhasil diperbarui.');
     }
+
+    // public function update(Request $request, $id)
+    // {
+    //     // dd($request);
+    //     // Mencari model berdasarkan ID
+    //     $maps = Maps::find($id);
+
+    //     // Cek jika data tidak ditemukan
+    //     if(!$maps){
+    //         return redirect()->route('maps.index')->with('error', 'Data not found');
+    //     }
+
+    //     // Validasi input
+    //     $request->validate([
+    //         'fileName' => 'required',
+    //         'file' => 'nullable|mimetypes:application/octet-stream|max:51200', // tambahkan MIME type ECW
+    //     ]);  
+         
+    //     // Mendapatkan nama asli file
+    //     $originalName = $request->file('file')->getClientOriginalName();
+        
+    //     // Simpan file ke folder yang diinginkan
+    //     $path = $request->file('file')->storeAs('uploads', $originalName, 'public'); // menyimpan file dengan nama asli
+
+    //     $maps->update([
+    //         'fileName' => $request->fileName,
+    //         'file' => $path, // menyimpan path file yang disimpan
+    //     ]);
+
+    //     return redirect()->route('maps.index')->with('Success', 'Data updated successfully.');
+    // }
 
     /**
      * Remove the specified resource from storage.
