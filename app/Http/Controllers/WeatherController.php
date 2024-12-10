@@ -72,7 +72,7 @@ class WeatherController extends Controller
     public function show(Weather $weather)
     {
         //
-    }
+    }  
 
     /**
      * Show the form for editing the specified resource.

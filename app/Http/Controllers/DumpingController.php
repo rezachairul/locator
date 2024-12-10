@@ -25,6 +25,10 @@ class DumpingController extends Controller
         foreach($dumpings as $dumping){
             $dumping->disposial_label = $disLabels[$dumping->disposial_attribute] ?? $dumping->disposial_attribute;
         }
+
+        //Menambahkan pengurutan berdasarkan 'id' secara ascending
+        $excas = Dumping::orderBy('id', 'asc')->get();
+
         return view('dumping/dumping', compact('title', 'dumpings'));
     }
 
@@ -78,9 +82,37 @@ class DumpingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dumping $dumping)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+
+        // Mencari model berdasarkan ID
+        $dumping = Dumping::find($id);
+
+        // Cek jika data ditemukan
+        if (!$dumping) {
+            return redirect()->route('dumping.index')->with('error', 'Update data successfully.');
+        }
+
+        // Validasi input
+        $request->validate([
+            'disposial' => 'required | in:ipdsidewallutara,ss3',
+            'easting' => 'required | numeric',
+            'northing' => 'required | numeric',
+            'elevation_rl' => 'required|numeric',
+            'elevation_actual' => 'required|numeric',
+        ]);
+        
+        // Update data
+        $dumping->update([
+            'disposial' => $request->disposial,
+            'easting' => $request->easting,
+            'northing' => $request->northing,
+            'elevation_rl' => $request->elevation_rl,
+            'elevation_actual' => $request->elevation_actual,
+        ]);
+
+        return redirect()->route('dumping.index')->with('error', 'Update data successfully.');
     }
 
     /**

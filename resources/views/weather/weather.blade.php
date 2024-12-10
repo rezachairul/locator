@@ -110,7 +110,7 @@
                                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" ></path>
                                         </svg>
                                     </button>
-                                    <!-- edit button -->
+                                    <!-- Modal Update -->
                                     <div id="updateProductModal-{{ $weather->id }}" tabindex="-1" aria-hidden="true"
                                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                                         <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -141,7 +141,7 @@
                                                         <div class="mt-2 mb-4 sm:col-span-2">
                                                             <div class="mt-2 mb-4">
                                                                 <label for="cuaca"
-                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cuaca</label>
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Cuaca</label>
                                                                     <select id="cuaca" name="cuaca"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                         required autofocus>
@@ -158,7 +158,7 @@
                                                             </div>
                                                             <div class="mt-2 mb-4">
                                                                 <label for="curah_hujan"
-                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Curah Hujan</label>
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Curah Hujan</label>
                                                                 <input type="text" name="curah_hujan" id="curah_hujan"
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                     placeholder="Dalam Milimeter" required autofocus value="{{old('curah_hujan', $weather->curah_hujan)}}" required="">
@@ -184,8 +184,8 @@
                                                             Cancel
                                                         </button>
                                                     </form>                                                 
-                                                 @else
-                                                    <p>Data tidak ditemukan.</p>             
+                                                    @else
+                                                        <p>Data tidak ditemukan.</p>             
                                                 @endif
                                             </div>
                                         </div>

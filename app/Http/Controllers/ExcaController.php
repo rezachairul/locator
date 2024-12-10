@@ -46,6 +46,9 @@ class ExcaController extends Controller
             $exca->material_label = $materialLabels[$exca->material] ?? $exca->material;
         }
 
+        //Menambahkan pengurutan berdasarkan 'id' secara ascending
+        $excas = Exca::orderBy('id', 'asc')->get();
+
         return view('exca/excavator', compact('title', 'excas'));
     }
 
@@ -92,18 +95,29 @@ class ExcaController extends Controller
     public function edit($id)
     {
         // Mengambil data Excavator berdasarkan ID, jika tidak ditemukan akan melemparkan 404 error
-        $exca = Exca::findOrFail($id);
-        dd($exca);
-        $title = 'Edit Excavator';
+        // $exca = Exca::findOrFail($id);
+        // dd($exca);
+        // $title = 'Edit Excavator';
 
-        // Mengirimkan variabel $exca dan $title ke view 'exca.update'
-        return view('exca.update', compact('exca', 'title'));
+        // // Mengirimkan variabel $exca dan $title ke view 'exca.update'
+        // return view('exca.update', compact('exca', 'title'));
     }    
     
 
     public function update(Request $request, $id)
     {
         // dd($request->all());
+
+        // Mencari model berdasarkan ID
+        $exca = Exca::find($id);
+
+        // Cek jika data ditemukan
+        if (!$exca) {
+            return redirect()->route('exca.index')->with('error', 'Data Excavator tidak ditemukan');
+        }
+
+
+        // Validasi input
         $request->validate([
             'pit' => 'required|in:qsv1s,qsv3',
             'loading_unit' => 'required|in:fex400_441,fex400_419,fex400_449,fex400_454,fex400_456',
@@ -114,13 +128,8 @@ class ExcaController extends Controller
             'material' => 'required|in:s,m,c,b,nb,otr',
             'dop' => 'required',
         ]);
-        
-        $exca = Exca::findOrFail($id);
-        
-        if (!$exca) {
-            return redirect()->route('exca.index')->with('error', 'Data Excavator tidak ditemukan');
-        }
 
+        // Update data
         $exca->update([
             'pit' => $request->pit,
             'loading_unit' => $request->loading_unit,

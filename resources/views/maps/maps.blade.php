@@ -1,7 +1,7 @@
 <x-layouts>
     <x-slot:title>{{$title}}</x-slot:title>
     <!-- Cards Notice -->
-    <div class="min-w-0 p-4 text-white bg-white rounded-lg shadow-xs dark:bg-gray-800" >
+    <div class="min-w-0 p-4 text-white bg-white rounded-lg shadow-xs dark:bg-gray-800">
         <!-- <h4 class="mb-2 font-semibold my-6 text-xl text-gray-700 dark:text-gray-200">
             Maps
         </h4>
@@ -19,7 +19,7 @@
     <br>
 
     <!-- Table -->
-    <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300" >
+    <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
         Table {{$title}}
     </h4>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -48,7 +48,7 @@
         <div class="w-full overflow-x-auto">
             <table class="w-full whitespace-no-wrap">
                 <thead>
-                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3 text-center">ID</th>
                         <th class="px-4 py-3 text-center">Nama File</th>
                         <th class="px-4 py-3 text-center">File</th>
@@ -56,66 +56,128 @@
                         <th class="px-4 py-3 text-center">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" >
+                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ( $maps as $map )
-                        <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3 text-sm text-center">
-                                {{ $loop->iteration }}
-                            </td>
-                            <td class="px-4 py-3 text-sm text-center">
-                                {{$map->fileName}}
-                            </td>
-                            <td class="px-4 py-3 text-sm text-center">
-                                {{ basename($map->file) }}
-                            </td>
-                            <td class="px-4 py-3 text-xs text-center">
-                                {{$map->created_at->format('d-m-Y')}}
-                            </td>
-                            <td class="px-4 py-3 text-center">
-                                <div class="flex item-center justify-center space-x-4 text-sm">
-                                    <button id="updateProductButton" data-modal-target="updateProductModal" data-modal-toggle="updateProductModal" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit" >
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" >
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" ></path>
-                                        </svg>
-                                    </button>
-                                    <button id="deleteButton-{{ $map->id }}" data-modal-target="deleteModal-{{ $map->id }}" data-modal-toggle="deleteModal-{{ $map->id }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete" type="button">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" >
-                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" ></path>
-                                        </svg>                                            
-                                    </button>
-                                    <!-- delete button modals -->
-                                    <div id="deleteModal-{{ $map->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-                                        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-                                            <!-- Modal content -->
-                                            <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                                <button type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
-                                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <tr class="text-gray-700 dark:text-gray-400">
+                        <td class="px-4 py-3 text-sm text-center">
+                            {{ $loop->iteration }}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-center">
+                            {{$map->fileName}}
+                        </td>
+                        <td class="px-4 py-3 text-sm text-center">
+                            {{ basename($map->file) }}
+                        </td>
+                        <td class="px-4 py-3 text-xs text-center">
+                            {{$map->created_at->format('d-m-Y')}}
+                        </td>
+                        <td class="px-4 py-3 text-center">
+                            <div class="flex item-center justify-center space-x-4 text-sm">
+                                <button id="updateProductButton-{{ $map->id }}" data-modal-target="updateProductModal-{{ $map->id }}" data-modal-toggle="updateProductModal-{{ $map->id }}" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                                    </svg>
+                                </button>
+                                <!-- Modals Update -->
+                                <div id="updateProductModal-{{ $map->id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative w-full max-w-2xl max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                    Update {{$title}}
+                                                </h3>
+                                                <button type="button" data-modal-toggle="updateProductModal-{{ $map->id }}"
+                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-toggle="updateProductModal">
+                                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
                                                     <span class="sr-only">Close modal</span>
                                                 </button>
-                                                <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                                <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this item?</p>
-                                                <div class="flex justify-center items-center space-x-4">
-                                                    @if (isset($map))
-                                                        <form action="{{route('maps.destroy', $map->id)}}" method="post">
-                                                            @method ('DELETE')
-                                                            @csrf
-                                                            <button data-modal-toggle="deleteModal" type="button" class="mr-2 py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                                No, cancel
-                                                            </button>
-                                                            <button type="submit" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                                Yes, I'm sure
-                                                            </button>
-                                                        </form>
-                                                    @else
-                                                        <p>Data Tidak Dietmukan</p>
-                                                    @endif
+                                            </div>
+                                            <!-- Modal body -->
+                                            @if (isset($map))
+                                            <form action="{{route('maps.update', $map->id)}}" method="post" enctype="multipart/form-data">
+                                                @method('PUT')
+                                                @csrf
+                                                <div class="mt-2 mb-4 sm:col-span-2">
+                                                    <div>
+                                                        <label for="fileName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Nama File</label>
+                                                        <input type="text" name="fileName" id="fileName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="file name" required autofocus value="{{old('fileName', $map->fileName)}}" required="">
+                                                    </div>
+                                                    <div>
+                                                        <label for="file" class="block mt-3 mb-1 text-sm font-medium text-gray-900 dark:text-white text-left">File</label>
+                                                        <p class="text-sm text-gray-500 mt-1 mb-2 text-left">File saat ini: {{ basename($map->file) }}</p>
+                                                        <input type="file" name="file" id="file" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Unggah file baru (opsional)" required autofocus value="{{old('file', $map->file)}}">
+                                                    </div>
                                                 </div>
+                                                <button type="submit" class="text-white m-1 inline-flex items-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                                                    <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    Update Data {{$title}}
+                                                </button>
+                                                <button type="button" data-modal-toggle="updateProductModal-{{ $map->id }}" class="text-red-600 m-1 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900" data-modal-hide="defaultModal">
+                                                    <svg class="mr-1 -ml-1 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    </svg>
+                                                    Cancel
+                                                </button>
+                                            </form>
+                                            @else
+                                            <p>Data tidak ditemukan.</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button id="deleteButton-{{ $map->id }}" data-modal-target="deleteModal-{{ $map->id }}" data-modal-toggle="deleteModal-{{ $map->id }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete" type="button">
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                                <!-- delete button modals -->
+                                <div id="deleteModal-{{ $map->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                                    <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                                        <!-- Modal content -->
+                                        <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                            <button type="button" data-modal-toggle="deleteModal-{{ $map->id }}" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
+                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                            </svg>
+                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this item?</p>
+                                            <div class="flex justify-center items-center space-x-4">
+                                                @if (isset($map))
+                                                <form action="{{route('maps.destroy', $map->id)}}" method="post">
+                                                    @method ('DELETE')
+                                                    @csrf
+                                                    <button data-modal-toggle="deleteModal-{{ $map->id }}" type="button" class="mr-2 py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                        No, cancel
+                                                    </button>
+                                                    <button type="submit" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                        Yes, I'm sure
+                                                    </button>
+                                                </form>
+                                                @else
+                                                <p>Data Tidak Dietmukan</p>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -128,41 +190,41 @@
                     <nav aria-label="Table navigation">
                         <ul class="inline-flex items-center">
                             <li>
-                                <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"aria-label="Previous">
+                                <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple" aria-label="Previous">
                                     <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd" ></path>
+                                        <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
                                     </svg>
                                 </button>
                             </li>
                             <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
+                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
                                     1
                                 </button>
                             </li>
                             <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
+                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
                                     2
                                 </button>
                             </li>
                             <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
+                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
                                     3
                                 </button>
                             </li>
                             <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
+                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
                                     4
                                 </button>
                             </li>
                             <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
+                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
                                     5
                                 </button>
                             </li>
                             <li>
                                 <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20" >
-                                        <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"  fill-rule="evenodd" ></path>
+                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                                        <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
                                     </svg>
                                 </button>
                             </li>
@@ -171,11 +233,9 @@
                 </span>
             </div>
         </div>
-        
+
         <!-- modals create -->
         @include('maps.create')
-        <!-- modals update -->
-        @include('maps.update')
     </div>
     <br>
 </x-layouts>
