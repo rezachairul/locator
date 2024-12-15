@@ -31,19 +31,19 @@ class ExcaController extends Controller
             'fex400_456' => 'FEX400-456'
         ];
 
-        $materialLabels = [
-            's' => 'S',
-            'm' => 'M',
-            'c' => 'C',
-            'b' => 'B',
-            'nb' => 'NB',
-            'otr' => 'OTR'
-        ];
+        // $materialLabels = [
+        //     's' => 'S',
+        //     'm' => 'M',
+        //     'c' => 'C',
+        //     'b' => 'B',
+        //     'nb' => 'NB',
+        //     'otr' => 'OTR'
+        // ];
 
         foreach ($excas as $exca) {
             $exca->pit_label = $pitLabels[$exca->pit] ?? $exca->pit;
             $exca->loading_unit_label = $loadingUnitLabels[$exca->loading_unit] ?? $exca->loading_unit;
-            $exca->material_label = $materialLabels[$exca->material] ?? $exca->material;
+            // $exca->material_label = $materialLabels[$exca->material] ?? $exca->material;
         }
 
         //Menambahkan pengurutan berdasarkan 'id' secara ascending
@@ -69,7 +69,9 @@ class ExcaController extends Controller
             'northing' => 'required|numeric',
             'elevation_rl' => 'required|numeric',
             'elevation_actual' => 'required|numeric',
-            'material' => 'required|in:s,m,c,b,nb,otr',
+            'front_width' => 'required|numeric',
+            'front_height' => 'required|numeric',
+            // 'material' => 'required|in:s,m,c,b,nb,otr',
             'dop' => 'required',
         ]);        
 
@@ -80,7 +82,9 @@ class ExcaController extends Controller
             'northing' => $request->northing,
             'elevation_rl' => $request->elevation_rl,
             'elevation_actual' => $request->elevation_actual,
-            'material' => $request->material,
+            'front_width' => $request-> front_width,
+            'front_height' => $request-> front_height,
+            // 'material' => $request->material,
             'dop' => $request->dop,
         ]);
 
@@ -125,7 +129,9 @@ class ExcaController extends Controller
             'northing' => 'required|numeric',
             'elevation_rl' => 'required|numeric',
             'elevation_actual' => 'required|numeric',
-            'material' => 'required|in:s,m,c,b,nb,otr',
+            'front_width' => 'required|numeric',
+            'front_height' => 'required|numeric',
+            // 'material' => 'required|in:s,m,c,b,nb,otr',
             'dop' => 'required',
         ]);
 
@@ -137,7 +143,9 @@ class ExcaController extends Controller
             'northing' => $request->northing,
             'elevation_rl' => $request->elevation_rl,
             'elevation_actual' => $request->elevation_actual,
-            'material' => $request->material,
+            'front_width' => $request-> front_width,
+            'front_height' => $request-> front_height,
+            // 'material' => $request->material,
             'dop' => $request->dop,
         ]);
 

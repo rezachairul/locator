@@ -55,7 +55,7 @@
                             <td class="px-4 py-3">
                                 <div class="flex items-center text-sm">
                                     <div class="items-center">
-                                        <p class="font-semibold">{{$dumping->disposial}}</p>
+                                        <p class="font-semibold">{{ $disLabels[$dumping->disposial] ?? 'Label Tidak Ditemukan' }}</p>
                                         <p class="text-xs text-gray-600 dark:text-gray-400">
                                             belum ada relasi foreign
                                         </p>
@@ -75,7 +75,7 @@
                                 {{ $dumping->elevation_actual }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                belum ada relasi foreign
+                                {{$dumping->material->name}}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
                                 {{$dumping->created_at->format('d-m-Y')}}

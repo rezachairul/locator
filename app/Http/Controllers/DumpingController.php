@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Exca;
 use App\Models\Dumping;
+use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -14,22 +15,29 @@ class DumpingController extends Controller
      */
     public function index()
     {
-        $title = 'Dumping Point';
-        $dumpings = Dumping::all();
-
+        $title = 'Waste Dump';
+        // Ambil data Dumpings
+        $dumpings = Dumping::all();        
+        
         $disLabels = [
             'ipdsidewallutara' => 'IPD Sidewall Utara',
             'ss3' => 'SS3',
         ];
-
+        
         foreach($dumpings as $dumping){
             $dumping->disposial_label = $disLabels[$dumping->disposial_attribute] ?? $dumping->disposial_attribute;
         }
-
+        
+        
         //Menambahkan pengurutan berdasarkan 'id' secara ascending
-        $excas = Dumping::orderBy('id', 'asc')->get();
+        $dumpings = Dumping::orderBy('id', 'asc')->get();
+        
+        
+        // Ambil data materials
+        $materials = Material::all();
+        // dd($materials);
 
-        return view('dumping/dumping', compact('title', 'dumpings'));
+        return view('dumping/dumping', compact('title', 'dumpings', 'materials', 'disLabels'));
     }
 
     /**
@@ -45,6 +53,7 @@ class DumpingController extends Controller
      */
     public function store(Request $request)
     {
+        
         // dd($request->all());
         $request->validate([
             'disposial' => 'required | in:ipdsidewallutara,ss3',
@@ -52,6 +61,7 @@ class DumpingController extends Controller
             'northing' => 'required | numeric',
             'elevation_rl' => 'required|numeric',
             'elevation_actual' => 'required|numeric',
+            'material_id' => 'required|exists:materials,id',
         ]);
         Dumping::create([
             'disposial' => $request->disposial,
@@ -59,7 +69,9 @@ class DumpingController extends Controller
             'northing' => $request->northing,
             'elevation_rl' => $request->elevation_rl,
             'elevation_actual' => $request->elevation_actual,
+            'material_id' => $request->material_id,
         ]);
+        
         return redirect()->route('dumping.index')->with('succes', 'Data added successfully.');
     }
 
@@ -91,7 +103,7 @@ class DumpingController extends Controller
 
         // Cek jika data ditemukan
         if (!$dumping) {
-            return redirect()->route('dumping.index')->with('error', 'Update data successfully.');
+            return redirect()->route('dumping.index')->with('error', 'Data updated successfully.');
         }
 
         // Validasi input

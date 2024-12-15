@@ -2,16 +2,6 @@
     <x-slot:title>{{$title}}</x-slot:title>
     <!-- Cards Notice -->
     <div class="min-w-0 p-4 text-white bg-white rounded-lg shadow-xs dark:bg-gray-800">
-        <!-- <h4 class="mb-2 font-semibold my-6 text-xl text-gray-700 dark:text-gray-200">
-            Maps
-        </h4>
-        <p class="my-2 text-gray-700 dark:text-gray-200">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Fuga, cum commodi a omnis numquam quod? Totam exercitationem
-            quos hic ipsam at qui cum numquam, sed amet ratione! Ratione,
-            nihil dolorum.
-        </p>
-        <br> -->
         <div class="relative w-full h-96">
             <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-xs" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8297.885022528028!2d117.42045017766056!3d2.02715899014462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x320def43f33ea91b%3A0x7e4dcd38dcbb294c!2sWorkshop%20MTL%20Binungan%20KM1!5e1!3m2!1sid!2sid!4v1721883321328!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>

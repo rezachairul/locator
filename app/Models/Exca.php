@@ -19,7 +19,9 @@ class Exca extends Model
         'northing',
         'elevation_rl',
         'elevation_actual',
-        'material',
+        'front_width',
+        'front_height',
+        // 'material',
         'dop',
         'dumpings_id',
     ];
@@ -52,19 +54,19 @@ class Exca extends Model
         return $loadingUnitLabels[$this->loading_unit] ?? $this->loading_unit;
     }
 
-    public function getMaterialLabelAttribute()
-    {
-        $materialLabels = [
-            's' => 'S',
-            'm' => 'M',
-            'c' => 'C',
-            'b' => 'B',
-            'nb' => 'NB',
-            'otr' => 'OTR'
-        ];
+    // public function getMaterialLabelAttribute()
+    // {
+    //     $materialLabels = [
+    //         's' => 'S',
+    //         'm' => 'M',
+    //         'c' => 'C',
+    //         'b' => 'B',
+    //         'nb' => 'NB',
+    //         'otr' => 'OTR'
+    //     ];
 
-        return $materialLabels[$this->material] ?? $this->material;
-    }
+    //     return $materialLabels[$this->material] ?? $this->material;
+    // }
 
     // public function dumping():BelongsTo
     // {

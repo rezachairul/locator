@@ -73,6 +73,19 @@
                         </div>
                     </div>
                     <div>
+                        <label for="front" 
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Front</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" name="front_width" id="front_width"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Front Width" required>
+                            <input type="text" name="front_height" id="front_height"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Front Height" required>
+                        </div>
+                    </div>
+
+                    <!-- <div>
                         <label for="material"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Material</label>
                         <select id="material"  name="material"
@@ -84,7 +97,7 @@
                             <option value="nb">NB</option>
                             <option value="otr">OTR</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div>
                         <label for="dop" 
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DOP</label>

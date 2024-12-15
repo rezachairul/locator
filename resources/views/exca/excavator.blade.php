@@ -29,23 +29,27 @@
             </div>
         </div>
         <div class="w-full overflow-x-auto">
-            <table class="whitespace-nowrap min-w-full">
+            <table class="whitespace-nowrap table-auto min-w-full">
                 <thead>
-                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
+                    <!-- Baris Pertama -->
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3 text-center" rowspan="2">No</th>
                         <th class="px-4 py-3 text-center" rowspan="2">PIT</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Loading Unit</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Easting</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Northing</th>
                         <th class="px-4 py-3 text-center" colspan="2">Elevation</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">Material</th>
                         <th class="px-4 py-3 text-center" rowspan="2">DOP</th>
+                        <th class="px-4 py-3 text-center" colspan="2">Front</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Date</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Actions</th>
                     </tr>
+                    <!-- Baris Kedua -->
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3 text-center">RL</th>
                         <th class="px-4 py-3 text-center">Actual</th>
+                        <th class="px-4 py-3 text-center">Width</th>
+                        <th class="px-4 py-3 text-center">Height</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" >
@@ -80,10 +84,13 @@
                                 {{ $exca->elevation_actual }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                {{ $exca->material_label }}
+                                {{ $exca->dop}}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                {{ $exca->dop}}
+                                {{ $exca->front_width }}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{ $exca->front_height }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
                                 {{ $exca->created_at->format('d-m-Y')}}
@@ -174,6 +181,18 @@
                                                                 </div>
                                                             </div>
                                                             <div>
+                                                                <label for="front" 
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Front</label>
+                                                                <div class="grid grid-cols-2 gap-4">
+                                                                    <input type="text" name="front_width" id="front_width"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                        placeholder="Front Width" required>
+                                                                    <input type="text" name="front_height" id="front_height"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                        placeholder="Front Height" required>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div>
                                                                 <label for="material"
                                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Material</label>
                                                                 <select name="material" id="material"
@@ -185,7 +204,7 @@
                                                                     <option value="nb" {{ old('material', $exca->material) === 'nb' ? 'selected' : '' }}>NB</option>
                                                                     <option value="otr" {{ old('material', $exca->material) === 'otr' ? 'selected' : '' }}>OTR</option>
                                                                 </select>
-                                                            </div>
+                                                            </div> -->
                                                             <div>
                                                                 <label for="dop"
                                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">DOP</label>

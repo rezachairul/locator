@@ -2,9 +2,9 @@
     <x-slot:title>{{$title}}</x-slot:title>
     <div class="grid gap-6 mb-8 md:grid-cols-4 xl:grid-cols-4">
         <!-- Excavator -->
-        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 invert-icon">
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div class="p-3 mr-4" >
-                <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-6 w-6 hover:scale-125 transition">
+                <img src="{{ asset('assets/img/exca-vator.png') }}" alt="Logo" class="w-10 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -16,9 +16,9 @@
             </div>
         </div>
         <!-- Dumping Truck -->
-        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 invert-icon">
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div class="p-3 mr-4" >
-                <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-6 w-6 hover:scale-125 transition">
+                <img src="{{ asset('assets/img/mining-truck.png') }}" alt="Logo" class="w-10 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -44,9 +44,9 @@
             </div>
         </div>
         <!-- Water Depth -->
-        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 invert-icon">
+        <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div class="p-3 mr-4" >
-                <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-6 w-6 hover:scale-125 transition">
+                <img src="{{ asset('assets/img/waterdepth_level.png') }}" alt="Logo" class="w-10 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -58,29 +58,10 @@
             </div>
         </div>
     </div>
-    <br>
-
-    <!-- Cards Maps -->
-    <!-- <div class="min-w-0 p-4 text-white bg-white rounded-lg shadow-xs dark:bg-gray-800" >
-        <h4 class="mb-2 font-semibold my-6 text-xl text-gray-700 dark:text-gray-200">
-            Maps
-        </h4>
-        <p class="my-2 text-gray-700 dark:text-gray-200">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Fuga, cum commodi a omnis numquam quod? Totam exercitationem
-            quos hic ipsam at qui cum numquam, sed amet ratione! Ratione,
-            nihil dolorum.
-        </p>
-        <br>
-        <div class="relative w-full h-96">
-            <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-xs" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8297.885022528028!2d117.42045017766056!3d2.02715899014462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x320def43f33ea91b%3A0x7e4dcd38dcbb294c!2sWorkshop%20MTL%20Binungan%20KM1!5e1!3m2!1sid!2sid!4v1721883321328!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div> -->
-    <!-- <br> -->
 
     <!-- Table -->
-    <h4 class="mt-10 mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-        Table LocatorGIS
+    <h4 class="mt-8 mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+        Statistik LocatorGIS
     </h4>
     <div class="w-full overflow-hidden rounded-lg shadow-xs" x-data="{ isModalOpen: false, modalType: '' }">
         <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 border-t dark:border-gray-700">
@@ -88,7 +69,7 @@
             <div class="flex flex-1 justify-center lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
                     <div>
-                        <h5 class="mr-3 font-semibold dark:text-white">Data Titik Persebaran</h5>
+                        <h5 class="mr-3 font-semibold dark:text-white"> Upload Data LocatorGIS</h5>
                         <p class="text-gray-500 dark:text-gray-400">Manage all your existing users or add a new one</p>
                     </div>
                 </div>
@@ -365,9 +346,9 @@
                     <!-- Modal header -->
                     <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            Form Tambah Data Titik
+                            Upload Data LocatorGIS
                         </h3>
-                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                        <button type="button" data-modal-toggle="defaultModal" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                             </svg>
@@ -395,7 +376,7 @@
                             </svg>
                             Add new Data Titik
                         </button>
-                        <button type="button" class="text-red-600 inline-flex m-1 items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                        <button type="button" data-modal-toggle="defaultModal" class="text-red-600 inline-flex m-1 items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
                             <svg class="mr-1 -ml-1 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                             </svg>

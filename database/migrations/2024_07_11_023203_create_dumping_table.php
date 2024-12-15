@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('northing');
             $table->float('elevation_rl');
             $table->float('elevation_actual');
+            $table->foreignId('material_id');
             $table->timestamps();
         });
         

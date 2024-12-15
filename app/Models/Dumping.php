@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Material;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Dumping extends Model
 {
@@ -13,13 +14,14 @@ class Dumping extends Model
 
     protected $table = 'dumpings';
 
-    protected $fillable = [
-        'disposial',
-        'easting',
-        'northing',
-        'elevation_rl',
-        'elevation_actual',
-    ];
+    // protected $fillable = [
+    //     'disposial',
+    //     'easting',
+    //     'northing',
+    //     'elevation_rl',
+    //     'elevation_actual',
+    // ];
+    protected $guarded = ['id'];
 
     // Menambahkan atribut virtual disposial_label
     protected $appends = ['disposial_label'];
@@ -34,6 +36,12 @@ class Dumping extends Model
 
         return $disLabels[$this->attributes['disposial']] ?? $this->attributes['disposial'];
     }
+
+    public function material(): BelongsTo
+    {
+        return $this->belongsTo(Material::class);
+    }
+    
 
     // Relasi: Dumping memiliki banyak Excas
     // public function excas(): HasMany

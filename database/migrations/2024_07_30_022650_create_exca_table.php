@@ -19,7 +19,10 @@ return new class extends Migration
             $table->float('northing');
             $table->float('elevation_rl');
             $table->float('elevation_actual');
-            $table->enum('material',['s', 'm', 'c', 'b', 'nb', 'otr']);
+            $table->float('front_width');
+            $table->float('front_height');
+            // $table->foreignId('material_id');
+            // $table->enum('material',['s', 'm', 'c', 'b', 'nb', 'otr']);
             $table->char('dop');
             $table->timestamps();
         });

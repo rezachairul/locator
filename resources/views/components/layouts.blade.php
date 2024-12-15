@@ -133,8 +133,7 @@
                 gambarCuaca.src = 'assets/img/cuaca-icons/' + cuacaTerpilih + '.png'; 
             }
 
-            // Preview File Base Maps format .ECW
-        
+            // Chart .js untuk menampilkan grafik LocatorGIS
         </script>    
     </body>
 </html>
