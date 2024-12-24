@@ -33,35 +33,36 @@
                 <thead>
                     <!-- Baris Pertama -->
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3 text-center" rowspan="2">No</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">PIT</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">Loading Unit</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">Easting</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">Northing</th>
-                        <th class="px-4 py-3 text-center" colspan="2">Elevation</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">DOP</th>
-                        <th class="px-4 py-3 text-center" colspan="2">Front</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">Date</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">Actions</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">No</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">PIT</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Loading Unit</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Easting</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Northing</th>
+                        <th class="px-2 py-1 text-center" colspan="2">Elevation</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">DOP</th>
+                        <th class="px-2 py-1 text-center" colspan="2">Front</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Date</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Material</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Actions</th>
                     </tr>
                     <!-- Baris Kedua -->
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3 text-center">RL</th>
-                        <th class="px-4 py-3 text-center">Actual</th>
-                        <th class="px-4 py-3 text-center">Width</th>
-                        <th class="px-4 py-3 text-center">Height</th>
+                        <th class="px-2 py-1 text-center">RL</th>
+                        <th class="px-2 py-1 text-center">Actual</th>
+                        <th class="px-2 py-1 text-center">Width</th>
+                        <th class="px-2 py-1 text-center">Height</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" >
                     @foreach ( $excas as $exca )
                         <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $loop->iteration }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $exca->pit_label }}
                             </td>
-                            <td class="px-4 py-3">
+                            <td class="px-2 py-1">
                                 <div class="flex items-center text-sm">
                                     <div class="items-center">
                                         <p class="font-semibold">{{ $exca->loading_unit_label }}</p>
@@ -71,31 +72,34 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $exca->easting }}
                             </td>
-                            <td class="px-4 py-3 text-xs text-center">
+                            <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->northing }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $exca->elevation_rl }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $exca->elevation_actual }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $exca->dop}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $exca->front_width }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $exca->front_height }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $exca->created_at->format('d-m-Y')}}
                             </td>
-                            <td class="px-4 py-3 text-center">
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{$exca->material->name}}
+                            </td>
+                            <td class="px-2 py-1 text-center">
                                 <div class="flex item-center justify-center space-x-4 text-sm">
                                     <button id="updateProductButton-{{ $exca->id }}" data-modal-target="updateProductModal-{{ $exca->id }}" data-modal-toggle="updateProductModal-{{ $exca->id }}" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit" >
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" >
@@ -155,11 +159,19 @@
                                                                 </select>
                                                             </div>
                                                             <div>
-                                                                <label for="northing"
-                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Northing</label>
-                                                                <input type="text" name="northing" id="northing"
-                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                    placeholder="Input Norting" required autofocus value="{{old('northing', $exca->northing)}}">
+                                                                <label for="material" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Material</label>
+                                                                <select id="material" name="material_id"
+                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                                    @if ($materials->isNotEmpty())
+                                                                        @foreach ($materials as $material)
+                                                                            <option value="{{ $material->id }}" {{ old('material_id', $exca->material_id) == $material->id ? 'selected' : '' }}>
+                                                                                {{ $material->name }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    @else
+                                                                        <option value="">No materials available</option>
+                                                                    @endif
+                                                                </select>
                                                             </div>
                                                             <div>
                                                                 <label for="easting"
@@ -167,6 +179,13 @@
                                                                 <input type="text" name="easting" id="easting"
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                     placeholder="Input Easting" required autofocus value="{{old('easting', $exca->easting)}}">
+                                                            </div>
+                                                            <div>
+                                                                <label for="northing"
+                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Northing</label>
+                                                                <input type="text" name="northing" id="northing"
+                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                    placeholder="Input Norting" required autofocus value="{{old('northing', $exca->northing)}}">
                                                             </div>
                                                             <div>
                                                                 <label for="elevation" 
@@ -186,25 +205,12 @@
                                                                 <div class="grid grid-cols-2 gap-4">
                                                                     <input type="text" name="front_width" id="front_width"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                        placeholder="Front Width" required>
+                                                                        placeholder="Front Width" required autofocus value="{{old('front_width', $exca->front_width)}}">
                                                                     <input type="text" name="front_height" id="front_height"
                                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                        placeholder="Front Height" required>
+                                                                        placeholder="Front Height" required autofocus value="{{old('front_height', $exca->front_height)}}">>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div>
-                                                                <label for="material"
-                                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Material</label>
-                                                                <select name="material" id="material"
-                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                                    <option value="s" {{ old('material', $exca->material) === 's' ? 'selected' : '' }}>S</option>
-                                                                    <option value="m" {{ old('material', $exca->material) === 'm' ? 'selected' : '' }}>M</option>
-                                                                    <option value="c" {{ old('material', $exca->material) === 'c' ? 'selected' : '' }}>C</option>
-                                                                    <option value="b" {{ old('material', $exca->material) === 'b' ? 'selected' : '' }}>B</option>
-                                                                    <option value="nb" {{ old('material', $exca->material) === 'nb' ? 'selected' : '' }}>NB</option>
-                                                                    <option value="otr" {{ old('material', $exca->material) === 'otr' ? 'selected' : '' }}>OTR</option>
-                                                                </select>
-                                                            </div> -->
                                                             <div>
                                                                 <label for="dop"
                                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">DOP</label>

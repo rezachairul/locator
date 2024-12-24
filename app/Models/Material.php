@@ -11,8 +11,12 @@ class Material extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public function dumping(): HasMany
+    public function exca(): HasMany
     {
-        return $this->hasMany(Dumping::class);
+        return $this->hasMany(Exca::class);
     }
+    // public function dumping(): HasMany
+    // {
+    //     return $this->hasMany(Dumping::class);
+    // }
 }

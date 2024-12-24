@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dumpings', function (Blueprint $table) {
+        Schema::create('dashboards', function (Blueprint $table) {
             $table->id();
-            $table->enum('disposial', ['ipdsidewallutara', 'ss3']);
-            $table->float('easting');
-            $table->float('northing');
-            $table->float('elevation_rl');
-            $table->float('elevation_actual');
+            $table->foreignId('exca_id');
+            $table->foreignId('dumping_id');
+            $table->foreignId('waterdepth_id');
+            $table->foreignId('weather_id');
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dumpings');
+        Schema::dropIfExists('dashboards');
     }
 };

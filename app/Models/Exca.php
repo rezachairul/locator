@@ -12,25 +12,21 @@ class Exca extends Model
     use HasFactory;
     protected $table = 'excas';
 
-     protected $fillable = [
-        'pit',
-        'loading_unit',
-        'easting',
-        'northing',
-        'elevation_rl',
-        'elevation_actual',
-        'front_width',
-        'front_height',
-        // 'material',
-        'dop',
-        'dumpings_id',
-    ];
 
-    public function dumpings()
-    {
-        return $this->hasMany(Dumping::class, 'exca_id');
-    }
+    protected $guarded = ['id'];
 
+    //  protected $fillable = [
+    //     'pit',
+    //     'loading_unit',
+    //     'easting',
+    //     'northing',
+    //     'elevation_rl',
+    //     'elevation_actual',
+    //     'front_width',
+    //     'front_height',
+    //     'dop',
+    //     'dumpings_id',
+    // ];
     public function getPitLabelAttribute()
     {
         $pitLabels = [
@@ -54,22 +50,18 @@ class Exca extends Model
         return $loadingUnitLabels[$this->loading_unit] ?? $this->loading_unit;
     }
 
-    // public function getMaterialLabelAttribute()
-    // {
-    //     $materialLabels = [
-    //         's' => 'S',
-    //         'm' => 'M',
-    //         'c' => 'C',
-    //         'b' => 'B',
-    //         'nb' => 'NB',
-    //         'otr' => 'OTR'
-    //     ];
+    public function material(): BelongsTo
+    {
+        return $this->belongsTo(Material::class);
+    }
 
-    //     return $materialLabels[$this->material] ?? $this->material;
-    // }
+    public function dashboards()
+    {
+        return $this->hasMany(Dashboard::class);
+    }
 
-    // public function dumping():BelongsTo
+    // public function dumping(): BelongsTo
     // {
-    //     return $this->belongsTo(Dumping::class);
-    // }
+    //     return $this->BelongsTo(Dumping::class);
+    // } 
 }

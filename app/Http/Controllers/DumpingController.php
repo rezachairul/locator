@@ -34,10 +34,10 @@ class DumpingController extends Controller
         
         
         // Ambil data materials
-        $materials = Material::all();
+        // $materials = Material::all();
         // dd($materials);
 
-        return view('dumping/dumping', compact('title', 'dumpings', 'materials', 'disLabels'));
+        return view('dumping/dumping', compact('title', 'dumpings', 'disLabels'));
     }
 
     /**
@@ -61,7 +61,7 @@ class DumpingController extends Controller
             'northing' => 'required | numeric',
             'elevation_rl' => 'required|numeric',
             'elevation_actual' => 'required|numeric',
-            'material_id' => 'required|exists:materials,id',
+            //'material_id' => 'required|exists:materials,id',
         ]);
         Dumping::create([
             'disposial' => $request->disposial,
@@ -69,7 +69,7 @@ class DumpingController extends Controller
             'northing' => $request->northing,
             'elevation_rl' => $request->elevation_rl,
             'elevation_actual' => $request->elevation_actual,
-            'material_id' => $request->material_id,
+            //'material_id' => $request->material_id,
         ]);
         
         return redirect()->route('dumping.index')->with('succes', 'Data added successfully.');
@@ -113,6 +113,7 @@ class DumpingController extends Controller
             'northing' => 'required | numeric',
             'elevation_rl' => 'required|numeric',
             'elevation_actual' => 'required|numeric',
+            //'material_id' => 'required|exists:materials,id',
         ]);
         
         // Update data
@@ -122,6 +123,7 @@ class DumpingController extends Controller
             'northing' => $request->northing,
             'elevation_rl' => $request->elevation_rl,
             'elevation_actual' => $request->elevation_actual,
+            //'material_id' => $request->material_id,
         ]);
 
         return redirect()->route('dumping.index')->with('error', 'Update data successfully.');

@@ -37,15 +37,17 @@ class Dumping extends Model
         return $disLabels[$this->attributes['disposial']] ?? $this->attributes['disposial'];
     }
 
-    public function material(): BelongsTo
+    public function dashboards()
     {
-        return $this->belongsTo(Material::class);
+        return $this->hasMany(Dashboard::class);
     }
-    
 
-    // Relasi: Dumping memiliki banyak Excas
-    // public function excas(): HasMany
+    // public function material(): BelongsTo
     // {
-    //     return $this->hasMany(Exca::class, 'dumping_id');
+    //     return $this->belongsTo(Material::class);
+    // }
+    // public function exca(): HasMany
+    // {
+    //     return $this->hasMany(Exca::class);
     // }
 }

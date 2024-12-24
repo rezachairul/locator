@@ -15,14 +15,14 @@ return new class extends Migration
             $table->id();
             $table->enum('pit',['qsv1s', 'qsv3']);
             $table->enum('loading_unit',['fex400_441', 'fex400_419', 'fex400_449', 'fex400_454', 'fex400_456']);
+            // $table->foreignId('dumping_id');
             $table->float('easting');
             $table->float('northing');
             $table->float('elevation_rl');
             $table->float('elevation_actual');
             $table->float('front_width');
             $table->float('front_height');
-            // $table->foreignId('material_id');
-            // $table->enum('material',['s', 'm', 'c', 'b', 'nb', 'otr']);
+            $table->foreignId('material_id');
             $table->char('dop');
             $table->timestamps();
         });

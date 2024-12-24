@@ -1,10 +1,12 @@
 <x-layouts>
     <x-slot:title>{{$title}}</x-slot:title>
+
+    <!-- Card -->
     <div class="grid gap-6 mb-8 md:grid-cols-4 xl:grid-cols-4">
         <!-- Excavator -->
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div class="p-3 mr-4" >
-                <img src="{{ asset('assets/img/exca-vator.png') }}" alt="Logo" class="w-10 hover:scale-125 transition">
+                <img src="{{asset('assets/img/ikon-exca-card.png')}}" alt="Logo" class="w-12 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -18,7 +20,7 @@
         <!-- Dumping Truck -->
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div class="p-3 mr-4" >
-                <img src="{{ asset('assets/img/mining-truck.png') }}" alt="Logo" class="w-10 hover:scale-125 transition">
+                <img src="{{asset('assets/img/ikon-truck-card.png')}}" alt="Logo" class="w-12 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -46,7 +48,7 @@
         <!-- Water Depth -->
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
             <div class="p-3 mr-4" >
-                <img src="{{ asset('assets/img/waterdepth_level.png') }}" alt="Logo" class="w-10 hover:scale-125 transition">
+                <img src="{{ asset('assets/img/depth-water-fall.png') }}" alt="Logo" class="w-12 hover:scale-125 transition">
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
@@ -59,13 +61,17 @@
         </div>
     </div>
 
-    <!-- Table -->
-    <h4 class="mt-8 mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+    <!-- Statistik -->
+    <h4 class="mt-10 mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
         Statistik LocatorGIS
     </h4>
+
+    
+    <!-- Tabel Opsional -->
+    <!-- 
     <div class="w-full overflow-hidden rounded-lg shadow-xs" x-data="{ isModalOpen: false, modalType: '' }">
         <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 border-t dark:border-gray-700">
-            <!-- Bagian Pencarian -->
+            
             <div class="flex flex-1 justify-center lg:mr-32">
                 <div class="relative w-full max-w-xl mr-6 focus-within:text-purple-500">
                     <div>
@@ -74,7 +80,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Bagian Tombol Tambah -->
+            
             <div class="flex-shrink-0">
                 <button id="defaultModalButton" data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="button" class="flex items-center justify-center text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-4 focus:ring-cyan-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-cyan-600 dark:hover:bg-cyan-700 focus:outline-none dark:focus:ring-cyan-800">
                     <svg class="h-3.5 w-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -99,7 +105,7 @@
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
+                                
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block" >
                                     <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy" />
                                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" ></div>
@@ -142,7 +148,7 @@
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
+                                
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block" >
                                     <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy" />
                                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" ></div>
@@ -185,7 +191,7 @@
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
+                                
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block" >
                                     <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy" />
                                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" ></div>
@@ -228,7 +234,7 @@
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
+                                
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block" >
                                     <img class="object-cover w-full h-full rounded-full" src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ" alt="" loading="lazy" />
                                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true" ></div>
@@ -268,11 +274,11 @@
                             </div>
                         </td>
                     </tr>
-                    <!-- Modal backdrop. This what you want to place close to the closing body tag -->
+                    
                     <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
-                        <!-- Modal -->
+                        
                         <div x-show="isModalOpen" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0 transform translate-y-1/2" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0 transform translate-y-1/2" @click.away="closeModal" @keydown.escape="closeModal" class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 lg:max-w-5xl" role="dialog" id="modal">
-                            <!-- Remove header if you don't want a close icon. Use modal body to place modal tile. -->
+                            
                             <header class="flex justify-end">
                                 <button class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700" aria-label="close" @click="isModalOpen = false">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
@@ -280,12 +286,12 @@
                                     </svg>
                                 </button>
                             </header>
-                            <!-- Modal body -->
+                            
                             <div class="mt-4 mb-6">
-                                <!-- Modal title -->
+                                
                                 <template x-if="modalType === 'excavator'">
                                     <div>
-                                        <!-- Modal content for Excavator -->
+                                        
                                         <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
                                             Tabel Excavator
                                         </p>
@@ -297,7 +303,7 @@
                                 </template>
                                 <template x-if="modalType === 'dump-point'">
                                     <div>
-                                        <!-- Modal content for dump-point -->
+                                        
                                         <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
                                             Tabel Dump-Point
                                         </p>
@@ -309,7 +315,7 @@
                                 </template>
                                 <template x-if="modalType === 'weather'">
                                     <div>
-                                        <!-- Modal content for Weather -->
+                                        
                                         <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
                                             Tabel Weather
                                         </p>
@@ -321,7 +327,7 @@
                                 </template>
                                 <template x-if="modalType === 'waterdepth'">
                                     <div>
-                                        <!-- Modal content for Water Depth -->
+                                        
                                         <p class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
                                             Tabel Water Depth
                                         </p>
@@ -334,16 +340,16 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End of modal backdrop -->
+                    
                 </tbody>
             </table>
         </div>
-        <!-- modals crete -->
+        
         <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative w-full max-w-2xl max-h-full">
-                <!-- Modal content -->
+                
                 <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-700">
-                    <!-- Modal header -->
+                    
                     <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                             Upload Data LocatorGIS
@@ -354,7 +360,7 @@
                             </svg>
                         </button>
                     </div>
-                    <!-- Modal body -->
+                    
                     <form action="#">
                         <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
                             <div class="flex items-center justify-center w-full sm:col-span-2">
@@ -386,6 +392,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <br>
 </x-layouts>

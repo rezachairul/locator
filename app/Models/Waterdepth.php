@@ -10,10 +10,16 @@ class Waterdepth extends Model
     use HasFactory;
     
     protected $table = 'waterdepths';
-    protected $fillable = [
-        'shift',
-        'qsv_1',
-        'h4',
-    ];
+    protected $guarded = ['id'];
+    // protected $fillable = [
+    //     'shift',
+    //     'qsv_1',
+    //     'h4',
+    // ];
+
+    public function dashboards()
+    {
+        return $this->hasMany(Dashboard::class);
+    }
 }
 

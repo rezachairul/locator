@@ -14,4 +14,5 @@ class Maps extends Model
         'fileName',
         'file',
     ];
+
 }

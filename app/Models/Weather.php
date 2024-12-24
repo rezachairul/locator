@@ -9,11 +9,12 @@ class Weather extends Model
 {
     use HasFactory;
     protected $table = 'weathers';
+    protected $guarded = ['id'];
 
-    protected $fillable=[
-        'cuaca',
-        'curah_hujan',
-    ]; 
+    // protected $fillable=[
+    //     'cuaca',
+    //     'curah_hujan',
+    // ]; 
 
     public function getCuacaLabelAttribute()
     {
@@ -29,5 +30,10 @@ class Weather extends Model
             'kabut' => 'Kabut'
         ];
         return $cuacaLabels[$this->cuaca] ?? $this->cuaca;
+    }
+
+    public function dashboards()
+    {
+        return $this->hasMany(Dashboard::class);
     }
 }

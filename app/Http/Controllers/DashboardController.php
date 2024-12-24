@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dashboard;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class DashboardController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
         $title = 'Dashboard';
-        return view('dashboard', compact('title'));
+        $dashboards = Dashboard::with(['exca', 'dumping', 'waterdepth', 'weather'])->get();
+        return view('/dashboard', compact( 'title', 'dashboards'));
     }
+
 }

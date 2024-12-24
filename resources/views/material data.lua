@@ -17,6 +17,16 @@ Material::create([
     'name' => 'Other',
 ])
 
+Material::insert([
+    ['name' => 'Sand'],
+    ['name' => 'Mud'],
+    ['name' => 'Clay'],
+    ['name' => 'Boulder'],
+    ['name' => 'Non-Bauxite'],
+    ['name' => 'Other']
+]);
+
+
 Dumping::create([
     'disposial' => 'ipdsidewallutara',
     'easting' => '1',

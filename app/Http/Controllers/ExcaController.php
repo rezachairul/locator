@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exca;
+use App\Models\Dumping;
+use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -31,25 +33,27 @@ class ExcaController extends Controller
             'fex400_456' => 'FEX400-456'
         ];
 
-        // $materialLabels = [
-        //     's' => 'S',
-        //     'm' => 'M',
-        //     'c' => 'C',
-        //     'b' => 'B',
-        //     'nb' => 'NB',
-        //     'otr' => 'OTR'
-        // ];
 
         foreach ($excas as $exca) {
             $exca->pit_label = $pitLabels[$exca->pit] ?? $exca->pit;
             $exca->loading_unit_label = $loadingUnitLabels[$exca->loading_unit] ?? $exca->loading_unit;
-            // $exca->material_label = $materialLabels[$exca->material] ?? $exca->material;
         }
 
         //Menambahkan pengurutan berdasarkan 'id' secara ascending
         $excas = Exca::orderBy('id', 'asc')->get();
 
-        return view('exca/excavator', compact('title', 'excas'));
+        // Ambil data materials
+        $materials = Material::all();
+        // dd($materials);
+         // Jika tabel kosong, tambahkan data dummy sebagai fallback
+        if ($materials->isEmpty()) {
+            $materials = collect([
+                (object) ['id' => '', 'name' => 'No materials available']
+            ]);
+        }
+
+
+        return view('exca/excavator', compact('title', 'excas', 'materials'));
     }
 
 
@@ -71,7 +75,7 @@ class ExcaController extends Controller
             'elevation_actual' => 'required|numeric',
             'front_width' => 'required|numeric',
             'front_height' => 'required|numeric',
-            // 'material' => 'required|in:s,m,c,b,nb,otr',
+            'material_id' => 'required|exists:materials,id',
             'dop' => 'required',
         ]);        
 
@@ -84,7 +88,7 @@ class ExcaController extends Controller
             'elevation_actual' => $request->elevation_actual,
             'front_width' => $request-> front_width,
             'front_height' => $request-> front_height,
-            // 'material' => $request->material,
+            'material_id' => $request->material_id,
             'dop' => $request->dop,
         ]);
 
@@ -98,13 +102,7 @@ class ExcaController extends Controller
 
     public function edit($id)
     {
-        // Mengambil data Excavator berdasarkan ID, jika tidak ditemukan akan melemparkan 404 error
-        // $exca = Exca::findOrFail($id);
-        // dd($exca);
-        // $title = 'Edit Excavator';
-
-        // // Mengirimkan variabel $exca dan $title ke view 'exca.update'
-        // return view('exca.update', compact('exca', 'title'));
+        //
     }    
     
 
@@ -131,7 +129,7 @@ class ExcaController extends Controller
             'elevation_actual' => 'required|numeric',
             'front_width' => 'required|numeric',
             'front_height' => 'required|numeric',
-            // 'material' => 'required|in:s,m,c,b,nb,otr',
+            'material_id' => 'required|exists:materials,id',
             'dop' => 'required',
         ]);
 
@@ -145,7 +143,7 @@ class ExcaController extends Controller
             'elevation_actual' => $request->elevation_actual,
             'front_width' => $request-> front_width,
             'front_height' => $request-> front_height,
-            // 'material' => $request->material,
+            'material_id' => $request->material_id,
             'dop' => $request->dop,
         ]);
 

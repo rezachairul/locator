@@ -37,7 +37,6 @@
                         <th class="px-4 py-3 text-center" rowspan="2">Easting</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Northing</th>
                         <th class="px-4 py-3 text-center" colspan="2">Elevation</th>
-                        <th class="px-4 py-3 text-center" rowspan="2">Material</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Date</th>
                         <th class="px-4 py-3 text-center" rowspan="2">Actions</th>
                     </tr>
@@ -75,19 +74,17 @@
                                 {{ $dumping->elevation_actual }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                {{$dumping->material->name}}
-                            </td>
-                            <td class="px-4 py-3 text-sm text-center">
                                 {{$dumping->created_at->format('d-m-Y')}}
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex item-center justify-center space-x-4 text-sm">
+                                    <!-- Update Button -->
                                     <button id="updateProductButton-{{ $dumping->id }}" data-modal-target="updateProductModal-{{ $dumping->id }}" data-modal-toggle="updateProductModal-{{ $dumping->id }}" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit" >
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" >
                                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" ></path>
                                         </svg>
                                     </button>
-                                    <!-- edit button -->
+                                    <!-- Modals Update button -->
                                     <div id="updateProductModal-{{ $dumping->id }}" tabindex="-1" aria-hidden="true"
                                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                                         <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -131,7 +128,7 @@
                                                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left ">Northing</label>
                                                                 <input type="text" name="northing" id="northing"
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                    placeholder="Input Northing" required autofocus value="{{old('easting', $dumping->easting)}}">
+                                                                    placeholder="Input Northing" required autofocus value="{{old('northing', $dumping->northing)}}">
                                                             </div>
                                                             <div>
                                                                 <label for="easting"
@@ -180,6 +177,7 @@
                                         </div>
                                     </div>
 
+                                    <!-- Delete Button -->
                                     <button id="deleteButton-{{ $dumping->id }}" data-modal-target="deleteModal-{{ $dumping->id }}" data-modal-toggle="deleteModal-{{ $dumping->id }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete" type="button">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" >
                                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" ></path>
