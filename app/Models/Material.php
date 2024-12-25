@@ -15,8 +15,4 @@ class Material extends Model
     {
         return $this->hasMany(Exca::class);
     }
-    // public function dumping(): HasMany
-    // {
-    //     return $this->hasMany(Dumping::class);
-    // }
 }

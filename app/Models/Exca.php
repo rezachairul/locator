@@ -59,9 +59,4 @@ class Exca extends Model
     {
         return $this->hasMany(Dashboard::class);
     }
-
-    // public function dumping(): BelongsTo
-    // {
-    //     return $this->BelongsTo(Dumping::class);
-    // } 
 }

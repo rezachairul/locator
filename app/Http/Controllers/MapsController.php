@@ -83,6 +83,7 @@ class MapsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($id);
         // Cari data berdasarkan ID
         $maps = Maps::find($id);
 
@@ -119,46 +120,30 @@ class MapsController extends Controller
         // Redirect kembali dengan pesan sukses
         return redirect()->route('maps.index')->with('success', 'Data berhasil diperbarui.');
     }
-
-    // public function update(Request $request, $id)
+    // public function destroy($id)
     // {
-    //     // dd($request);
-    //     // Mencari model berdasarkan ID
-    //     $maps = Maps::find($id);
-
-    //     // Cek jika data tidak ditemukan
-    //     if(!$maps){
-    //         return redirect()->route('maps.index')->with('error', 'Data not found');
-    //     }
-
-    //     // Validasi input
-    //     $request->validate([
-    //         'fileName' => 'required',
-    //         'file' => 'nullable|mimetypes:application/octet-stream|max:51200', // tambahkan MIME type ECW
-    //     ]);  
-         
-    //     // Mendapatkan nama asli file
-    //     $originalName = $request->file('file')->getClientOriginalName();
         
-    //     // Simpan file ke folder yang diinginkan
-    //     $path = $request->file('file')->storeAs('uploads', $originalName, 'public'); // menyimpan file dengan nama asli
-
-    //     $maps->update([
-    //         'fileName' => $request->fileName,
-    //         'file' => $path, // menyimpan path file yang disimpan
-    //     ]);
-
-    //     return redirect()->route('maps.index')->with('Success', 'Data updated successfully.');
+    //     $maps = Maps::findOrFail($id);
+    //     $maps->delete();
+    //     return redirect()->route('maps.index');
     // }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         // dd($id);
+        // Cari data berdasarkan ID
         $maps = Maps::findOrFail($id);
+
+        // Periksa apakah file ada di penyimpanan lokal
+        if ($maps->file && Storage::exists($maps->file)) {
+            // Hapus file dari penyimpanan lokal
+            Storage::delete($maps->file);
+        }
+
+        // Hapus data dari database
         $maps->delete();
-        return redirect()->route('maps.index');
+
+        // Redirect kembali ke halaman index dengan pesan sukses
+        return redirect()->route('maps.index')->with('success', 'Data dan file berhasil dihapus.');
     }
+
 }

@@ -22,8 +22,9 @@
                 @endif
             </div>
         @else
-            <div class="w-72 h-36 bg-gray-500 rounded-lg flex justify-center items-center text-white">
-                <span>Data cuaca tidak tersedia</span>
+            <div class="w-72 h-36 bg-gray-500 rounded-lg flex flex-col justify-center items-center text-white">
+                <img src="{{ asset('assets/img/cuaca-icons/not-found-weather.png') }}" alt="Cuaca tidak tersedia" class="w-12 hover:scale-125 transition">
+                <p class="mt-2 text-sm font-medium text-gray-300">Cuaca tidak tersedia</p>
             </div>
         @endif
         
