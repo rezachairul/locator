@@ -57,20 +57,26 @@
 
         <!-- Water Depth -->
         <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-            <div class="p-3 mr-4" >
+            <div class="p-3 mr-4">
                 <img src="{{ asset('assets/img/depth-water-fall.png') }}" alt="Logo" class="w-12 hover:scale-125 transition">
             </div>
             <div>
-                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
+                <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
                     Water Depth
                 </p>
                 @if ($latestWaterDepth)
-                    <div class="grid grid-cols-2"></div>
-                        <p class="text-xs font-normal text-gray-700 dark:text-gray-200" >
-                            QSV1    | {{ $latestWaterDepth->qsv_1 }}
+                    <div class="grid grid-cols-2 gap-2">
+                        <p class="text-xs font-normal text-gray-700 dark:text-gray-200">
+                            QSV1
                         </p>
-                        <p class="text-xs font-normal text-gray-700 dark:text-gray-200" >
-                            H4      | {{ $latestWaterDepth->h4 }}
+                        <p class="text-xs font-normal text-gray-700 dark:text-gray-200">
+                            {{ $latestWaterDepth->qsv_1 }}
+                        </p>
+                        <p class="text-xs font-normal text-gray-700 dark:text-gray-200">
+                            H4
+                        </p>
+                        <p class="text-xs font-normal text-gray-700 dark:text-gray-200">
+                            {{ $latestWaterDepth->h4 }}
                         </p>
                     </div>
                 @else
@@ -80,6 +86,7 @@
                 @endif
             </div>
         </div>
+
     </div>
 
     <!-- Statistik -->
