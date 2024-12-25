@@ -13,14 +13,6 @@ class Dumping extends Model
     use HasFactory;
 
     protected $table = 'dumpings';
-
-    // protected $fillable = [
-    //     'disposial',
-    //     'easting',
-    //     'northing',
-    //     'elevation_rl',
-    //     'elevation_actual',
-    // ];
     protected $guarded = ['id'];
 
     // Menambahkan atribut virtual disposial_label
@@ -41,13 +33,8 @@ class Dumping extends Model
     {
         return $this->hasMany(Dashboard::class);
     }
-
-    // public function material(): BelongsTo
-    // {
-    //     return $this->belongsTo(Material::class);
-    // }
-    // public function exca(): HasMany
-    // {
-    //     return $this->hasMany(Exca::class);
-    // }
+    public function exca(): HasMany
+    {
+        return $this->hasMany(Exca::class);
+    }
 }

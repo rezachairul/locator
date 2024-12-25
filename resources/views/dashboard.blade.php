@@ -10,7 +10,7 @@
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
-                    Excavator
+                    Load Point
                 </p>
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200" >
                     {{ $totalExca }}
@@ -24,7 +24,7 @@
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400" >
-                    Dumping Point
+                    Waste Dump
                 </p> 
                 <p class="text-lg font-semibold text-gray-700 dark:text-gray-200" >
                     {{ $totalDumping }}

@@ -16,7 +16,7 @@ class ExcaController extends Controller
      */
     public function index()
     {
-        $title = 'Excavator';
+        $title = 'Load Point';
         $excas = Exca::all();
 
         // Mapping untuk label
@@ -52,8 +52,18 @@ class ExcaController extends Controller
             ]);
         }
 
+        // Ambil data Waste Dump
+        $dumpings = Dumping::all();
+        // dd($dumpings);
+         // Jika tabel kosong, tambahkan data dummy sebagai fallback
+        if ($dumpings->isEmpty()) {
+            $dumpings = collect([
+                (object) ['id' => '', 'name' => 'No Waste Dump available']
+            ]);
+        }
 
-        return view('exca/excavator', compact('title', 'excas', 'materials'));
+
+        return view('exca/excavator', compact('title', 'excas', 'dumpings', 'materials'));
     }
 
 
@@ -69,6 +79,7 @@ class ExcaController extends Controller
         $request->validate([
             'pit' => 'required|in:qsv1s,qsv3',
             'loading_unit' => 'required|in:fex400_441,fex400_419,fex400_449,fex400_454,fex400_456',
+            'dumping_id' => 'required|exists:dumpings,id',
             'easting' => 'required|numeric',
             'northing' => 'required|numeric',
             'elevation_rl' => 'required|numeric',
@@ -82,8 +93,7 @@ class ExcaController extends Controller
         Exca::create([
             'pit' => $request->pit,
             'loading_unit' => $request->loading_unit,
-            // 'easting' => $request->easting,
-            // 'northing' => $request->northing,
+            'dumping_id' => $request->dumping_id,
             'easting' => str_replace(',', '.', $request->easting),
             'northing' => str_replace(',', '.', $request->northing),
             'elevation_rl' => $request->elevation_rl,
@@ -125,8 +135,7 @@ class ExcaController extends Controller
         $request->validate([
             'pit' => 'required|in:qsv1s,qsv3',
             'loading_unit' => 'required|in:fex400_441,fex400_419,fex400_449,fex400_454,fex400_456',
-            // 'easting' => 'required|numeric',
-            // 'northing' => 'required|numeric',
+            'dumping_id' => 'required|exists:dumpings,id',
             'easting' => str_replace(',', '.', $request->easting),
             'northing' => str_replace(',', '.', $request->northing),
             'elevation_rl' => 'required|numeric',
@@ -141,6 +150,7 @@ class ExcaController extends Controller
         $exca->update([
             'pit' => $request->pit,
             'loading_unit' => $request->loading_unit,
+            'dumping_id' => $request->dumping_id,
             'easting' => $request->easting,
             'northing' => $request->northing,
             'elevation_rl' => $request->elevation_rl,

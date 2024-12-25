@@ -32,7 +32,7 @@
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-5 w-5">
                         </div>
-                        <span class="ml-4">Excavator</span>
+                        <span class="ml-4">Load Point</span>
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
@@ -41,7 +41,7 @@
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
                         </div>
-                        <span class="ml-4">Dump-Point</span>
+                        <span class="ml-4">Waste Dump</span>
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
@@ -99,7 +99,7 @@
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-5 w-5">
                         </div>
-                        <span class="ml-4">Excavator</span>
+                        <span class="ml-4">Load Point</span>
                     </a>
                 </li>
                 <li class="relative px-6 py-3">
@@ -108,7 +108,7 @@
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
                         </div>
-                        <span class="ml-4">Dump-Point</span>
+                        <span class="ml-4">Waste Dump</span>
                     </a>
                 </li>
                 <li class="relative px-6 py-3">

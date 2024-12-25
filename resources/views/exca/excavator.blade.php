@@ -63,40 +63,40 @@
                                 {{ $exca->pit_label }}
                             </td>
                             <td class="px-2 py-1">
-                                <div class="flex items-center text-sm">
+                                <div class="flex items-center text-xs">
                                     <div class="items-center">
                                         <p class="font-semibold">{{ $exca->loading_unit_label }}</p>
                                         <p class="text-xs text-gray-600 dark:text-gray-400">
-                                            {{ $exca->id  }}
+                                            {{ $exca->dumping->disposial_label  }}
                                         </p>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-2 py-1 text-sm text-center">
+                            <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->easting }}
                             </td>
                             <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->northing }}
                             </td>
-                            <td class="px-2 py-1 text-sm text-center">
+                            <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->elevation_rl }}
                             </td>
-                            <td class="px-2 py-1 text-sm text-center">
+                            <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->elevation_actual }}
                             </td>
-                            <td class="px-2 py-1 text-sm text-center">
+                            <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->dop}}
                             </td>
-                            <td class="px-2 py-1 text-sm text-center">
+                            <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->front_width }}
                             </td>
-                            <td class="px-2 py-1 text-sm text-center">
+                            <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->front_height }}
                             </td>
-                            <td class="px-2 py-1 text-sm text-center">
+                            <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->created_at->format('d-m-Y')}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-4 py-3 text-xs text-center">
                                 {{$exca->material->name}}
                             </td>
                             <td class="px-2 py-1 text-center">
@@ -156,6 +156,21 @@
                                                                     <option value="fex400_449" {{old ('loading_unit', $exca->loading_unit) === 'fex400_449' ? 'selected' : ''}}>FEX400-449</option>
                                                                     <option value="fex400_454" {{old ('loading_unit', $exca->loading_unit) === 'fex400_454' ? 'selected' : ''}}>FEX400-454</option>
                                                                     <option value="fex400_456" {{old ('loading_unit', $exca->loading_unit) === 'fex400_456' ? 'selected' : ''}}>FEX400-456</option>
+                                                                </select>
+                                                            </div>
+                                                            <div>
+                                                                <label for="dumping" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Waste Dump</label>
+                                                                <select id="dumping" name="dumping_id"
+                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                                    @if ($dumpings->isNotEmpty())
+                                                                        @foreach ($dumpings as $dumping)
+                                                                            <option value="{{ $dumping->id }}" {{ old('dumping_id', $exca->dumping) == $dumping->id ? 'selected' : '' }}>
+                                                                                {{ $dumping->disposial_label }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    @else
+                                                                        <option value="">No Waste Dump available</option>
+                                                                    @endif
                                                                 </select>
                                                             </div>
                                                             <div>

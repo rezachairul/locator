@@ -54,6 +54,10 @@ class Exca extends Model
     {
         return $this->belongsTo(Material::class);
     }
+    public function dumping(): BelongsTo
+    {
+        return $this->belongsTo(Dumping::class);
+    }
 
     public function dashboards()
     {
