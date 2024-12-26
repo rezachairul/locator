@@ -12,7 +12,7 @@
                 <p class="text-[20px] mt-0 ml-4 font-semibold font-sans">
                     <span>{{ $latestWeather->cuaca_label }}</span>
                     <br>
-                    <span class="text-[15px] ml-1">Curah Hujan | {{$latestWeather->curah_hujan}} mm</span>
+                    <span class="text-[15px] ml-0">Curah Hujan | {{$latestWeather->curah_hujan}} mm</span>
                 </p>
                 <p class="text-[18px] mt-0 ml-4 font-medium font-sans">PT. Fajar Anugerah Dinamika</p>
                 @if ($latestWeather->cuaca && file_exists(public_path('assets/img/cuaca-icons/' . strtolower($latestWeather->cuaca) . '.png')))
@@ -27,18 +27,54 @@
                 <p class="mt-2 text-sm font-medium text-gray-300">Cuaca tidak tersedia</p>
             </div>
         @endif
-        
+
         <!-- BMKG -->
         <div class="w-72 h-36 bg-gradient-to-r from-[#141e30] to-[#243b55] rounded-lg shadow-[5px_10px_50px rgba(0,0,0,0.7),-5px_0px_250px rgba(0,0,0,0.7)] flex flex-col justify-center relative text-white cursor-pointer transition-all duration-300 ease-in-out overflow-hidden hover:shadow-[5px_10px_50px rgba(0,0,0,1),-5px_0px_250px rgba(0,0,0,1)]">
-            <p class="text-[20px] mt-0 ml-4 font-semibold font-sans">
-                <span id="weather-description"></span> 
-                <br>
-                <span id="temperature" class="text-[15px] ml-1"></span>
-            </p>
-            <p class="text-[18px] mt-0 ml-4 font-medium font-sans">
-                <img src="{{ asset('assets/img/bmkg-2.png') }}" alt="BMKG logo" class="inline w-6 h-6 mr-2">
-                BMKG
-            </p>
+            @if (isset($bmkgWeather['error']))
+                <!-- Jika terjadi error -->
+                <div class="ml-4">
+                    <p class="text-[20px] font-semibold font-sans">
+                        Data tidak tersedia
+                    </p>
+                    <p class="text-[15px] font-medium font-sans">
+                        {{ $bmkgWeather['error'] }}
+                    </p>
+                </div>           
+            @elseif (isset($bmkgWeather['data']['0']['cuaca']['0']['0']) && !empty($bmkgWeather['data']['0']['cuaca']['0']['0'] ?? null))
+                <!-- Jika data BMKG tersedia -->
+                @php
+                    $weather = $bmkgWeather['data']['0']['cuaca']['0']['0'] ?? null; // Mengambil data cuaca
+                    // dd($weather);
+                @endphp
+                <div class="ml-4">
+                    <div class="absolute top-2 mb-1 right-4 flex items-center">
+                        <img src="{{ asset('assets/img/bmkg-2.png') }}" alt="BMKG logo" class="inline-block w-6 h-6 mr-2">
+                        <p class="text-[15px] font-medium font-sans">
+                            <a href="https://bmkg.go.id">BMKG</a>                        
+                        </p>
+                    </div>
+                    <p class="text-[20px] font-semibold font-sans">
+                        {{ $weather['weather_desc'] ?? 'Tidak tersedia' }}
+                    </p>
+                    <p class="text-[15px] mt-1 font-medium font-sans">
+                        Suhu: <span id="temperature">{{ $weather['t'] ?? 'N/A' }}</span>°C
+                    </p>
+                    <p class="text-[15px] mt-1 font-medium font-sans">
+                        Kelembapan: <span id="humidity">{{ $weather['hu'] ?? 'N/A' }}</span>%
+                    </p>
+                    <p class="text-[15px] mt-1 font-normal font-sans">
+                        Waktu: <span id="local_time"></span>
+                    </p>
+                    <img src="{{ $weather['image'] }}" alt="{{ $weather['weather_desc'] ?? 'Tidak tersedia' }}" class="absolute right-4 top-4 w-20 transition-all duration-300 ease-in-out hover:w-[6rem]" oncontextmenu="return false;">
+                </div>
+            @else
+                <!-- Jika data kosong atau tidak ditemukan -->
+                <div class="ml-4">
+                    <p class="text-[20px] font-semibold font-sans">
+                        Data tidak tersedia
+                    </p>
+                </div>
+            @endif
         </div>
     </div>    
 

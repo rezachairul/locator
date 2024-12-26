@@ -133,7 +133,58 @@
                 gambarCuaca.src = 'assets/img/cuaca-icons/' + cuacaTerpilih + '.png'; 
             }
 
+            // Data Terbuka BMKG (Weather by BMKG) time local
+            document.addEventListener('DOMContentLoaded', () => {
+                function updateClock() {
+                    // Ambil waktu saat ini dari sistem pengguna
+                    const now = new Date();
+
+                    // Menentukan zona waktu lokal
+                    const timeZoneOffset = now.getTimezoneOffset() / -60; // Offset dalam jam
+                    let timeZoneName;
+
+                    if (timeZoneOffset === 7) {
+                        timeZoneName = "WIB";
+                    } else if (timeZoneOffset === 8) {
+                        timeZoneName = "WITA";
+                    } else if (timeZoneOffset === 9) {
+                        timeZoneName = "WIT";
+                    } else {
+                        timeZoneName = `GMT${timeZoneOffset >= 0 ? "+" : ""}${timeZoneOffset}`;
+                    }
+
+                    // Format tanggal
+                    const formattedDate = new Intl.DateTimeFormat('id-ID', {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric',
+                    }).format(now);
+
+                    // Format waktu
+                    const formattedTime = new Intl.DateTimeFormat('id-ID', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                    }).format(now);
+
+                    // Gabungan tanggal, waktu, dan zona waktu
+                    const dateTimeString = `${formattedDate}, ${formattedTime} ${timeZoneName}`;
+
+                    // Update elemen HTML dengan tanggal dan waktu lokal
+                    document.getElementById('local_time').textContent = dateTimeString;
+                }
+
+                // Inisialisasi waktu
+                updateClock();
+
+                // Perbarui setiap detik
+                setInterval(updateClock, 1000);
+            });
+
+
+
             // Chart .js untuk menampilkan grafik LocatorGIS
+
         </script>    
     </body>
 </html>

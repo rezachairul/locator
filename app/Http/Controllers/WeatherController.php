@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Weather;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class WeatherController extends Controller
 {
@@ -34,10 +36,30 @@ class WeatherController extends Controller
             $weather->cuaca_label = $cuacaLabels[$weather->cuaca] ?? $weather->cuaca;
         }
 
+        // Fetch data dari API BMKG
+        $bmkgWeather = [];
+        try {
+            $kodeWilayah = '64.03.03.2005'; // Kode wilayah Provinsi Kalimantan Timur, Kabupaten Berau, Kecamatan Sambaliung, Kampung pegat Bukur
+            $url = "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4={$kodeWilayah}";
+            $response = Http::get($url);
+
+            if ($response->successful()) {
+                $bmkgWeather = $response->json(); // Data dari BMKG
+                // dd($bmkgWeather);
+            }
+            // Tambahkan log untuk mencatat data respons dari API BMKG
+            Log::info('BMKG Response:', $bmkgWeather);
+        } catch (\Exception $e) {
+            $bmkgWeather = ['error' => 'Gagal mengambil data dari BMKG: ' . $e->getMessage()];
+            // dd($bmkgWeather);
+            // Tambahkan log untuk mencatat jika terjadi error
+            Log::error('BMKG API Error:', ['message' => $e->getMessage()]);
+        }
+
         //Menambahkan pengurutan berdasarkan 'id' secara ascending
         $weathers = Weather::orderBy('id', 'asc')->get();
 
-        return view('weather/weather', compact('title', 'weathers',  'latestWeather'));
+        return view('weather/weather', compact('title', 'weathers',  'latestWeather', 'bmkgWeather'));
     }
 
     /**
