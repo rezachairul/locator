@@ -181,8 +181,6 @@
                 setInterval(updateClock, 1000);
             });
 
-
-
             // Chart .js untuk menampilkan grafik LocatorGIS
 
         </script>    
