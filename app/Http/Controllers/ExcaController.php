@@ -181,35 +181,14 @@ class ExcaController extends Controller
     //Export
     public function export ()
     {
-        // Ambil data dari tabel Exca
-        $data = Exca::all()->toArray();
+        $data = Exca::with(['dumping', 'material'])->get();
+        // dd($data->toArray());
 
-        // Panggil ExcasExport untuk membuat file Excel
-        $export = new ExcasExport();
-        $export->collection($data);
+        // Pastikan memberikan data ke constructor
+        $export = new ExcasExport($data);
 
-        // Eksekusi metode export untuk mengunduh file
         return $export->export();
 
-
-        // return Excel::download(new ExcasExport, 'Load Point-'.Carbon::now()->timestamp.'.xlsx');
-        // return (new ExcasExport)->download('Pemantauan Loading Point dan Dumping Point-'.Carbon::now()->timestamp.'.xlsx');
     }
-
-    
-    // public function export()
-    // {
-    //     // Debug untuk memastikan data yang akan diekspor
-    //     // $data = \App\Models\Exca::all(); // Ambil data dari model
-    //     // dd($data->toArray());
-
-    //     // Pastikan file template ada
-    //     // if (!file_exists(storage_path('app/templates/template-Load-Waste.xlsx'))) {
-    //     //     return response()->json(['message' => 'Template file not found'], 404);
-    //     // }
-
-    //     // Export data
-    //     return (new ExcasExport)->download('Load Point-'.Carbon::now()->timestamp.'.xlsx');
-    // }
 
 }
