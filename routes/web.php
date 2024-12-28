@@ -33,10 +33,19 @@ Route::get('/',[LapanganController::class, 'index']);
 //Route Group
 Route::middleware(['auth'])->group(function(){
     Route::resource('/dashboard', DashboardController::class);
+    
+    // Rute untuk export
+    Route::get('/exca/export', [ExcaController::class, 'export'])->name('exca.export');
+    
+    // Rute untuk import
 
+
+    // Rute untuk tiap page
     Route::resource('/maps', MapsController::class);
     Route::resource('/exca', ExcaController::class);
     Route::resource('/dumping', DumpingController::class);
     Route::resource('/weather', WeatherController::class);
     Route::resource('/waterdepth', WaterdepthController::class);
+
+
 });

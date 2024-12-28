@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Exca;
 use App\Models\Dumping;
 use App\Models\Material;
+use App\Exports\ExcasExport;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 
 class ExcaController extends Controller
@@ -171,5 +176,40 @@ class ExcaController extends Controller
         $exca->delete();
         return redirect()->route('exca.index')->with('success', 'Item deleted successfully.');
     }
+
+    // EXPORT dan IMPORT FILE
+    //Export
+    public function export ()
+    {
+        // Ambil data dari tabel Exca
+        $data = Exca::all()->toArray();
+
+        // Panggil ExcasExport untuk membuat file Excel
+        $export = new ExcasExport();
+        $export->collection($data);
+
+        // Eksekusi metode export untuk mengunduh file
+        return $export->export();
+
+
+        // return Excel::download(new ExcasExport, 'Load Point-'.Carbon::now()->timestamp.'.xlsx');
+        // return (new ExcasExport)->download('Pemantauan Loading Point dan Dumping Point-'.Carbon::now()->timestamp.'.xlsx');
+    }
+
+    
+    // public function export()
+    // {
+    //     // Debug untuk memastikan data yang akan diekspor
+    //     // $data = \App\Models\Exca::all(); // Ambil data dari model
+    //     // dd($data->toArray());
+
+    //     // Pastikan file template ada
+    //     // if (!file_exists(storage_path('app/templates/template-Load-Waste.xlsx'))) {
+    //     //     return response()->json(['message' => 'Template file not found'], 404);
+    //     // }
+
+    //     // Export data
+    //     return (new ExcasExport)->download('Load Point-'.Carbon::now()->timestamp.'.xlsx');
+    // }
 
 }
