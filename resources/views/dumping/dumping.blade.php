@@ -70,7 +70,7 @@
                                 {{ $loop->iteration }}
                             </td>
                             <td class="px-4 py-3">
-                                <div class="flex items-center text-sm">
+                                <div class="flex items-center text-xs">
                                     <div class="items-center">
                                         <p class="font-semibold">{{ $disLabels[$dumping->disposial] ?? 'Label Tidak Ditemukan' }}</p>
                                         <p class="text-xs text-gray-600 dark:text-gray-400">
@@ -79,19 +79,19 @@
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-4 py-3 text-xs text-center">
                                 {{$dumping->easting}}
                             </td>
                             <td class="px-4 py-3 text-xs text-center">
                                 {{$dumping->northing}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
-                                {{ $dumping->elevation_rl }}
+                            <td class="px-4 py-3 text-xs text-center">
+                                {{ number_format( $dumping->elevation_rl, 2) }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-4 py-3 text-xs text-center">
                                 {{ $dumping->elevation_actual }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-4 py-3 text-xs text-center">
                                 {{$dumping->created_at->format('d-m-Y')}}
                             </td>
                             <td class="px-4 py-3 text-center">

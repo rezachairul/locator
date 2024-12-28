@@ -186,9 +186,6 @@ class ExcaController extends Controller
 
         // Pastikan memberikan data ke constructor
         $export = new ExcasExport($data);
-
         return $export->export();
-
     }
-
 }
