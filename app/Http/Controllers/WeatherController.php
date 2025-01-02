@@ -56,8 +56,10 @@ class WeatherController extends Controller
             Log::error('BMKG API Error:', ['message' => $e->getMessage()]);
         }
 
-        //Menambahkan pengurutan berdasarkan 'id' secara ascending
-        $weathers = Weather::orderBy('id', 'asc')->get();
+        // Filter data untuk hanya yang berumur 24 jam terakhir
+        $weathers = Weather::where('created_at', '>=', now()->subDay())
+        ->orderBy('id', 'asc')
+        ->get();
 
         return view('weather/weather', compact('title', 'weathers',  'latestWeather', 'bmkgWeather'));
     }

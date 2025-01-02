@@ -44,8 +44,10 @@ class ExcaController extends Controller
             $exca->loading_unit_label = $loadingUnitLabels[$exca->loading_unit] ?? $exca->loading_unit;
         }
 
-        //Menambahkan pengurutan berdasarkan 'id' secara ascending
-        $excas = Exca::orderBy('id', 'asc')->get();
+        // Filter data untuk hanya yang berumur 24 jam terakhir
+        $excas = Exca::where('created_at', '>=', now()->subDay())
+        ->orderBy('id', 'asc')
+        ->get();
 
         // Ambil data materials
         $materials = Material::all();

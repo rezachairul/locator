@@ -18,8 +18,10 @@ class MapsController extends Controller
         $title = 'Maps';
         $maps = Maps::all();
 
-        //Menambahkan pengurutan berdasarkan 'id' secara ascending
-        $maps = Maps::orderBy('id', 'asc')->get();
+        // Filter data untuk hanya yang berumur 24 jam terakhir
+        $maps = Maps::where('created_at', '>=', now()->subDay())
+        ->orderBy('id', 'asc')
+        ->get();
 
         return view('maps/maps',compact('title', 'maps'));
     }

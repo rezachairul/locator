@@ -65,7 +65,7 @@
                     <p class="text-[15px] mt-1 font-normal font-sans">
                         Waktu: <span id="local_time"></span>
                     </p>
-                    <img src="{{ $weather['image'] }}" alt="{{ $weather['weather_desc'] ?? 'Tidak tersedia' }}" class="absolute right-4 top-4 w-20 transition-all duration-300 ease-in-out hover:w-[6rem]" oncontextmenu="return false;">
+                    <img src="{{ $weather['image'] }}" alt="{{ $weather['weather_desc'] ?? 'Tidak tersedia' }}" class="absolute right-4 top-8 w-14 transition-all duration-300 ease-in-out hover:w-20" oncontextmenu="return false;">
                 </div>
             @else
                 <!-- Jika data kosong atau tidak ditemukan -->
@@ -136,7 +136,7 @@
                     </tr>
                 </thead> 
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($weathers as $weather )
+                    @foreach ($weathers->where('created_at', '>=', now()->subDay())  as $weather )
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3 text-sm text-center">
                             {{ $loop->iteration}}

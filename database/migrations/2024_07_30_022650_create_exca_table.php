@@ -16,10 +16,10 @@ return new class extends Migration
             $table->enum('pit',['qsv1s', 'qsv3']);
             $table->enum('loading_unit',['fex400_441', 'fex400_419', 'fex400_449', 'fex400_454', 'fex400_456']);
             $table->foreignId('dumping_id');
-            $table->float('easting');
-            $table->float('northing');
-            $table->float('elevation_rl');
-            $table->float('elevation_actual');
+            $table->decimal('easting');
+            $table->decimal('northing');
+            $table->decimal('elevation_rl');
+            $table->decimal('elevation_actual');
             $table->float('front_width');
             $table->float('front_height');
             $table->foreignId('material_id');

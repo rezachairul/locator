@@ -27,15 +27,11 @@ class DumpingController extends Controller
         foreach($dumpings as $dumping){
             $dumping->disposial_label = $disLabels[$dumping->disposial_attribute] ?? $dumping->disposial_attribute;
         }
-        
-        
-        //Menambahkan pengurutan berdasarkan 'id' secara ascending
-        $dumpings = Dumping::orderBy('id', 'asc')->get();
-        
-        
-        // Ambil data materials
-        // $materials = Material::all();
-        // dd($materials);
+    
+        // Filter data untuk hanya yang berumur 24 jam terakhir
+        $dumpings = Dumping::where('created_at', '>=', now()->subDay())
+        ->orderBy('id', 'asc')
+        ->get();
 
         return view('dumping/dumping', compact('title', 'dumpings', 'disLabels'));
     }
@@ -57,10 +53,10 @@ class DumpingController extends Controller
         // dd($request->all());
         $request->validate([
             'disposial' => 'required | in:ipdsidewallutara,ss3',
-            'easting' => 'required | numeric',
-            'northing' => 'required | numeric',
-            'elevation_rl' => 'required|numeric',
-            'elevation_actual' => 'required|numeric',
+            'easting' => 'required|numeric|between:0,999999.999999',
+            'northing' => 'required|numeric|between:0,999999.999999',
+            'elevation_rl' => 'required|numeric|between:0,999.99',
+            'elevation_actual' => 'required|numeric|between:0,999.99',
             //'material_id' => 'required|exists:materials,id',
         ]);
         Dumping::create([

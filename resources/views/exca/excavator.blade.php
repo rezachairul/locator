@@ -74,7 +74,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" >
-                    @foreach ( $excas as $exca )
+                    @foreach ( $excas->where('created_at', '>=', now()->subDay())  as $exca )
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-2 py-1 text-sm text-center">
                                 {{ $loop->iteration }}
@@ -99,7 +99,7 @@
                                 {{ $exca->northing }}
                             </td>
                             <td class="px-2 py-1 text-xs text-center">
-                                {{ number_format($exca->elevation_rl, 2)  }}
+                                {{ ($exca->elevation_rl)  }}
                             </td>
                             <td class="px-2 py-1 text-xs text-center">
                                 {{ $exca->elevation_actual }}

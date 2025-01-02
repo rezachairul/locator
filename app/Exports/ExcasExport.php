@@ -54,6 +54,19 @@ class ExcasExport
 
         // Ambil worksheet pertama
         $sheet = $spreadsheet->getActiveSheet();
+        
+        //nama PT
+        $namept = 'PT. Fajar Anugerah Dinamika';
+
+        // Ambil tanggal saat ini dan hitung minggu serta tahun
+        $currentDate = Carbon::now();
+        $weekYear = 'W' . $currentDate->format('W') . ' ' . $currentDate->year;
+        $downloadDate = $currentDate->format('d M Y');
+
+        // Isi nama PT, periode (Week/Year) dan tanggal Export
+        $sheet->setCellValue('E10',': '. $namept);
+        $sheet->setCellValue('E11',': '. $weekYear);
+        $sheet->setCellValue('E12',': '. $downloadDate);
 
         // Masukkan data ke template (contoh data mulai dari baris 17)
         $row = 17;
@@ -87,7 +100,9 @@ class ExcasExport
             mkdir($tempDir, 0755, true);
         }
 
-        $tempFile = $tempDir . '/Pemantauan Loading Point dan Dumping Point-'.Carbon::now()->timestamp.'.xlsx';
+        // $tempFile = $tempDir . '/Pemantauan Loading Point dan Dumping Point-'.Carbon::now()->timestamp.'.xlsx';
+        $dateFormatted = Carbon::now()->format('dmY');
+        $tempFile = $tempDir . '/Pemantauan Loading Point dan Dumping Point-' . $dateFormatted . '.xlsx';
         $writer = new Xlsx($spreadsheet);
         $writer->save($tempFile);
 

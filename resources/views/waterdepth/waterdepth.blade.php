@@ -59,7 +59,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ( $waterdepths as $waterdepth )
+                    @foreach ( $waterdepths->where('created_at', '>=', now()->subDay()) as $waterdepth )
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm text-center">
                             {{ $loop->iteration }}

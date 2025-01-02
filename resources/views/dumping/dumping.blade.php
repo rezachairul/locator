@@ -64,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800" >
-                    @foreach ( $dumpings as $dumping )
+                    @foreach ( $dumpings->where('created_at', '>=', now()->subDay())  as $dumping )
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3 text-sm text-center">
                                 {{ $loop->iteration }}
@@ -80,16 +80,16 @@
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-xs text-center">
-                                {{$dumping->easting}}
+                                {{ rtrim(rtrim($dumping->easting, '0'), '.') }}
                             </td>
                             <td class="px-4 py-3 text-xs text-center">
-                                {{$dumping->northing}}
+                                {{ rtrim(rtrim($dumping->northing, '0'), '.') }}
                             </td>
                             <td class="px-4 py-3 text-xs text-center">
-                                {{ number_format( $dumping->elevation_rl, 2) }}
+                                {{ rtrim(rtrim($dumping->elevation_rl, '0'), '.') }}
                             </td>
                             <td class="px-4 py-3 text-xs text-center">
-                                {{ $dumping->elevation_actual }}
+                                {{ rtrim(rtrim($dumping->elevation_actual, '0'), '.') }}
                             </td>
                             <td class="px-4 py-3 text-xs text-center">
                                 {{$dumping->created_at->format('d-m-Y')}}
@@ -137,7 +137,7 @@
                                                                 <select id="disposial" name="disposial"
                                                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                     required="">
-                                                                    <option value="ipdsidewallutara" {{old('disposial', $dumping->disposial) === 'ipdsidewallutara' ? 'selected' : ''}}>IPDH SIDEWALL</option>
+                                                                    <option value="ipdsidewallutara" {{old('disposial', $dumping->disposial) === 'ipdsidewallutara' ? 'selected' : ''}}>IPD SIDEWALL UTARA</option>
                                                                     <option value="ss3" {{old('disposial', $dumping->disposial) === 'ss3' ? 'selected' : ''}}>SS3</option>
                                                                 </select>
                                                             </div>

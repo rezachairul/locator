@@ -14,8 +14,12 @@ class WaterdepthController extends Controller
     {
         $title = 'Water Depth';
         $waterdepths = Waterdepth::all();
-        // Menambahkan pengurutan berdasarkan 'id' secara ascending
-        $waterdepths = WaterDepth::orderBy('id', 'asc')->get();
+
+        // Filter data untuk hanya yang berumur 24 jam terakhir
+        $waterdepths = WaterDepth::where('created_at', '>=', now()->subDay())
+        ->orderBy('id', 'asc')
+        ->get();
+
         return view('waterdepth/waterdepth', compact('title', 'waterdepths'));
     }
 
@@ -59,9 +63,7 @@ class WaterdepthController extends Controller
     public function edit($id)
     {
         //
-    }
-
-    
+    }    
 
     public function update(Request $request, $id)
     {
@@ -89,8 +91,6 @@ class WaterdepthController extends Controller
 
         return redirect()->route('waterdepth.index')->with('success', 'Data updated successfully.');
     }
-
-
 
     /**
      * Remove the specified resource from storage.
