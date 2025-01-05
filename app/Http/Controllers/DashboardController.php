@@ -12,23 +12,32 @@ use Illuminate\Routing\Controller;
 
 class DashboardController extends Controller
 {
-    // public function index()
-    // {
-    //     $title = 'Dashboard';
-    //     $dashboards = Dashboard::with(['exca', 'dumping', 'waterdepth', 'weather'])->get();
-    //     return view('/dashboard', compact( 'title', 'dashboards'));
-        
-    // }
+
     public function index()
     {
         $title = 'Dashboard';
-        $dashboard = Dashboard::all();
-        $totalExca = Exca::count(); // Total Excavator
-        $totalDumping = Dumping::count(); // Total Dumping Point
-        $latestWeather = Weather::latest()->first(); // Data cuaca terbaru
-        $latestWaterDepth = Waterdepth::latest()->first(); // Data water depth terbaru
+
+        // Filter data berdasarkan tanggal hari ini
+        $today = now()->startOfDay();
+        $totalExca = Exca::where('created_at', '>=', $today)->count();
+        $totalDumping = Dumping::where('created_at', '>=', $today)->count();
+        $latestWeather = Weather::latest()->first();
+        $latestWaterDepth = Waterdepth::latest()->first();
 
         return view('dashboard', compact('title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth'));
     }
+
+
+    // public function index()
+    // {
+    //     $title = 'Dashboard';
+    //     $dashboard = Dashboard::all();
+    //     $totalExca = Exca::count(); // Total Excavator
+    //     $totalDumping = Dumping::count(); // Total Dumping Point
+    //     $latestWeather = Weather::latest()->first(); // Data cuaca terbaru
+    //     $latestWaterDepth = Waterdepth::latest()->first(); // Data water depth terbaru
+
+    //     return view('dashboard', compact('title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth'));
+    // }
 
 }

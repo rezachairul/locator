@@ -127,9 +127,6 @@ class ExcaController extends Controller
 
     public function update(Request $request, $id)
     {
-        // dd($request->all());
-
-        // Mencari model berdasarkan ID
         $exca = Exca::find($id);
 
         // Cek jika data ditemukan
@@ -137,14 +134,15 @@ class ExcaController extends Controller
             return redirect()->route('exca.index')->with('error', 'Data Excavator tidak ditemukan');
         }
 
-
         // Validasi input
         $request->validate([
             'pit' => 'required|in:qsv1s,qsv3',
             'loading_unit' => 'required|in:fex400_441,fex400_419,fex400_449,fex400_454,fex400_456',
             'dumping_id' => 'required|exists:dumpings,id',
-            'easting' => str_replace(',', '.', $request->easting),
-            'northing' => str_replace(',', '.', $request->northing),
+            // 'easting' => str_replace(',', '.', $request->easting),
+            // 'northing' => str_replace(',', '.', $request->northing),
+            'easting' => 'required|numeric',
+            'northing' => 'required|numeric',
             'elevation_rl' => 'required|numeric',
             'elevation_actual' => 'required|numeric',
             'front_width' => 'required|numeric',
@@ -153,13 +151,21 @@ class ExcaController extends Controller
             'dop' => 'required',
         ]);
 
+
+        // Validate input update
+        $easting = str_replace(',', '.', $request->easting);
+        $northing = str_replace(',', '.', $request->northing);
+
+
         // Update data
         $exca->update([
             'pit' => $request->pit,
             'loading_unit' => $request->loading_unit,
             'dumping_id' => $request->dumping_id,
-            'easting' => $request->easting,
-            'northing' => $request->northing,
+            // 'easting' => $request->easting,
+            // 'northing' => $request->northing,
+            'easting' => $easting,
+            'northing' => $northing,
             'elevation_rl' => $request->elevation_rl,
             'elevation_actual' => $request->elevation_actual,
             'front_width' => $request-> front_width,

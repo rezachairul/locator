@@ -86,7 +86,6 @@
                 @endif
             </div>
         </div>
-
     </div>
 
     <!-- Statistik -->

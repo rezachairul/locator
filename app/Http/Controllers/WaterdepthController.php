@@ -16,7 +16,12 @@ class WaterdepthController extends Controller
         $waterdepths = Waterdepth::all();
 
         // Filter data untuk hanya yang berumur 24 jam terakhir
-        $waterdepths = WaterDepth::where('created_at', '>=', now()->subDay())
+        // $waterdepths = WaterDepth::where('created_at', '>=', now()->subDay())
+        // ->orderBy('id', 'asc')
+        // ->get();
+
+        // Filter data untuk reset pukul 00.00
+        $waterdepths = WaterDepth::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
         ->get();
 

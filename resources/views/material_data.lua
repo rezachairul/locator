@@ -18,11 +18,11 @@ Material::create([
 ])
 
 Material::insert([
-    ['name' => 'Sand'],
+    ['name' => 'Soil'],
     ['name' => 'Mud'],
     ['name' => 'Clay'],
     ['name' => 'Boulder'],
-    ['name' => 'Non-Bauxite'],
+    ['name' => 'Overburden'],
     ['name' => 'Other']
 ]);
 
