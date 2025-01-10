@@ -6,27 +6,34 @@
     </h4>
 
     <div class="grid gap-6 mb-8 md:grid-cols-2 justify-center place-items-center">
-        @if($latestWeather)
-            <!-- PT Fajar Anugerah Dinamika -->
-            <div class="w-72 h-36 bg-gradient-to-r from-[#141e30] to-[#243b55] rounded-lg shadow-[5px_10px_50px_rgba(0,0,0,0.7),-5px_0px_250px_rgba(0,0,0,0.7)] flex flex-col justify-center relative text-white cursor-pointer transition-all duration-300 ease-in-out overflow-hidden hover:shadow-[5px_10px_50px_rgba(0,0,0,1),-5px_0px_250px_rgba(0,0,0,1)]">
-                <p class="text-[20px] mt-0 ml-4 font-semibold font-sans">
-                    <span>{{ $latestWeather->cuaca_label }}</span>
-                    <br>
-                    <span class="text-[15px] ml-0">Curah Hujan | {{$latestWeather->curah_hujan}} mm</span>
-                </p>
-                <p class="text-[18px] mt-0 ml-4 font-medium font-sans">PT. Fajar Anugerah Dinamika</p>
-                @if ($latestWeather->cuaca && file_exists(public_path('assets/img/cuaca-icons/' . strtolower($latestWeather->cuaca) . '.png')))
-                    <img src="{{ asset('assets/img/cuaca-icons/' . strtolower($latestWeather->cuaca) . '.png') }}" alt="{{ $latestWeather->cuaca }}" class="absolute right-4 top-4 w-20 transition-all duration-300 ease-in-out hover:w-[6rem]" oncontextmenu="return false;">
-                @else
-                    <span>Cuaca tidak tersedia</span>
-                @endif
-            </div>
+        @if ($weathers->where('created_at', '>=', now()->toDateString())->isNotEmpty())
+            @if($latestWeather->where('created_at', '>=', now()->toDateString()))
+                <!-- PT Fajar Anugerah Dinamika -->
+                <div class="w-72 h-36 bg-gradient-to-r from-[#141e30] to-[#243b55] rounded-lg shadow-[5px_10px_50px_rgba(0,0,0,0.7),-5px_0px_250px_rgba(0,0,0,0.7)] flex flex-col justify-center relative text-white cursor-pointer transition-all duration-300 ease-in-out overflow-hidden hover:shadow-[5px_10px_50px_rgba(0,0,0,1),-5px_0px_250px_rgba(0,0,0,1)]">
+                    <p class="text-[20px] mt-0 ml-4 font-semibold font-sans">
+                        <span>{{ $latestWeather->cuaca_label }}</span>
+                        <br>
+                        <span class="text-[15px] ml-0">Curah Hujan | {{$latestWeather->curah_hujan}} mm</span>
+                    </p>
+                    <p class="text-[18px] mt-0 ml-4 font-medium font-sans">PT. Fajar Anugerah Dinamika</p>
+                    @if ($latestWeather->cuaca && file_exists(public_path('assets/img/cuaca-icons/' . strtolower($latestWeather->cuaca) . '.png')))
+                        <img src="{{ asset('assets/img/cuaca-icons/' . strtolower($latestWeather->cuaca) . '.png') }}" alt="{{ $latestWeather->cuaca }}" class="absolute right-4 top-4 w-20 transition-all duration-300 ease-in-out hover:w-[6rem]" oncontextmenu="return false;">
+                    @else
+                        <span>Cuaca tidak tersedia</span>
+                    @endif
+                </div>
+            @else
+                <div class="w-72 h-36 bg-gray-500 rounded-lg flex flex-col justify-center items-center text-white">
+                    <img src="{{ asset('assets/img/cuaca-icons/not-found-weather.png') }}" alt="Cuaca tidak tersedia" class="w-12 hover:scale-125 transition">
+                    <p class="mt-2 text-sm font-medium text-gray-300">Cuaca tidak tersedia</p>
+                </div>
+            @endif
         @else
             <div class="w-72 h-36 bg-gray-500 rounded-lg flex flex-col justify-center items-center text-white">
                 <img src="{{ asset('assets/img/cuaca-icons/not-found-weather.png') }}" alt="Cuaca tidak tersedia" class="w-12 hover:scale-125 transition">
                 <p class="mt-2 text-sm font-medium text-gray-300">Cuaca tidak tersedia</p>
-            </div>
-        @endif
+            </div>        
+        @endif        
 
         <!-- BMKG -->
         <div class="w-72 h-36 bg-gradient-to-r from-[#141e30] to-[#243b55] rounded-lg shadow-[5px_10px_50px rgba(0,0,0,0.7),-5px_0px_250px rgba(0,0,0,0.7)] flex flex-col justify-center relative text-white cursor-pointer transition-all duration-300 ease-in-out overflow-hidden hover:shadow-[5px_10px_50px rgba(0,0,0,1),-5px_0px_250px rgba(0,0,0,1)]">
