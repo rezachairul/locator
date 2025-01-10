@@ -29,13 +29,9 @@
             <x-sidebar></x-sidebar>
             <div class="flex flex-col flex-1 w-full">
                 <x-navbar></x-navbar>
-                <main class="h-full overflow-y-auto">
-                    <!-- Section/Content -->
-                    <div class="container px-6 mx-auto grid">
-                        <x-header>{{$title}}</x-header>                  
-                        {{$slot}}
-                        <br>
-                    </div>
+                <main class="h-full p-5 overflow-y-auto">
+                    <x-header>{{$title}}</x-header>                  
+                    {{$slot}}
                 </main>
             </div>
         </div>
@@ -96,7 +92,7 @@
                 const favicon = document.getElementById("favicon");
                 const iconMap = {
                     "maps": 'maps.png',
-                    "dashboard": 'excavator.png',
+                    "dashboard": 'dashoard.png',
                     "exca": 'excavator.png',
                     "dump": 'dump-truck.png',
                     "weather": 'cloud.png',

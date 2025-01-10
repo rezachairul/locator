@@ -19,7 +19,12 @@ class MapsController extends Controller
         $maps = Maps::all();
 
         // Filter data untuk hanya yang berumur 24 jam terakhir
-        $maps = Maps::where('created_at', '>=', now()->subDay())
+        // $maps = Maps::where('created_at', '>=', now()->subDay())
+        // ->orderBy('id', 'asc')
+        // ->get();
+        
+        // Filter data untuk reset pukul 00.00
+        $maps = Maps::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
         ->get();
 

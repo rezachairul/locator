@@ -57,7 +57,12 @@ class WeatherController extends Controller
         }
 
         // Filter data untuk hanya yang berumur 24 jam terakhir
-        $weathers = Weather::where('created_at', '>=', now()->subDay())
+        // $weathers = Weather::where('created_at', '>=', now()->subDay())
+        // ->orderBy('id', 'asc')
+        // ->get();
+        
+        // Filter data untuk reset pukul 00.00
+        $weathers = Weather::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
         ->get();
 

@@ -45,7 +45,12 @@ class ExcaController extends Controller
         }
 
         // Filter data untuk hanya yang berumur 24 jam terakhir
-        $excas = Exca::where('created_at', '>=', now()->subDay())
+        // $excas = Exca::where('created_at', '>=', now()->subDay())
+        // ->orderBy('id', 'asc')
+        // ->get();
+
+        // Filter data untuk reset pukul 00.00
+        $excas = Exca::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
         ->get();
 
