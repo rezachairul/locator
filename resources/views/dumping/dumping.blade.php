@@ -76,9 +76,9 @@
                                     <div class="flex items-center text-xs">
                                         <div class="items-center">
                                             <p class="font-semibold">{{ $disLabels[$dumping->disposial] ?? 'Label Tidak Ditemukan' }}</p>
-                                            <p class="text-xs text-gray-600 dark:text-gray-400">
+                                            <!-- <p class="text-xs text-gray-600 dark:text-gray-400">
                                                 belum ada relasi foreign
-                                            </p>
+                                            </p> -->
                                         </div>
                                     </div>
                                 </td>

@@ -139,7 +139,7 @@
                         <th class="px-4 py-3 text-center">No</th>
                         <th class="px-4 py-3 text-center">Cuaca</th>
                         <th class="px-4 py-3 text-center">Ikon</th>
-                        <th class="px-4 py-3 text-center">Curah Hujan</th>
+                        <th class="px-4 py-3 text-center">Curah Hujan (mm)</th>
                         <th class="px-4 py-3 text-center">Date</th>
                         <th class="px-4 py-3 text-center">Actions</th>
                     </tr>

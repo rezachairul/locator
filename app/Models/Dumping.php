@@ -28,13 +28,16 @@ class Dumping extends Model
 
         return $disLabels[$this->attributes['disposial']] ?? $this->attributes['disposial'];
     }
-
+    public function exca(): HasMany
+    {
+        return $this->hasMany(Exca::class);
+    }
     public function dashboards()
     {
         return $this->hasMany(Dashboard::class);
     }
-    public function exca(): HasMany
+    public function lapangans()
     {
-        return $this->hasMany(Exca::class);
+        return $this->hasMany(Lapangan::class);
     }
 }

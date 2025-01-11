@@ -21,5 +21,9 @@ class Waterdepth extends Model
     {
         return $this->hasMany(Dashboard::class);
     }
+    public function lapangans()
+    {
+        return $this->hasMany(Lapangan::class);
+    }
 }
 

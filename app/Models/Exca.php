@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Exca extends Model
 {
@@ -15,18 +15,6 @@ class Exca extends Model
 
     protected $guarded = ['id'];
 
-    //  protected $fillable = [
-    //     'pit',
-    //     'loading_unit',
-    //     'easting',
-    //     'northing',
-    //     'elevation_rl',
-    //     'elevation_actual',
-    //     'front_width',
-    //     'front_height',
-    //     'dop',
-    //     'dumpings_id',
-    // ];
     public function getPitLabelAttribute()
     {
         $pitLabels = [
@@ -62,5 +50,9 @@ class Exca extends Model
     public function dashboards()
     {
         return $this->hasMany(Dashboard::class);
+    }
+    public function lapangans()
+    {
+        return $this->hasMany(Lapangan::class);
     }
 }

@@ -1,4 +1,4 @@
- <?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('lapangans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('map_id');
+            $table->foreignId('exca_id');
+            $table->foreignId('dumping_id');
+            $table->foreignId('waterdepth_id');
+            $table->foreignId('weather_id');
             $table->timestamps();
         });
     }

@@ -15,4 +15,8 @@ class Maps extends Model
         'file',
     ];
 
+    public function lapangans()
+    {
+        return $this->hasMany(Lapangan::class);
+    }
 }

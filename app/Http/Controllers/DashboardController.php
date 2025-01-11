@@ -21,26 +21,10 @@ class DashboardController extends Controller
         $today = now()->startOfDay();
         $totalExca = Exca::where('created_at', '>=', $today)->count();
         $totalDumping = Dumping::where('created_at', '>=', $today)->count();
-        // $latestWeather = Weather::latest()->first();
-        // $latestWaterDepth = Waterdepth::latest()->first();
         $latestWeather = Weather::where('created_at', '>=', $today)->latest()->first();
-    $latestWaterDepth = Waterdepth::where('created_at', '>=', $today)->latest()->first();
+        $latestWaterDepth = Waterdepth::where('created_at', '>=', $today)->latest()->first();
 
 
         return view('dashboard', compact('title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth'));
     }
-
-
-    // public function index()
-    // {
-    //     $title = 'Dashboard';
-    //     $dashboard = Dashboard::all();
-    //     $totalExca = Exca::count(); // Total Excavator
-    //     $totalDumping = Dumping::count(); // Total Dumping Point
-    //     $latestWeather = Weather::latest()->first(); // Data cuaca terbaru
-    //     $latestWaterDepth = Waterdepth::latest()->first(); // Data water depth terbaru
-
-    //     return view('dashboard', compact('title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth'));
-    // }
-
 }
