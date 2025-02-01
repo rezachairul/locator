@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Operasional;
 
-use Carbon\Carbon;
 use App\Models\Exca;
 use App\Models\Dumping;
 use App\Models\Material;
@@ -10,7 +9,6 @@ use App\Exports\ExcasExport;
 use App\Imports\ExcasImport;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -76,7 +74,7 @@ class ExcaController extends Controller
         }
 
 
-        return view('operasional/exca/excavator', compact('title', 'excas', 'dumpings', 'materials'));
+        return view('operasional.exca.excavator', compact('title', 'excas', 'dumpings', 'materials'));
     }
 
 

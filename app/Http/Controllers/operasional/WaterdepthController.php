@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Operasional;
 
 use App\Models\WaterDepth;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class WaterdepthController extends Controller
 {

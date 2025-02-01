@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Operasional;
 
-use App\Models\Exca;
 use App\Models\Dumping;
-use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 

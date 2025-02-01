@@ -40,31 +40,31 @@
                     <!-- Sub-menu -->
                     <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
                         <li>
-                            <a href="/exca" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                            <a href="/operasional/exca" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
                                 <img src="{{ asset('assets/img/menu-icons/excavator.png') }}" alt="Logo" class="h-5 w-5 mr-2 dark:invert">
                                 Load Point
                             </a>
                         </li>
                         <li>
-                            <a href="/dumping" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                            <a href="/operasional/dumping" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
                                 <img src="{{ asset('assets/img/menu-icons/dump-truck.png') }}" alt="Logo" class="h-5 w-5 mr-2 dark:invert">
                                 Waste Dump
                             </a>
                         </li>
                         <li>
-                            <a href="/weather" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                            <a href="/operasional/weather" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
                                 <img src="{{ asset('assets/img/menu-icons/cloud.png') }}" alt="Logo" class="h-5 w-5 mr-2 dark:invert">
                                 Weather
                             </a>
                         </li>
                         <li>
-                            <a href="/waterdepth" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                            <a href="/operasional/waterdepth" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
                                 <img src="{{ asset('assets/img/menu-icons/water-waves.png') }}" alt="Logo" class="h-5 w-5 mr-2 dark:invert">
                                 Water Depth
                             </a>
                         </li>
                         <li>
-                            <a href="/material" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                            <a href="/operasional/material" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
                                 <img src="{{ asset('assets/img/menu-icons/mineral.png') }}" alt="Logo-Icon by Becris" class="h-5 w-5 mr-2 dark:invert">
                                 Material's
                             </a>
@@ -82,9 +82,9 @@
                     </a>
                     <!-- Sub-menu -->
                     <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                        <li><a href="/laporan/user-incident" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Incident User</a></li>
-                        <li><a href="/laporan/harian" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Harian</a></li>
-                        <li><a href="/laporan/bulanan" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Bulanan</a></li>
+                        <li><a href="/laporan/incident-user" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Incident User</a></li>
+                        <li><a href="/laporan/laporan-harian" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Harian</a></li>
+                        <li><a href="/laporan/laporan-bulanan" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Bulanan</a></li>
                     </ul>
                 </li>
                 <!-- Informasi -->

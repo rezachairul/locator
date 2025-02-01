@@ -10,15 +10,15 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
-    <link rel="stylesheet" href="./assets/css/tailwind.output-2.css"/>
-    <link rel="stylesheet" href="./assets/css/Chart.min.css"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output-2.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/Chart.min.css') }}"/>
 
-    <script src="./assets/js/alpine.min.js"></script>
-    <script src="./assets/js/init-alpine.js"></script>
-    <script src="./assets/js/Chart.min.js"></script>
-    <script src="./assets/js/charts-lines.js"></script>
-    <script src="./assets/js/charts-pie.js"></script>
-    <script src="./assets/js/focus-trap.js" defer></script>
+    <script src="{{ asset('assets/js/alpine.min.js') }}"></script>
+    <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
+    <script src="{{ asset('assets/js/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/js/charts-lines.js') }}"></script>
+    <script src="{{ asset('assets/js/charts-pie.js') }}"></script>
+    <script src="{{ asset('assets/js/focus-trap.js') }}" defer></script>
 
 </head>
 <body> 
@@ -68,7 +68,7 @@
                     <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200" >
                         Login Administrator
                     </h1>
-                    <form action="/login" method="post">
+                    <form action="/auth/login" method="post">
                         @csrf
                         <div class="block text-sm mt-8">
                             <input type="email" name="email" id="email" class=" block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="name@example.com" required autofocus value="{{old('email')}}">
@@ -85,7 +85,7 @@
                         </a>
                     </p>
                     <!-- <p>
-                        <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="/register" >
+                        <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="/auth/register" >
                             No Register? Register Now!
                         </a>
                     </p> -->

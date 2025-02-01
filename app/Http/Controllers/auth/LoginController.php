@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\auth;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -35,6 +35,6 @@ class LoginController extends Controller
         Auth::logout();
         request() -> session() -> invalidate();
         request() -> session() -> regenerateToken();
-        return redirect('/login');
+        return redirect('/auth/login');
     }
 }

@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Exca;
 use App\Models\Dumping;
 use App\Models\Weather;
-use App\Models\Dashboard;
 use App\Models\Waterdepth;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class DashboardController extends Controller

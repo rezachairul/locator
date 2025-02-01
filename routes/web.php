@@ -1,40 +1,41 @@
 <?php
 
-use App\Models\Lapangan;
-use App\Models\Material;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ExcaController;
 use App\Http\Controllers\MapsController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\DumpingController;
-use App\Http\Controllers\WeatherController;
-use App\Http\Controllers\LapanganController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\WaterdepthController;
+use App\Http\Controllers\LapanganController;
 
-//Login
-Route::get('/login', [LoginController::class, 'login'])->name('login') -> middleware('guest');
-Route::post('/login', [LoginController::class, 'authenticate']);
+use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\auth\RegisterController;
 
-//logout
-Route::post('/logout', [LoginController::class, 'logout']);
+use App\Http\Controllers\Operasional\ExcaController;
+use App\Http\Controllers\Operasional\DumpingController;
+use App\Http\Controllers\Operasional\WeatherController;
+use App\Http\Controllers\Operasional\WaterdepthController;
+use App\Http\Controllers\Operasional\MaterialController;
 
-//Register
-Route::get('/register', [RegisterController::class, 'create']) -> middleware('guest');
-Route::post('/register', [RegisterController::class, 'store']);
+use App\Http\Controllers\Laporan\IncidentUserController;
+use App\Http\Controllers\Laporan\LaporanHarianController;
+use App\Http\Controllers\Laporan\LaporanBulananController;
 
+
+// Route Group Auth
+Route::prefix('auth')->group(function () {
+    //Login
+    Route::get('/login', [LoginController::class, 'login'])->name('login') -> middleware('guest');
+    Route::post('/login', [LoginController::class, 'authenticate']);
+    //logout
+    Route::post('/logout', [LoginController::class, 'logout']);
+    //Register
+    Route::get('/register', [RegisterController::class, 'create']) -> middleware('guest');
+    Route::post('/register', [RegisterController::class, 'store']);
+});   
 
 // OP Lapangan
 Route::get('/',[LapanganController::class, 'index']);
 
-
-//Route Group
+//Route Group Dashboard
 Route::middleware(['auth'])->group(function(){
-    Route::resource('/dashboard', DashboardController::class);
     
     // Rute untuk export
     Route::get('/exca/export', [ExcaController::class, 'export'])->name('exca.export');
@@ -42,14 +43,32 @@ Route::middleware(['auth'])->group(function(){
     // Rute untuk import
     // Route::post('/exca/import', [ExcaController::class, 'import'])->name('exca.import');
     Route::match(['get', 'post'], '/exca/import', [ExcaController::class, 'import'])->name('exca.import');
-
-    // Rute untuk tiap page
+    
+    Route::resource('/dashboard', DashboardController::class);
     Route::resource('/maps', MapsController::class);
-    Route::resource('/exca', ExcaController::class);
-    Route::resource('/dumping', DumpingController::class);
-    Route::resource('/weather', WeatherController::class);
-    Route::resource('/waterdepth', WaterdepthController::class);
-    Route::resource('/material', MaterialController::class);
+    
+    // Route Operasional
+    Route::prefix('operasional')->group(function () {
+        // Rute untuk tiap page        
+        Route::resource('/exca', ExcaController::class);
+        Route::resource('/dumping', DumpingController::class);
+        Route::resource('/weather', WeatherController::class);
+        Route::resource('/waterdepth', WaterdepthController::class);
+        Route::resource('/material', MaterialController::class);
+    });
 
+    // Route Laporan
+     Route::prefix('laporan')->group(function () {
+        Route::resource('/incident-user', IncidentUserController::class);        
+        Route::resource('/laporan-harian', LaporanHarianController::class);
+        Route::resource('/laporan-bulanan', LaporanBulananController::class);
+    });
+        
 
+    // Route Informasi
+    // Route::prefix('Informasi')->group(function () {
+    //     Route::resource('/tentang-sistem', IncidentUserController::class);
+    //     Route::resource('/bantuan', LaporanHarianController::class);
+    //     Route::resource('/kontak', LaporanBulananController::class);
+    // });
 });
