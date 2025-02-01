@@ -30,7 +30,7 @@
             <ul>
                 <!-- Operasional -->
                 <li class="relative px-6 py-3 group">
-                <span class="{{ request()->is('operasional*') || request()->is('exca') || request()->is('dumping') || request()->is('weather') || request()->is('waterdepth') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                <span class="{{ request()->is('operasional*') || request()->is('exca') || request()->is('dumping') || request()->is('weather') || request()->is('waterdepth') || request()->is('material') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
                     <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/menu-icons/operasional_minning.png') }}" alt="Logo by Icon by Karyative" class="h-5 w-5">
@@ -64,9 +64,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                            <a href="/material" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
                                 <img src="{{ asset('assets/img/menu-icons/mineral.png') }}" alt="Logo-Icon by Becris" class="h-5 w-5 mr-2 dark:invert">
-                                Materials
+                                Material's
                             </a>
                         </li>
                     </ul>

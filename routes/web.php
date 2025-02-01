@@ -1,18 +1,20 @@
 <?php
 
+use App\Models\Lapangan;
+use App\Models\Material;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExcaController;
+use App\Http\Controllers\MapsController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DumpingController;
+use App\Http\Controllers\WeatherController;
+use App\Http\Controllers\LapanganController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MapsController;
-use App\Http\Controllers\ExcaController;
-use App\Http\Controllers\DumpingController;
 use App\Http\Controllers\WaterdepthController;
-use App\Http\Controllers\WeatherController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LapanganController;
-use App\Http\Controllers\TestController;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Lapangan;
 
 //Login
 Route::get('/login', [LoginController::class, 'login'])->name('login') -> middleware('guest');
@@ -47,6 +49,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/dumping', DumpingController::class);
     Route::resource('/weather', WeatherController::class);
     Route::resource('/waterdepth', WaterdepthController::class);
+    Route::resource('/material', MaterialController::class);
 
 
 });

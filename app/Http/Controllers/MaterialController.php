@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Material;
-use App\Http\Requests\StoreMaterialRequest;
-use App\Http\Requests\UpdateMaterialRequest;
+use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
@@ -13,7 +12,10 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        //
+        $title = 'Materials';
+        $materials = Material::orderBy('id', 'asc')->get();
+
+        return view('operasional/material/material', compact('title', 'materials'));
     }
 
     /**
@@ -27,9 +29,14 @@ class MaterialController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMaterialRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required',
+        ]);
+        Material::create($request->all());
+        return redirect()->route('material.index')->with('success', 'File uploaded successfully!');
     }
 
     /**
@@ -51,16 +58,41 @@ class MaterialController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMaterialRequest $request, Material $material)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($id);
+        // Cari data berdasarkan ID
+        $materials = Material::find($id);
+
+        // Jika data tidak ditemukan, kembalikan dengan pesan error
+        if (!$materials) {
+            return redirect()->route('material.index')->with('error', 'Data tidak ditemukan!');
+        }
+        // Validasi input
+        $request->validate([
+            'name' => 'required',
+        ]);
+        // Update data
+        $materials->update($request->all());
+        // Redirect ke halaman index
+        return redirect()->route('material.index')->with('success', 'Data berhasil diupdate!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Material $material)
+    public function destroy($id)
     {
-        //
+        // dd($id);
+        // Cari data berdasarkan ID
+        $materials = Material::find($id);
+        // Jika data tidak ditemukan, kembalikan dengan pesan error
+        if (!$materials) {
+        return redirect()->route('material.index')->with('error', 'Data tidak ditemukan!');
+        }
+        // Hapus data
+        $materials->delete();
+        // Redirect ke halaman index
+        return redirect()->route('material.index')->with('success', 'Data berhasil dihapus!');
     }
 }
