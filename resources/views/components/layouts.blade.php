@@ -107,9 +107,9 @@
                     "incident-user": 'menu-icons/incident-user.png',
                     "laporan-harian": 'menu-icons/daily-report.png',
                     "laporan-bulanan": 'menu-icons/monthly-report.png',
-                    "tentang-sistem": 'menu-icons/water-waves.png',
-                    "bantuan": 'menu-icons/water-waves.png',
-                    "kontak": 'menu-icons/water-waves.png',
+                    "tentang-sistem": 'menu-icons/about-system.png',
+                    "bantuan": 'menu-icons/panduan.png',
+                    "kontak": 'menu-icons/contact.png',
                 };
 
                 for (const [key, value] of Object.entries(iconMap)) {

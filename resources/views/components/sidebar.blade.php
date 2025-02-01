@@ -120,18 +120,39 @@
                 </li>
                 <!-- Informasi -->
                 <li class="relative px-6 py-3 group">
-                    <span class="{{ request()->is('informasi*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                <span class="{{ request()->is('informasi*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
                     <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                        </svg>
+                        <div class="invert-icon">
+                            <img src="{{ asset('assets/img/menu-icons/info.png') }}" alt="Logo by Icon by redempticon" class="h-5 w-5">
+                        </div>
                         <span class="ml-4">Informasi</span>
                     </a>
                     <!-- Sub-menu -->
                     <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                        <li><a href="/informasi/tentang-sistem" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Tentang Sistem</a></li>
-                        <li><a href="/informasi/bantuan" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Bantuan</a></li>
-                        <li><a href="/informasi/kontak" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Kontak</a></li>
+                        <li>
+                            <a href="/informasi/tentang-sistem" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/about-system.png') }}" alt="Logo Icon by kerismaker" class="h-5 w-5 mr-2">
+                                </div>
+                                Tentang Sistem
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/informasi/bantuan" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/panduan.png') }}" alt="Logo Icon by phatplus" class="h-5 w-5 mr-2">
+                                </div>
+                                Bantuan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/informasi/kontak" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/contact.png') }}" alt="Logo Icon by Luch Phou" class="h-5 w-5 mr-2">
+                                </div>
+                                Kontak
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -259,18 +280,39 @@
                 </li>
                 <!-- Informasi -->
                 <li class="relative px-6 py-3 group">
-                    <span class="{{ request()->is('informasi*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                <span class="{{ request()->is('informasi*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
                     <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                        </svg>
+                        <div class="invert-icon">
+                            <img src="{{ asset('assets/img/menu-icons/info.png') }}" alt="Logo by Icon by redempticon" class="h-5 w-5">
+                        </div>
                         <span class="ml-4">Informasi</span>
                     </a>
                     <!-- Sub-menu -->
                     <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                        <li><a href="/informasi/tentang-sistem" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Tentang Sistem</a></li>
-                        <li><a href="/informasi/bantuan" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Bantuan</a></li>
-                        <li><a href="/informasi/kontak" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Kontak</a></li>
+                        <li>
+                            <a href="/informasi/tentang-sistem" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/about-system.png') }}" alt="Logo Icon by kerismaker" class="h-5 w-5 mr-2">
+                                </div>
+                                Tentang Sistem
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/informasi/bantuan" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/panduan.png') }}" alt="Logo Icon by phatplus" class="h-5 w-5 mr-2">
+                                </div>
+                                Bantuan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/informasi/kontak" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/contact.png') }}" alt="Logo Icon by Luch Phou" class="h-5 w-5 mr-2">
+                                </div>
+                                Kontak
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
