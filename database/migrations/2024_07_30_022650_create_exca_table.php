@@ -23,7 +23,7 @@ return new class extends Migration
             $table->float('front_width');
             $table->float('front_height');
             $table->foreignId('material_id');
-            $table->char('dop');
+            $table->string('dop');
             $table->timestamps();
         });
     }

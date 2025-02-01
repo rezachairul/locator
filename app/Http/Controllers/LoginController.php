@@ -20,7 +20,7 @@ class LoginController extends Controller
             'email' => 'required | email',
             'password' => 'required | min:8'
         ]);
-        Log::info('Credentials:', $credentials);
+        Log::info('Attempting login for:', ['email' => $credentials['email']]);
         if(Auth::attempt($credentials)){
             $request -> session() -> regenerate();
             return redirect() -> intended('/dashboard');

@@ -38,7 +38,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/exca/export', [ExcaController::class, 'export'])->name('exca.export');
     
     // Rute untuk import
-
+    // Route::post('/exca/import', [ExcaController::class, 'import'])->name('exca.import');
+    Route::match(['get', 'post'], '/exca/import', [ExcaController::class, 'import'])->name('exca.import');
 
     // Rute untuk tiap page
     Route::resource('/maps', MapsController::class);

@@ -7,6 +7,7 @@ use App\Models\Exca;
 use App\Models\Dumping;
 use App\Models\Material;
 use App\Exports\ExcasExport;
+use App\Imports\ExcasImport;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
@@ -23,6 +24,11 @@ class ExcaController extends Controller
     {
         $title = 'Load Point';
         $excas = Exca::all();
+        
+        // Filter data untuk reset pukul 00.00
+        $excas = Exca::whereDate('created_at', now()->toDateString())
+        ->orderBy('id', 'asc')
+        ->get();
 
         // Mapping untuk label
         $pitLabels = [
@@ -44,20 +50,15 @@ class ExcaController extends Controller
             $exca->loading_unit_label = $loadingUnitLabels[$exca->loading_unit] ?? $exca->loading_unit;
         }
 
-        // Filter data untuk hanya yang berumur 24 jam terakhir
-        // $excas = Exca::where('created_at', '>=', now()->subDay())
-        // ->orderBy('id', 'asc')
-        // ->get();
-
-        // Filter data untuk reset pukul 00.00
-        $excas = Exca::whereDate('created_at', now()->toDateString())
-        ->orderBy('id', 'asc')
-        ->get();
-
         // Ambil data materials
-        $materials = Material::all();
-        // dd($materials);
-         // Jika tabel kosong, tambahkan data dummy sebagai fallback
+        $materials = Material::whereDate('created_at', now()->toDateString())->get();
+
+        // Jika tidak ada data untuk hari ini, ambil semua data dari tabel Material
+        if ($materials->isEmpty()) {
+            $materials = Material::all();
+        }
+
+        // Jika tabel benar-benar kosong, tambahkan data dummy sebagai fallback
         if ($materials->isEmpty()) {
             $materials = collect([
                 (object) ['id' => '', 'name' => 'No materials available']
@@ -66,11 +67,11 @@ class ExcaController extends Controller
 
         // Ambil data Waste Dump
         $dumpings = Dumping::all();
-        // dd($dumpings);
-         // Jika tabel kosong, tambahkan data dummy sebagai fallback
+        // Filter dumpings berdasarkan tanggal hari ini
+        $dumpings = Dumping::whereDate('created_at', now()->toDateString())->get();
         if ($dumpings->isEmpty()) {
             $dumpings = collect([
-                (object) ['id' => '', 'name' => 'No Waste Dump available']
+                (object) ['id' => '', 'disposial_label' => 'No Waste Dump available']
             ]);
         }
 
@@ -144,8 +145,6 @@ class ExcaController extends Controller
             'pit' => 'required|in:qsv1s,qsv3',
             'loading_unit' => 'required|in:fex400_441,fex400_419,fex400_449,fex400_454,fex400_456',
             'dumping_id' => 'required|exists:dumpings,id',
-            // 'easting' => str_replace(',', '.', $request->easting),
-            // 'northing' => str_replace(',', '.', $request->northing),
             'easting' => 'required|numeric',
             'northing' => 'required|numeric',
             'elevation_rl' => 'required|numeric',
@@ -167,8 +166,6 @@ class ExcaController extends Controller
             'pit' => $request->pit,
             'loading_unit' => $request->loading_unit,
             'dumping_id' => $request->dumping_id,
-            // 'easting' => $request->easting,
-            // 'northing' => $request->northing,
             'easting' => $easting,
             'northing' => $northing,
             'elevation_rl' => $request->elevation_rl,
@@ -200,5 +197,35 @@ class ExcaController extends Controller
         // Pastikan memberikan data ke constructor
         $export = new ExcasExport($data);
         return $export->export();
+    }
+    public function import (Request $request)
+    {
+        // dd($request->all()); 
+        // Validasi file upload
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048', // Hanya menerima file Excel/CSV
+        ]);
+        try {
+            // Ambil file yang diupload
+            $file = $request->file('file');
+            
+            // Tentukan lokasi penyimpanan
+            $path = $file->storeAs('imports', $file->getClientOriginalName());
+            
+            // dd($file, $path);
+            // Mengimpor file menggunakan ExcasImport
+            Excel::import(new ExcasImport, $file);
+    
+            // Jika sukses, redirect ke 'exca.index' dengan pesan sukses
+            return redirect()->route('exca.index')->with('success', 'Data berhasil diimpor!');
+        }
+        catch (\Exception $e) {
+            // Tangani error jika terjadi
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mengimpor data.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }
