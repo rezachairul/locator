@@ -82,7 +82,7 @@
                     </a>
                     <!-- Sub-menu -->
                     <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                        <li><a href="/laporan/user-operasional" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Insiden User </a></li>
+                        <li><a href="/laporan/user-incident" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Incident User</a></li>
                         <li><a href="/laporan/harian" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Harian</a></li>
                         <li><a href="/laporan/bulanan" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Bulanan</a></li>
                     </ul>
