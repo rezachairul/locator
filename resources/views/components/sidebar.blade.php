@@ -30,7 +30,7 @@
             <ul>
                 <!-- Operasional -->
                 <li class="relative px-6 py-3 group">
-                <span class="{{ request()->is('operasional*') || request()->is('exca') || request()->is('dumping') || request()->is('weather') || request()->is('waterdepth') || request()->is('material') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                    <span class="{{ request()->is('operasional*') || request()->is('exca') || request()->is('dumping') || request()->is('weather') || request()->is('waterdepth') || request()->is('material') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
                     <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/menu-icons/operasional_minning.png') }}" alt="Logo by Icon by Karyative" class="h-5 w-5">
@@ -41,31 +41,41 @@
                     <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
                         <li>
                             <a href="/operasional/exca" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <img src="{{ asset('assets/img/menu-icons/excavator.png') }}" alt="Logo" class="h-5 w-5 mr-2 dark:invert">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/excavator.png') }}" alt="Logo" class="h-5 w-5 mr-2">
+                                </div>                                
                                 Load Point
                             </a>
                         </li>
                         <li>
                             <a href="/operasional/dumping" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <img src="{{ asset('assets/img/menu-icons/dump-truck.png') }}" alt="Logo" class="h-5 w-5 mr-2 dark:invert">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/dump-truck.png') }}" alt="Logo" class="h-5 w-5 mr-2">
+                                </div>
                                 Waste Dump
                             </a>
                         </li>
                         <li>
                             <a href="/operasional/weather" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <img src="{{ asset('assets/img/menu-icons/cloud.png') }}" alt="Logo" class="h-5 w-5 mr-2 dark:invert">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/cloud.png') }}" alt="Logo" class="h-5 w-5 mr-2">
+                                </div>
                                 Weather
                             </a>
                         </li>
                         <li>
                             <a href="/operasional/waterdepth" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <img src="{{ asset('assets/img/menu-icons/water-waves.png') }}" alt="Logo" class="h-5 w-5 mr-2 dark:invert">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/water-waves.png') }}" alt="Logo" class="h-5 w-5 mr-2">
+                                </div>
                                 Water Depth
                             </a>
                         </li>
                         <li>
                             <a href="/operasional/material" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <img src="{{ asset('assets/img/menu-icons/mineral.png') }}" alt="Logo-Icon by Becris" class="h-5 w-5 mr-2 dark:invert">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/mineral.png') }}" alt="Logo-Icon by Becris" class="h-5 w-5 mr-2">
+                                </div>
                                 Material's
                             </a>
                         </li>
@@ -73,18 +83,39 @@
                 </li>
                 <!-- Laporan -->
                 <li class="relative px-6 py-3 group">
-                    <span class="{{ request()->is('laporan*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                <span class="{{ request()->is('laporan*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
                     <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
-                        </svg>
+                        <div class="invert-icon">
+                            <img src="{{ asset('assets/img/menu-icons/report.png') }}" alt="Logo by RanuKumbolo.lab" class="h-5 w-5">
+                        </div>
                         <span class="ml-4">Laporan</span>
                     </a>
                     <!-- Sub-menu -->
                     <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                        <li><a href="/laporan/incident-user" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Incident User</a></li>
-                        <li><a href="/laporan/laporan-harian" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Harian</a></li>
-                        <li><a href="/laporan/laporan-bulanan" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700">Laporan Bulanan</a></li>
+                        <li>
+                            <a href="/laporan/incident-user" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/incident-user.png') }}" alt="Logo by Freepik" class="h-5 w-5 mr-2">
+                                </div>                                
+                                incident User
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/laporan/laporan-harian" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/daily-report.png') }}" alt="Logo by Us and Up" class="h-5 w-5 mr-2">
+                                </div>
+                                Laporan Harian
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/laporan/laporan-bulanan" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/monthly-report.png') }}" alt="Logo by Us and Up" class="h-5 w-5 mr-2">
+                                </div>
+                                Laporan Bulanan
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <!-- Informasi -->

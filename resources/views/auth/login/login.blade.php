@@ -10,9 +10,11 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output-2.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/css/Chart.min.css') }}"/>
 
+    <!-- JS -->
     <script src="{{ asset('assets/js/alpine.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
     <script src="{{ asset('assets/js/Chart.min.js') }}"></script>

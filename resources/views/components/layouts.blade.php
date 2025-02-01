@@ -43,7 +43,6 @@
             </div>
         </div>
 
-
         <script>
             function scrollToTop() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -100,10 +99,17 @@
                 const iconMap = {
                     "maps": 'maps.png',
                     "dashboard": 'dashoard.png',
-                    "exca": 'excavator.png',
-                    "dump": 'dump-truck.png',
-                    "weather": 'cloud.png',
-                    "waterdepth": 'water-waves.png'
+                    "exca": 'menu-icons/excavator.png',
+                    "dump": 'menu-icons/dump-truck.png',
+                    "weather": 'menu-icons/cloud.png',
+                    "waterdepth": 'menu-icons/water-waves.png',
+                    "material": 'menu-icons/mineral.png',
+                    "incident-user": 'menu-icons/incident-user.png',
+                    "laporan-harian": 'menu-icons/daily-report.png',
+                    "laporan-bulanan": 'menu-icons/monthly-report.png',
+                    "tentang-sistem": 'menu-icons/water-waves.png',
+                    "bantuan": 'menu-icons/water-waves.png',
+                    "kontak": 'menu-icons/water-waves.png',
                 };
 
                 for (const [key, value] of Object.entries(iconMap)) {
