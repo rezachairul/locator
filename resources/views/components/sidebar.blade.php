@@ -63,6 +63,12 @@
                                 Water Depth
                             </a>
                         </li>
+                        <li>
+                            <a href="#" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <img src="{{ asset('assets/img/menu-icons/mineral.png') }}" alt="Logo-Icon by Becris" class="h-5 w-5 mr-2 dark:invert">
+                                Materials
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <!-- Laporan -->
