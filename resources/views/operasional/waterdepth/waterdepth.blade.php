@@ -257,6 +257,6 @@
             </div>
         </div>
         <!-- Modals Create -->
-        @include('waterdepth.create')
+        @include('operasional.waterdepth.create')
     </div>
 </x-layouts>

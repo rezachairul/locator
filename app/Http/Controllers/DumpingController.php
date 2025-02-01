@@ -37,7 +37,7 @@ class DumpingController extends Controller
         ->orderBy('id', 'asc')
         ->get();
 
-        return view('dumping/dumping', compact('title', 'dumpings', 'disLabels'));
+        return view('operasional/dumping/dumping', compact('title', 'dumpings', 'disLabels'));
     }
 
     /**

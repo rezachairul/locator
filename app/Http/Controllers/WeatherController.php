@@ -66,7 +66,7 @@ class WeatherController extends Controller
         ->orderBy('id', 'asc')
         ->get();
 
-        return view('weather/weather', compact('title', 'weathers',  'latestWeather', 'bmkgWeather'));
+        return view('operasional/weather/weather', compact('title', 'weathers',  'latestWeather', 'bmkgWeather'));
     }
 
     /**

@@ -366,6 +366,6 @@
         </div>
         
         <!-- Modals Create -->
-        @include('weather.create')
+        @include('operasional.weather.create')
     </div>
 </x-layouts>

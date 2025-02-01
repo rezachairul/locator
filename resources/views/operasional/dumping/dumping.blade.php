@@ -300,6 +300,6 @@
             </span>
         </div>
         <!-- Modals Create -->
-        @include('dumping.create')
+        @include('operasional.dumping.create')
     </div>
 </x-layouts>

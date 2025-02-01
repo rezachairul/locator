@@ -76,7 +76,7 @@ class ExcaController extends Controller
         }
 
 
-        return view('exca/excavator', compact('title', 'excas', 'dumpings', 'materials'));
+        return view('operasional/exca/excavator', compact('title', 'excas', 'dumpings', 'materials'));
     }
 
 

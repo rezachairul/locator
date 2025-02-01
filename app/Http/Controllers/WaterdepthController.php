@@ -25,7 +25,7 @@ class WaterdepthController extends Controller
         ->orderBy('id', 'asc')
         ->get();
 
-        return view('waterdepth/waterdepth', compact('title', 'waterdepths'));
+        return view('operasional/waterdepth/waterdepth', compact('title', 'waterdepths'));
     }
 
     /**
