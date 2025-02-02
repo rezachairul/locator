@@ -19,7 +19,6 @@
     <script src="{{ asset('assets/js/charts-lines.js') }}"></script>
     <script src="{{ asset('assets/js/charts-pie.js') }}"></script>
     <script src="{{ asset('assets/js/focus-trap.js') }}" defer></script>
-
 </head>
 
 <body>
@@ -180,10 +179,10 @@
                             </div>
                         </div>
                         <div class="flex gap-2">
-                            <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                                 Submit
                             </button>
-                            <button type="button" id="cancelButton" class="text-green-600 hover:text-white border border-green-600 hover:bg-green-600 px-4 py-2 rounded-lg">
+                            <button type="button" id="cancelButton" class="text-red-600 hover:text-white border border-red-600 hover:bg-red-600 px-4 py-2 rounded-lg">
                                 Cancel
                             </button>
                         </div>
@@ -208,9 +207,9 @@
                             <!-- Tombol Create -->
                             <a href="#">
                                 <button id="createButton" class="flex items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3.5 w-3.5 mr-2" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                    </svg>
+                                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                </svg>
                                     Create
                                 </button>
                             </a>
