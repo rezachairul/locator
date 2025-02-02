@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {
     public function create(){
-        return view('register.register',[
+        return view('auth.register.register',[
             'title' => 'Registrasi'
         ]);
     }
@@ -28,6 +28,6 @@ class RegisterController extends Controller
         User::create($validateData);
         
         // $request -> session() -> flash('succes', 'Registration succesfull! Please Login');
-        return redirect('/login') -> with ('succes', 'Registration succesfull! Please Login') ;
+        return redirect('/auth/login') -> with ('succes', 'Registration succesfull! Please Login') ;
     }
 }

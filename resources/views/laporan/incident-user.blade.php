@@ -35,7 +35,6 @@
                         <!-- Baris Pertama -->
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-2 py-1 text-center break-words">No</th>
-                            <th class="px-2 py-1 text-center break-words">User Exca ID</th>
                             <th class="px-2 py-1 text-center break-words">Incident Type</th>
                             <th class="px-2 py-1 text-center break-words">Incident Date and Time</th>
                             <th class="px-2 py-1 text-center break-words">Incident Location</th>
@@ -49,7 +48,6 @@
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                         <tr class="text-gray-700 dark:text-gray-400">
                             <td class="px-2 py-1 text-xs text-center">{{ $loop->iteration ?? '0' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'FEX-001' }}</td>
                             <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Tabrakan' }}</td>
                             <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? '01/02/2025 | 00.00' }}</td>
                             <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? '1b' }}</td>
