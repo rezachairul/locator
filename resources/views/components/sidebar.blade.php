@@ -1,11 +1,11 @@
 <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
     <!-- Desktop sidebar -->
     <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
-        <div class="py-4 text-gray-500 dark:text-gray-400">
+        <div class="flex flex-col h-full py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                 LocatorGIS
             </a>
-            <ul class="mt-6">
+            <ul class="mt-6 flex-grow">
                 <!-- Dashboard -->
                 <li class="relative px-6 py-3">
                     <span class="{{ request()->is('dashboard') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
@@ -26,8 +26,6 @@
                         <span class="ml-4">Maps</span>
                     </a>
                 </li>
-            </ul>
-            <ul>
                 <!-- Operasional -->
                 <li class="relative px-6 py-3 group">
                     <span class="{{ request()->is('operasional*') || request()->is('exca') || request()->is('dumping') || request()->is('weather') || request()->is('waterdepth') || request()->is('material') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
@@ -120,7 +118,7 @@
                 </li>
                 <!-- Informasi -->
                 <li class="relative px-6 py-3 group">
-                <span class="{{ request()->is('informasi*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                    <span class="{{ request()->is('informasi*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
                     <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/menu-icons/info.png') }}" alt="Logo by Icon by redempticon" class="h-5 w-5">
@@ -156,16 +154,28 @@
                     </ul>
                 </li>
             </ul>
+            <!-- Tombol Logout -->
+            <div class="mt-auto px-6 py-3">
+                <form method="POST" action="/auth/logout">
+                    @csrf
+                    <button type="submit" class="flex items-center justify-between w-full px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                        <div class="invert-icon">
+                            <img src="{{ asset('assets/img/menu-icons/logout.png') }}" alt="Logout Icon" class="h-5 w-5 mr-2">
+                        </div>
+                        Logout
+                    </button>
+                </form>
+            </div>
         </div>
     </aside>
 
     <!-- Mobile sidebar -->
     <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden" x-show="isSideMenuOpen" @click.away="closeSideMenu" @keydown.escape="closeSideMenu">
-        <<div class="py-4 text-gray-500 dark:text-gray-400">
+        <<div class="flex flex-col h-full py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                 LocatorGIS
             </a>
-            <ul class="mt-6">
+            <ul class="mt-6 flex-grow">
                 <!-- Dashboard -->
                 <li class="relative px-6 py-3">
                     <span class="{{ request()->is('dashboard') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
@@ -186,8 +196,6 @@
                         <span class="ml-4">Maps</span>
                     </a>
                 </li>
-            </ul>
-            <ul>
                 <!-- Operasional -->
                 <li class="relative px-6 py-3 group">
                     <span class="{{ request()->is('operasional*') || request()->is('exca') || request()->is('dumping') || request()->is('weather') || request()->is('waterdepth') || request()->is('material') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
@@ -280,7 +288,7 @@
                 </li>
                 <!-- Informasi -->
                 <li class="relative px-6 py-3 group">
-                <span class="{{ request()->is('informasi*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                    <span class="{{ request()->is('informasi*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
                     <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/menu-icons/info.png') }}" alt="Logo by Icon by redempticon" class="h-5 w-5">
@@ -316,6 +324,18 @@
                     </ul>
                 </li>
             </ul>
-</div>
-</aside>
+            <!-- Tombol Logout -->
+            <div class="mt-auto px-6 py-3">
+                <form method="POST" action="/auth/logout">
+                    @csrf
+                    <button type="submit" class="flex items-center justify-between w-full px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
+                        <div class="invert-icon">
+                            <img src="{{ asset('assets/img/menu-icons/logout.png') }}" alt="Logout Icon" class="h-5 w-5 mr-2">
+                        </div>
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </aside>
 </div>

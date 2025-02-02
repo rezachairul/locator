@@ -70,24 +70,16 @@
                     </button>
                     <template x-if="isProfileMenuOpen">
                             <ul @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu" class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800">
-                            <li class="flex">
-                                <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="#">
-                                    <span>Profile</span>
-                                </a>
-                            </li>
-                            <li class="flex">
-                                <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="#">
-                                    <span>Settings</span>
-                                </a>
-                            </li>
-                            <li class="flex">
-                                <form method="POST" action="/auth/logout">
-                                    @csrf
-                                    <button type="submit" class="w-full inline-flex items-center justify-between px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                        <span>Log out</span>
-                                    </button>
-                                </form>
-                            </li>
+                                <li class="flex">
+                                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="#">
+                                        <span>Profile</span>
+                                    </a>
+                                </li>
+                                <li class="flex">
+                                    <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="#">
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
                             </ul>
                     </template>
                 </li>
