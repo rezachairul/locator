@@ -1,6 +1,5 @@
 <x-layouts>
     <x-slot:title>{{$title}}</x-slot:title>
-
     <!-- Card -->
     <div class="grid gap-6 mb-8 md:grid-cols-4 xl:grid-cols-4">
         <!-- Excavator -->
