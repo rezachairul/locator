@@ -110,6 +110,7 @@
                     "tentang-sistem": 'menu-icons/about-system.png',
                     "bantuan": 'menu-icons/panduan.png',
                     "kontak": 'menu-icons/contact.png',
+                    "user_report": 'menu-icons/user-report.png',
                 };
 
                 for (const [key, value] of Object.entries(iconMap)) {

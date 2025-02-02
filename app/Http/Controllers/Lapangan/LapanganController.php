@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\lapangan;
 
-use App\Models\Lapangan;
+
 use App\Models\Exca;
 use App\Models\Dumping;
 use App\Models\Weather;
 use App\Models\Waterdepth;
-use App\Http\Requests\StoreLapanganRequest;
-use App\Http\Requests\UpdateLapanganRequest;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class LapanganController extends Controller
 {
@@ -27,6 +27,6 @@ class LapanganController extends Controller
         $latestWaterDepth = Waterdepth::where('created_at', '>=', $today)->latest()->first();
 
 
-        return view('lapangan/lapangan', compact('title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth'));
+        return view('lapangan.lapangan', compact('title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth'));
     }
 }

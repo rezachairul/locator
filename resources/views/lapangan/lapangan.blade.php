@@ -10,15 +10,15 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <!-- Link CSS -->
-    <link rel="stylesheet" href="./assets/css/tailwind.output-2.css" />
-    <link rel="stylesheet" href="./assets/css/Chart.min.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output-2.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/Chart.min.css') }}"/>
     <!-- JS -->
-    <script src="./assets/js/alpine.min.js"></script>
-    <script src="./assets/js/init-alpine.js"></script>
-    <script src="./assets/js/Chart.min.js"></script>
-    <script src="./assets/js/charts-lines.js"></script>
-    <script src="./assets/js/charts-pie.js"></script>
-    <script src="./assets/js/focus-trap.js" defer></script>
+    <script src="{{ asset('assets/js/alpine.min.js') }}"></script>
+    <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
+    <script src="{{ asset('assets/js/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/js/charts-lines.js') }}"></script>
+    <script src="{{ asset('assets/js/charts-pie.js') }}"></script>
+    <script src="{{ asset('assets/js/focus-trap.js') }}" defer></script>
 
 </head>
 
@@ -34,10 +34,13 @@
                     </a>
                     <ul class="mt-6">
                         <li class="relative px-6 py-3">
-                            <button id="defaultModalButton" data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="button" class="flex items-center justify-between w-full px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                                Report
-                                <span class="ml-2" aria-hidden="true">+</span>
-                            </button>
+                            <a href="/user-report" class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/user-report.png') }}" alt="Logo Icon by the best icon" class="h-5 w-5">
+                                </div>
+                                <span class="ml-4">User Report</span>
+                            </a>
+                            <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
                         </li>
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">

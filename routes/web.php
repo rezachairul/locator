@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapsController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LapanganController;
+
+use App\Http\Controllers\Lapangan\LapanganController;
+use App\Http\Controllers\Lapangan\UserReportController;
 
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
@@ -31,10 +33,16 @@ Route::prefix('auth')->group(function () {
     Route::post('/register', [RegisterController::class, 'store']);
 });   
 
-// OP Lapangan
-Route::get('/',[LapanganController::class, 'index']);
+// Route User Page
+Route::prefix('/')->group(function(){
+    // OP Lapangan
+    Route::get('/', [LapanganController::class, 'index']);
+    // User Report
+    Route::get('/user-report', [UserReportController::class, 'index']);
 
-//Route Group Dashboard
+});
+
+//Route Group Dashboard Admin
 Route::middleware(['auth'])->group(function(){
     
     // Rute untuk export
@@ -57,7 +65,7 @@ Route::middleware(['auth'])->group(function(){
         Route::resource('/material', MaterialController::class);
     });
 
-    // Route Laporan
+    // Route Admin Report
      Route::prefix('laporan')->group(function () {
         Route::resource('/incident-user', IncidentUserController::class);        
         Route::resource('/laporan-harian', LaporanHarianController::class);
