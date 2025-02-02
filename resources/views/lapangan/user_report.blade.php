@@ -10,8 +10,8 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <!-- Link CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output-2.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/css/Chart.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output-2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/Chart.min.css') }}" />
     <!-- JS -->
     <script src="{{ asset('assets/js/alpine.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
@@ -23,48 +23,7 @@
 
 <body>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-        <!-- Sidebar -->
-        <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-            <!-- Desktop sidebar -->
-            <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
-                <div class="py-4 text-gray-500 dark:text-gray-400">
-                    <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-                        LocatorGIS
-                    </a>
-                    <ul class="mt-6">
-                        <li class="relative px-6 py-3">
-                            <a href="#" class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
-                                <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/menu-icons/user-report.png') }}" alt="Logo Icon by the best icon" class="h-5 w-5">
-                                </div>
-                                <span class="ml-4">User Report</span>
-                            </a>
-                            <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
-                        </li>
-                    </ul>
-                </div>
-            </aside>
 
-            <!-- Mobile sidebar -->
-            <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden" x-show="isSideMenuOpen" @click.away="closeSideMenu" @keydown.escape="closeSideMenu">
-                <div class="py-4 text-gray-500 dark:text-gray-400">
-                    <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
-                        LocatorGIS
-                    </a>
-                    <ul class="mt-6">
-                        <li class="relative px-6 py-3">
-                            <a href="#" class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
-                                <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/menu-icons/user-report.png') }}" alt="Logo Icon by the best icon" class="h-5 w-5">
-                                </div>
-                                <span class="ml-4">User Report</span>
-                            </a>
-                            <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
-                        </li>
-                    </ul>
-                </div>
-            </aside>
-        </div>
         <div class="flex flex-col flex-1 w-full">
             <!-- Navbar -->
             <div class="flex flex-col flex-1 w-full">
@@ -166,16 +125,47 @@
                 </div>
                 <!-- Form Create Report User -->
                 <div id="createForm" class="hidden p-4 bg-white rounded-lg shadow-md dark:bg-gray-700">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Form Tambah Report</h3>
+                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            Form Tambah {{$title}}
+                        </h3>
+                        <button type="button" id="exitButton" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
                     <form id="reportForm">
-                        <div class="grid gap-4 mb-4 sm:grid-cols-2">
+                        <div class="grid gap-4 mb-4 mt-4 sm:grid-cols-2">
+                            <!-- Report by -->
                             <div>
-                                <label for="incidentType" class="block text-sm font-medium text-gray-900 dark:text-white">Incident Type</label>
-                                <input type="text" id="incidentType" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                <label for="report_by" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">Report By</label>
+                                <input type="text" id="report_by" name="report_by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Nama pengguna yang melaporkan incident" required>
                             </div>
+                            <!-- Incident Type -->
                             <div>
-                                <label for="incidentDate" class="block text-sm font-medium text-gray-900 dark:text-white">Incident Date and Time</label>
-                                <input type="datetime-local" id="incidentDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                <label for="incident_type" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">Incident Type</label>
+                                <input type="text" id="incident_type" name="incident_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Jenis incident (misalnya: kecelakaan, cedera, dll.)" required>
+                            </div>
+                            <!-- Incident Date and Time -->
+                            <div>
+                                <label for="incident_date_time" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">Incident Date and Time</label>
+                                <input type="datetime-local" id="incident_date_time" name="incident_date_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required>
+                            </div>
+                            <!-- Incident Location -->
+                            <div>
+                                <label for="incident_location" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">Incident Location</label>
+                                <input type="text" id="incident_location" name="incident_location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder=" Lokasi kejadian incident" required>
+                            </div>
+                            <!-- Incident Description -->
+                            <div>
+                                <label for="incident_description" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">Incident Description</label>
+                                <input type="text" id="incident_description" name="incident_description" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Deskripsi singkat tentang incident" required>
+                            </div>
+                            <!-- Report Date and Time -->
+                            <div>
+                                <label for="report_date_time" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">Report Date and Time</label>
+                                <input type="datetime-local" id="report_date_time" name="report_date_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required>
                             </div>
                         </div>
                         <div class="flex gap-2">
@@ -188,7 +178,7 @@
                         </div>
                     </form>
                 </div>
-                 <!-- Table Report User -->
+                <!-- Table Report User -->
                 <div class="w-full overflow-hidden rounded-lg shadow-xs pt-8">
                     <div class="flex items-center justify-between flex-wrap gap-2 p-4 bg-gray-50 dark:bg-gray-800 border-t dark:border-gray-700">
                         <!-- Bagian Pencarian -->
@@ -207,9 +197,9 @@
                             <!-- Tombol Create -->
                             <a href="#">
                                 <button id="createButton" class="flex items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                                </svg>
+                                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                    </svg>
                                     Create
                                 </button>
                             </a>
@@ -225,32 +215,30 @@
                         </div>
                     </div>
                     <!-- Table -->
-                    <div class="max-w-screen-lg mx-auto">
-                        <div class="w-full overflow-x-auto">
-                            <table class="whitespace-normal table-auto min-w-full">
-                                <thead>
-                                    <!-- Baris Pertama -->
-                                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                        <th class="px-2 py-1 text-center break-words">No</th>
-                                        <th class="px-2 py-1 text-center break-words">Incident Type</th>
-                                        <th class="px-2 py-1 text-center break-words">Incident Date and Time</th>
-                                        <th class="px-2 py-1 text-center break-words">Incident Location</th>
-                                        <th class="px-2 py-1 text-center break-words">Status</th>
-                                        <th class="px-2 py-1 text-center break-words">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                    <tr class="text-gray-700 dark:text-gray-400">
-                                        <td class="px-2 py-1 text-xs text-center">{{ $loop->iteration ?? '0' }}</td>
-                                        <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Tabrakan' }}</td>
-                                        <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? '01/02/2025 | 00.00' }}</td>
-                                        <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? '1b' }}</td>
-                                        <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Belum Tertutup' }}</td>
-                                        <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Show' }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="w-full overflow-x-auto">
+                        <table class="w-full whitespace-no-wrap">
+                            <thead>
+                                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                    <th class="px-4 py-3 text-center">No</th>
+                                    <th class="px-4 py-3 text-center">Incident Type</th>
+                                    <th class="px-4 py-3 text-center">Incident Date and Time</th>
+                                    <th class="px-4 py-3 text-center">Incident Location</th>
+                                    <th class="px-4 py-3 text-center">Status</th>
+                                    <th class="px-4 py-3 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-2 py-1 text-center">{{ $loop->iteration ?? '0' }}</td>
+                                    <td class="px-2 py-1 text-center">{{ $data->id ?? 'Tabrakan' }}</td>
+                                    <td class="px-2 py-1 text-center">{{ $data->id ?? '01/02/2025 | 00.00' }}</td>
+                                    <td class="px-2 py-1 text-center">{{ $data->id ?? '1b' }}</td>
+                                    <td class="px-2 py-1 text-center">{{ $data->id ?? 'Belum Tertutup' }}</td>
+                                    <td class="px-2 py-1 text-center">{{ $data->id ?? 'Show' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Pagination -->
                         <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                             <span class="flex items-center col-span-3">
                                 Showing 1-10 of 100
@@ -329,6 +317,7 @@
         const createButton = document.getElementById('createButton');
         const createForm = document.getElementById('createForm');
         const cancelButton = document.getElementById('cancelButton');
+        const exitButton = document.getElementById('exitButton');
         const reportForm = document.getElementById('reportForm');
         // Tampilkan form saat tombol Create diklik
         createButton.addEventListener('click', () => {
@@ -344,6 +333,13 @@
                 createForm.classList.add('hidden');
             }, 200); // Waktu sesuai dengan durasi animasi
         });
+        exitButton.addEventListener('click', () => {
+            createForm.classList.remove('animate-fade-in');
+            createForm.classList.add('animate-fade-out');
+            setTimeout(() => {
+                createForm.classList.add('hidden');
+            }, 200); // Waktu sesuai dengan durasi animasi
+        });
         // Form submit handling
         reportForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -352,7 +348,7 @@
             setTimeout(() => {
                 createForm.classList.add('hidden');
                 alert('Data berhasil disubmit!');
-            }, 300); 
+            }, 300);
         });
 
         // Functionality for modals: toggle and hide
