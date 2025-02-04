@@ -9,4 +9,21 @@ class UserReport extends Model
 {
     /** @use HasFactory<\Database\Factories\UserReportFactory> */
     use HasFactory;
+    protected $guarded = ['id'];
+    public function incident_user()
+    {
+        return $this->hasMany(IncidentUser::class);
+    }
+    // Event: Membuat entri incident_user saat user_report baru dibuat
+    protected static function booted()
+    {
+        static::created(function ($userReport) {
+            // Menambahkan entri ke tabel incident_users
+            IncidentUser::create([
+                'user_report_id' => $userReport->id, 
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        });
+    }
 }

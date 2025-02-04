@@ -22,9 +22,9 @@ class DumpingController extends Controller
             'ss3' => 'SS3',
         ];
         
-        foreach($dumpings as $dumping){
-            $dumping->disposial_label = $disLabels[$dumping->disposial_attribute] ?? $dumping->disposial_attribute;
-        }
+        // foreach($dumpings as $dumping){
+        //     $dumping->disposial_label = $disLabels[$dumping->disposial_attribute] ?? $dumping->disposial_attribute;
+        // }
     
         // Filter data untuk hanya yang berumur 24 jam terakhir
         // $dumpings = Dumping::where('created_at', '>=', now()->subDay())
@@ -33,7 +33,7 @@ class DumpingController extends Controller
         // Filter data untuk reset pukul 00.00
         $dumpings = Dumping::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
-        ->get();
+        ->paginate(10);
 
         return view('operasional/dumping/dumping', compact('title', 'dumpings', 'disLabels'));
     }

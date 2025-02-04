@@ -38,7 +38,7 @@ Route::prefix('/')->group(function(){
     // OP Lapangan
     Route::get('/', [LapanganController::class, 'index']);
     // User Report
-    Route::get('/user-report', [UserReportController::class, 'index']);
+    Route::resource('/user-report', UserReportController::class);
 
 });
 

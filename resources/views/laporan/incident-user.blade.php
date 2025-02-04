@@ -35,6 +35,7 @@
                         <!-- Baris Pertama -->
                         <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-2 py-1 text-center break-words">No</th>
+                            <th class="px-2 py-1 text-center break-words">victim Name</th>
                             <th class="px-2 py-1 text-center break-words">Incident Type</th>
                             <th class="px-2 py-1 text-center break-words">Incident Date and Time</th>
                             <th class="px-2 py-1 text-center break-words">Incident Location</th>
@@ -46,70 +47,64 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                        @if ($incident_users->isEmpty())
                         <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-2 py-1 text-xs text-center">{{ $loop->iteration ?? '0' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Tabrakan' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? '01/02/2025 | 00.00' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? '1b' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Tabrakan antar excavator' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Ujang' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? '01/02/2025 | 00.00' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Belum Tertutup' }}</td>
-                            <td class="px-2 py-1 text-xs text-center">{{ $data->id ?? 'Show' }}</td>
+                            <td colspan="10" class="px-2 py-1 text-center text-gray-500">Tidak Ada Data Insiden Hari ini</td>
                         </tr>
+                        @else
+                            @foreach ($incident_users as $key => $incident_user)
+                                <tr class="text-gray-700 dark:text-gray-400">
+                                    <td class="px-2 py-1 text-xs text-center"> {{ $incident_users->firstItem() + $key }} </td>
+                                    <td class="px-2 py-1 text-xs text-center">
+                                        {{ $incident_user->user_report->victim_name ?? 'Data tidak tersedia'}}
+                                    </td>
+                                    <td class="px-2 py-1 text-xs text-center">
+                                        {{ $incident_user->user_report->incident_type ?? 'Data tidak tersedia'}}
+                                    </td>
+                                    <td class="px-2 py-1 text-xs text-center">
+                                        {{ $incident_user->user_report->incident_date_time ?? 'Data tidak tersedia'}}
+                                    </td>
+                                    <td class="px-2 py-1 text-xs text-center">
+                                        {{ $incident_user->user_report->incident_location ?? 'Data tidak tersedia'}}
+                                    </td>
+                                    <td class="px-2 py-1 text-xs text-center">
+                                        {{ $incident_user->user_report->incident_description ?? 'Data tidak tersedia'}}
+                                    </td>
+                                    <td class="px-2 py-1 text-xs text-center">
+                                        {{ $incident_user->user_report->report_by ?? 'Data tidak tersedia'}}
+                                    </td>
+                                    <td class="px-2 py-1 text-xs text-center">
+                                        {{ $incident_user->user_report->report_date_time ?? 'Data tidak tersedia'}}
+                                    </td>
+                                    <td class="px-2 py-1 text-xs text-center">{{ 'Belum Tertutup' }}</td>
+                                    <td class="px-2 py-1 text-xs text-center">{{ 'Show' }}</td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
+            <!-- Pagination & Showing -->
             <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                <!--  Showing -->
                 <span class="flex items-center col-span-3">
                     Showing 1-10 of 100
                 </span>
                 <span class="col-span-2"></span>
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                    <nav aria-label="Table navigation">
-                        <ul class="inline-flex items-center">
-                            <li>
-                                <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple" aria-label="Previous">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    1
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    2
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    3
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    4
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                    5
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </nav>
-                </span>
+                <!-- Pagination -->
+                 <div class="col-span-4 flex items-center justify-end space-x-2">
+                    @if ($incident_users->onFirstPagePages())
+                        <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Previous</span>
+                    @else
+                        <a href="{{ $incident_users->previousPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Previous</a>
+                    @endif
+                        <span class="text-gray-300">Page {{ $incident_users->currentPage() }} of {{ $incident_users->lastPage() }}</span>
+                    @if ($incident_users->hasPages())
+                        <a href="{{ $incident_users->nextPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Next</a>
+                    @else
+                        <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Next</span>
+                    @endif
+                 </div>
             </div>
         </div>
     </div>

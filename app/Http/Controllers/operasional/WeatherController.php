@@ -33,9 +33,9 @@ class WeatherController extends Controller
             'hujan_petir' => 'Hujan Petir',
             'kabut' => 'Kabut'
         ];
-        foreach($weathers as $weather){
-            $weather->cuaca_label = $cuacaLabels[$weather->cuaca] ?? $weather->cuaca;
-        }
+        // foreach($weathers as $weather){
+        //     $weather->cuaca_label = $cuacaLabels[$weather->cuaca] ?? $weather->cuaca;
+        // }
 
         // Fetch data dari API BMKG
         $bmkgWeather = [];
@@ -65,7 +65,7 @@ class WeatherController extends Controller
         // Filter data untuk reset pukul 00.00
         $weathers = Weather::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
-        ->get();
+        ->paginate(10);
 
         return view('operasional/weather/weather', compact('title', 'weathers',  'latestWeather', 'bmkgWeather'));
     }

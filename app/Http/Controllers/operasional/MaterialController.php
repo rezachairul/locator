@@ -14,7 +14,7 @@ class MaterialController extends Controller
     public function index()
     {
         $title = 'Materials';
-        $materials = Material::orderBy('id', 'asc')->get();
+        $materials = Material::orderBy('id', 'asc')->paginate(10);
 
         return view('operasional/material/material', compact('title', 'materials'));
     }

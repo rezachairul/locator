@@ -14,8 +14,8 @@ class UserReportController extends Controller
     public function index()
     {
         $title = 'User Report';
-        // $user_reports = UserReport::all();
-        return view('lapangan.user_report', compact('title'));
+        $user_reports = UserReport::paginate(10);
+        return view('lapangan.user_report', compact('title', 'user_reports'));
     }
 
     /**
@@ -31,7 +31,18 @@ class UserReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $request->validate([
+            'report_by' => 'required',
+            'victim_name' => 'required',
+            'incident_type' => 'required',
+            'incident_date_time' => 'required',
+            'incident_location' => 'required',
+            'incident_description' => 'required',
+            'report_date_time' => 'required',
+        ]);
+        UserReport::create($request->all());
+        return redirect()->route('user-report.index')->with('success', 'User Report Created Successfully');
     }
 
     /**

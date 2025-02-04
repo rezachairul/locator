@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     <title>LocatorGIS | {{$title}} </title>
-    <link rel="shortcut icon" href="{{ asset('assets/img/locatorGIS.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/img/menu-icons/user-report.png') }}" type="image/x-icon">
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <!-- Link CSS -->
@@ -23,7 +23,6 @@
 
 <body>
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-
         <div class="flex flex-col flex-1 w-full">
             <!-- Navbar -->
             <div class="flex flex-col flex-1 w-full">
@@ -124,7 +123,7 @@
                     </div>
                 </div>
                 <!-- Form Create Report User -->
-                <div id="createForm" class="hidden p-4 bg-white rounded-lg shadow-md dark:bg-gray-700">
+                <div id="createForm" class="hidden p-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-700">
                     <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                             Form Tambah {{$title}}
@@ -135,12 +134,18 @@
                             </svg>
                         </button>
                     </div>
-                    <form id="reportForm">
+                    <form id="reportForm" action="{{route('user-report.store')}}" method="post">
+                        @csrf
                         <div class="grid gap-4 mb-4 mt-4 sm:grid-cols-2">
                             <!-- Report by -->
                             <div>
                                 <label for="report_by" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">Report By</label>
                                 <input type="text" id="report_by" name="report_by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Nama pengguna yang melaporkan incident" required>
+                            </div>
+                            <!-- Korban Insiden -->
+                            <div>
+                                <label for="victim_name" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white"> Victim Name </label>
+                                <input type="text" id="victim_name" name="victim_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Nama orang yang mengalami insiden" required>
                             </div>
                             <!-- Incident Type -->
                             <div>
@@ -169,7 +174,7 @@
                             </div>
                         </div>
                         <div class="flex gap-2">
-                            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                            <button type="submit" id="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                                 Submit
                             </button>
                             <button type="button" id="cancelButton" class="text-red-600 hover:text-white border border-red-600 hover:bg-red-600 px-4 py-2 rounded-lg">
@@ -178,8 +183,7 @@
                         </div>
                     </form>
                 </div>
-                <!-- Table Report User -->
-                <div class="w-full overflow-hidden rounded-lg shadow-xs pt-8">
+                <div class="w-full overflow-hidden rounded-lg shadow-xs">
                     <div class="flex items-center justify-between flex-wrap gap-2 p-4 bg-gray-50 dark:bg-gray-800 border-t dark:border-gray-700">
                         <!-- Bagian Pencarian -->
                         <div class="flex flex-1 lg:mr-32">
@@ -214,81 +218,58 @@
                             </a>
                         </div>
                     </div>
-                    <!-- Table -->
                     <div class="w-full overflow-x-auto">
                         <table class="w-full whitespace-no-wrap">
                             <thead>
-                                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3 text-center">No</th>
-                                    <th class="px-4 py-3 text-center">Incident Type</th>
-                                    <th class="px-4 py-3 text-center">Incident Date and Time</th>
-                                    <th class="px-4 py-3 text-center">Incident Location</th>
-                                    <th class="px-4 py-3 text-center">Status</th>
-                                    <th class="px-4 py-3 text-center">Actions</th>
+                                <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800" >
+                                    <th class="px-4 py-3 text-center" rowspan="2">No</th>
+                                    <th class="px-4 py-3 text-center" rowspan="2">Incident Type</th>
+                                    <th class="px-4 py-3 text-center" rowspan="2">Incident Date and Time</th>
+                                    <th class="px-4 py-3 text-center" rowspan="2">Incident Location</th>
+                                    <th class="px-4 py-3 text-center" rowspan="2">Status</th>
+                                    <th class="px-4 py-3 text-center" rowspan="2">Actions</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-2 py-1 text-center">{{ $loop->iteration ?? '0' }}</td>
-                                    <td class="px-2 py-1 text-center">{{ $data->id ?? 'Tabrakan' }}</td>
-                                    <td class="px-2 py-1 text-center">{{ $data->id ?? '01/02/2025 | 00.00' }}</td>
-                                    <td class="px-2 py-1 text-center">{{ $data->id ?? '1b' }}</td>
-                                    <td class="px-2 py-1 text-center">{{ $data->id ?? 'Belum Tertutup' }}</td>
-                                    <td class="px-2 py-1 text-center">{{ $data->id ?? 'Show' }}</td>
-                                </tr>
+                                @if ($user_reports->isEmpty())
+                                    <tr class="text-gray-700 dark:text-gray-400">
+                                        <td colspan="7" class="px-2 py-1 text-center text-gray-500">Tidak Ada Data Insiden Hari ini</td>
+                                    </tr>
+                                @else
+                                    @foreach ($user_reports as $key =>  $user_report)
+                                        <tr class="text-gray-700 dark:text-gray-400">
+                                            <td class="px-4 py-3 text-sm text-center"> {{ $user_reports->firstItem() + $key }} </td>
+                                            <td class="px-4 py-3 text-sm text-center"> {{ $user_report->incident_type }} </td>
+                                            <td class="px-4 py-3 text-sm text-center"> {{ $user_report->incident_date_time }} </td>
+                                            <td class="px-4 py-3 text-sm text-center"> {{ $user_report->incident_location }} </td>
+                                            <td class="px-4 py-3 text-sm text-center"> Status</td>
+                                            <td class="px-4 py-3 text-sm text-center"> Action </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
+                    </div>
+                    <!-- Pagination & Showing -->
+                    <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                        <!-- Showing -->
+                        <span class="flex items-center col-span-3">
+                            Showing {{$user_reports->firstItem()}} - {{$user_reports->lastItem()}} of {{ $user_reports->total() }} Entries
+                        </span>
+                        <span class="col-span-2"></span>
                         <!-- Pagination -->
-                        <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                            <span class="flex items-center col-span-3">
-                                Showing 1-10 of 100
-                            </span>
-                            <span class="col-span-2"></span>
-                            <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                                <nav aria-label="Table navigation">
-                                    <ul class="inline-flex items-center">
-                                        <li>
-                                            <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple" aria-label="Previous">
-                                                <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                                    <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                1
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                2
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                3
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                4
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                                5
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
-                                                <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                                    <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" fill-rule="evenodd"></path>
-                                                </svg>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </span>
+                        <div class="col-span-4 flex items-center justify-end space-x-2">
+                            @if ($user_reports->onFirstPage())
+                                <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Previous</span>
+                            @else
+                                <a href="{{ $user_reports->previousPageUrl() }}" class="px-4 py-2 text-gray-300 bg-gray-800 border border-gray-600 rounded-md hover:bg-gray-700">Previous</a>
+                            @endif
+                            <span class="text-gray-300">Page {{ $user_reports->currentPage() }} of {{ $user_reports->lastPage() }}</span>
+                            @if ($user_reports->hasMorePages())
+                                <a href="{{ $user_reports->nextPageUrl() }}" class="px-4 py-2 text-gray-300 bg-gray-800 border border-gray-600 rounded-md hover:bg-gray-700">Next</a>
+                            @else
+                                <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Next</span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -341,13 +322,11 @@
             }, 200); // Waktu sesuai dengan durasi animasi
         });
         // Form submit handling
-        reportForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+        reportForm.addEventListener('submit', () => {
             createForm.classList.remove('animate-fade-in');
             createForm.classList.add('animate-fade-out');
             setTimeout(() => {
                 createForm.classList.add('hidden');
-                alert('Data berhasil disubmit!');
             }, 300);
         });
 

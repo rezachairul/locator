@@ -6,7 +6,7 @@
         Table {{$title}}
     </h4>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-    <div class="flex items-center justify-between flex-wrap gap-2 p-4 bg-gray-50 dark:bg-gray-800 border-t dark:border-gray-700">
+        <div class="flex items-center justify-between flex-wrap gap-2 p-4 bg-gray-50 dark:bg-gray-800 border-t dark:border-gray-700">
             <!-- Bagian Pencarian -->
             <div class="flex flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl">
@@ -67,10 +67,10 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @if ($dumpings->where('created_at', '>=', now()->toDateString())->isNotEmpty())
-                        @foreach ( $dumpings->where('created_at', '>=', now()->toDateString())  as $dumping )
+                        @foreach ( $dumpings->where('created_at', '>=', now()->toDateString())  as $key => $dumping )
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <td class="px-4 py-3 text-sm text-center">
-                                    {{ $loop->iteration }}
+                                    {{ $dumpings->firstItem() + $key }}
                                 </td>
                                 <td class="px-4 py-3">
                                     <div class="flex items-center text-xs">
@@ -248,56 +248,27 @@
                 </tbody>
             </table>
         </div>
+        <!-- Pagination & Showing-->
         <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+            <!-- Showing -->
             <span class="flex items-center col-span-3">
-                Showing 1-10 of 100
+                Showing {{ $dumpings->firstItem() }} - {{ $dumpings->lastItem() }} out of {{ $dumpings->total() }}
             </span>
             <span class="col-span-2"></span>
-            <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                <nav aria-label="Table navigation">
-                    <ul class="inline-flex items-center">
-                        <li>
-                            <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"aria-label="Previous">
-                                <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                    <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd" ></path>
-                                </svg>
-                            </button>
-                        </li>
-                        <li>
-                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                1
-                            </button>
-                        </li>
-                        <li>
-                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                2
-                            </button>
-                        </li>
-                        <li>
-                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                3
-                            </button>
-                        </li>
-                        <li>
-                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                4
-                            </button>
-                        </li>
-                        <li>
-                            <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                5
-                            </button>
-                        </li>
-                        <li>
-                            <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
-                                <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20" >
-                                    <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"  fill-rule="evenodd" ></path>
-                                </svg>
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-            </span>
+            <!-- Pagination -->
+             <div class="col-span-4 flex items-center justify-end space-x-2">
+                @if ($dumpings->onFirstPage())
+                    <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Previous</span>
+                @else
+                    <a href="{{ $dumpings->previousPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Previous</a>
+                @endif
+                <span class="text-gray-300">Page {{ $dumpings->currentPage() }} of {{ $dumpings->lastPage() }}</span>
+                @if ($dumpings->hasMorePages())
+                    <a href="{{ $dumpings->nextPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Next</a>
+                @else
+                    <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Next</span>
+                @endif
+             </div>
         </div>
         <!-- Modals Create -->
         @include('operasional.dumping.create')

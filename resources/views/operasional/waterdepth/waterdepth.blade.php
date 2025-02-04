@@ -62,9 +62,9 @@
                 </thead>                
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @if ($waterdepths->where('created_at', '>=', now()->toDateString())->isNotEmpty())
-                        @foreach ($waterdepths->where('created_at', '>=', now()->toDateString()) as $waterdepth)
+                        @foreach ($waterdepths->where('created_at', '>=', now()->toDateString()) as $key => $waterdepth)
                             <tr class="text-gray-700 dark:text-gray-400">
-                                <td class="px-4 py-3 text-sm text-center">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-3 text-sm text-center">{{ $waterdepths->firstItem() + $key }}</td>
                                 <td class="px-4 py-3 text-sm text-center">{{ $waterdepth->shift }}</td>
                                 <td class="px-4 py-3 text-sm text-center">{{ $waterdepth->qsv_1 }}</td>
                                 <td class="px-4 py-3 text-xs text-center">{{ $waterdepth->h4 }}</td>
@@ -204,56 +204,27 @@
                     @endif
                 </tbody>
             </table>
+            <!-- Pagination & Showing-->
             <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+                <!-- Showing -->
                 <span class="flex items-center col-span-3">
-                    Showing 1-10 of 100
+                    Showing {{ $waterdepths->firstItem() }} - {{ $waterdepths->lastItem() }} out of {{ $waterdepths->total() }} Entries
                 </span>
                 <span class="col-span-2"></span>
-                <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                    <nav aria-label="Table navigation">
-                        <ul class="inline-flex items-center">
-                            <li>
-                                <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"aria-label="Previous">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                        <path d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" fill-rule="evenodd" ></path>
-                                    </svg>
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                    1
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                    2
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                    3
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                    4
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple" >
-                                    5
-                                </button>
-                            </li>
-                            <li>
-                                <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple" aria-label="Next">
-                                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20" >
-                                        <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"  fill-rule="evenodd" ></path>
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </nav>
-                </span>
+                <!-- Pagination -->
+                 <div class="col-span-4 flex items-center justify-end space-x-2">
+                    @if ($waterdepths->onFirstPage())
+                        <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Previous</span>
+                    @else
+                        <a href="{{ $waterdepths->previousPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Previous</a>
+                    @endif
+                    <span class="text-gray-300">Page {{ $waterdepths->currentPage() }} of {{ $waterdepths->lastPage() }}</span>
+                    @if ($waterdepths->hasMorePages())
+                        <a href="{{ $waterdepths->nextPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Next</a>
+                    @else
+                        <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Next</span>
+                    @endif
+                 </div>
             </div>
         </div>
         <!-- Modals Create -->

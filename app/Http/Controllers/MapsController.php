@@ -16,7 +16,7 @@ class MapsController extends Controller
     public function index()
     {
         $title = 'Maps';
-        $maps = Maps::all();
+        // $maps = Maps::paginate(10);
 
         // Filter data untuk hanya yang berumur 24 jam terakhir
         // $maps = Maps::where('created_at', '>=', now()->subDay())
@@ -26,7 +26,7 @@ class MapsController extends Controller
         // Filter data untuk reset pukul 00.00
         $maps = Maps::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
-        ->get();
+        ->paginate(10);
 
         return view('maps/maps',compact('title', 'maps'));
     }

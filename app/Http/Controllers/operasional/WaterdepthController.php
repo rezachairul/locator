@@ -24,7 +24,7 @@ class WaterdepthController extends Controller
         // Filter data untuk reset pukul 00.00
         $waterdepths = WaterDepth::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
-        ->get();
+        ->paginate(10);
 
         return view('operasional/waterdepth/waterdepth', compact('title', 'waterdepths'));
     }

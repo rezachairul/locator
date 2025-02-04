@@ -26,7 +26,7 @@ class ExcaController extends Controller
         // Filter data untuk reset pukul 00.00
         $excas = Exca::whereDate('created_at', now()->toDateString())
         ->orderBy('id', 'asc')
-        ->get();
+        ->paginate(10);
 
         // Mapping untuk label
         $pitLabels = [
