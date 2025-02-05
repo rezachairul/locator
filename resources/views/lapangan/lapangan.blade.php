@@ -81,7 +81,9 @@
                                     <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
                                 @if ($latestWaterDepth)
-                                    <span class="ml-4">{{ $latestWaterDepth->qsv_1 ?? 'Not Found' }} | {{ $latestWaterDepth->h4 ?? 'Not Found' }}</span>
+                                    <!-- <span class="ml-4">{{ $latestWaterDepth->qsv_1 ?? 'Not Found' }} | {{ $latestWaterDepth->h4 ?? 'Not Found' }}</span> -->
+                                    <span class="ml-4">QSV1: {{ $latestWaterDepth->qsv_1 ?? 'Not Found' }}</span>
+                                    <span class="ml-4">H4: {{ $latestWaterDepth->h4 ?? 'Not Found' }}</span>
                                 @else
                                     <span class="ml-4">Data belum tersedia</span>
                                 @endif
@@ -93,23 +95,26 @@
 
             <!-- Mobile sidebar -->
             <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden" x-show="isSideMenuOpen" @click.away="closeSideMenu" @keydown.escape="closeSideMenu">
-                <div class="py-4 text-gray-500 dark:text-gray-400">
+            <div class="py-4 text-gray-500 dark:text-gray-400">
                     <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                         LocatorGIS
                     </a>
                     <ul class="mt-6">
                         <li class="relative px-6 py-3">
-                            <button class="flex items-center justify-between w-full px-4 py-2 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-red-600 border border-transparent rounded-lg active:bg-red-600 hover:bg-red-700 focus:outline-none focus:shadow-outline-red">
-                                Report
-                                <span class="ml-2" aria-hidden="true">+</span>
-                            </button>
+                            <a href="/user-report" class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/user-report.png') }}" alt="Logo Icon by the best icon" class="h-5 w-5">
+                                </div>
+                                <span class="ml-4">User Report</span>
+                            </a>
+                            <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
                         </li>
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Excavator | Jumlah</span>
+                                <span class="ml-4">Excavator | {{$totalExca}} Unit </span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
@@ -117,15 +122,24 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Dump Point | Jumlah</span>
+                                <span class="ml-4">Dump Point | {{$totalDumping}} Unit </span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
-                                <div class="invert-icon">
+                                <!-- <div class="invert-icon">
                                     <img src="{{ asset('assets/img/cloud.png') }}" alt="Logo" class="h-5 w-5">
-                                </div>
-                                <span class="ml-4">Curah Hujan | Cuaca saat ini</span>
+                                </div> -->
+                                @if ($latestWeather && file_exists(public_path('assets/img/cuaca-icons/' . strtolower($latestWeather->cuaca) . '.png')))
+                                    <img src="{{ asset('assets/img/cuaca-icons/' . strtolower($latestWeather->cuaca) . '.png') }}" 
+                                        alt="{{ $latestWeather->cuaca }}" 
+                                        class="w-5">
+                                @else
+                                    <img src="{{ asset('assets/img/cuaca-icons/not-found-weather.png') }}" 
+                                        alt="Cuaca tidak tersedia" 
+                                        class="w-5">
+                                @endif
+                                <span class="ml-4">{{ $latestWeather->cuaca_label ?? 'Not Found' }} | {{ $latestWeather->curah_hujan ?? 'N/A' }} mm</span>
                             </div>
                         </li>
                         <li class="relative px-6 py-3">
@@ -133,7 +147,13 @@
                                 <div class="invert-icon">
                                     <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
-                                <span class="ml-4">Kedalaman Air saat ini</span>
+                                @if ($latestWaterDepth)
+                                    <!-- <span class="ml-4">{{ $latestWaterDepth->qsv_1 ?? 'Not Found' }} | {{ $latestWaterDepth->h4 ?? 'Not Found' }}</span> -->
+                                    <span class="ml-4">QSV1: {{ $latestWaterDepth->qsv_1 ?? 'Not Found' }}</span>
+                                    <span class="ml-4">H4: {{ $latestWaterDepth->h4 ?? 'Not Found' }}</span>
+                                @else
+                                    <span class="ml-4">Data belum tersedia</span>
+                                @endif
                             </div>
                         </li>
                     </ul>

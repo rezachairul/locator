@@ -20,7 +20,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="/exca" method="POST">
+            <form action="{{route('exca.store')}}" method="POST">
                 @csrf
                 <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
                     <div>

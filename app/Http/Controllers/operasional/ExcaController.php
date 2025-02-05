@@ -21,7 +21,6 @@ class ExcaController extends Controller
     public function index()
     {
         $title = 'Load Point';
-        $excas = Exca::all();
         
         // Filter data untuk reset pukul 00.00
         $excas = Exca::whereDate('created_at', now()->toDateString())
