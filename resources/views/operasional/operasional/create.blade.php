@@ -17,13 +17,78 @@
             <!-- Modal body -->
             <form action="{{route('operasional.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="mt-2 mb-4 sm:col-span-2">
+                <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
+                    <!-- PIT -->
                     <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis Material</label>
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Jenis Material" required="">
+                        <label for="pit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIT</label>
+                        <input type="text" name="pit" id="pit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukan PIT" required="">
                     </div>
+                    <!-- Load Unit -->
+                    <div>
+                        <label for="exca"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waste Dump</label>
+                        <select id="exca"  name="exca_id"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            @if (isset($excas) && $excas->isNotEmpty())
+                                @foreach ($excas as $exca)
+                                    <option value="{{ $exca->id }}">{{ $exca->disposial_label ?? 'Data tidak tersedia' }}</option>
+                                @endforeach
+                            @else
+                                <option value="">No Waste Dump available</option>
+                            @endif
+                        </select>
+                    </div>
+                    <div>
+                        <label for="pit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIT</label>
+                        <input type="text" name="pit" id="pit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukan PIT" required="">
+                    </div>
+                    <!-- DOP -->
+                    <div>
+                        <label for="dop" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DOP</label>
+                        <input type="text" name="dop" id="dop" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukan DOP" required="">
+                    </div>
+                    <!-- Waste Dump -->
+                    <div>
+                        <label for="dumping"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waste Dump</label>
+                        <select id="dumping"  name="dumping_id"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            @if (isset($dumpings) && $dumpings->isNotEmpty())
+                                @foreach ($dumpings as $dumping)
+                                    <option value="{{ $dumping->id }}">{{ $dumping->disposial_label ?? 'Data tidak tersedia' }}</option>
+                                @endforeach
+                            @else
+                                <option value="">No Waste Dump available</option>
+                            @endif
+                        </select>
+                    </div>
+                    <!-- Material -->
+                    <div>
+                        <label for="material"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Material</label>
+                        <select id="material"  name="material_id"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            @if (isset($materials) && $materials->isNotEmpty())
+                                @foreach ($materials as $material)
+                                    <option value="{{ $material->id }}">{{ $material->name ?? 'Data tidak tersedia' }}</option>
+                                @endforeach
+                            @else
+                                <option value="">No materials available</option>
+                            @endif
+                        </select>
+                    </div>                   
+                    <!-- Elevasi Air -->
+                    <!-- <div>
+                        <label for="pit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIT</label>
+                        <input type="text" name="pit" id="pit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukan PIT" required="">
+                    </div> -->
+                    <!-- Cuaca -->
+                    <!-- <div>
+                        <label for="pit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIT</label>
+                        <input type="text" name="pit" id="pit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukan PIT" required="">
+                    </div> -->
                 </div>
-                <button type="submit" class="text-white m-1 inline-flex items-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                <button type="submit" class="text-white m-1 inline-flex items-center bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-800">
                     <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                     </svg>

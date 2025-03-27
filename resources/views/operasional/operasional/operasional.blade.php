@@ -41,7 +41,12 @@
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-4 py-3 text-center">No</th>
-                        <th class="px-4 py-3 text-center">Operasional</th>
+                        <th class="px-4 py-3 text-center">PIT</th>
+                        <th class="px-4 py-3 text-center">Loading Unit</th>
+                        <th class="px-4 py-3 text-center">DOP</th>
+                        <th class="px-4 py-3 text-center">Waste Dump</th>
+                        <th class="px-4 py-3 text-center">Elevasi Air</th>
+                        <th class="px-4 py-3 text-center">Cuaca Hari ini</th>
                         <th class="px-4 py-3 text-center">Actions</th>
                     </tr>
                 </thead>
@@ -160,7 +165,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="6" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
+                            <td colspan="8" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
                                 Tidak ada data {{$title}} ditemukan untuk hari ini.
                             </td>
                         </tr>
