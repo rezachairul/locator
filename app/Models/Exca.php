@@ -13,6 +13,7 @@ class Exca extends Model
 
 
     protected $guarded = ['id'];
+    
 
     public function getPitLabelAttribute()
     {

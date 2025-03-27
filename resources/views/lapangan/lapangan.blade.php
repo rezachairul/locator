@@ -45,7 +45,7 @@
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                                 <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-5 w-5">
+                                    <img src="{{ asset('assets/img/menu-icons/excavator.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
                                 <span class="ml-4">Excavator | {{$totalExca}} Unit </span>
                             </div>
@@ -53,7 +53,7 @@
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                                 <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
+                                    <img src="{{ asset('assets/img/menu-icons/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
                                 <span class="ml-4">Dump Point | {{$totalDumping}} Unit </span>
                             </div>
@@ -78,7 +78,7 @@
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                                 <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-5 w-5">
+                                    <img src="{{ asset('assets/img/menu-icons/water-waves.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
                                 @if ($latestWaterDepth)
                                     <!-- <span class="ml-4">{{ $latestWaterDepth->qsv_1 ?? 'Not Found' }} | {{ $latestWaterDepth->h4 ?? 'Not Found' }}</span> -->
@@ -95,7 +95,7 @@
 
             <!-- Mobile sidebar -->
             <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden" x-show="isSideMenuOpen" @click.away="closeSideMenu" @keydown.escape="closeSideMenu">
-            <div class="py-4 text-gray-500 dark:text-gray-400">
+                <div class="py-4 text-gray-500 dark:text-gray-400">
                     <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                         LocatorGIS
                     </a>
@@ -112,7 +112,7 @@
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                                 <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/excavator.png') }}" alt="Logo" class="h-5 w-5">
+                                    <img src="{{ asset('assets/img/menu-icons/excavator.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
                                 <span class="ml-4">Excavator | {{$totalExca}} Unit </span>
                             </div>
@@ -120,7 +120,7 @@
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                                 <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
+                                    <img src="{{ asset('assets/img/menu-icons/dump-truck.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
                                 <span class="ml-4">Dump Point | {{$totalDumping}} Unit </span>
                             </div>
@@ -145,7 +145,7 @@
                         <li class="relative px-6 py-3">
                             <div class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                                 <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/water-waves.png') }}" alt="Logo" class="h-5 w-5">
+                                    <img src="{{ asset('assets/img/menu-icons/water-waves.png') }}" alt="Logo" class="h-5 w-5">
                                 </div>
                                 @if ($latestWaterDepth)
                                     <!-- <span class="ml-4">{{ $latestWaterDepth->qsv_1 ?? 'Not Found' }} | {{ $latestWaterDepth->h4 ?? 'Not Found' }}</span> -->

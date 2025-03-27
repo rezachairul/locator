@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('fileName');
             $table->string('file');
+            $table->string('outputFile')->nullable();
             $table->integer('size')->nullable();
             $table->string('path')->nullable();
             $table->timestamps();

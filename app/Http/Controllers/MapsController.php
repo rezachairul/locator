@@ -39,24 +39,24 @@ class MapsController extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        
-        // ddd($request->all());
-
+    {        
+        // dd($request->all());
         $request->validate([
             'fileName' => 'required',
             'file' => 'required|mimetypes:application/octet-stream|max:51200', // tambahkan MIME type ECW
         ]);  
-         
+        
         // Mendapatkan nama asli file
         $originalName = $request->file('file')->getClientOriginalName();
         
         // Simpan file ke folder yang diinginkan
         $path = $request->file('file')->storeAs('uploads', $originalName, 'public'); // menyimpan file dengan nama asli
+        // dd($path);
 
         // Simpan data ke database
         Maps::create([
@@ -65,8 +65,7 @@ class MapsController extends Controller
         ]);
 
         return redirect()->route('maps.index')->with('success', 'File uploaded successfully!');
-    }   
-
+    }
 
 
     /**

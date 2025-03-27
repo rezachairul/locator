@@ -13,6 +13,7 @@ class Maps extends Model
     protected $fillable =[
         'fileName',
         'file',
+        'outputFile',
     ];
 
     public function lapangans()
