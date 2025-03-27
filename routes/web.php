@@ -10,6 +10,7 @@ use App\Http\Controllers\Lapangan\UserReportController;
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 
+use App\Http\Controllers\Operasional\OperasionalController;
 use App\Http\Controllers\Operasional\ExcaController;
 use App\Http\Controllers\Operasional\DumpingController;
 use App\Http\Controllers\Operasional\WeatherController;
@@ -19,7 +20,7 @@ use App\Http\Controllers\Operasional\MaterialController;
 use App\Http\Controllers\Laporan\IncidentUserController;
 use App\Http\Controllers\Laporan\LaporanHarianController;
 use App\Http\Controllers\Laporan\LaporanBulananController;
-
+use App\Models\Operasional;
 
 // Route Group Auth
 Route::prefix('auth')->group(function () {
@@ -58,6 +59,7 @@ Route::middleware(['auth'])->group(function(){
     // Route Operasional
     Route::prefix('operasional')->group(function () {
         // Rute untuk tiap page        
+        Route::resource('/operasional', OperasionalController::class);
         Route::resource('/exca', ExcaController::class);
         Route::resource('/dumping', DumpingController::class);
         Route::resource('/weather', WeatherController::class);
