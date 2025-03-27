@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dumpings', function (Blueprint $table) {
             $table->id();
-            $table->enum('disposial', ['ipdsidewallutara', 'ss3']);
+            $table->string('disposial');
             $table->float('easting');
             $table->float('northing');
             $table->float('elevation_rl');

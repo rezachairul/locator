@@ -15,19 +15,6 @@ class Dumping extends Model
     protected $table = 'dumpings';
     protected $guarded = ['id'];
 
-    // Menambahkan atribut virtual disposial_label
-    protected $appends = ['disposial_label'];
-
-    // Accessor untuk disposial_label
-    public function getDisposialLabelAttribute()
-    {
-        $disLabels = [
-            'ipdsidewallutara' => 'IPD Sidewall Utara',
-            'ss3' => 'SS3',
-        ];
-
-        return $disLabels[$this->attributes['disposial']] ?? $this->attributes['disposial'];
-    }
     public function exca(): HasMany
     {
         return $this->hasMany(Exca::class);

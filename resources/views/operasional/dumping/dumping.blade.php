@@ -75,7 +75,7 @@
                                 <td class="px-4 py-3">
                                     <div class="flex items-center text-xs">
                                         <div class="items-center">
-                                            <p class="font-semibold">{{ $disLabels[$dumping->disposial] ?? 'Label Tidak Ditemukan' }}</p>
+                                            <p class="font-semibold">{{ $dumping->disposial ?? 'Label Tidak Ditemukan' }}</p>
                                             <!-- <p class="text-xs text-gray-600 dark:text-gray-400">
                                                 belum ada relasi foreign
                                             </p> -->
@@ -136,13 +136,10 @@
                                                             <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
                                                                 <div>
                                                                     <label for="disposial"
-                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left ">Waste Dump</label>
-                                                                    <select id="disposial" name="disposial"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                        required="">
-                                                                        <option value="ipdsidewallutara" {{old('disposial', $dumping->disposial) === 'ipdsidewallutara' ? 'selected' : ''}}>IPD SIDEWALL UTARA</option>
-                                                                        <option value="ss3" {{old('disposial', $dumping->disposial) === 'ss3' ? 'selected' : ''}}>SS3</option>
-                                                                    </select>
+                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Nama Disposial</label>
+                                                                    <input type="text" name="disposial" id="disposial"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                        placeholder="Input Nama Disposial" required autofocus value="{{old('disposial', $dumping->disposial)}}">
                                                                 </div>
                                                                 <div>
                                                                     <label for="northing"
