@@ -109,15 +109,12 @@
                     <!-- Baris Pertama -->
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-2 py-1 text-center" rowspan="2">No</th>
-                        <th class="px-2 py-1 text-center" rowspan="2">PIT</th>
                         <th class="px-2 py-1 text-center" rowspan="2">Loading Unit</th>
                         <th class="px-2 py-1 text-center" rowspan="2">Easting</th>
                         <th class="px-2 py-1 text-center" rowspan="2">Northing</th>
                         <th class="px-2 py-1 text-center" colspan="2">Elevation</th>
-                        <th class="px-2 py-1 text-center" rowspan="2">DOP</th>
                         <th class="px-2 py-1 text-center" colspan="2">Front</th>
                         <th class="px-2 py-1 text-center" rowspan="2">Date</th>
-                        <th class="px-2 py-1 text-center" rowspan="2">Material</th>
                         <th class="px-2 py-1 text-center" rowspan="2">Actions</th>
                     </tr>
                     <!-- Baris Kedua -->
@@ -135,16 +132,13 @@
                                 <td class="px-2 py-1 text-sm text-center">
                                     {{ $excas->firstItem() + $key }}
                                 </td>
-                                <td class="px-2 py-1 text-sm text-center">
-                                    {{ $exca->pit_label }}
-                                </td>
                                 <td class="px-2 py-1">
                                     <div class="flex items-center text-xs">
                                         <div class="items-center">
-                                            <p class="font-semibold">{{ $exca->loading_unit_label }}</p>
-                                            <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                {{ $exca->dumping->disposial_label  }}
-                                            </p>
+                                            <p class="font-semibold">{{ $exca->loading_unit }}</p>
+                                            <!-- <p class="text-xs text-gray-600 dark:text-gray-400">
+                                                Belum ada relasi
+                                            </p> -->
                                         </div>
                                     </div>
                                 </td>
@@ -161,9 +155,6 @@
                                     {{ $exca->elevation_actual }}
                                 </td>
                                 <td class="px-2 py-1 text-xs text-center">
-                                    {{$exca->dop}}
-                                </td>
-                                <td class="px-2 py-1 text-xs text-center">
                                     {{ $exca->front_width }}
                                 </td>
                                 <td class="px-2 py-1 text-xs text-center">
@@ -171,9 +162,6 @@
                                 </td>
                                 <td class="px-2 py-1 text-xs text-center">
                                     {{ $exca->created_at->format('d-m-Y')}}
-                                </td>
-                                <td class="px-4 py-3 text-xs text-center">
-                                    {{$exca->material->name}}
                                 </td>
                                 <td class="px-2 py-1 text-center">
                                     <div class="flex item-center justify-center space-x-4 text-sm">
@@ -213,57 +201,11 @@
                                                             @csrf
                                                             <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
                                                                 <div>
-                                                                    <label for="pit"
-                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">PIT</label>
-                                                                    <select id="pit" name="pit"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                        required autofocus>
-                                                                        <option value="qsv1s" {{old ('pit', $exca->pit) === 'qsv1s' ? 'selected' : ''}} >QSV1S</option>
-                                                                        <option value="qsv3" {{old ('pit', $exca->pit) === 'qsv3' ? 'selected' : ''}} >QSV3</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div>
                                                                     <label for="loading_unit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Loading
                                                                         Unit</label>
-                                                                    <select id="loading_unit" name="loading_unit" 
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                        required autofocus>
-                                                                        <option value="fex400_441" {{old ('loading_unit', $exca->loading_unit) === 'fex400_441' ? 'selected' : ''}}>FEX400-441</option>
-                                                                        <option value="fex400_419" {{old ('loading_unit', $exca->loading_unit) === 'fex400_419' ? 'selected' : ''}}>FEX400-419</option>
-                                                                        <option value="fex400_449" {{old ('loading_unit', $exca->loading_unit) === 'fex400_449' ? 'selected' : ''}}>FEX400-449</option>
-                                                                        <option value="fex400_454" {{old ('loading_unit', $exca->loading_unit) === 'fex400_454' ? 'selected' : ''}}>FEX400-454</option>
-                                                                        <option value="fex400_456" {{old ('loading_unit', $exca->loading_unit) === 'fex400_456' ? 'selected' : ''}}>FEX400-456</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="dumping" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Waste Dump</label>
-                                                                    <select id="dumping" name="dumping_id"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                                        @if ($dumpings->isNotEmpty())
-                                                                            @foreach ($dumpings as $dumping)
-                                                                                <option value="{{ $dumping->id }}" {{ old('dumping_id', $exca->dumping) == $dumping->id ? 'selected' : '' }}>
-                                                                                    {{ $dumping->disposial_label }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        @else
-                                                                            <option value="">No Waste Dump available</option>
-                                                                        @endif
-                                                                    </select>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="material" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Material</label>
-                                                                    <select id="material" name="material_id"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                                                        @if ($materials->isNotEmpty())
-                                                                            @foreach ($materials as $material)
-                                                                                <option value="{{ $material->id }}" {{ old('material_id', $exca->material_id) == $material->id ? 'selected' : '' }}>
-                                                                                    {{ $material->name }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        @else
-                                                                            <option value="">No materials available</option>
-                                                                        @endif
-                                                                    </select>
+                                                                    <input type="text" name="loading_unit" id="loading_unit"
+                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                        placeholder="Input Loading Unit" required autofocus value="{{old('loading_unit', $exca->loading_unit)}}">
                                                                 </div>
                                                                 <div>
                                                                     <label for="easting"
@@ -302,13 +244,6 @@
                                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                                             placeholder="Front Height" required autofocus value="{{old('front_height', $exca->front_height)}}">
                                                                     </div>
-                                                                </div>
-                                                                <div>
-                                                                    <label for="dop"
-                                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">DOP</label>
-                                                                    <input type="text" name="dop" id="dop"
-                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                        placeholder="Input DOP" required autofocus value="{{old('dop', $exca->dop)}}">
                                                                 </div>
                                                             </div>
                                                             <button type="submit"
@@ -379,7 +314,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="13" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
+                            <td colspan="10" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
                                 Tidak ada data {{$title}} ditemukan untuk hari ini.
                             </td>
                         </tr>

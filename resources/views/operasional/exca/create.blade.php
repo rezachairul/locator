@@ -24,69 +24,25 @@
                 @csrf
                 <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
                     <div>
-                        <label for="pit"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIT</label>
-                        <select id="pit"  name="pit"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required>
-                            <option selected="" value="qsv1s">QSV1S</option>
-                            <option value="qsv3">QSV3</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="loading_unit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Loading
-                            Unit</label>
-                        <select id="loading_unit" name="loading_unit"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required>
-                            <option selected="" value="fex400_441">FEX400-441</option>
-                            <option value="fex400_419">FEX400-419</option>
-                            <option value="fex400_449">FEX400-449</option>
-                            <option value="fex400_454">FEX400-454</option>
-                            <option value="fex400_456">FEX400-456</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="dumping"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waste Dump</label>
-                        <select id="dumping"  name="dumping_id"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            @if (isset($dumpings) && $dumpings->isNotEmpty())
-                                @foreach ($dumpings as $dumping)
-                                    <option value="{{ $dumping->id }}">{{ $dumping->disposial_label ?? 'Data tidak tersedia' }}</option>
-                                @endforeach
-                            @else
-                                <option value="">No Waste Dump available</option>
-                            @endif
-                        </select>
-                    </div>
-                    <div>
-                        <label for="material"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Material</label>
-                        <select id="material"  name="material_id"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            @if (isset($materials) && $materials->isNotEmpty())
-                                @foreach ($materials as $material)
-                                    <option value="{{ $material->id }}">{{ $material->name ?? 'Data tidak tersedia' }}</option>
-                                @endforeach
-                            @else
-                                <option value="">No materials available</option>
-                            @endif
-                        </select>
+                        <label for="loading_unit"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Loading Unit</label>
+                        <input type="text" name="loading_unit" id="loading_unit"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Input Loading Unit" required>
                     </div>
                     <div>
                         <label for="easting"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Easting</label>
                         <input type="text" name="easting" id="easting"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Easting" required>
+                            placeholder="Input Easting" required>
                     </div>
                     <div>
                         <label for="northing"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Northing</label>
                         <input type="text" name="northing" id="northing"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="Northing" required>
+                            placeholder="Input Northing" required>
                     </div>
                     <div>
                         <label for="elevation" 
@@ -94,10 +50,10 @@
                         <div class="grid grid-cols-2 gap-4">
                             <input type="text" name="elevation_rl" id="elevation_rl"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Elevation RL" required>
+                                placeholder="Input Elevation RL" required>
                             <input type="text" name="elevation_actual" id="elevation_actual"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Elevation Actual" required>
+                                placeholder="Input Elevation Actual" required>
                         </div>
                     </div>
                     <div>
@@ -111,13 +67,6 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Front Height" required>
                         </div>
-                    </div>
-                    <div>
-                        <label for="dop" 
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DOP</label>
-                        <input type="text" name="dop" id="dop"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="DOP" required>
                     </div>
                 </div>
                 <button type="submit"

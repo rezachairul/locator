@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Operasional;
 
+use App\Models\Dumping;
+use App\Models\Material;
 use App\Models\Operasional;
-use Illuminate\Routing\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class OperasionalController extends Controller
 {
@@ -15,7 +17,31 @@ class OperasionalController extends Controller
     {
         $title = 'Operasional';
         $operasionals = Operasional::orderBy('id', 'asc')->paginate(10);
-        return view('operasional/operasional/operasional', compact('title', 'operasionals'));
+        // Ambil data materials
+        $materials = Material::whereDate('created_at', now()->toDateString())->get();
+
+        // Jika tidak ada data untuk hari ini, ambil semua data dari tabel Material
+        if ($materials->isEmpty()) {
+            $materials = Material::all();
+        }
+
+        // Jika tabel benar-benar kosong, tambahkan data dummy sebagai fallback
+        if ($materials->isEmpty()) {
+            $materials = collect([
+                (object) ['id' => '', 'name' => 'No materials available']
+            ]);
+        }
+
+        // Ambil data Waste Dump
+        $dumpings = Dumping::all();
+        // Filter dumpings berdasarkan tanggal hari ini
+        $dumpings = Dumping::whereDate('created_at', now()->toDateString())->get();
+        if ($dumpings->isEmpty()) {
+            $dumpings = collect([
+                (object) ['id' => '', 'disposial' => 'No Waste Dump available']
+            ]);
+        }
+        return view('operasional/operasional/operasional', compact('title', 'operasionals', 'dumpings', 'materials'));
     }
 
     /**
