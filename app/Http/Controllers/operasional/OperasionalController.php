@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Operasional;
 
+use App\Models\Exca;
 use App\Models\Dumping;
 use App\Models\Material;
 use App\Models\Operasional;
@@ -17,18 +18,14 @@ class OperasionalController extends Controller
     {
         $title = 'Operasional';
         $operasionals = Operasional::orderBy('id', 'asc')->paginate(10);
-        // Ambil data materials
-        $materials = Material::whereDate('created_at', now()->toDateString())->get();
 
-        // Jika tidak ada data untuk hari ini, ambil semua data dari tabel Material
-        if ($materials->isEmpty()) {
-            $materials = Material::all();
-        }
-
-        // Jika tabel benar-benar kosong, tambahkan data dummy sebagai fallback
-        if ($materials->isEmpty()) {
-            $materials = collect([
-                (object) ['id' => '', 'name' => 'No materials available']
+        // Ambil data Exca
+        $excas = Exca::all();
+        // Filter excas berdasarkan tanggal hari ini
+        $excas = Exca::whereDate('created_at', now()->toDateString())->get();
+        if ($excas->isEmpty()) {
+            $excas = collect([
+                (object) ['id' => '', 'loading_unit' => 'No Loading Unit available']
             ]);
         }
 
@@ -38,10 +35,24 @@ class OperasionalController extends Controller
         $dumpings = Dumping::whereDate('created_at', now()->toDateString())->get();
         if ($dumpings->isEmpty()) {
             $dumpings = collect([
-                (object) ['id' => '', 'disposial' => 'No Waste Dump available']
+                (object) ['id' => '', 'disposial' => 'No Disposial available']
             ]);
         }
-        return view('operasional/operasional/operasional', compact('title', 'operasionals', 'dumpings', 'materials'));
+
+        // Ambil data materials
+        $materials = Material::whereDate('created_at', now()->toDateString())->get();
+        // Jika tidak ada data untuk hari ini, ambil semua data dari tabel Material
+        if ($materials->isEmpty()) {
+            $materials = Material::all();
+        }
+        // Jika tabel benar-benar kosong, tambahkan data dummy sebagai fallback
+        if ($materials->isEmpty()) {
+            $materials = collect([
+                (object) ['id' => '', 'name' => 'No materials available']
+            ]);
+        }
+
+        return view('operasional/operasional/operasional', compact('title', 'operasionals', 'excas', 'dumpings', 'materials'));
     }
 
     /**

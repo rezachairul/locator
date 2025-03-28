@@ -44,7 +44,7 @@
                         <th class="px-4 py-3 text-center">PIT</th>
                         <th class="px-4 py-3 text-center">Loading Unit</th>
                         <th class="px-4 py-3 text-center">DOP</th>
-                        <th class="px-4 py-3 text-center">Waste Dump</th>
+                        <th class="px-4 py-3 text-center">Disposial</th>
                         <th class="px-4 py-3 text-center">Elevasi Air</th>
                         <th class="px-4 py-3 text-center">Cuaca Hari ini</th>
                         <th class="px-4 py-3 text-center">Actions</th>
@@ -58,7 +58,22 @@
                                 {{ $operasionals->firstItem() + $key }}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                {{$operasional->name}}
+                                {{$operasional->pit}}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{$operasional->$exca->loading_unit}}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{$operasional->dop}}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{$operasional->$dumping->disposial}}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{$operasional->$waterdepth->qsv_1}}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{$operasional->$weather->cuaca_label}}
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex item-center justify-center space-x-4 text-sm">

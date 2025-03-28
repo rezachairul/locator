@@ -23,42 +23,38 @@
                         <label for="pit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIT</label>
                         <input type="text" name="pit" id="pit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukan PIT" required="">
                     </div>
-                    <!-- Load Unit -->
-                    <div>
-                        <label for="exca"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waste Dump</label>
-                        <select id="exca"  name="exca_id"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            @if (isset($excas) && $excas->isNotEmpty())
-                                @foreach ($excas as $exca)
-                                    <option value="{{ $exca->id }}">{{ $exca->disposial_label ?? 'Data tidak tersedia' }}</option>
-                                @endforeach
-                            @else
-                                <option value="">No Waste Dump available</option>
-                            @endif
-                        </select>
-                    </div>
-                    <div>
-                        <label for="pit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PIT</label>
-                        <input type="text" name="pit" id="pit" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukan PIT" required="">
-                    </div>
                     <!-- DOP -->
                     <div>
                         <label for="dop" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DOP</label>
                         <input type="text" name="dop" id="dop" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukan DOP" required="">
                     </div>
+                    <!-- Load Unit -->
+                    <div>
+                        <label for="exca"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Load Unit</label>
+                        <select id="exca"  name="exca_id"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            @if (isset($excas) && $excas->isNotEmpty())
+                                @foreach ($excas as $exca)
+                                    <option value="{{ $exca->id }}">{{ $exca->loading_unit}}</option>
+                                @endforeach
+                            @else
+                                <option value="">No Loading Unit available</option>
+                            @endif
+                        </select>
+                    </div>
                     <!-- Waste Dump -->
                     <div>
                         <label for="dumping"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waste Dump</label>
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Disposial</label>
                         <select id="dumping"  name="dumping_id"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             @if (isset($dumpings) && $dumpings->isNotEmpty())
                                 @foreach ($dumpings as $dumping)
-                                    <option value="{{ $dumping->id }}">{{ $dumping->disposial_label ?? 'Data tidak tersedia' }}</option>
+                                    <option value="{{ $dumping->id }}">{{ $dumping->disposial}}</option>
                                 @endforeach
                             @else
-                                <option value="">No Waste Dump available</option>
+                                <option value="">No Disposial available</option>
                             @endif
                         </select>
                     </div>
@@ -70,7 +66,7 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             @if (isset($materials) && $materials->isNotEmpty())
                                 @foreach ($materials as $material)
-                                    <option value="{{ $material->id }}">{{ $material->name ?? 'Data tidak tersedia' }}</option>
+                                    <option value="{{ $material->id }}">{{ $material->name}}</option>
                                 @endforeach
                             @else
                                 <option value="">No materials available</option>
