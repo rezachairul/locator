@@ -18,7 +18,7 @@ class IncidentUserController extends Controller
         // Mengambil data incident_users dengan relasi user_report
         $incident_users = IncidentUser::with('user_report')->paginate(10);
 
-        return view('laporan.incident-user', compact('title', 'incident_users'));
+        return view('laporan/incident-user', compact('title', 'incident_users'));
     }
     /**
      * Show the form for creating a new resource.

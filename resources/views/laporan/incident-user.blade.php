@@ -88,12 +88,12 @@
             <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
                 <!--  Showing -->
                 <span class="flex items-center col-span-3">
-                    Showing 1-10 of 100
+                    Showing {{ $incident_users->firstItem() }} to {{ $incident_users->lastItem() }} of {{ $incident_users->total() }} Entries
                 </span>
                 <span class="col-span-2"></span>
                 <!-- Pagination -->
-                 <div class="col-span-4 flex items-center justify-end space-x-2">
-                    @if ($incident_users->onFirstPagePages())
+                <div class="col-span-4 flex items-center justify-end space-x-2">
+                    @if ($incident_users->onFirstPage())
                         <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Previous</span>
                     @else
                         <a href="{{ $incident_users->previousPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Previous</a>
