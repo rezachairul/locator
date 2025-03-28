@@ -36,7 +36,7 @@
                 </button>
             </div>
         </div>
-
+        
         <div class="w-full overflow-x-auto">
             <table class="whitespace-nowrap table-auto min-w-full">
                 <thead>
@@ -277,27 +277,27 @@
                     @endif
                 </tbody>
             </table>
-            <!-- Pagination & Showing -->
-            <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                <!-- Showing -->
-                <span class="flex items-center col-span-3">
-                    Showing {{ $operasionals->firstItem() }} to {{ $operasionals->lastItem() }} out of {{ $operasionals->total() }}
-                </span>
-                <span class="col-span-2"></span>
-                <!-- Pagination -->
-                 <div class="col-span-4 flex items-center justify-end space-x-2">
-                    @if ($operasionals->onFirstPage())
-                        <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Previous</span>
-                    @else
-                        <a href="{{ $operasionals->previousPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Previous</a>
-                    @endif
-                    <span class="text-gray-300">Page {{ $operasionals->currentPage() }} of {{ $operasionals->lastPage() }}</span>
-                    @if ($operasionals->hasMorePages())
-                        <a href="{{ $operasionals->nextPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Next</a>
-                    @else
-                        <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Next</span>
-                    @endif
-                 </div>
+        </div>
+        <!-- Pagination & Showing -->
+        <div class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+            <!-- Showing -->
+            <span class="flex items-center col-span-3">
+                Showing {{ $operasionals->firstItem() }} - {{ $operasionals->lastItem() }} out of {{ $operasionals->total() }}
+            </span>
+            <span class="col-span-2"></span>
+            <!-- Pagination -->
+            <div class="col-span-4 flex items-center justify-end space-x-2">
+                @if ($operasionals->onFirstPage())
+                    <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Previous</span>
+                @else
+                    <a href="{{ $operasionals->previousPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Previous</a>
+                @endif
+                <span class="text-gray-300">Page {{ $operasionals->currentPage() }} of {{ $operasionals->lastPage() }}</span>
+                @if ($operasionals->hasMorePages())
+                    <a href="{{ $operasionals->nextPageUrl() }}" class="px-4 py-2 text-gray-500 bg-gray-200 rounded-md hover:bg-gray-300">Next</a>
+                @else    
+                    <span class="px-4 py-2 text-gray-500 bg-gray-700 rounded-md cursor-not-allowed">Next</span>            
+                @endif
             </div>
         </div>
 
