@@ -36,54 +36,64 @@
                 </button>
             </div>
         </div>
+
         <div class="w-full overflow-x-auto">
-            <table class="w-full whitespace-no-wrap">
+            <table class="whitespace-nowrap table-auto min-w-full">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3 text-center">No</th>
-                        <th class="px-4 py-3 text-center">PIT</th>
-                        <th class="px-4 py-3 text-center">Loading Unit</th>
-                        <th class="px-4 py-3 text-center">DOP</th>
-                        <th class="px-4 py-3 text-center">Disposial</th>
-                        <th class="px-4 py-3 text-center">Material</th>
-                        <th class="px-4 py-3 text-center">Elevasi Air</th>
-                        <th class="px-4 py-3 text-center">Cuaca Hari ini</th>
-                        <th class="px-4 py-3 text-center">Actions</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">No</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">PIT</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Loading Unit</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">DOP</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Disposial</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Material</th>
+                        <th class="px-2 py-1 text-center" colspan="2">Elevasi Air</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Cuaca Hari ini</th>
+                        <th class="px-2 py-1 text-center" rowspan="2">Actions</th>
+                    </tr>
+                    <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <th class="px-2 py-1 text-center">SUMP QSV1</th>
+                        <th class="px-2 py-1 text-center">SUMP H4</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @if ($operasionals->where('created_at', '>=', now()->toDateString())->isNotEmpty())
                         @foreach ( $operasionals->where('created_at', '>=', now()->toDateString())  as $key => $operasional )
                         <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{ $operasionals->firstItem() + $key }}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{$operasional->pit}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{$operasional->exca->loading_unit ?? 'N/A'}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{$operasional->dop}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{$operasional->dumping->disposial ?? 'N/A'}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 {{$operasional->material->name ?? 'N/A'}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
                                 @if ($latestWaterDepth)
                                     {{$latestWaterDepth->qsv_1 ?? 'N/A'}}
                                 @endif
                             </td>
-                            <td class="px-4 py-3 text-sm text-center">
+                            <td class="px-2 py-1 text-sm text-center">
+                                @if ($latestWaterDepth)
+                                    {{$latestWaterDepth->h4 ?? 'N/A'}}
+                                @endif
+                            </td>
+                            <td class="px-2 py-1 text-sm text-center">
                                 @if ($latestWeather)
                                     {{$latestWeather->cuaca_label ?? 'N/A'}}
                                 @endif
                             </td>
-                            <td class="px-4 py-3 text-center">
+                            <td class="px-2 py-1 text-center">
                                 <div class="flex item-center justify-center space-x-4 text-sm">
                                     <!-- Edit Button -->
                                     <button id="updateProductButton-{{ $operasional->id }}" data-modal-target="updateProductModal-{{ $operasional->id }}" data-modal-toggle="updateProductModal-{{ $operasional->id }}" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
@@ -260,7 +270,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="9" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
+                            <td colspan="10" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
                                 Tidak ada data {{$title}} ditemukan untuk hari ini.
                             </td>
                         </tr>
