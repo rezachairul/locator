@@ -68,7 +68,23 @@ class OperasionalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd ($request->all());
+        $request->validate([
+            'pit' => 'required',
+            'loading_unit_id' => 'required|exists:excas,id',
+            'dop' => 'required',
+            'dumping_id' => 'required|exists:dumpings,id',
+            'material_id' => 'required|exists:materials,id',
+        ]);
+        
+        Operasional::create([
+            'pit' => $request->pit,
+            'loading_unit_id' => $request->loading_unit_id,
+            'dop' => $request->dop,
+            'dumping_id' => $request->dumping_id,
+            'material_id' => $request->material_id,
+        ]);
+        return redirect()->route('operasional.index')->with('success', 'Data berhasil disimpan');
     }
 
     /**
@@ -92,14 +108,33 @@ class OperasionalController extends Controller
      */
     public function update(Request $request, Operasional $operasional)
     {
-        //
+        dd ($request->all());
+        $request->validate([
+            'pit' => 'required',
+            'loading_unit_id' => 'required|exists:excas,id',
+            'dop' => 'required',
+            'dumping_id' => 'required|exists:dumpings,id',
+            'material_id' => 'required|exists:materials,id',
+        ]);
+        Operasional::where('id', $operasional->id)->update([
+            'pit' => $request->pit,
+            'loading_unit_id' => $request->loading_unit_id,
+            'dop' => $request->dop,
+            'dumping_id' => $request->dumping_id,
+            'material_id' => $request->material_id,
+        ]);
+        return redirect()->route('operasional.index')->with('success', 'Berhasil Update Data Operasional');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Operasional $operasional)
+    public function destroy($id)
     {
-        //
+        // dd($id);
+        $operasional = Operasional::findOrFail($id);
+        $operasional->delete();
+        return redirect()->route('operasional.index')->with('success', 'Item deleted successfully.');
+
     }
 }

@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('operasionals', function (Blueprint $table) {
             $table->id();
+            $table->string('pit');
+            $table->foreignId('loading_unit_id')->constrained('excas')->onDelete('cascade');
+            $table->string('dop');
+            $table->foreignId('dumping_id')->constrained('dumpings')->onDelete('cascade');
+            $table->foreignId('material_id')->constrained('materials')->onDelete('cascade');
             $table->timestamps();
         });
     }

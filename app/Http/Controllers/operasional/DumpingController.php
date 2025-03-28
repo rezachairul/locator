@@ -15,7 +15,7 @@ class DumpingController extends Controller
     {
         $title = 'Waste Dump';
         // Ambil data Dumpings
-        $dumpings = Dumping::all();        
+        // $dumpings = Dumping::all();        
         
         // Filter data untuk reset pukul 00.00
         $dumpings = Dumping::whereDate('created_at', now()->toDateString())
