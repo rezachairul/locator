@@ -74,10 +74,14 @@
                                 {{$operasional->material->name ?? 'N/A'}}
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                {{$operasional->waterdepth->qsv_1 ?? 'N/A'}}
+                                @if ($latestWaterDepth)
+                                    {{$latestWaterDepth->qsv_1 ?? 'N/A'}}
+                                @endif
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
-                                {{$operasional->weather->cuaca_label ?? 'N/A'}}
+                                @if ($latestWeather)
+                                    {{$latestWeather->cuaca_label ?? 'N/A'}}
+                                @endif
                             </td>
                             <td class="px-4 py-3 text-center">
                                 <div class="flex item-center justify-center space-x-4 text-sm">

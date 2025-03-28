@@ -11,11 +11,6 @@ class Weather extends Model
     protected $table = 'weathers';
     protected $guarded = ['id'];
 
-    // protected $fillable=[
-    //     'cuaca',
-    //     'curah_hujan',
-    // ]; 
-
     public function getCuacaLabelAttribute()
     {
         $cuacaLabels = [

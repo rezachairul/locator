@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Operasional;
 
 use App\Models\Exca;
 use App\Models\Dumping;
+use App\Models\Weather;
 use App\Models\Material;
+use App\Models\Waterdepth;
 use App\Models\Operasional;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -51,8 +53,13 @@ class OperasionalController extends Controller
                 (object) ['id' => '', 'name' => 'No materials available']
             ]);
         }
+        
+        $today = now()->startOfDay();
+        // Ambil data weather dan Waterdepth
+        $latestWeather = Weather::where('created_at', '>=', $today)->latest()->first();
+        $latestWaterDepth = Waterdepth::where('created_at', '>=', $today)->latest()->first();
 
-        return view('operasional/operasional/operasional', compact('title', 'operasionals', 'excas', 'dumpings', 'materials'));
+        return view('operasional/operasional/operasional', compact('title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'));
     }
 
     /**

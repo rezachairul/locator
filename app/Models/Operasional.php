@@ -16,7 +16,7 @@ class Operasional extends Model
     // Operasional items
     public function exca(): BelongsTo
     {
-        return $this->belongsTo(Exca::class , 'exca_id');
+        return $this->belongsTo(Exca::class , 'loading_unit_id');
     }
 
     public function dumping(): BelongsTo
