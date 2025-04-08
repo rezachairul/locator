@@ -49,7 +49,7 @@ class MapsController extends Controller
         $request->validate([
             'fileName' => 'required',
             'file' => 'required|mimetypes:application/octet-stream|max:51200', // tambahkan MIME type ECW
-        ]);  
+        ]);
         
         // Mendapatkan nama asli file
         $originalName = $request->file('file')->getClientOriginalName();
@@ -57,6 +57,16 @@ class MapsController extends Controller
         // Simpan file ke folder yang diinginkan
         $path = $request->file('file')->storeAs('uploads', $originalName, 'public'); // menyimpan file dengan nama asli
         // dd($path);
+
+        // $ecwFile = '/path/to/input.ecw';
+        // $tiffFile = '/path/to/output.tif';
+        // $command = "gdal_translate -of GTiff " . escapeshellarg($ecwFile) . " " . escapeshellarg($tiffFile);
+        // exec($command, $output, $returnVar);
+        // if ($returnVar !== 0) {
+        //     // Handle the error
+        //     throw new \Exception("GDAL conversion failed: " . implode("\n", $output));
+        // }
+
 
         // Simpan data ke database
         Maps::create([
