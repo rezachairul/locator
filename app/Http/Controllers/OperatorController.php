@@ -159,7 +159,7 @@ class OperatorController extends Controller
      */
     public function destroy(string $id)
     {
-        //dd($id);
+        // dd($id);
         // Cari data berdasarkan ID
         $operator = User::findOrFail($id);
         // Jika data tidak ditemukan, kembalikan dengan pesan error
