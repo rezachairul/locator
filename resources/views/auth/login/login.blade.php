@@ -67,9 +67,12 @@
                         </button>
                     </div>
                     @endif
-                    <h1 class="mb-4 text-xl font-semibold text-gray-700 dark:text-gray-200" >
-                        Login Administrator
+                    <h1 class="mb-1 text-lg font-semibold text-center text-gray-700 dark:text-gray-200" >
+                        Selamat datang di Login Area
                     </h1>
+                    <h2 class="mb-4 text-lg font-semibold text-center text-gray-700 dark:text-gray-200" >
+                        Ayo mulai pantau lokasi
+                    </h2>
                     <form action="/auth/login" method="post">
                         @csrf
                         <div class="block text-sm mt-8">

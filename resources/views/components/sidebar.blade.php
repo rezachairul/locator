@@ -26,6 +26,16 @@
                         <span class="ml-4">Maps</span>
                     </a>
                 </li>
+                <!-- Operator -->
+                <li class="relative px-6 py-3">
+                    <span class="{{ request()->is('operator') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                    <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="/operator">
+                        <div class="invert-icon">
+                            <img src="{{ asset('assets/img/menu-icons/operator.png') }}" alt="Logo" class="h-5 w-5">
+                        </div>
+                        <span class="ml-4">Operator</span>
+                    </a>
+                </li>
                 <!-- Operasional -->
                 <li class="relative px-6 py-3 group">
                     <span class="{{ request()->is('operasional*') || request()->is('exca') || request()->is('dumping') || request()->is('weather') || request()->is('waterdepth') || request()->is('material') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
@@ -173,7 +183,7 @@
 
     <!-- Mobile sidebar -->
     <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden" x-show="isSideMenuOpen" @click.away="closeSideMenu" @keydown.escape="closeSideMenu">
-        <<div class="flex flex-col h-full py-4 text-gray-500 dark:text-gray-400">
+        <div class="flex flex-col h-full py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
                 LocatorGIS
             </a>
@@ -196,6 +206,16 @@
                             <img src="{{ asset('assets/img/menu-icons/maps.png') }}" alt="Logo" class="h-5 w-5">
                         </div>
                         <span class="ml-4">Maps</span>
+                    </a>
+                </li>
+                <!-- Operator -->
+                <li class="relative px-6 py-3">
+                    <span class="{{ request()->is('operator') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                    <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="/operator">
+                        <div class="invert-icon">
+                            <img src="{{ asset('assets/img/menu-icons/operator.png') }}" alt="Logo" class="h-5 w-5">
+                        </div>
+                        <span class="ml-4">Operator</span>
                     </a>
                 </li>
                 <!-- Operasional -->

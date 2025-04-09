@@ -23,11 +23,19 @@ class LoginController extends Controller
         Log::info('Attempting login for:', ['email' => $credentials['email']]);
         if(Auth::attempt($credentials)){
             $request -> session() -> regenerate();
-            return redirect() -> intended('/dashboard');
+            
+            //ambil role user
+            $user = Auth::user();
+            // redirect berdasarkan role
+            if($user->role == 'admin'){
+                return redirect() -> intended('/dashboard');
+            } elseif($user->role == 'operator'){
+                return redirect() -> intended('/');
+            }
+            // Jika role tidak dikenali, redirect ke halaman login
+            Auth::logout();
+            return redirect('/auth/login')->with('loginError', 'Login Failed!');
         }
-
-        Log::warning('Login failed for user: ' . $credentials['email']);
-        return back()->with('loginError', 'Login Failed!');
     }
 
     public function logout()

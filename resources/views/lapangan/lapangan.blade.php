@@ -86,6 +86,20 @@
                             @endif
                         </li>
                     </ul>
+                    <!-- Tombol Logout -->
+                    <ul>
+                        <li class="relative px-6 py-3">
+                            <form method="POST" action="/auth/logout">
+                                @csrf
+                                <button type="submit" class="flex items-center w-full text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                    <div class="invert-icon">
+                                        <img src="{{ asset('assets/img/menu-icons/logout.png') }}" alt="Logout Icon by Pixel perfect" class="h-5 w-5 mr-2">
+                                        <span>Logout</span>
+                                    </div>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </aside>
 
@@ -230,6 +244,20 @@
                                         </li>
                                     </ul>
                                 </template>
+                            </li>
+                        </ul>
+                        <!-- Tombol Logout -->
+                        <ul>
+                            <li class="relative px-6 py-3">
+                                <form method="POST" action="/auth/logout">
+                                    @csrf
+                                    <button type="submit" class="flex items-center w-full text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                        <div class="invert-icon">
+                                            <img src="{{ asset('assets/img/menu-icons/logout.png') }}" alt="Logout Icon by Pixel perfect" class="h-5 w-5 mr-2">
+                                            <span>Logout</span>
+                                        </div>
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </div>

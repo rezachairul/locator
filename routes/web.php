@@ -1,26 +1,27 @@
 <?php
 
+use App\Models\Operasional;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapsController;
-use App\Http\Controllers\DashboardController;
 
-use App\Http\Controllers\Lapangan\LapanganController;
-use App\Http\Controllers\Lapangan\UserReportController;
+use App\Http\Controllers\OperatorController;
+use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 
-use App\Http\Controllers\Operasional\OperasionalController;
 use App\Http\Controllers\Operasional\ExcaController;
+use App\Http\Controllers\Lapangan\LapanganController;
+use App\Http\Controllers\Lapangan\UserReportController;
 use App\Http\Controllers\Operasional\DumpingController;
 use App\Http\Controllers\Operasional\WeatherController;
-use App\Http\Controllers\Operasional\WaterdepthController;
-use App\Http\Controllers\Operasional\MaterialController;
-
 use App\Http\Controllers\Laporan\IncidentUserController;
+
+use App\Http\Controllers\Operasional\MaterialController;
 use App\Http\Controllers\Laporan\LaporanHarianController;
 use App\Http\Controllers\Laporan\LaporanBulananController;
-use App\Models\Operasional;
+use App\Http\Controllers\Operasional\WaterdepthController;
+use App\Http\Controllers\Operasional\OperasionalController;
 
 // Route Group Auth
 Route::prefix('auth')->group(function () {
@@ -35,16 +36,15 @@ Route::prefix('auth')->group(function () {
 });   
 
 // Route User Page
-Route::prefix('/')->group(function(){
+Route::middleware(['auth', 'role:operator'])->group(function(){
     // OP Lapangan
     Route::get('/', [LapanganController::class, 'index']);
     // User Report
     Route::resource('/user-report', UserReportController::class);
-
 });
 
 //Route Group Dashboard Admin
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['auth', 'role:admin'])->group(function(){
     
     // Rute untuk export
     Route::get('/exca/export', [ExcaController::class, 'export'])->name('exca.export');
@@ -55,6 +55,10 @@ Route::middleware(['auth'])->group(function(){
     
     Route::resource('/dashboard', DashboardController::class);
     Route::resource('/maps', MapsController::class);
+
+
+    // Route untuk Kelola data user
+    Route::resource('/operator', OperatorController::class);
     
     // Route Operasional
     Route::prefix('operasional')->group(function () {

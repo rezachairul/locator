@@ -99,6 +99,7 @@
                 const iconMap = {
                     "maps": 'maps.png',
                     "dashboard": 'dashoard.png',
+                    "operator": 'menu-icons/operator.png',
                     "operasional": 'menu-icons/operasional_minning.png',
                     "exca": 'menu-icons/excavator.png',
                     "dump": 'menu-icons/dump-truck.png',
