@@ -130,21 +130,21 @@
                                                     <!-- Name Field -->
                                                     <div>
                                                         <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Name</label>
-                                                        <input type="text" name="name" id="name-update"
+                                                        <input type="text" name="name" id="name-update-{{ $user->id }}"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                                                             placeholder="Name" required autofocus value="{{ old('name', $user->name) }}">
                                                     </div>
                                                     <!-- username Field -->
                                                     <div>
                                                         <label for="username" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Username</label>
-                                                        <input type="text" name="username" id="username-update"
+                                                        <input type="text" name="username" id="username-update-{{ $user->id }}"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                                                             placeholder="Username" required value="{{ old('username', $user->username) }}">
                                                     </div>
                                                     <!-- Role Field -->
                                                     <div>
                                                         <label for="role" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Role</label>
-                                                        <select name="role" id="role-update"
+                                                        <select name="role" id="role-update-{{ $user->id }}"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                                                             required>
                                                             <option value="">-- Pilih Role --</option>
@@ -155,7 +155,7 @@
                                                     <!-- Email Field -->
                                                     <div>
                                                         <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Email</label>
-                                                        <input type="email" name="email" id="email-update" readonly
+                                                        <input type="email" name="email" id="email-update-{{ $user->id }}" readonly
                                                             value="{{ $user->email }}"
                                                             class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                                                             placeholder="Email akan terisi otomatis">
@@ -163,7 +163,7 @@
                                                     <!-- Password Field -->
                                                     <div>
                                                         <label for="password" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Password</label>
-                                                        <input type="password" name="password" id="password-update"
+                                                        <input type="password" name="password" id="password-update-{{ $user->id }}"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                                                             placeholder="Biarkan kosong jika tidak ingin diubah">
                                                     </div>
@@ -190,22 +190,35 @@
                                                         </button>
                                                     </div>
                                                     <script>
-                                                        const nameUpdate = document.getElementById('name-update');
-                                                        const roleUpdate = document.getElementById('role-update');
-                                                        const emailUpdate = document.getElementById('email-update');
+                                                        document.addEventListener("DOMContentLoaded", function () {
+                                                            const nameUpdate = document.getElementById('name-update-{{ $user->id }}');
+                                                            const roleUpdate = document.getElementById('role-update-{{ $user->id }}');
+                                                            const emailUpdate = document.getElementById('email-update-{{ $user->id }}');
 
-                                                        function generateEmailUpdate() {
-                                                            const nameValue = nameUpdate.value.trim().split(" ")[0].toLowerCase(); // ambil nama depan
-                                                            const roleValue = roleUpdate.value;
-                                                            if (nameValue && roleValue) {
-                                                                emailUpdate.value = `${nameValue}.${roleValue}@locatorgis.test`;
-                                                            } else {
-                                                                emailUpdate.value = '';
+                                                            function generateEmailUpdate() {
+                                                                const nameValue = nameUpdate.value.trim().split(" ")[0].toLowerCase();
+                                                                const roleValue = roleUpdate.value;
+                                                                if (nameValue && roleValue) {
+                                                                    emailUpdate.value = `${nameValue}.${roleValue}@locatorgis.test`;
+                                                                } else {
+                                                                    emailUpdate.value = '';
+                                                                }
                                                             }
-                                                        }
 
-                                                        nameUpdate.addEventListener('input', generateEmailUpdate);
-                                                        roleUpdate.addEventListener('change', generateEmailUpdate);
+                                                            // Event ketika modal dibuka → trigger update email
+                                                            const observer = new MutationObserver(() => {
+                                                                if (!nameUpdate || !roleUpdate) return;
+                                                                generateEmailUpdate();
+                                                            });
+
+                                                            const modal = document.getElementById('updateProductModal-{{ $user->id }}');
+                                                            if (modal) {
+                                                                observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
+                                                            }
+
+                                                            nameUpdate.addEventListener('input', generateEmailUpdate);
+                                                            roleUpdate.addEventListener('change', generateEmailUpdate);
+                                                        });
                                                     </script>
                                                  </form>
                                             </div>
