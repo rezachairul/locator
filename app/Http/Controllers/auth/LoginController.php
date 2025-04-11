@@ -32,10 +32,12 @@ class LoginController extends Controller
             } elseif($user->role == 'operator'){
                 return redirect() -> intended('/');
             }
-            // Jika role tidak dikenali, redirect ke halaman login
+            // Jika role tidak dikenali, redirect ke halaman login            
             Auth::logout();
-            return redirect('/auth/login')->with('loginError', 'Login Failed!');
+            return redirect('/auth/login')->with('loginError', 'Role tidak dikenali!');
         }
+        // Handle login gagal
+        return redirect('/auth/login')->with('loginError', 'Email atau password salah!');
     }
 
     public function logout()
