@@ -71,37 +71,146 @@
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3 text-center">No</th>
-                        <th class="px-4 py-3 text-center">Name</th>
-                        <th class="px-4 py-3 text-center">Username</th>
-                        <th class="px-4 py-3 text-center">Email</th>
-                        <th class="px-4 py-3 text-center">Password</th>
-                        <th class="px-4 py-3 text-center">Role</th>                        
-                        <th class="px-4 py-3 text-center">Actions</th>
+                        <th class="px-2 py-1 text-center">No</th>
+                        <th class="px-2 py-1 text-center">Name</th>
+                        <th class="px-2 py-1 text-center">Username</th>
+                        <th class="px-2 py-1 text-center">Email</th>
+                        <th class="px-2 py-1 text-center">Password</th>
+                        <th class="px-2 py-1 text-center">Role</th>                        
+                        <th class="px-2 py-1 text-center">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                <tbody class="bg-white divide-y text-sm font-normal dark:divide-gray-700 dark:bg-gray-800">
                     @forelse ($users as $key => $user)
                         <tr class="text-gray-700 dark:text-gray-400">
-                            <td class="px-4 py-3 text-center">{{ $users->firstItem() + $key }}</td>
-                            <td class="px-4 py-3 text-center">{{ $user->name }}</td>
-                            <td class="px-4 py-3 text-center">{{ $user->username }}</td>
-                            <td class="px-4 py-3 text-center">{{ $user->email }}</td>
-                            <td class="px-4 py-3 text-center">********</td>
-                            <td class="px-4 py-3 text-center">{{ $user->role }}</td>
-                            <td class="px-4 py-3 text-center">
+                            <td class="px-2 py-1 text-center">{{ $users->firstItem() + $key }}</td>
+                            <td class="px-2 py-1 text-center">{{ $user->name }}</td>
+                            <td class="px-2 py-1 text-center">{{ $user->username }}</td>
+                            <td class="px-2 py-1 text-center">{{ $user->email }}</td>
+                            <td class="px-2 py-1 text-center">********</td>
+                            <td class="px-2 py-1 text-center">{{ $user->role }}</td>
+                            <td class="px-2 py-1 text-center">
                                 <div class="flex item-center justify-center space-x-2 text-sm">
                                     <!-- Button Edit -->
-                                    <button id="updateProductButton-" data-modal-target="updateProductButton-" data-modal-toggle="updateProductButton-" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Edit">
+                                    <button id="updateProductButton-{{ $user->id }}" data-modal-target="updateProductModal-{{ $user->id }}" data-modal-toggle="updateProductModal-{{ $user->id }}" type="button"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        aria-label="Edit">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
                                         </svg>
                                     </button>
                                     <!-- Modal Edit -->
-                                    <div class="">
+                                    <div id="updateProductModal-{{ $user->id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative w-full max-w-2xl max-h-full">
+                                            <!-- Modal content -->
+                                            <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                                <!-- Modal header -->
+                                                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                        Update {{$title}}
+                                                    </h3>
+                                                    <button type="button" data-modal-toggle="updateProductModal-{{ $user->id }}"
+                                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        data-modal-toggle="updateProductModal-{{ $user->id }}">
+                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <form action="{{ route('operator.update', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <!-- Form Fields -->
 
+                                                    <!-- Name Field -->
+                                                    <div>
+                                                        <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Name</label>
+                                                        <input type="text" name="name" id="name-update"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                                                            placeholder="Name" required autofocus value="{{ old('name', $user->name) }}">
+                                                    </div>
+                                                    <!-- username Field -->
+                                                    <div>
+                                                        <label for="username" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Username</label>
+                                                        <input type="text" name="username" id="username-update"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                                                            placeholder="Username" required value="{{ old('username', $user->username) }}">
+                                                    </div>
+                                                    <!-- Role Field -->
+                                                    <div>
+                                                        <label for="role" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Role</label>
+                                                        <select name="role" id="role-update"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                                                            required>
+                                                            <option value="">-- Pilih Role --</option>
+                                                            <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                                            <option value="operator" {{ $user->role == 'operator' ? 'selected' : '' }}>Operator</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- Email Field -->
+                                                    <div>
+                                                        <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Email</label>
+                                                        <input type="email" name="email" id="email-update" readonly
+                                                            value="{{ $user->email }}"
+                                                            class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                                                            placeholder="Email akan terisi otomatis">
+                                                    </div>
+                                                    <!-- Password Field -->
+                                                    <div>
+                                                        <label for="password" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Password</label>
+                                                        <input type="password" name="password" id="password-update"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                                                            placeholder="Biarkan kosong jika tidak ingin diubah">
+                                                    </div>
+                                                    <!-- Submit and Cancel Buttons -->
+                                                    <div class="flex justify-end space-x-2 pt-4">
+                                                        <button type="submit"
+                                                            class="text-white inline-flex items-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
+                                                            <svg class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                                    clip-rule="evenodd"></path>
+                                                            </svg>
+                                                            Update Data {{ $title }}
+                                                        </button>
+                                                        <button type="button" data-modal-toggle="updateProductModal-{{ $user->id }}"
+                                                            class="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                                            data-modal-toggle="updateProductModal-{{ $user->id }}">
+                                                            <svg class="mr-1 -ml-1 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                                                    d="m6 6 12 12m3-6a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                            </svg>
+                                                            Cancel
+                                                        </button>
+                                                    </div>
+                                                    <script>
+                                                        const nameUpdate = document.getElementById('name-update');
+                                                        const roleUpdate = document.getElementById('role-update');
+                                                        const emailUpdate = document.getElementById('email-update');
+
+                                                        function generateEmailUpdate() {
+                                                            const nameValue = nameUpdate.value.trim().split(" ")[0].toLowerCase(); // ambil nama depan
+                                                            const roleValue = roleUpdate.value;
+                                                            if (nameValue && roleValue) {
+                                                                emailUpdate.value = `${nameValue}.${roleValue}@locatorgis.test`;
+                                                            } else {
+                                                                emailUpdate.value = '';
+                                                            }
+                                                        }
+
+                                                        nameUpdate.addEventListener('input', generateEmailUpdate);
+                                                        roleUpdate.addEventListener('change', generateEmailUpdate);
+                                                    </script>
+                                                 </form>
+                                            </div>
+                                        </div>
                                     </div>
-
                                     <!-- Button Delete -->
                                     <button id="deleteButton-{{ $user->id }}" data-modal-target="deleteModal-{{ $user->id }}" data-modal-toggle="deleteModal-{{ $user->id }}" type="button" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray" aria-label="Delete">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">

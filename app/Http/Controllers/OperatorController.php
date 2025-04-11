@@ -110,7 +110,7 @@ class OperatorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // dd($id);
+        // dd(request()->all());
         // Cari data berdasarkan ID
         $user = User::findOrFail($id);
         // Jika data tidak ditemukan, kembalikan dengan pesan error
@@ -120,7 +120,7 @@ class OperatorController extends Controller
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . $id,
+            'username' => 'required|string|max:255|unique:users,username',
             'role' => 'required|string|in:admin,operator',
             'password' => 'nullable|string|min:8',
         ]);
@@ -134,7 +134,7 @@ class OperatorController extends Controller
             return back()->withErrors(['email' => 'Email otomatis sudah digunakan. Ubah nama atau role.'])->withInput();
         }
 
-        // Update data operator
+        // Update data
         $user->name = $request->name;
         $user->username = $request->username;
         $user->role = $request->role;
