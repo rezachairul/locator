@@ -90,41 +90,14 @@
                     </ul>
                 </li>
                 <!-- Laporan -->
-                <li class="relative px-6 py-3 group">
-                    <span class="{{ request()->is('laporan*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
-                    <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
+                <li class="relative px-6 py-3">
+                    <span class="{{ request()->is('laporan') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                    <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="/laporan/incident-user">
                         <div class="invert-icon">
-                            <img src="{{ asset('assets/img/menu-icons/report.png') }}" alt="Logo by RanuKumbolo.lab" class="h-5 w-5">
+                            <img src="{{ asset('assets/img/menu-icons/incident-user.png') }}" alt="Logo" class="h-5 w-5">
                         </div>
-                        <span class="ml-4">Laporan</span>
+                        <span class="ml-4">Incident User</span>
                     </a>
-                    <!-- Sub-menu -->
-                    <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                        <li>
-                            <a href="/laporan/incident-user" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/menu-icons/incident-user.png') }}" alt="Logo by Freepik" class="h-5 w-5 mr-2">
-                                </div>
-                                Incident User
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/laporan/laporan-harian" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/menu-icons/daily-report.png') }}" alt="Logo by Us and Up" class="h-5 w-5 mr-2">
-                                </div>
-                                Laporan Harian
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/laporan/laporan-bulanan" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/menu-icons/monthly-report.png') }}" alt="Logo by Us and Up" class="h-5 w-5 mr-2">
-                                </div>
-                                Laporan Bulanan
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <!-- Informasi -->
                 <li class="relative px-6 py-3 group">
@@ -272,41 +245,14 @@
                     </ul>
                 </li>
                 <!-- Laporan -->
-                <li class="relative px-6 py-3 group">
-                    <span class="{{ request()->is('laporan*') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
-                    <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="#">
+                <li class="relative px-6 py-3">
+                    <span class="{{ request()->is('laporan') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
+                    <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="/laporan/incident-user">
                         <div class="invert-icon">
-                            <img src="{{ asset('assets/img/menu-icons/report.png') }}" alt="Logo by RanuKumbolo.lab" class="h-5 w-5">
+                            <img src="{{ asset('assets/img/menu-icons/incident-user.png') }}" alt="Logo" class="h-5 w-5">
                         </div>
-                        <span class="ml-4">Laporan</span>
+                        <span class="ml-4">Operator</span>
                     </a>
-                    <!-- Sub-menu -->
-                    <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
-                        <li>
-                            <a href="/laporan/incident-user" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/menu-icons/incident-user.png') }}" alt="Logo by Freepik" class="h-5 w-5 mr-2">
-                                </div>
-                                Incident User
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/laporan/laporan-harian" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/menu-icons/daily-report.png') }}" alt="Logo by Us and Up" class="h-5 w-5 mr-2">
-                                </div>
-                                Laporan Harian
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/laporan/laporan-bulanan" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
-                                <div class="invert-icon">
-                                    <img src="{{ asset('assets/img/menu-icons/monthly-report.png') }}" alt="Logo by Us and Up" class="h-5 w-5 mr-2">
-                                </div>
-                                Laporan Bulanan
-                            </a>
-                        </li>
-                    </ul>
                 </li>
                 <!-- Informasi -->
                 <li class="relative px-6 py-3 group">
