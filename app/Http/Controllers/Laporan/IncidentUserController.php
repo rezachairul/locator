@@ -14,7 +14,7 @@ class IncidentUserController extends Controller
      */
     public function index()
     {
-        $title = 'Laporan Incident User';
+        $title = 'Incident User';
         // Mengambil data incident_users dengan relasi user_report
         $incident_users = IncidentUser::with('user_report')->paginate(10);
 
