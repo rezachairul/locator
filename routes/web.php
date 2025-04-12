@@ -18,8 +18,6 @@ use App\Http\Controllers\Operasional\WeatherController;
 use App\Http\Controllers\Laporan\IncidentUserController;
 
 use App\Http\Controllers\Operasional\MaterialController;
-use App\Http\Controllers\Laporan\LaporanHarianController;
-use App\Http\Controllers\Laporan\LaporanBulananController;
 use App\Http\Controllers\Operasional\WaterdepthController;
 use App\Http\Controllers\Operasional\OperasionalController;
 
@@ -73,9 +71,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
     // Route Admin Report
      Route::prefix('laporan')->group(function () {
-        Route::resource('/incident-user', IncidentUserController::class);        
-        Route::resource('/laporan-harian', LaporanHarianController::class);
-        Route::resource('/laporan-bulanan', LaporanBulananController::class);
+        Route::resource('/incident-user', IncidentUserController::class);
     });
         
 

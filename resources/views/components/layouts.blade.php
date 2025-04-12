@@ -100,7 +100,7 @@
                     "maps": 'maps.png',
                     "dashboard": 'dashoard.png',
                     "operator": 'menu-icons/operator.png',
-                    "operasional": 'menu-icons/operasional_minning.png',
+                    "operasional": 'menu-icons/op_mining-2.png',
                     "exca": 'menu-icons/excavator.png',
                     "dump": 'menu-icons/dump-truck.png',
                     "weather": 'menu-icons/cloud.png',

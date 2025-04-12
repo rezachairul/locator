@@ -59,7 +59,7 @@ class OperasionalController extends Controller
         $latestWeather = Weather::where('created_at', '>=', $today)->latest()->first();
         $latestWaterDepth = Waterdepth::where('created_at', '>=', $today)->latest()->first();
 
-        return view('operasional/operasional/operasional', compact('title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'));
+        return view('operasional.operasional.operasional', compact('title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'));
     }
 
     /**

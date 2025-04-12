@@ -39,7 +39,7 @@
                 <!-- Operasional -->
                 <li class="relative px-6 py-3 group">
                     <span class="{{ request()->is('operasional*') || request()->is('exca') || request()->is('dumping') || request()->is('weather') || request()->is('waterdepth') || request()->is('material') ? 'absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg' : '' }}" aria-hidden="true"></span>
-                    <a  href="/operasional/operasional" class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
+                    <a  href="#" class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/menu-icons/operasional_minning.png') }}" alt="Logo by Icon by Karyative" class="h-5 w-5">
                         </div>
@@ -47,6 +47,14 @@
                     </a>
                     <!-- Sub-menu -->
                     <ul class="hidden group-hover:block w-full mt-2 space-y-2 bg-white border rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+                        <li>
+                            <a href="/operasional/operasional" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
+                                <div class="invert-icon">
+                                    <img src="{{ asset('assets/img/menu-icons/op_mining-2.png') }}" alt="Logo" class="h-5 w-5 mr-2">
+                                </div>
+                                Operasional
+                            </a>
+                        </li>
                         <li>
                             <a href="/operasional/exca" class="px-6 py-2 text-sm text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 flex items-center">
                                 <div class="invert-icon">
