@@ -259,7 +259,7 @@
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/menu-icons/incident-user.png') }}" alt="Logo" class="h-5 w-5">
                         </div>
-                        <span class="ml-4">Operator</span>
+                        <span class="ml-4">Incident User</span>
                     </a>
                 </li>
                 <!-- Informasi -->
