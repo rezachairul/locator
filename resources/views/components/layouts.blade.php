@@ -29,8 +29,8 @@
         <script src="{{ asset('assets/js/charts-lines.js') }}"></script>
         <script src="{{ asset('assets/js/charts-pie.js') }}"></script>
         <script src="{{ asset('assets/js/focus-trap.js') }}" defer></script>
-
     </head>
+
     <body> 
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
             <x-sidebar></x-sidebar>
@@ -43,10 +43,12 @@
             </div>
         </div>
 
+        <!-- Script -->
         <script>
             function scrollToTop() {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+
             function applyTheme() {
                 const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
                 const icons = document.querySelectorAll('.invert-icon img');
@@ -55,6 +57,7 @@
                     icon.style.filter = theme === 'light' ? 'invert(1)' : 'invert(0)';
                 });
             }
+            
             document.addEventListener("DOMContentLoaded", function() {
                 applyTheme();
                 const themeToggleButton = document.getElementById('theme-toggle');
