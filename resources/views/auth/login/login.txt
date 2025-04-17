@@ -1,0 +1,14 @@
+User::create([
+    'name' => 'Admin',
+    'username' => 'Admin-locatorgis',
+    'role' => 'admin',
+    'email' => 'admin.admin@locatorgis.test',
+    'password' => Hash::make('locatorgis2025')
+]);
+User::create([
+    'name' => 'User',
+    'username' => 'User-locatorgis',
+    'role' => 'operator',
+    'email' => 'user.operator@locatorgis.test',
+    'password' => Hash::make('2025locatorgis')
+]);

@@ -26,4 +26,10 @@ class UserReport extends Model
             ]);
         });
     }
+
+    // Relasi ke tabel user_report_photos
+    public function photos()
+    {
+        return $this->hasMany(UserReportPhoto::class);
+    }
 }

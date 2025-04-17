@@ -193,6 +193,9 @@
                 setInterval(updateClock, 1000);
             });
 
+
+            // Fungsi preview gambar user-report
+
             // Chart .js untuk menampilkan grafik LocatorGIS
 
         </script>    
