@@ -84,9 +84,12 @@ class UserReportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UserReport $userReport)
+    public function show($id)
     {
-        //
+        // dd($id);
+        $user_report = UserReport::findOrFail($id);
+        $user_report_photos = UserReportPhoto::where('user_report_id', $id)->get();
+
     }
 
     /**
@@ -100,9 +103,57 @@ class UserReportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserReport $userReport)
+    public function update(Request $request, $id)
     {
-        //
+        
+        // Cari data berdasarkan ID
+        $userReport = UserReport::findOrFail($id);
+        // Jika data tidak ditemukan, kembalikan dengan pesan error
+        if (!$userReport) {
+            return redirect()->route('user-report.index')->with('error', 'Data tidak ditemukan.');
+        }
+        // Validasi input
+        $request->validate([
+            'victim_name' => 'required',
+            'incident_type' => 'required',
+            'incident_date_time' => 'required',
+            'incident_location' => 'required',
+            'report_by' => 'required',
+            'report_date_time' => 'required',
+            'incident_description' => 'required',
+            'incident_photo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Update data utama user report
+        $userReport->update([
+            'victim_name' => $request->victim_name,
+            'incident_type' => $request->incident_type,
+            'incident_date_time' => $request->incident_date_time,
+            'incident_location' => $request->incident_location,
+            'report_by' => $request->report_by,
+            'report_date_time' => $request->report_date_time,
+            'incident_description' => $request->incident_description,
+        ]);
+
+        // Simpan foto baru jika ada
+        if ($request->hasFile('incident_photo')) {
+            foreach ($request->file('incident_photo') as $file) {
+                $originalName = $file->getClientOriginalName();
+                $uniqueName = date('Ymd_His') . '_' . uniqid() . '_' . $originalName;
+                $destinationPath = storage_path('app/public/image');
+                $file->move($destinationPath, $uniqueName);
+
+                $relativePath = 'storage/image/' . $uniqueName;
+
+                UserReportPhoto::create([
+                    'user_report_id' => $userReport->id,
+                    'photo_path' => $relativePath,
+                ]);
+            }
+        }
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('user-report.index')->with('success', 'User Report Updated Successfully');
     }
 
     /**
