@@ -90,6 +90,8 @@ class UserReportController extends Controller
         $user_report = UserReport::findOrFail($id);
         $user_report_photos = UserReportPhoto::where('user_report_id', $id)->get();
 
+        return view('user-report.index', compact('user_report', 'user_report_photos'));
+
     }
 
     /**

@@ -125,6 +125,7 @@
                         </ol>
                     </div>
                 </div>
+                
                 <!-- Form Create Report User -->
                 <div id="createForm" class="hidden p-4 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-700">
                     <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
@@ -434,8 +435,8 @@
                                         <!-- Actions -->
                                         <td class="px-2 py-1 text-xs text-center">
                                             <div class="flex justify-center space-x-2">
-                                                <!-- Show Details -->
-                                                <button class="inline-block text-gray-500 hover:text-blue-600 transition-colors duration-200">
+                                                <!-- Show Details Button -->
+                                                <button id="showButton-{{ $user_report->id }}" class="inline-block text-gray-500 hover:text-blue-600 transition-colors duration-200">
                                                     <a href="#">
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
@@ -443,16 +444,88 @@
                                                         </svg>
                                                     </a>
                                                 </button>
-                                                <!-- Modals Show Details -->
+                                                <!-- Modal Show Detail -->
+                                                <div id="modalShow-{{ $user_report->id }}" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 overflow-y-auto">
+                                                    <div class="relative w-[90%] max-w-5xl mx-auto my-12">
+                                                        <div class="bg-white rounded-lg shadow dark:bg-gray-800 overflow-hidden">
+                                                            <!-- Header -->
+                                                            <div class="flex items-center justify-between p-4 border-b dark:border-gray-600">
+                                                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                                                                    Detail {{ $title }}
+                                                                </h3>
+                                                                <button id="closeShowModal-{{ $user_report->id }}" type="button" class="text-gray-400 hover:text-gray-900 bg-transparent hover:bg-gray-200 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
 
-                                                <!-- Edit -->
+                                                            <!-- Content -->
+                                                            <div class="p-6 text-sm text-left text-gray-900 dark:text-gray-100 space-y-8 max-h-[85vh] overflow-y-auto">
+                                                                <div>
+                                                                    <h2 class="font-bold text-lg text-center pb-1 mb-2">FORM LAPORAN KECELAKAN KERJA</h2>
+                                                                </div>
+                                                                <!-- Section A - INSIDEN -->
+                                                                <div class="border border-white p-4 mb-2">
+                                                                    <h4 class="font-bold text-lg border-b border-white pb-1 mb-1 uppercase">A. Insiden</h4>
+                                                                    
+                                                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2 gap-x-4 text-sm">
+                                                                        <div><span class="font-semibold">Tanggal:</span> {{ date('d-m-Y', strtotime($user_report->incident_date_time)) }}</div>
+                                                                        <div><span class="font-semibold">Waktu:</span> {{ date('H:i', strtotime($user_report->incident_date_time)) }}</div>
+                                                                        <div><span class="font-semibold">Pekerjaan:</span> {{ $user_report->job_type ?? '-' }}</div>
+                                                                        <div><span class="font-semibold">Lokasi:</span> {{ $user_report->incident_location }}</div>
+                                                                        <div><span class="font-semibold">Area:</span> {{ $user_report->area ?? '-' }}</div>
+                                                                        <div><span class="font-semibold">No L/P:</span> {{ $user_report->incident_code ?? '-' }}</div>
+                                                                    </div>
+
+                                                                    <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mt-2 text-sm">
+                                                                        <div>
+                                                                            <div class="font-semibold bg-gray-200 border border-white p-1 text-center text-black">Penyebab Kejadian</div>
+                                                                            <div class="border border-white h-24 p-2 max-h-40 overflow-y-auto whitespace-pre-line">{{ $user_report->incident_description ?? '-' }}</div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <div class="font-semibold bg-gray-200 border border-white p-1 text-center text-black">Kronologi Kejadian</div>
+                                                                            <div class="border border-white h-24 p-2 max-h-40 overflow-y-auto whitespace-pre-line">{{ $user_report->incident_description ?? '-' }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Section B - KORBAN -->
+                                                                <div class="border border-white p-4 mb-6">
+                                                                    <h4 class="font-bold text-lg border-b border-white pb-1 mb-1 uppercase">B. Korban</h4>
+                                                                    
+                                                                    <div class="grid grid-cols-1 md:grid-cols-1 gap-y-2 gap-x-4 text-sm">
+                                                                        <div><span class="font-semibold">Nama:</span> {{ $user_report->victim_name }}</div>
+                                                                        <div><span class="font-semibold">Usia:</span> {{ $user_report->victim_age ?? '-' }}</div>
+                                                                        <div><span class="font-semibold">Bagian/Jabatan:</span> {{ $user_report->victim_position ?? '-' }}</div>
+                                                                        <div><span class="font-semibold">Kategori Cidera:</span> {{ $user_report->injury_category ?? '-' }}</div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Section C - DOKUMENTASI (FOTO) -->
+                                                                <div class="border border-white p-4 mb-2">
+                                                                    <h4 class="font-bold text-lg border-b border-white pb-1 mb-1 uppercase">C. Dokumentasi Kejadian (Foto)</h4>
+                                                                    
+                                                                    <div class="text-sm">
+                                                                        <span class="font-semibold">Foto Kejadian:</span>
+                                                                        <div class="max-h-40 overflow-y-auto whitespace-pre-line">
+                                                                            {{ $user_report->incident_description ?? '-' }}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Edit Button -->
                                                 <button id="editButton-{{$user_report->id}}" class="inline-block text-gray-500 hover:text-yellow-600 transition-colors duration-200">
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                                     </svg>
                                                 </button>
 
-                                                <!-- Delete -->
+                                                <!-- Delete Button -->
                                                 <button
                                                     id="deleteButton-{{$user_report->id}}"
                                                     data-modal-target="deleteModal-{{$user_report->id}}"
@@ -532,7 +605,7 @@
         </div>
     </div>
 
-    <!-- Script -->
+    <!-- Script untuk menampilkan create form -->
     <script>
         // Function to scroll smoothly to the top of the page
         function scrollToTop() {
@@ -588,6 +661,7 @@
         });
     </script>
 
+    <!-- Script untuk menampilkan modal edit -->
     <script>
         const editButton = document.getElementById('editButton-{{ $user_report->id }}');
         const editForm = document.getElementById('editForm-{{ $user_report->id }}');
@@ -623,6 +697,30 @@
                 setTimeout(() => {
                     editForm.classList.add('hidden');
                 }, 300);
+            });
+        }
+    </script>
+
+    <!-- Script untuk menampilkan modal detail -->
+    <script>
+        const showButton = document.getElementById('showButton-{{ $user_report->id }}');
+        const modalShow = document.getElementById('modalShow-{{ $user_report->id }}');
+        const closeShowModal = document.getElementById('closeShowModal-{{ $user_report->id }}');
+
+        if (showButton && modalShow && closeShowModal) {
+            showButton.addEventListener('click', () => {
+                modalShow.classList.remove('hidden');
+            });
+
+            closeShowModal.addEventListener('click', () => {
+                modalShow.classList.add('hidden');
+            });
+
+            // Klik di luar modal untuk nutup
+            window.addEventListener('click', (e) => {
+                if (e.target === modalShow) {
+                    modalShow.classList.add('hidden');
+                }
             });
         }
     </script>
