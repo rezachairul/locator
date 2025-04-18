@@ -33,6 +33,7 @@ class UserReportController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        // dd($request->all(), $request->file('incident_photo'));
         $request->validate([
             'victim_name' => 'required',
             'incident_type' => 'required',

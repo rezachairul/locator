@@ -200,15 +200,25 @@
                                         dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                                     placeholder="Deskripsi singkat tentang incident" required></textarea>
                             </div>
+
                             <!-- Incident Photo -->
                             <div>
                                 <label for="incident_photo" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
                                     Upload Bukti Foto
                                 </label>
-                                <input type="file" id="incident_photo" name="incident_photo[]" accept="image/*"
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 
-                                            dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Format: JPG, PNG, dll. Maks 2MB.</p>
+                            
+                                <!-- Preview Container -->
+                                <div id="imgPreviewContainer" class="flex flex-wrap gap-2 mb-2"></div>
+
+                                <!-- Input File -->
+                                 <div id="inputContainer">
+                                     <input type="file" name="incident_photo[]" multiple="false"
+                                         onchange="handleSingleImage(event)"
+                                         accept="image/*"
+                                         class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 
+                                             dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                 </div>
+                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Format: JPG, PNG, dll. Maks 2MB per gambar.</p>
                             </div>
                         </div>
 
@@ -471,11 +481,11 @@
                                                                     
                                                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2 gap-x-4 text-sm">
                                                                         <div><span class="font-semibold">Tanggal:</span> {{ date('d-m-Y', strtotime($user_report->incident_date_time)) }}</div>
-                                                                        <div><span class="font-semibold">Waktu:</span> {{ date('H:i', strtotime($user_report->incident_date_time)) }}</div>
+                                                                        <div><span class="font-semibold">Waktu:</span> {{ date('H:i', strtotime($user_report->incident_date_time))}} WITA</div>
                                                                         <div><span class="font-semibold">Pekerjaan:</span> {{ $user_report->job_type ?? '-' }}</div>
+                                                                        <div><span class="font-semibold">Load Point:</span> {{ $user_report->incident_code ?? '-' }}</div>
                                                                         <div><span class="font-semibold">Lokasi:</span> {{ $user_report->incident_location }}</div>
-                                                                        <div><span class="font-semibold">Area:</span> {{ $user_report->area ?? '-' }}</div>
-                                                                        <div><span class="font-semibold">No L/P:</span> {{ $user_report->incident_code ?? '-' }}</div>
+                                                                        <div><span class="font-semibold">DOP:</span> {{ $user_report->area ?? '-' }}</div>
                                                                     </div>
 
                                                                     <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mt-2 text-sm">
@@ -505,12 +515,23 @@
                                                                 <!-- Section C - DOKUMENTASI (FOTO) -->
                                                                 <div class="border border-white p-4 mb-2">
                                                                     <h4 class="font-bold text-lg border-b border-white pb-1 mb-1 uppercase">C. Dokumentasi Kejadian (Foto)</h4>
-                                                                    
+
                                                                     <div class="text-sm">
                                                                         <span class="font-semibold">Foto Kejadian:</span>
-                                                                        <div class="max-h-40 overflow-y-auto whitespace-pre-line">
-                                                                            {{ $user_report->incident_description ?? '-' }}
-                                                                        </div>
+
+                                                                        @if ($user_report_photos && count($user_report_photos) > 0)
+                                                                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+                                                                                @foreach($user_report_photos as $photo_path)
+                                                                                    <div class="w-full">
+                                                                                        <img src="{{ asset('storage/incidents/' . $photo_path->filename) }}"
+                                                                                            alt="Foto Kejadian"
+                                                                                            class="object-cover w-full h-40 border rounded shadow-sm" />
+                                                                                    </div>
+                                                                                @endforeach
+                                                                            </div>
+                                                                        @else
+                                                                            <p class="italic text-gray-500 mt-2">Belum ada dokumentasi foto.</p>
+                                                                        @endif                                                                        
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -605,7 +626,7 @@
         </div>
     </div>
 
-    <!-- Script untuk menampilkan create form -->
+    <!-- Script -->
     <script>
         // Function to scroll smoothly to the top of the page
         function scrollToTop() {
@@ -614,16 +635,18 @@
                 behavior: 'smooth'
             });
         }
-
+        
         // Function to apply theme and invert icons accordingly
         function applyTheme() {
             const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
             const icons = document.querySelectorAll('.invert-icon img');
-
+            
             icons.forEach(icon => {
                 icon.style.filter = theme === 'light' ? 'invert(1)' : 'invert(0)';
             });
         }
+
+        // Script untuk menampilkan create form
         const createButton = document.getElementById('createButton');
         const createForm = document.getElementById('createForm');
         const cancelButton = document.getElementById('cancelButton');
@@ -659,50 +682,84 @@
                 createForm.classList.add('hidden');
             }, 300);
         });
-    </script>
 
-    <!-- Script untuk menampilkan modal edit -->
-    <script>
-        const editButton = document.getElementById('editButton-{{ $user_report->id }}');
-        const editForm = document.getElementById('editForm-{{ $user_report->id }}');
-        const cancelEditButton = document.getElementById('cancelEditButton-{{ $user_report->id }}');
-        const exitEditButton = document.getElementById('exitEditButton-{{ $user_report->id }}');
-        const editReportForm = document.getElementById('editFormReport');
+        // Script untuk preview image saat create form
+        let selectedFiles = [];
 
-        if (
-            editButton && editForm && cancelEditButton && exitEditButton && editReportForm
-        ) {
-            editButton.addEventListener('click', () => {
-                editForm.classList.remove('hidden', 'animate-fade-out');
-                editForm.classList.add('animate-fade-in');
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+        function handleSingleImage(event) {
+            const files = Array.from(event.target.files);
+            if (files.length === 0) return;
+
+            files.forEach(file => {
+                if (file && file.type.startsWith('image/')) {
+                    selectedFiles.push(file);
+                }
             });
 
-            [cancelEditButton, exitEditButton].forEach(btn => {
-                btn.addEventListener('click', () => {
-                    editForm.classList.remove('animate-fade-in');
-                    editForm.classList.add('animate-fade-out');
-                    setTimeout(() => {
-                        editForm.classList.add('hidden');
-                    }, 300);
-                });
-            });
+            previewImages();
+            updateHiddenFileInputs();
 
-            editReportForm.addEventListener('submit', () => {
-                editForm.classList.remove('animate-fade-in');
-                editForm.classList.add('animate-fade-out');
-                setTimeout(() => {
-                    editForm.classList.add('hidden');
-                }, 300);
+            // Hapus input lama
+            event.target.remove();
+
+            // Buat input file baru agar user bisa pilih lagi
+            createNewInput();
+        }
+
+        function createNewInput() {
+            const container = document.getElementById('inputContainer');
+            const newInput = document.createElement('input');
+
+            newInput.type = 'file';
+            newInput.name = 'incident_photo[]';
+            newInput.accept = 'image/*';
+            newInput.multiple = false; // agar 1 per klik
+            newInput.onchange = handleSingleImage;
+            newInput.className = 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400';
+
+            container.appendChild(newInput);
+        }
+
+        function previewImages() {
+            const previewContainer = document.getElementById('imgPreviewContainer');
+            previewContainer.innerHTML = '';
+
+            selectedFiles.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('w-24', 'h-auto', 'rounded-md', 'shadow', 'border');
+                    previewContainer.appendChild(img);
+                };
+                reader.readAsDataURL(file);
             });
         }
-    </script>
 
-    <!-- Script untuk menampilkan modal detail -->
-    <script>
+        function updateHiddenFileInputs() {
+            const form = document.getElementById('reportForm');
+            const existingInputs = document.querySelectorAll('.cloned-file');
+            existingInputs.forEach(input => input.remove());
+
+            selectedFiles.forEach(file => {
+                const dt = new DataTransfer();
+                dt.items.add(file);
+
+                const newInput = document.createElement('input');
+                newInput.type = 'file';
+                newInput.name = 'incident_photo[]';
+                newInput.files = dt.files;
+                newInput.classList.add('hidden', 'cloned-file');
+
+                form.appendChild(newInput);
+            });
+        }
+
+        // Script untuk preview image saat edit form
+
+
+
+        // Script untuk menampilkan modal detail
         const showButton = document.getElementById('showButton-{{ $user_report->id }}');
         const modalShow = document.getElementById('modalShow-{{ $user_report->id }}');
         const closeShowModal = document.getElementById('closeShowModal-{{ $user_report->id }}');
@@ -723,6 +780,7 @@
                 }
             });
         }
+
     </script>
 
 </body>
