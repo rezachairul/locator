@@ -108,6 +108,7 @@ class UserReportController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($id);
         
         // Cari data berdasarkan ID
         $userReport = UserReport::findOrFail($id);

@@ -305,11 +305,25 @@
                                     <textarea id="incident_description" name="incident_description" rows="4"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Deskripsi singkat tentang incident" required>{{ old('incident_description', $user_report->incident_description) }}</textarea>
                                 </div>
-                                <!-- Incident Photo -->
+                                <!-- Incident Photo di Form Edit -->
                                 <div>
-                                    <label for="incident_photo" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">Upload Bukti Foto</label>
-                                    <input type="file" id="incident_photo" name="incident_photo[]" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Format: JPG, PNG, dll. Maks 2MB.</p>
+                                    <label class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                        Upload Bukti Foto
+                                    </label>
+
+                                    <!-- Preview Container untuk foto baru -->
+                                    <div id="imgEditPreviewContainer-{{ $user_report->id }}" class="flex flex-wrap gap-2 mb-2"></div>
+
+                                    <!-- Container untuk input file -->
+                                    <div id="inputEditContainer-{{ $user_report->id }}">
+                                        <input type="file" name="incident_photo[]" multiple="false"
+                                            onchange="handleSingleImageEdit(event, '{{ $user_report->id }}')"
+                                            accept="image/*"
+                                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 
+                                            dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                                    </div>
+
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Format: JPG, PNG, maksimal 2MB per gambar.</p>
                                 </div>
                             </div>
 
@@ -627,241 +641,27 @@
         </div>
     </div>
 
-    <!-- Script -->
-    <script>
-        // Function to scroll smoothly to the top of the page
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Function to apply theme and invert icons accordingly
-        function applyTheme() {
-            const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
-            const icons = document.querySelectorAll('.invert-icon img');
-            
-            icons.forEach(icon => {
-                icon.style.filter = theme === 'light' ? 'invert(1)' : 'invert(0)';
-            });
-        }
+    <!-- Script JS -->
+    <!-- Function to scroll smoothly to the top of the page -->
+    <script src="{{ asset('assets/js/scroll-smoothly.js') }}"></script>
 
-        // Script untuk menampilkan create form dan preview image saat create
-        const createButton = document.getElementById('createButton');
-        const createForm = document.getElementById('createForm');
-        const cancelButton = document.getElementById('cancelButton');
-        const exitButton = document.getElementById('exitButton');
-        const reportForm = document.getElementById('reportForm');
+    <!-- Function to apply theme and invert icons accordingly -->
+    <script src="{{ asset('assets/js/apply-theme.js') }}"></script>
 
-        // Tampilkan form saat tombol Create diklik
-        createButton.addEventListener('click', () => {
-            createForm.classList.remove('hidden');
-            createForm.classList.remove('animate-fade-out'); // Jika ada animasi keluar sebelumnya
-            createForm.classList.add('animate-fade-in');
-        });
-        // Sembunyikan form dengan animasi fade-out
-        cancelButton.addEventListener('click', () => {
-            createForm.classList.remove('animate-fade-in');
-            createForm.classList.add('animate-fade-out');
-            setTimeout(() => {
-                createForm.classList.add('hidden');
-            }, 200); // Waktu sesuai dengan durasi animasi
-        });
-        exitButton.addEventListener('click', () => {
-            createForm.classList.remove('animate-fade-in');
-            createForm.classList.add('animate-fade-out');
-            setTimeout(() => {
-                createForm.classList.add('hidden');
-            }, 200); // Waktu sesuai dengan durasi animasi
-        });
-        // Form submit handling
-        reportForm.addEventListener('submit', () => {
-            createForm.classList.remove('animate-fade-in');
-            createForm.classList.add('animate-fade-out');
-            setTimeout(() => {
-                createForm.classList.add('hidden');
-            }, 300);
-        });
+    <!-- Script untuk menampilkan create form dan preview image saat create -->
+    <script src="{{ asset('assets/js/form-create.js') }}"></script>
 
-        // Script untuk preview image saat create form
-        let selectedFiles = [];
+    <!-- Script untuk preview image saat create form -->
+    <script src="{{ asset('assets/js/preview-img-create.js') }}"></script>
 
-        function handleSingleImage(event) {
-            const files = Array.from(event.target.files);
-            if (files.length === 0) return;
-
-            files.forEach(file => {
-                if (file && file.type.startsWith('image/')) {
-                    selectedFiles.push(file);
-                }
-            });
-
-            previewImages();
-            updateHiddenFileInputs();
-
-            // Hapus input lama
-            event.target.remove();
-
-            // Buat input file baru agar user bisa pilih lagi
-            createNewInput();
-        }
-
-        function createNewInput() {
-            const container = document.getElementById('inputContainer');
-            const newInput = document.createElement('input');
-
-            newInput.type = 'file';
-            newInput.name = 'incident_photo[]';
-            newInput.accept = 'image/*';
-            newInput.multiple = false; // agar 1 per klik
-            newInput.onchange = handleSingleImage;
-            newInput.className = 'block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400';
-
-            container.appendChild(newInput);
-        }
-
-        function previewImages() {
-            const previewContainer = document.getElementById('imgPreviewContainer');
-            previewContainer.innerHTML = '';
-
-            selectedFiles.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.classList.add('w-24', 'h-auto', 'rounded-md', 'shadow', 'border');
-                    previewContainer.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function updateHiddenFileInputs() {
-            const form = document.getElementById('reportForm');
-            const existingInputs = document.querySelectorAll('.cloned-file');
-            existingInputs.forEach(input => input.remove());
-
-            selectedFiles.forEach(file => {
-                const dt = new DataTransfer();
-                dt.items.add(file);
-
-                const newInput = document.createElement('input');
-                newInput.type = 'file';
-                newInput.name = 'incident_photo[]';
-                newInput.files = dt.files;
-                newInput.classList.add('hidden', 'cloned-file');
-
-                form.appendChild(newInput);
-            });
-        }
-
-        // Script untuk enampilkan edit form & preview image saat edit form
-        document.addEventListener('DOMContentLoaded', function () {
-            // Ambil semua tombol edit berdasarkan prefix ID
-            const editButtons = document.querySelectorAll('button[id^="editButton-"]');
-
-            editButtons.forEach(button => {
-                const id = button.id.split('-')[1]; // Ambil ID unik dari tombol
-
-                const editFormDiv = document.getElementById(`editForm-${id}`);
-                const closeEditBtn = document.getElementById(`closeEditButton-${id}`);
-                const cancelEditBtn = document.getElementById(`cancelEditButton-${id}`);
-                const editForm = document.getElementById(`editFormReport-${id}`);
-                
-                // Saat tombol Edit diklik: tampilkan div form edit
-                button.addEventListener('click', () => {
-                    editFormDiv.classList.remove('hidden');
-                    editFormDiv.classList.add('animate-fade-in');
-                });
-
-                // Saat tombol Close diklik: sembunyikan form edit
-                closeEditBtn.addEventListener('click', () => {
-                    editFormDiv.classList.remove('animate-fade-in');
-                    editFormDiv.classList.add('animate-fade-out');
-                    setTimeout(() => {
-                        editFormDiv.classList.add('hidden');
-                        editFormDiv.classList.remove('animate-fade-out');
-                    }, 300); // waktu sama kayak durasi animasi fade-out
-                });
-
-                // Saat tombol Cancel di form diklik: sembunyikan form edit
-                cancelEditBtn.addEventListener('click', () => {
-                    editFormDiv.classList.remove('animate-fade-in');
-                    editFormDiv.classList.add('animate-fade-out');
-                    setTimeout(() => {
-                        editFormDiv.classList.add('hidden');
-                        editFormDiv.classList.remove('animate-fade-out');
-                    }, 300);
-                });
-
-                // [Opsional] Tambahkan fitur preview image di sini nanti
-                // contoh:
-                // const imageInput = editForm.querySelector('input[type="file"]');
-                // imageInput.addEventListener('change', (event) => {
-                //     const previewImage = document.getElementById(`previewImage-${id}`);
-                //     const file = event.target.files[0];
-                //     if (file) {
-                //         const reader = new FileReader();
-                //         reader.onload = (e) => {
-                //             previewImage.src = e.target.result;
-                //         };
-                //         reader.readAsDataURL(file);
-                //     }
-                // });
-            });
-        });
-
-
-        // Script untuk menampilkan modal detail
-        document.addEventListener('DOMContentLoaded', function () {
-            // Ambil semua tombol show berdasarkan prefix ID
-            const showButtons = document.querySelectorAll('button[id^="showButton-"]');
-
-            showButtons.forEach(button => {
-                const id = button.id.split('-')[1]; // Ambil ID unik dari tombol
-                const modal = document.getElementById(`modalShow-${id}`);
-                const closeBtn = document.getElementById(`closeShowModal-${id}`);
-                const modalContent = modal.querySelector('.relative');
-
-                button.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    if (modal && modalContent) {
-                        modal.classList.remove('hidden');
-                        setTimeout(() => {
-                            modal.classList.remove('opacity-0');
-                            modalContent.classList.remove('scale-95');
-                            modalContent.classList.add('scale-100');
-                        }, 10); // Delay untuk efek transisi                    
-                    }
-                });
-
-                if (closeBtn && modalContent) {
-                    closeBtn.addEventListener('click', function () {
-                        modal.classList.add('opacity-0');
-                        modalContent.classList.add('scale-100');
-                        modalContent.classList.add('scale-95');
-                        setTimeout(() => {
-                            modal.classList.add('hidden');
-                        }, 300);
-                    });
-                }
-
-                // Tutup modal jika klik di luar konten modal
-                modal?.addEventListener('click', function (e) {
-                    if (e.target === modal && modalContent) {
-                        modal.classList.add('opacity-0');
-                        modalContent.classList.remove('scale-100');
-                        modalContent.classList.add('scale-95');
-                        setTimeout(() => {
-                            modal.classList.add('hidden');
-                        }, 300);
-                    }
-                });
-            });
-        });
-
-    </script>
+    <!-- Script untuk menampilkan modal detail -->
+    <script src="{{ asset('assets/js/show-modal.js') }}"></script>
+    
+    <!-- Script untuk menampilkan edit form & preview image saat edit form -->
+    <script src="{{ asset('assets/js/form-edit.js') }}"></script>
+    
+    <!-- Script untuk preview image saat edit form -->
+    <script src="{{ asset('assets/js/preview-img--edit.js') }}"></script>
 
 </body>
 
