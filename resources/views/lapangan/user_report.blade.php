@@ -455,8 +455,8 @@
                                                     </a>
                                                 </button>
                                                 <!-- Modal Show Detail -->
-                                                <div id="modalShow-{{ $user_report->id }}" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 overflow-y-auto">
-                                                    <div class="relative w-[90%] max-w-5xl mx-auto my-12">
+                                                <div id="modalShow-{{ $user_report->id }}" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 overflow-y-auto transition-opacity duration-300 ease-out opacity-0">
+                                                    <div class="relative w-[90%] max-w-5xl mx-auto my-12 transform transition-all duration-300 ease-out scale-95">
                                                         <div class="bg-white rounded-lg shadow dark:bg-gray-800 overflow-hidden">
                                                             <!-- Header -->
                                                             <div class="flex items-center justify-between p-4 border-b dark:border-gray-600">
@@ -519,11 +519,11 @@
                                                                     <div class="text-sm">
                                                                         <span class="font-semibold">Foto Kejadian:</span>
 
-                                                                        @if ($user_report_photos && count($user_report_photos) > 0)
+                                                                        @if (!empty($user_report->incident_photos) && count($user_report->incident_photos) > 0)
                                                                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">
-                                                                                @foreach($user_report_photos as $photo_path)
+                                                                                @foreach($user_report->incident_photos as $photo)
                                                                                     <div class="w-full">
-                                                                                        <img src="{{ asset('storage/incidents/' . $photo_path->filename) }}"
+                                                                                        <img src="{{ asset('storage/incidents/' . $photo) }}"
                                                                                             alt="Foto Kejadian"
                                                                                             class="object-cover w-full h-40 border rounded shadow-sm" />
                                                                                     </div>
@@ -531,7 +531,7 @@
                                                                             </div>
                                                                         @else
                                                                             <p class="italic text-gray-500 mt-2">Belum ada dokumentasi foto.</p>
-                                                                        @endif                                                                        
+                                                                        @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -545,6 +545,7 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
                                                     </svg>
                                                 </button>
+                                                <!-- Modal Edit ada di bawah form create -->
 
                                                 <!-- Delete Button -->
                                                 <button
@@ -760,26 +761,52 @@
 
 
         // Script untuk menampilkan modal detail
-        const showButton = document.getElementById('showButton-{{ $user_report->id }}');
-        const modalShow = document.getElementById('modalShow-{{ $user_report->id }}');
-        const closeShowModal = document.getElementById('closeShowModal-{{ $user_report->id }}');
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ambil semua tombol show berdasarkan prefix ID
+            const showButtons = document.querySelectorAll('button[id^="showButton-"]');
 
-        if (showButton && modalShow && closeShowModal) {
-            showButton.addEventListener('click', () => {
-                modalShow.classList.remove('hidden');
-            });
+            showButtons.forEach(button => {
+                const id = button.id.split('-')[1]; // Ambil ID unik dari tombol
+                const modal = document.getElementById(`modalShow-${id}`);
+                const closeBtn = document.getElementById(`closeShowModal-${id}`);
+                const modalContent = modal.querySelector('.relative');
 
-            closeShowModal.addEventListener('click', () => {
-                modalShow.classList.add('hidden');
-            });
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (modal && modalContent) {
+                        modal.classList.remove('hidden');
+                        setTimeout(() => {
+                            modal.classList.remove('opacity-0');
+                            modalContent.classList.remove('scale-95');
+                            modalContent.classList.add('scale-100');
+                        }, 10); // Delay untuk efek transisi                    
+                    }
+                });
 
-            // Klik di luar modal untuk nutup
-            window.addEventListener('click', (e) => {
-                if (e.target === modalShow) {
-                    modalShow.classList.add('hidden');
+                if (closeBtn && modalContent) {
+                    closeBtn.addEventListener('click', function () {
+                        modal.classList.add('opacity-0');
+                        modalContent.classList.add('scale-100');
+                        modalContent.classList.add('scale-95');
+                        setTimeout(() => {
+                            modal.classList.add('hidden');
+                        }, 300);
+                    });
                 }
+
+                // Tutup modal jika klik di luar konten modal
+                modal?.addEventListener('click', function (e) {
+                    if (e.target === modal && modalContent) {
+                        modal.classList.add('opacity-0');
+                        modalContent.classList.remove('scale-100');
+                        modalContent.classList.add('scale-95');
+                        setTimeout(() => {
+                            modal.classList.add('hidden');
+                        }, 300);
+                    }
+                });
             });
-        }
+        });
 
     </script>
 
