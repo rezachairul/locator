@@ -253,7 +253,7 @@
                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                 Form Edit {{$title}}
                             </h3>
-                            <button type="button" id="exitEditButton-{{ $user_report->id }}" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                            <button type="button" id="closeEditButton-{{ $user_report->id }}" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                 </svg>
@@ -647,7 +647,7 @@
             });
         }
 
-        // Script untuk menampilkan create form
+        // Script untuk menampilkan create form dan preview image saat create
         const createButton = document.getElementById('createButton');
         const createForm = document.getElementById('createForm');
         const cancelButton = document.getElementById('cancelButton');
@@ -756,8 +756,61 @@
             });
         }
 
-        // Script untuk preview image saat edit form
+        // Script untuk enampilkan edit form & preview image saat edit form
+        document.addEventListener('DOMContentLoaded', function () {
+            // Ambil semua tombol edit berdasarkan prefix ID
+            const editButtons = document.querySelectorAll('button[id^="editButton-"]');
 
+            editButtons.forEach(button => {
+                const id = button.id.split('-')[1]; // Ambil ID unik dari tombol
+
+                const editFormDiv = document.getElementById(`editForm-${id}`);
+                const closeEditBtn = document.getElementById(`closeEditButton-${id}`);
+                const cancelEditBtn = document.getElementById(`cancelEditButton-${id}`);
+                const editForm = document.getElementById(`editFormReport-${id}`);
+                
+                // Saat tombol Edit diklik: tampilkan div form edit
+                button.addEventListener('click', () => {
+                    editFormDiv.classList.remove('hidden');
+                    editFormDiv.classList.add('animate-fade-in');
+                });
+
+                // Saat tombol Close diklik: sembunyikan form edit
+                closeEditBtn.addEventListener('click', () => {
+                    editFormDiv.classList.remove('animate-fade-in');
+                    editFormDiv.classList.add('animate-fade-out');
+                    setTimeout(() => {
+                        editFormDiv.classList.add('hidden');
+                        editFormDiv.classList.remove('animate-fade-out');
+                    }, 300); // waktu sama kayak durasi animasi fade-out
+                });
+
+                // Saat tombol Cancel di form diklik: sembunyikan form edit
+                cancelEditBtn.addEventListener('click', () => {
+                    editFormDiv.classList.remove('animate-fade-in');
+                    editFormDiv.classList.add('animate-fade-out');
+                    setTimeout(() => {
+                        editFormDiv.classList.add('hidden');
+                        editFormDiv.classList.remove('animate-fade-out');
+                    }, 300);
+                });
+
+                // [Opsional] Tambahkan fitur preview image di sini nanti
+                // contoh:
+                // const imageInput = editForm.querySelector('input[type="file"]');
+                // imageInput.addEventListener('change', (event) => {
+                //     const previewImage = document.getElementById(`previewImage-${id}`);
+                //     const file = event.target.files[0];
+                //     if (file) {
+                //         const reader = new FileReader();
+                //         reader.onload = (e) => {
+                //             previewImage.src = e.target.result;
+                //         };
+                //         reader.readAsDataURL(file);
+                //     }
+                // });
+            });
+        });
 
 
         // Script untuk menampilkan modal detail
