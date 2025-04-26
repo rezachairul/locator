@@ -14,12 +14,17 @@ return new class extends Migration
         Schema::create('user_reports', function (Blueprint $table) {
             $table->id();
             $table->string('victim_name');
-            $table->string('incident_type');
-            $table->string('incident_location');
+            $table->integer('victim_age')->nullable();
+            $table->string('injury_category'); // pilihan: Ringan, Sedang, Berat, Fatal
+            $table->string('activity');
+            $table->string('incident_type'); // pilihan: Tertimpa, Tergelincir, dll
             $table->dateTime('incident_date_time');
+            $table->string('incident_location');
+            $table->string('asset_damage'); // pilihan: Ya, Tidak
+            $table->string('environmental_impact'); // pilihan: Ya, Tidak
+            $table->text('incident_description');
             $table->string('report_by');
             $table->dateTime('report_date_time');
-            $table->text('incident_description');
             $table->timestamps();
         });
     }

@@ -33,28 +33,37 @@ class UserReportController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        // dd($request->all(), $request->file('incident_photo'));
         $request->validate([
             'victim_name' => 'required',
-            'incident_type' => 'required',
-            'incident_date_time' => 'required',
+            'victim_age' => 'nullable|integer|min:0',
+            'injury_category' => 'required|in:Ringan,Sedang,Berat,Fatal',
+            'activity' => 'required',
+            'incident_type' => 'required|in:Tertimpa,Tergelincir,Kecelakaan Kendaraan,Jatuh dari Ketinggian,Ledakan,Kebakaran,Lainnya',
+            'incident_date_time' => 'required|date',
             'incident_location' => 'required',
-            'report_by' => 'required',
-            'report_date_time' => 'required',
+            'asset_damage' => 'required|in:Ya,Tidak',
+            'environmental_impact' => 'required|in:Ya,Tidak',
             'incident_description' => 'required',
+            'report_by' => 'required',
+            'report_date_time' => 'required|date',
             'incident_photo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // max 2MB
         ]);
 
-        try{
+        try {
             // Simpan data ke tabel user_reports
             $userReport = UserReport::create([
                 'victim_name' => $request->input('victim_name'),
+                'victim_age' => $request->input('victim_age'),
+                'injury_category' => $request->input('injury_category'),
+                'activity' => $request->input('activity'),
                 'incident_type' => $request->input('incident_type'),
                 'incident_date_time' => $request->input('incident_date_time'),
                 'incident_location' => $request->input('incident_location'),
+                'asset_damage' => $request->input('asset_damage'),
+                'environmental_impact' => $request->input('environmental_impact'),
+                'incident_description' => $request->input('incident_description'),
                 'report_by' => $request->input('report_by'),
                 'report_date_time' => $request->input('report_date_time'),
-                'incident_description' => $request->input('incident_description'),
             ]);
 
             // Cek dan simpan foto ke tabel user_report_photos
@@ -62,25 +71,79 @@ class UserReportController extends Controller
                 foreach ($request->file('incident_photo') as $file) {
                     $originalName = $file->getClientOriginalName();
                     $uniqueName = date('Ymd_His') . '_' . uniqid() . '_' . $originalName;
-                    $destinationPath = storage_path('app/public/image');
-                    $file->move($destinationPath, $uniqueName);
-    
+
+                    // Simpan file ke storage
+                    $file->storeAs('public/image', $uniqueName);
+
+                    // Path relatif agar bisa dipanggil di URL
                     $relativePath = 'storage/image/' . $uniqueName;
-    
+
                     UserReportPhoto::create([
                         'user_report_id' => $userReport->id,
                         'photo_path' => $relativePath,
                     ]);
                 }
             }
-            // UserReport::create($request->all());
+
             return redirect()->route('user-report.index')->with('success', 'User Report Created Successfully');
 
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
             // Handle the exception
             return redirect()->back()->with('error', 'Failed to create User Report: ' . $e->getMessage());
         }
     }
+
+    // public function store(Request $request)
+    // {
+    //     // dd($request->all());
+    //     // dd($request->all(), $request->file('incident_photo'));
+    //     $request->validate([
+    //         'victim_name' => 'required',
+    //         'incident_type' => 'required',
+    //         'incident_date_time' => 'required',
+    //         'incident_location' => 'required',
+    //         'report_by' => 'required',
+    //         'report_date_time' => 'required',
+    //         'incident_description' => 'required',
+    //         'incident_photo.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // max 2MB
+    //     ]);
+
+    //     try{
+    //         // Simpan data ke tabel user_reports
+    //         $userReport = UserReport::create([
+    //             'victim_name' => $request->input('victim_name'),
+    //             'incident_type' => $request->input('incident_type'),
+    //             'incident_date_time' => $request->input('incident_date_time'),
+    //             'incident_location' => $request->input('incident_location'),
+    //             'report_by' => $request->input('report_by'),
+    //             'report_date_time' => $request->input('report_date_time'),
+    //             'incident_description' => $request->input('incident_description'),
+    //         ]);
+
+    //         // Cek dan simpan foto ke tabel user_report_photos
+    //         if ($request->hasFile('incident_photo')) {
+    //             foreach ($request->file('incident_photo') as $file) {
+    //                 $originalName = $file->getClientOriginalName();
+    //                 $uniqueName = date('Ymd_His') . '_' . uniqid() . '_' . $originalName;
+    //                 $destinationPath = storage_path('app/public/image');
+    //                 $file->move($destinationPath, $uniqueName);
+    
+    //                 $relativePath = 'storage/image/' . $uniqueName;
+    
+    //                 UserReportPhoto::create([
+    //                     'user_report_id' => $userReport->id,
+    //                     'photo_path' => $relativePath,
+    //                 ]);
+    //             }
+    //         }
+    //         // UserReport::create($request->all());
+    //         return redirect()->route('user-report.index')->with('success', 'User Report Created Successfully');
+
+    //     } catch (\Exception $e){
+    //         // Handle the exception
+    //         return redirect()->back()->with('error', 'Failed to create User Report: ' . $e->getMessage());
+    //     }
+    // }
 
     /**
      * Display the specified resource.

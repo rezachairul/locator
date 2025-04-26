@@ -163,6 +163,20 @@
                             @endif
                         </li>
                     </ul>
+                    <!-- Tombol Logout -->
+                    <ul>
+                        <li class="relative px-6 py-3">
+                            <form method="POST" action="/auth/logout">
+                                @csrf
+                                <button type="submit" class="flex items-center w-full text-sm font-semibold text-gray-800 dark:text-gray-100">
+                                    <div class="invert-icon">
+                                        <img src="{{ asset('assets/img/menu-icons/logout.png') }}" alt="Logout Icon by Pixel perfect" class="h-5 w-5 mr-2">
+                                        <span>Logout</span>
+                                    </div>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </aside>
         </div>
@@ -236,7 +250,7 @@
                                             </a>
                                         </li>
                                         <li class="flex">
-                                            <form method="POST" action="#">
+                                            <form method="POST" action="/auth/logout">
                                                 <button class="w-full inline-flex items-center justify-between px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                                                     <span>Log out</span>
                                                 </button>

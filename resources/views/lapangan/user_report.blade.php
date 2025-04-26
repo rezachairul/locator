@@ -96,7 +96,7 @@
                                             </a>
                                         </li>
                                         <li class="flex">
-                                            <form method="POST" action="#">
+                                            <form method="POST" action="/auth/logout">
                                                 <button class="w-full inline-flex items-center justify-between px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                                                     <span>Log out</span>
                                                 </button>
@@ -141,67 +141,113 @@
                     <form id="reportForm" action="{{route('user-report.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="grid gap-4 mb-4 mt-4 sm:grid-cols-2">
-                            <!-- Victim Name -->
+                            
+                            <!-- Nama Korban -->
                             <div>
-                                <label for="victim_name"
-                                    class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                <label for="victim_name" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
                                     Nama Korban
                                 </label>
-                                <input type="text" id="victim_name" name="victim_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Nama korban yang mengalami insiden" required>
+                                <input type="text" id="victim_name" name="victim_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Masukkan nama korban" required>
                             </div>
-                            <!-- Incident Type -->
+
+                            <!-- Usia Korban -->
                             <div>
-                                <label for="incident_type"
-                                    class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
-                                    Jenis Insiden
+                                <label for="victim_age" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Usia Korban
                                 </label>
-                                <input type="text" id="incident_type" name="incident_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Jenis incident (misalnya: kecelakaan, cedera, dll.)" required>
+                                <input type="number" id="victim_age" name="victim_age" min="0" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Masukkan usia korban">
                             </div>
-                            <!-- Incident Location -->
+
+                            <!-- Kategori Cedera -->
                             <div>
-                                <label for="incident_location"
-                                    class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                <label for="injury_category" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Kategori Cedera
+                                </label>
+                                <select id="injury_category" name="injury_category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                                    <option value="">Pilih Kategori Cedera</option>
+                                    <option value="Ringan">Ringan (dapat segera kembali bekerja)</option>
+                                    <option value="Sedang">Sedang (butuh P3K/fasilitas kesehatan)</option>
+                                    <option value="Berat">Berat (rawat inap/rujukan RS)</option>
+                                    <option value="Fatal">Fatal (cacat permanen/meninggal dunia)</option>
+                                </select>
+                            </div>
+
+                            <!-- Pekerjaan / Aktivitas Saat Insiden -->
+                            <div>
+                                <label for="activity" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Pekerjaan Saat Insiden
+                                </label>
+                                <input type="text" id="activity" name="activity" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Misal: Mengoperasikan loader" required>
+                            </div>
+
+                            <!-- Lokasi Insiden -->
+                            <div>
+                                <label for="incident_location" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
                                     Lokasi Insiden
                                 </label>
-                                <input type="text" id="incident_location" name="incident_location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder=" Lokasi kejadian incident" required>
+                                <input type="text" id="incident_location" name="incident_location" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Contoh: Pit A, Hauling Road, Workshop" required>
                             </div>
-                            <!-- Incident Date and Time -->
+
+                            <!-- Jenis Insiden -->
                             <div>
-                                <label for="incident_date_time"
-                                    class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                <label for="incident_type" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Jenis Insiden
+                                </label>
+                                <select id="incident_type" name="incident_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                                    <option value="">Pilih Jenis Insiden</option>
+                                    <option value="Tertimpa">Tertimpa</option>
+                                    <option value="Tergelincir">Tergelincir</option>
+                                    <option value="Kecelakaan Kendaraan">Kecelakaan Kendaraan</option>
+                                    <option value="Jatuh dari Ketinggian">Jatuh dari Ketinggian</option>
+                                    <option value="Ledakan">Ledakan</option>
+                                    <option value="Kebakaran">Kebakaran</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+                            </div>
+
+                            <!-- Tanggal dan Waktu Insiden -->
+                            <div>
+                                <label for="incident_date_time" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
                                     Tanggal dan Waktu Insiden
                                 </label>
-                                <input type="datetime-local" id="incident_date_time" name="incident_date_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required>
+                                <input type="datetime-local" id="incident_date_time" name="incident_date_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
                             </div>
-                            <!-- Report by -->
+
+                            <!-- Ada Kerusakan Aset? -->
                             <div>
-                                <label for="report_by"
-                                    class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
-                                    Dilaporkan Oleh
+                                <label for="asset_damage" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Ada Kerusakan Aset?
                                 </label>
-                                <input type="text" id="report_by" name="report_by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" placeholder="Nama Pelapor incident" required>
+                                <select id="asset_damage" name="asset_damage" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                                    <option value="">Pilih</option>
+                                    <option value="Ya">Ya</option>
+                                    <option value="Tidak">Tidak</option>
+                                </select>
                             </div>
-                            <!-- Report Date and Time -->
+
+                            <!-- Ada Dampak Lingkungan? -->
                             <div>
-                                <label for="report_date_time"
-                                    class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
-                                    Tanggal dan Waktu Pelaporan
+                                <label for="environmental_impact" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Ada Dampak Lingkungan?
                                 </label>
-                                <input type="datetime-local" id="report_date_time" name="report_date_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" required>
+                                <select id="environmental_impact" name="environmental_impact" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                                    <option value="">Pilih</option>
+                                    <option value="Ya">Ya</option>
+                                    <option value="Tidak">Tidak</option>
+                                </select>
                             </div>
-                            <!-- Incident Description -->
-                            <div>
-                                <label for="incident_description"
-                                    class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
-                                    Deskripsi Insiden
+
+                            <!-- Deskripsi Kronologi -->
+                            <div class="sm:col-span-2">
+                                <label for="incident_description" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Deskripsi Kronologi Insiden
                                 </label>
                                 <textarea id="incident_description" name="incident_description" rows="4"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 
-                                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                                    placeholder="Deskripsi singkat tentang incident" required></textarea>
+                                    dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Ceritakan kronologi singkat insiden" required></textarea>
                             </div>
 
-                            <!-- Incident Photo -->
+                            <!-- Upload Bukti Foto -->
                             <div>
                                 <label for="incident_photo" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
                                     Upload Bukti Foto
@@ -219,6 +265,22 @@
                                              dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                                  </div>
                                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300">Format: JPG, PNG, dll. Maks 2MB per gambar.</p>
+                            </div>
+
+                            <!-- Nama Pelapor -->
+                            <div>
+                                <label for="report_by" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Nama Pelapor
+                                </label>
+                                <input type="text" id="report_by" name="report_by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Masukkan nama pelapor" required>
+                            </div>
+
+                            <!-- Tanggal dan Waktu Pelaporan -->
+                            <div>
+                                <label for="report_date_time" class="block text-sm mb-2 font-medium text-gray-900 dark:text-white">
+                                    Tanggal dan Waktu Pelaporan
+                                </label>
+                                <input type="datetime-local" id="report_date_time" name="report_date_time" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
                             </div>
                         </div>
 
