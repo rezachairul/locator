@@ -254,7 +254,7 @@
                                 </label>
                             
                                 <!-- Preview Container -->
-                                <div id="imgPreviewContainer" class="flex flex-wrap gap-2 mb-2"></div>
+                                <div id="imgPreviewContainer" class="grid grid-cols-3 gap-3 mb-2"></div>
 
                                 <!-- Input File -->
                                  <div id="inputContainer">
@@ -558,19 +558,14 @@
                                                                     <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2 gap-x-4 text-sm">
                                                                         <div><span class="font-semibold">Tanggal:</span> {{ date('d-m-Y', strtotime($user_report->incident_date_time)) }}</div>
                                                                         <div><span class="font-semibold">Waktu:</span> {{ date('H:i', strtotime($user_report->incident_date_time))}} WITA</div>
-                                                                        <div><span class="font-semibold">Pekerjaan:</span> {{ $user_report->job_type ?? '-' }}</div>
-                                                                        <div><span class="font-semibold">Load Point:</span> {{ $user_report->incident_code ?? '-' }}</div>
+                                                                        <div><span class="font-semibold">Pekerjaan saat Insiden:</span> {{ $user_report->activity ?? '-' }}</div>
+                                                                        <div><span class="font-semibold">Jenis Insiden:</span> {{ $user_report->incident_type ?? '-' }}</div>
                                                                         <div><span class="font-semibold">Lokasi:</span> {{ $user_report->incident_location }}</div>
-                                                                        <div><span class="font-semibold">DOP:</span> {{ $user_report->area ?? '-' }}</div>
                                                                     </div>
 
-                                                                    <div class="grid grid-cols-2 md:grid-cols-2 gap-4 mt-2 text-sm">
+                                                                    <div class="grid grid-cols-2 md:grid-cols-1 gap-4 mt-2 text-sm">
                                                                         <div>
-                                                                            <div class="font-semibold bg-gray-200 border border-white p-1 text-center text-black">Penyebab Kejadian</div>
-                                                                            <div class="border border-white h-24 p-2 max-h-40 overflow-y-auto whitespace-pre-line">{{ $user_report->incident_description ?? '-' }}</div>
-                                                                        </div>
-                                                                        <div>
-                                                                            <div class="font-semibold bg-gray-200 border border-white p-1 text-center text-black">Kronologi Kejadian</div>
+                                                                            <div class="font-semibold bg-gray-200 border border-white p-1 text-center text-black">Kronologi Insiden</div>
                                                                             <div class="border border-white h-24 p-2 max-h-40 overflow-y-auto whitespace-pre-line">{{ $user_report->incident_description ?? '-' }}</div>
                                                                         </div>
                                                                     </div>
@@ -712,8 +707,6 @@
 
     <!-- Script untuk menampilkan create form dan preview image saat create -->
     <script src="{{ asset('assets/js/form-create.js') }}"></script>
-
-    <!-- Script untuk preview image saat create form -->
     <script src="{{ asset('assets/js/preview-img-create.js') }}"></script>
 
     <!-- Script untuk menampilkan modal detail -->
@@ -721,8 +714,6 @@
     
     <!-- Script untuk menampilkan edit form & preview image saat edit form -->
     <script src="{{ asset('assets/js/form-edit.js') }}"></script>
-    
-    <!-- Script untuk preview image saat edit form -->
     <script src="{{ asset('assets/js/preview-img--edit.js') }}"></script>
 
 </body>

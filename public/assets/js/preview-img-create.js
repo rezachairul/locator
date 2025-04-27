@@ -44,7 +44,7 @@ function previewImages() {
         reader.onload = function (e) {
             const img = document.createElement('img');
             img.src = e.target.result;
-            img.classList.add('w-24', 'h-auto', 'rounded-md', 'shadow', 'border');
+            img.classList.add('w-24', 'h-24', 'object-cover', 'aspect-square', 'rounded-md', 'shadow', 'border');
             previewContainer.appendChild(img);
         };
         reader.readAsDataURL(file);
