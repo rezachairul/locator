@@ -588,14 +588,14 @@
                                                                     <h4 class="font-bold text-lg border-b border-white pb-1 mb-1 uppercase">C. Dokumentasi Kejadian (Foto)</h4>
 
                                                                     <div class="text-sm">
-                                                                        <span class="font-semibold">Foto Kejadian:</span>
+                                                                        <span class="font-semibold">Foto Kejadian saat Insiden:</span>
 
-                                                                        @if (!empty($user_report->incident_photos) && count($user_report->incident_photos) > 0)
+                                                                        @if ($user_report->photos->count() > 0)
                                                                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">
-                                                                                @foreach($user_report->incident_photos as $photo)
+                                                                                @foreach($user_report->photos as $photo)
                                                                                     <div class="w-full">
-                                                                                        <img src="{{ asset('storage/incidents/' . $photo) }}"
-                                                                                            alt="Foto Kejadian"
+                                                                                        <img src="{{ asset($photo->photo_path) }}"
+                                                                                            alt="Foto Kejadian saat Insiden"
                                                                                             class="object-cover w-full h-40 border rounded shadow-sm" />
                                                                                     </div>
                                                                                 @endforeach
