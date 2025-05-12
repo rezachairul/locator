@@ -12,15 +12,17 @@ class RoleMiddleware
     {
         // Cek jika user belum login
         if (!Auth::check()) {
-            return redirect('/auth/login'); // Atau ganti sesuai route login kamu
+            abort(401, 'Oops! You are not authorized to access this page.');
         }
         // Ambil user yang sedang login
         $user = Auth::user();
+
         // Cek apakah role user sesuai dengan yang diizinkan
         if (!in_array($user->role, $roles)) {
             // Jika tidak sesuai, redirect ke halaman dashboard atau halaman login dengan pesan error
-            return redirect('/auth/login')->with('error', 'You do not have permission to access this page.');
+            abort(403, 'You do not have permission to access this page.');
         }
+
         // Jika lolos semua pengecekan, lanjut ke request berikutnya
         return $next($request);
     }

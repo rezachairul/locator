@@ -1,0 +1,24 @@
+// Testing 401 error
+Route::get('/test-401', function () {
+    abort(401); // Menampilkan halaman 401
+});
+
+// Testing 403 error
+Route::get('/test-403', function () {
+    abort(403); // Menampilkan halaman 403
+});
+
+// Testing 404 error
+Route::get('/test-404', function () {
+    abort(404); // Menampilkan halaman 404
+});
+
+// Testing 419 error
+Route::get('/test-419', function () {
+    abort(419); // Menampilkan halaman 419
+});
+
+// Testing 500 error
+Route::get('/test-500', function () {
+    abort(500); // Menampilkan halaman 500
+});
