@@ -18,7 +18,7 @@ class UserReportController extends Controller
     {
         $title = 'User Report';
         $user_reports = UserReport::paginate(10);
-        return view('lapangan.user_report', compact('title', 'user_reports'));
+        return view('lapangan.user-report', compact('title', 'user_reports'));
     }
 
     /**

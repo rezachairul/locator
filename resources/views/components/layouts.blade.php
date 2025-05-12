@@ -100,7 +100,6 @@
                 const currentPage = window.location.pathname;
                 const favicon = document.getElementById("favicon");
                 const iconMap = {
-                    "auth/login": 'logo-locatorgis-locatorgis-logo.png',
                     "maps": 'maps.png',
                     "dashboard": 'dashoard.png',
                     "operator": 'menu-icons/operator.png',
@@ -110,13 +109,10 @@
                     "operasional/weather": 'menu-icons/cloud.png',
                     "operasional/waterdepth": 'menu-icons/water-waves.png',
                     "operasional/material": 'menu-icons/mineral.png',
-                    "incident-user": 'menu-icons/incident-user.png',
-                    "laporan-harian": 'menu-icons/daily-report.png',
-                    "laporan-bulanan": 'menu-icons/monthly-report.png',
-                    "tentang-sistem": 'menu-icons/about-system.png',
-                    "bantuan": 'menu-icons/panduan.png',
-                    "kontak": 'menu-icons/contact.png',
-                    "user_report": 'menu-icons/user-report.png',
+                    "laporan/incident-user": 'menu-icons/incident-user.png',
+                    "informasi/tentang-sistem": 'menu-icons/about-system.png',
+                    "informasi/bantuan": 'menu-icons/panduan.png',
+                    "informasi/kontak": 'menu-icons/contact.png',
                 };
 
                 for (const [key, value] of Object.entries(iconMap)) {

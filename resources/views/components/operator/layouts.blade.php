@@ -1,3 +1,7 @@
+@props([
+    'title' => '',
+    'hideSidebar' => false,
+])
 <!doctype html>
 <html lang="en" :class="{ 'theme-dark': dark }" x-data="data()">
     <head>
@@ -25,16 +29,17 @@
 
     <body> 
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-            <x-operator.sidebar
-                :totalExca="$totalExca"
-                :totalDumping="$totalDumping"
-                :latestWeather="$latestWeather"
-                :latestWaterDepth="$latestWaterDepth"
-            ></x-operator.sidebar>
+            @if (!$hideSidebar)
+                <x-operator.sidebar
+                    :totalExca="$totalExca ?? 0"
+                    :totalDumping="$totalDumping ?? 0"
+                    :latestWeather="$latestWeather ?? null"
+                    :latestWaterDepth="$latestWaterDepth ?? null"
+                />
+            @endif
             <div class="flex flex-col flex-1 w-full">
                 <x-operator.navbar></x-operator.navbar>
-                <main class="h-full p-5 overflow-y-auto">
-                    <x-operator.header>{{$title}}</x-operator.header>                  
+                <main class="h-full overflow-y-auto">
                     {{$slot}}
                 </main>
             </div>
@@ -104,7 +109,40 @@
 
                 // Setup modal functionality
                 setupModals();
+                // Mengubah favicon berdasarkan halaman saat ini
+                const currentPage = window.location.pathname;
+                const favicon = document.getElementById("favicon");
+                const iconMap = {
+                    "lapangan": 'logo-locatorgis/locatorgis-logo.png',
+                    "user-report": 'menu-icons/user-report.png',
+                };
+
+                for (const [key, value] of Object.entries(iconMap)) {
+                    if (currentPage.includes(key)) {
+                        favicon.href = `{{ asset('assets/img/${value}') }}?v=${new Date().getTime()}`;
+                        break;
+                    }
+                }
             });
-        </script>    
+        </script>
+
+        <!-- Script User-Reports -->
+        <!-- Function to scroll smoothly to the top of the page -->
+        <script src="{{ asset('assets/js/scroll-smoothly.js') }}"></script>
+
+        <!-- Function to apply theme and invert icons accordingly -->
+        <script src="{{ asset('assets/js/apply-theme.js') }}"></script>
+
+        <!-- Script untuk menampilkan create form dan preview image saat create -->
+        <script src="{{ asset('assets/js/form-create.js') }}"></script>
+        <script src="{{ asset('assets/js/preview-img-create.js') }}"></script>
+
+        <!-- Script untuk menampilkan modal detail -->
+        <script src="{{ asset('assets/js/show-modal.js') }}"></script>
+        
+        <!-- Script untuk menampilkan edit form & preview image saat edit form -->
+        <script src="{{ asset('assets/js/form-edit.js') }}"></script>
+        <script src="{{ asset('assets/js/preview-img--edit.js') }}"></script>
+
     </body>
 </html>

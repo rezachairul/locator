@@ -67,11 +67,7 @@
                                 </a>
                             </li>
                             <li class="flex">
-                                <form method="POST" action="/auth/logout">
-                                    <button type="submit" class="w-full inline-flex items-center justify-between px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                                        <span>Log out</span>
-                                    </button>
-                                </form>
+                                <p>Hello, </p>
                             </li>
                         </ul>
                     </template>
