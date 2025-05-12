@@ -3,6 +3,7 @@
     <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
         <div class="flex flex-col h-full py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+                <img src="{{ asset('assets/img/logo-locatorgis/locatorgis-logo.png') }}" alt="Logo LocatorGIS" class="w-6 h-6">
                 LocatorGIS
             </a>
             <ul class="mt-6 flex-grow">
@@ -166,6 +167,7 @@
     <aside class="fixed inset-y-0 z-20 flex-shrink-0 w-64 mt-16 overflow-y-auto bg-white dark:bg-gray-800 md:hidden" x-show="isSideMenuOpen" @click.away="closeSideMenu" @keydown.escape="closeSideMenu">
         <div class="flex flex-col h-full py-4 text-gray-500 dark:text-gray-400">
             <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+                <img src="{{ asset('assets/img/logo-locatorgis/locatorgis-logo.png') }}" alt="Logo LocatorGIS" class="w-6 h-6">
                 LocatorGIS
             </a>
             <ul class="mt-6 flex-grow">

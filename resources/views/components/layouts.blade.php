@@ -100,15 +100,16 @@
                 const currentPage = window.location.pathname;
                 const favicon = document.getElementById("favicon");
                 const iconMap = {
+                    "auth/login": 'logo-locatorgis-locatorgis-logo.png',
                     "maps": 'maps.png',
                     "dashboard": 'dashoard.png',
                     "operator": 'menu-icons/operator.png',
-                    "operasional": 'menu-icons/op_mining-2.png',
-                    "exca": 'menu-icons/excavator.png',
-                    "dump": 'menu-icons/dump-truck.png',
-                    "weather": 'menu-icons/cloud.png',
-                    "waterdepth": 'menu-icons/water-waves.png',
-                    "material": 'menu-icons/mineral.png',
+                    "operasional/operasional": 'menu-icons/op_mining-2.png',
+                    "operasional/exca": 'menu-icons/excavator.png',
+                    "operasional/dump": 'menu-icons/dump-truck.png',
+                    "operasional/weather": 'menu-icons/cloud.png',
+                    "operasional/waterdepth": 'menu-icons/water-waves.png',
+                    "operasional/material": 'menu-icons/mineral.png',
                     "incident-user": 'menu-icons/incident-user.png',
                     "laporan-harian": 'menu-icons/daily-report.png',
                     "laporan-bulanan": 'menu-icons/monthly-report.png',

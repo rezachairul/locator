@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css','resources/js/app.js'])
     <title>LocatorGIS | {{$title}} </title>
-    <link rel="shortcut icon" href="{{ asset('assets/img/excavator.png') }}" type="image/x-icon">
+    <!-- <link rel="shortcut icon" href="{{ asset('assets/img/excavator.png') }}" type="image/x-icon"> -->
     
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -67,12 +67,16 @@
                         </button>
                     </div>
                     @endif
-                    <h1 class="mb-1 text-lg font-semibold text-center text-gray-700 dark:text-gray-200" >
-                        Selamat datang di Login Area
-                    </h1>
-                    <h2 class="mb-4 text-lg font-semibold text-center text-gray-700 dark:text-gray-200" >
-                        Ayo mulai pantau lokasi
-                    </h2>
+                    <div class="flex flex-col items-center">
+                        <img src="{{ asset('assets/img/logo-locatorgis/locatorgis-logo.png') }}" alt="LocatorGIS Logo" class="w-20 h-20 mb-2">
+
+                        <h2 class="mb-1 text-lg font-semibold text-center text-gray-700 dark:text-gray-200">
+                            Selamat datang di Login Area
+                        </h2>
+                        <h4 class="mb-4 text-l font-semibold text-center text-gray-700 dark:text-gray-200">
+                            Ayo mulai pantau lokasi
+                        </h4>
+                    </div>
                     <form action="/auth/login" method="post">
                         @csrf
                         <div class="block text-sm mt-8">
