@@ -24,8 +24,9 @@
 </head>
 <body class="bg-yellow-100 h-screen flex items-center justify-center">
     <div class="text-center">
-        <h1 class="text-6xl font-bold text-yellow-600">403</h1>
-        <p class="text-xl text-gray-700 mt-4">You do not have permission to view this page.</p>
+        <h1 class="text-6xl font-bold text-yellow-600">🚫 403 Forbidden – Area Terlarang</h1>
+        <p class="text-xl text-gray-700 mt-4">Wilayah ini khusus personel berkewenangan.</p>
+        <p class="text-xl text-gray-700 mt-4 mb-6">Maaf, kamu belum punya izin masuk ke zona ini. Silakan hubungi administrator kalau merasa ini keliru.</p>
         <a href="{{ url('/') }}" class="mt-6 px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600">Go Home</a>
     </div>
 </body>

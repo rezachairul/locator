@@ -1,4 +1,4 @@
-<x-layouts>
+<x-admin.layouts>
     <x-slot:title>{{$title}}</x-slot:title>
     <!-- Table -->
     <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
@@ -315,4 +315,4 @@
         @include('operasional.operasional.create')
     </div>
     <br>
-</x-layouts>
+</x-admin.layouts>

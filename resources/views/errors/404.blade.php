@@ -24,8 +24,9 @@
 </head>
 <body class="bg-blue-100 h-screen flex items-center justify-center">
     <div class="text-center">
-        <h1 class="text-6xl font-bold text-blue-600">404</h1>
-        <p class="text-xl text-gray-700 mt-4">Sorry, the page you are looking for could not be found.</p>
+        <h1 class="text-6xl font-bold text-blue-600">❓ 404 Not Found – Jalur Tambang Hilang</h1>
+        <p class="text-xl text-gray-700 mt-4">Oops! Lorong ini buntu, tidak ada jalur ke sana.</p>
+        <p class="text-xl text-gray-700 mt-4 mb-6">Halaman yang kamu cari mungkin sudah dipindahkan, tertimbun, atau belum digali. Ayo kembali ke permukaan!</p>
         <a href="{{ url('/') }}" class="mt-6 px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600">Back to Homepage</a>
     </div>
 </body>

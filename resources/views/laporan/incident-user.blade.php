@@ -1,4 +1,4 @@
-<x-layouts>
+<x-admin.layouts>
     <x-slot:title>{{$title}}</x-slot:title>
     <!-- Table -->
     <!-- Container Search + Filter + Export -->
@@ -190,4 +190,4 @@
         </div>
     </div>
     <br>
-</x-layouts>
+</x-admin.layouts>

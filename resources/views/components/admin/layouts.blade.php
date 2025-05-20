@@ -33,11 +33,11 @@
 
     <body> 
         <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
-            <x-sidebar></x-sidebar>
+            <x-admin.sidebar></x-admin.sidebar>
             <div class="flex flex-col flex-1 w-full">
-                <x-navbar></x-navbar>
+                <x-admin.navbar></x-admin.navbar>
                 <main class="h-full p-5 overflow-y-auto">
-                    <x-header>{{$title}}</x-header>                  
+                    <x-admin.header>{{$title}}</x-admin.header>                  
                     {{$slot}}
                 </main>
             </div>

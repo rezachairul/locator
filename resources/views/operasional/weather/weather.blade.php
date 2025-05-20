@@ -1,4 +1,4 @@
-<x-layouts>
+<x-admin.layouts>
     <x-slot:title>{{$title}}</x-slot:title>
     <!-- Cards with title -->
     <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
@@ -334,4 +334,4 @@
         <!-- Modals Create -->
         @include('operasional.weather.create')
     </div>
-</x-layouts>
+</x-admin.layouts>

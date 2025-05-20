@@ -25,8 +25,9 @@
 </head>
 <body class="bg-red-100 h-screen flex items-center justify-center">
     <div class="text-center">
-        <h1 class="text-6xl font-bold text-red-600">401</h1>
-        <p class="text-xl text-gray-700 mt-4">Oops! You are not authorized to access this page.</p>
+        <h1 class="text-6xl font-bold text-red-600">🔐 401 Unauthorized – Belum Masuk Site</h1>
+        <p class="text-xl text-gray-700 mt-4">Akses Ditolak! Kamu belum mengenakan helm dan ID-mu belum terdaftar.</p>
+        <p class="text-xl text-gray-700 mt-4 mb-6">Coba login dulu sebelum masuk ke area tambang. Keamanan adalah prioritas!</p>
         <a href="{{ url('/auth/login') }}" class="mt-6 px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600">Go to Login</a>
     </div>
 </body>

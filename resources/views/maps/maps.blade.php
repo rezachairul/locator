@@ -1,4 +1,4 @@
-<x-layouts>
+<x-admin.layouts>
     <x-slot:title>{{$title}}</x-slot:title>
     <!-- Cards Notice -->
     <div class="min-w-0 p-4 text-white bg-white rounded-lg shadow-xs dark:bg-gray-800">
@@ -228,4 +228,4 @@
         @include('maps.create')
     </div>
     <br>
-</x-layouts>
+</x-admin.layouts>

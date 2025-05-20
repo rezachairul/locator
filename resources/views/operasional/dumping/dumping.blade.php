@@ -1,4 +1,4 @@
-<x-layouts>
+<x-admin.layouts>
     <x-slot:title>{{$title}}</x-slot:title>
 
     <!-- Table -->
@@ -276,4 +276,4 @@
         <!-- Modals Create -->
         @include('operasional.dumping.create')
     </div>
-</x-layouts>
+</x-admin.layouts>

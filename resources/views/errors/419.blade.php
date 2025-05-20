@@ -24,8 +24,9 @@
 </head>
 <body class="bg-green-100 h-screen flex items-center justify-center">
     <div class="text-center">
-        <h1 class="text-6xl font-bold text-green-600">419</h1>
-        <p class="text-xl text-gray-700 mt-4">Your session has expired. Please refresh and try again.</p>
+        <h1 class="text-6xl font-bold text-green-600">🕒 419 Page Expired – Sesi Kerja Selesai</h1>
+        <p class="text-xl text-gray-700 mt-4">Waktu shift kamu sudah habis.</p>
+        <p class="text-xl text-gray-700 mt-4 mb-6">Sesi ini kedaluwarsa karena terlalu lama tidak aktif. Silakan muat ulang atau login kembali untuk lanjut menggali.</p>
         <a href="{{ url('/') }}" class="mt-6 px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600">Refresh</a>
     </div>
 </body>

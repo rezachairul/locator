@@ -1,4 +1,4 @@
-<x-layouts>
+<x-admin.layouts>
     <x-slot:title>Kelola Data {{$title}}</x-slot:title>
     <!-- Card -->
     <div class="grid gap-6 mb-8 md:grid-cols-2 justify-center place-items-center">
@@ -314,4 +314,4 @@
     </div>
     <br>
 
-</x-layouts>
+</x-admin.layouts>
