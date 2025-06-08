@@ -21,7 +21,7 @@
                     dark:bg-gray-800 dark:border-gray-700 transition duration-300 transform hover:scale-105 hover:shadow-xl">
             <div class="flex justify-between items-center">
                 <div>
-                    <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Operator</h5>
+                    <h5 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Operator Hari ini</h5>
                     <p class="font-normal text-gray-700 dark:text-gray-400">
                         Jumlah: <strong>{{ $operatorCount }}</strong>
                     </p>

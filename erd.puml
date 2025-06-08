@@ -1,0 +1,198 @@
+@startuml Locatorgis
+
+' Define skin parameters for better readability
+skinparam classAttributeIconSize 0
+hide circle
+
+entity users {
+  *id : bigint [PK]
+  --
+  name : string
+  username : string
+  role : string
+  email : string
+  password : string
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity sessions {
+  *id : string [PK]
+  --
+  user_id : bigint [FK]
+  ip_address : string
+  user_agent : text
+  payload : longtext
+  last_activity : integer
+}
+
+entity dashboards {
+  *id : bigint [PK]
+  --
+  exca_id : bigint [FK]
+  dumping_id : bigint [FK]
+  waterdepth_id : bigint [FK]
+  weather_id : bigint [FK]
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity dumpings {
+  *id : bigint [PK]
+  --
+  disposial : string
+  easting : float
+  northing : float
+  elevation_rl : float
+  elevation_actual : float
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity materials {
+  *id : bigint [PK]
+  --
+  name : string
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity weathers {
+  *id : bigint [PK]
+  --
+  cuaca : enum
+  curah_hujan : float
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity waterdepths {
+  *id : bigint [PK]
+  --
+  shift : string
+  qsv_1 : float
+  h4 : float
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity maps {
+  *id : bigint [PK]
+  --
+  fileName : string
+  file : string
+  outputFile : string
+  size : integer
+  path : string
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity excas {
+  *id : bigint [PK]
+  --
+  loading_unit : string
+  easting : decimal
+  northing : decimal
+  elevation_rl : decimal
+  elevation_actual : decimal
+  front_width : float
+  front_height : float
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity lapangans {
+  *id : bigint [PK]
+  --
+  map_id : bigint [FK]
+  exca_id : bigint [FK]
+  dumping_id : bigint [FK]
+  waterdepth_id : bigint [FK]
+  weather_id : bigint [FK]
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity user_reports {
+  *id : bigint [PK]
+  --
+  victim_name : string
+  victim_age : integer
+  injury_category : string
+  activity : string
+  incident_type : string
+  incident_date_time : datetime
+  incident_location : string
+  asset_damage : string
+  environmental_impact : string
+  incident_description : text
+  report_by : string
+  report_date_time : datetime
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity incident_users {
+  *id : bigint [PK]
+  --
+  user_report_id : bigint [FK]
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity operasionals {
+  *id : bigint [PK]
+  --
+  pit : string
+  loading_unit_id : bigint [FK]
+  dop : string
+  dumping_id : bigint [FK]
+  material_id : bigint [FK]
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity user_report_photos {
+  *id : bigint [PK]
+  --
+  user_report_id : bigint [FK]
+  photo_path : string
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+' RELATIONS
+users ||--o{ sessions : has
+user_reports ||--o{ incident_users : has
+user_reports ||--o{ user_report_photos : has
+
+excas ||--o{ dashboards : has
+excas ||--o{ lapangans : has
+dumpings ||--o{ dashboards : has
+dumpings ||--o{ lapangans : has
+waterdepths ||--o{ dashboards : has
+waterdepths ||--o{ lapangans : has
+weathers ||--o{ dashboards : has
+weathers ||--o{ lapangans : has
+maps ||--o{ lapangans : has
+
+user_reports ||--o{ incident_users : creates
+incident_users }o--|| user_reports : belongsTo
+
+operasionals }o--|| excas : loading_unit
+operasionals }o--|| dumpings : dumping
+operasionals }o--|| materials : material
+
+lapangans }o--|| maps : map
+lapangans }o--|| excas : exca
+lapangans }o--|| dumpings : dumping
+lapangans }o--|| waterdepths : waterdepth
+lapangans }o--|| weathers : weather
+
+dashboards }o--|| excas : exca
+dashboards }o--|| dumpings : dumping
+dashboards }o--|| waterdepths : waterdepth
+dashboards }o--|| weathers : weather
+
+@enduml
