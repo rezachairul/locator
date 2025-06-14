@@ -82,7 +82,19 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
 
 
     // Route untuk Kelola data user
-    Route::resource('/operator', OperatorController::class);
+    Route::controller(OperatorController::class)->group(function () {
+        // Rute untuk halaman index
+        Route::get('/operator',[OperatorController::class, 'index'])->name('operator.index');
+        // Rute untuk menyimpan data baru
+        Route::post('/operator',[OperatorController::class, 'store'])->name('operator.store');
+        // Rute untuk memperbarui data
+        Route::put('/operator/{id}',[OperatorController::class, 'update'])->name('operator.update');
+        // Rute untuk menghapus data
+        Route::delete('/operator/{id}',[OperatorController::class, 'destroy'])->name('operator.destroy');
+        // Rute untuk melakukan pencarian
+        // Route::get('/operator/search', [OperatorController::class, 'search'])->name('operator.search');
+
+    });
     
     // Route Operasional
     Route::prefix('operasional')->group(function () {

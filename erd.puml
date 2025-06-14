@@ -1,5 +1,4 @@
 @startuml Locatorgis
-
 ' Define skin parameters for better readability
 skinparam classAttributeIconSize 0
 hide circle
@@ -16,16 +15,6 @@ entity users {
   updated_at : timestamp
 }
 
-entity sessions {
-  *id : string [PK]
-  --
-  user_id : bigint [FK]
-  ip_address : string
-  user_agent : text
-  payload : longtext
-  last_activity : integer
-}
-
 entity dashboards {
   *id : bigint [PK]
   --
@@ -33,6 +22,32 @@ entity dashboards {
   dumping_id : bigint [FK]
   waterdepth_id : bigint [FK]
   weather_id : bigint [FK]
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity maps {
+  *id : bigint [PK]
+  --
+  fileName : string
+  file : string
+  outputFile : string
+  size : integer
+  path : string
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity excas {
+  *id : bigint [PK]
+  --
+  loading_unit : string
+  easting : decimal
+  northing : decimal
+  elevation_rl : decimal
+  elevation_actual : decimal
+  front_width : float
+  front_height : float
   created_at : timestamp
   updated_at : timestamp
 }
@@ -76,28 +91,14 @@ entity waterdepths {
   updated_at : timestamp
 }
 
-entity maps {
+entity operasionals {
   *id : bigint [PK]
   --
-  fileName : string
-  file : string
-  outputFile : string
-  size : integer
-  path : string
-  created_at : timestamp
-  updated_at : timestamp
-}
-
-entity excas {
-  *id : bigint [PK]
-  --
-  loading_unit : string
-  easting : decimal
-  northing : decimal
-  elevation_rl : decimal
-  elevation_actual : decimal
-  front_width : float
-  front_height : float
+  pit : string
+  loading_unit_id : bigint [FK]
+  dop : string
+  dumping_id : bigint [FK]
+  material_id : bigint [FK]
   created_at : timestamp
   updated_at : timestamp
 }
@@ -133,26 +134,6 @@ entity user_reports {
   updated_at : timestamp
 }
 
-entity incident_users {
-  *id : bigint [PK]
-  --
-  user_report_id : bigint [FK]
-  created_at : timestamp
-  updated_at : timestamp
-}
-
-entity operasionals {
-  *id : bigint [PK]
-  --
-  pit : string
-  loading_unit_id : bigint [FK]
-  dop : string
-  dumping_id : bigint [FK]
-  material_id : bigint [FK]
-  created_at : timestamp
-  updated_at : timestamp
-}
-
 entity user_report_photos {
   *id : bigint [PK]
   --
@@ -162,37 +143,48 @@ entity user_report_photos {
   updated_at : timestamp
 }
 
+entity incident_users {
+  *id : bigint [PK]
+  --
+  user_report_id : bigint [FK]
+  created_at : timestamp
+  updated_at : timestamp
+}
+
 ' RELATIONS
-users ||--o{ sessions : has
-user_reports ||--o{ incident_users : has
-user_reports ||--o{ user_report_photos : has
+' RELATIONS
+dashboards::exca_id --> excas::id
+dashboards::dumping_id --> dumpings::id
+dashboards::waterdepth_id --> waterdepths::id
+dashboards::weather_id --> weathers::id
 
-excas ||--o{ dashboards : has
-excas ||--o{ lapangans : has
-dumpings ||--o{ dashboards : has
-dumpings ||--o{ lapangans : has
-waterdepths ||--o{ dashboards : has
-waterdepths ||--o{ lapangans : has
-weathers ||--o{ dashboards : has
-weathers ||--o{ lapangans : has
-maps ||--o{ lapangans : has
+lapangans::map_id --> maps::id
+lapangans::exca_id --> excas::id
+lapangans::dumping_id --> dumpings::id
+lapangans::waterdepth_id --> waterdepths::id
+lapangans::weather_id --> weathers::id
 
-user_reports ||--o{ incident_users : creates
-incident_users }o--|| user_reports : belongsTo
+operasionals::loading_unit_id --> excas::id
+operasionals::dumping_id --> dumpings::id
+operasionals::material_id --> materials::id
+operasionals::weather_id --> weathers::id
+operasionals::waterdepth_id --> waterdepths::id
 
-operasionals }o--|| excas : loading_unit
-operasionals }o--|| dumpings : dumping
-operasionals }o--|| materials : material
+excas::id --> dumpings::id
+excas::id --> materials::id
 
-lapangans }o--|| maps : map
-lapangans }o--|| excas : exca
-lapangans }o--|| dumpings : dumping
-lapangans }o--|| waterdepths : waterdepth
-lapangans }o--|| weathers : weather
+user_report_photos::user_report_id --> user_reports::id
+incident_users::user_report_id --> user_reports::id
 
-dashboards }o--|| excas : exca
-dashboards }o--|| dumpings : dumping
-dashboards }o--|| waterdepths : waterdepth
-dashboards }o--|| weathers : weather
+' (Relasi Users)
+' - Admin mengelola semua (akses penuh, relasi tidak perlu langsung di database tapi diatur di level aplikasi)
+' - Operator bisa akses lapangans (via posisi dan maps) dan membuat user_reports
+
+' Jadi: Optional relasi logis
+' Operator memiliki akses ke lapangan melalui maps (maps punya banyak lapangan)
+' Operator membuat user_report (bisa ditambahkan user_id jika ingin menghubungkan user -> user_reports)
+
+' Jika ingin simpan relasi user_id di user_reports (tidak ada di model sekarang):
+' user_reports::user_id --> users::id
 
 @enduml

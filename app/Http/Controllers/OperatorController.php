@@ -12,22 +12,37 @@ class OperatorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'User';
-        // Ambil admin (default/fixed)
-        $admins = User::where('role', 'admin')->get();
+        $search = $request->input('search');
 
-        // Ambil operator yang diinput hari ini
+        // Ambil data sesuai kondisi pencarian atau tidak
+        $admins = User::where('role', 'admin')
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->get();
+
         $operators = User::where('role', 'operator')
             ->whereDate('created_at', today())
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
             ->get();
-        
-        // Merge admins dan operators
-         // Gabungkan admin + operator
+
+        // Gabungkan admin + operator
         $merged = $admins->concat($operators);
 
-        // Custom pagination
+        // Custom pagination manual
         $perPage = 10;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $merged->slice(($currentPage - 1) * $perPage, $perPage)->values();
@@ -39,8 +54,15 @@ class OperatorController extends Controller
         $adminCount = $admins->count();
         $operatorCount = $operators->count();
 
-        return view('operator/operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
+        // Cek apakah ini request AJAX (pencarian)
+        if ($request->ajax()) {
+            return view('operator.partials.table_body', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'))->render();
+        }
+
+        // Return view normal (full page)
+        return view('operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -120,7 +142,7 @@ class OperatorController extends Controller
         // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username',
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
             'role' => 'required|string|in:admin,operator',
             'password' => 'nullable|string|min:8',
         ]);
