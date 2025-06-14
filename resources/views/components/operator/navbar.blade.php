@@ -54,20 +54,85 @@
                         </ul>
                     </template>
                 </li>
+
+                @php
+                $user = Auth::user();
+                @endphp
+                
                 <!-- Profile menu -->
                 <li class="relative">
                     <button @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account" aria-haspopup="true" class="relative align-middle rounded-full focus:outline-none focus:shadow-outline-purple">
                         <img class="object-cover w-8 h-8 rounded-full" src="{{ asset('assets/img/foto.jpg') }}" alt="" aria-hidden="true">
                     </button>
                     <template x-if="isProfileMenuOpen">
-                        <ul @click.away="closeProfileMenu" @keydown.escape="closeProfileMenu" class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800">
-                            <li class="flex">
-                                <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="#">
-                                    <span>Profile</span>
-                                </a>
+                        <ul
+                            x-data="{
+                                greetingsTop: [
+                                    '👷‍♂️ Halo Operator Lapangan!',
+                                    '🚜 Hai Pengawas Alat Berat!',
+                                    '🛠️ Siap kerja keras hari ini?',
+                                    '⛏️ Selamat bertugas di lapangan!',
+                                    '💪 Semangat kerja, pejuang tambang!',
+                                    '🔧 Hai, siap rawat alat hari ini?',
+                                    '👷 Hai Operator, tetap waspada ya!',
+                                    '🧱 Halo penjaga titik-titik penting!',
+                                    '🌄 Pagi cerah buat yang di lapangan!',
+                                    '🧢 Selamat datang, sang pengendali lapangan!'
+                                ],
+                                greetingsBottom: [
+                                    '👷‍♂️ Jangan lupa cek kondisi alat ya!',
+                                    '🚧 Pastikan area kerja aman!',
+                                    '💼 Laporkan bila ada kendala ya!',
+                                    '🛠️ Jaga koordinasi dengan tim lain juga ya!',
+                                    '🔍 Yuk cek pergerakan alat hari ini!',
+                                    '🧭 Jangan sampai titik koordinat terlewat!',
+                                    '📡 Pastikan sinyal monitoring lancar!',
+                                    '📋 Catat kondisi lapangan dengan teliti ya!',
+                                    '🧯 Tetap utamakan keselamatan kerja!',
+                                    '📦 Siap kontrol logistik alat berat?'
+                                ],
+                                randomTop: '',
+                                randomBottom: ''
+                            }"
+                                                    x-init="
+                                randomTop = greetingsTop[Math.floor(Math.random() * greetingsTop.length)];
+                                randomBottom = greetingsBottom[Math.floor(Math.random() * greetingsBottom.length)];
+                            "
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 scale-95"
+                            x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 scale-100"
+                            x-transition:leave-end="opacity-0 scale-95"
+                            @click.away="closeProfileMenu"
+                            @keydown.escape="closeProfileMenu"
+                            class="absolute right-0 w-64 p-3 mt-2 space-y-3 text-sm text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800">
+                            <!-- Greeting Atas -->
+                            <li>
+                                <div class="px-2 py-1 font-semibold text-purple-700 dark:text-purple-300" x-text="randomTop"></div>
                             </li>
-                            <li class="flex">
-                                <p>Hello, </p>
+
+                            <!-- Username -->
+                            <li class="flex items-center gap-2 px-2 py-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                </svg>
+                                <span class="font-medium text-gray-800 dark:text-gray-200">{{ $user->username }}</span>
+                            </li>
+
+                            <!-- Role -->
+                            <li class="flex items-center gap-2 px-2 py-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                </svg>
+                                <span class="font-medium text-gray-800 dark:text-gray-200">
+                                    Operator Lapangan
+                                </span>
+                            </li>
+
+                            <!-- Greeting Bawah -->
+                            <li>
+                                <div class="px-2 py-1 font-semibold text-purple-700 dark:text-purple-300" x-text="randomBottom"></div>
                             </li>
                         </ul>
                     </template>

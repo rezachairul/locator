@@ -6,9 +6,9 @@ User::create([
     'password' => Hash::make('locatorgis2025')
 ]);
 User::create([
-    'name' => 'User',
-    'username' => 'User-locatorgis',
+    'name' => 'Operator',
+    'username' => 'Operator-locatorgis',
     'role' => 'operator',
-    'email' => 'user.operator@locatorgis.test',
+    'email' => 'operator.operator@locatorgis.test',
     'password' => Hash::make('2025locatorgis')
 ]);
