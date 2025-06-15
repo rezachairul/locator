@@ -16,50 +16,69 @@ class OperasionalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Operasional';
-        $operasionals = Operasional::orderBy('id', 'asc')->paginate(10);
 
-        // Ambil data Exca
-        $excas = Exca::all();
-        // Filter excas berdasarkan tanggal hari ini
+        // Ambil search keyword, aman kalau null
+        $search = $request->input('search', '');
+        $keywords = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+
+        // Query Operasional: multi-keyword & relasi
+        $operasionals = Operasional::when($keywords, function ($query) use ($keywords) {
+            foreach ($keywords as $word) {
+                $query->where(function ($q) use ($word) {
+                    $q->where('pit', 'ILIKE', "%{$word}%")
+                        ->orWhere('dop', 'ILIKE', "%{$word}%")
+                        ->orWhereHas('loading_unit', function ($q2) use ($word) {
+                            $q2->where('loading_unit', 'ILIKE', "%{$word}%");
+                        })
+                        ->orWhereHas('dumping', function ($q2) use ($word) {
+                            $q2->where('disposial', 'ILIKE', "%{$word}%");
+                        })
+                        ->orWhereHas('material', function ($q2) use ($word) {
+                            $q2->where('name', 'ILIKE', "%{$word}%");
+                        });
+                });
+            }
+        })
+        ->orderBy('id', 'asc')
+        ->paginate(10);
+
+        // Ambil Exca hanya untuk hari ini
         $excas = Exca::whereDate('created_at', now()->toDateString())->get();
         if ($excas->isEmpty()) {
-            $excas = collect([
-                (object) ['id' => '', 'loading_unit' => 'No Loading Unit available']
-            ]);
+            $excas = collect([(object) ['id' => '', 'loading_unit' => 'No Loading Unit available']]);
         }
 
-        // Ambil data Waste Dump
-        $dumpings = Dumping::all();
-        // Filter dumpings berdasarkan tanggal hari ini
+        // Ambil Dumping hanya untuk hari ini
         $dumpings = Dumping::whereDate('created_at', now()->toDateString())->get();
         if ($dumpings->isEmpty()) {
-            $dumpings = collect([
-                (object) ['id' => '', 'disposial' => 'No Disposial available']
-            ]);
+            $dumpings = collect([(object) ['id' => '', 'disposial' => 'No Disposial available']]);
         }
 
-        // Ambil data materials
+        // Ambil Material hanya untuk hari ini, fallback ke semua, fallback dummy
         $materials = Material::whereDate('created_at', now()->toDateString())->get();
-        // Jika tidak ada data untuk hari ini, ambil semua data dari tabel Material
         if ($materials->isEmpty()) {
             $materials = Material::all();
         }
-        // Jika tabel benar-benar kosong, tambahkan data dummy sebagai fallback
         if ($materials->isEmpty()) {
-            $materials = collect([
-                (object) ['id' => '', 'name' => 'No materials available']
-            ]);
+            $materials = collect([(object) ['id' => '', 'name' => 'No Materials available']]);
         }
-        
+
+        // Ambil Weather & Waterdepth terbaru hari ini
         $today = now()->startOfDay();
-        // Ambil data weather dan Waterdepth
         $latestWeather = Weather::where('created_at', '>=', $today)->latest()->first();
         $latestWaterDepth = Waterdepth::where('created_at', '>=', $today)->latest()->first();
 
-        return view('operasional.operasional.operasional', compact('title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'));
+        // Jika request AJAX (pencarian)
+        if ($request->ajax()) {
+            return view('operasional.operasional.partials.table_body', compact('title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'))->render();
+        }
+
+        // View full
+        return view('operasional.operasional.operasional', compact(
+            'title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'));
     }
 
     /**
