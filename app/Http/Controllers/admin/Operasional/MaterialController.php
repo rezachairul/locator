@@ -31,10 +31,10 @@ class MaterialController extends Controller
 
         // Cek apakah ini request AJAX (pencarian)
         if ($request->ajax()) {
-            return view('operasional.material.partials.table_body', compact('title', 'materials'))->render();
+            return view('admin.operasional.material.partials.table_body', compact('title', 'materials'))->render();
         }
 
-        return view('operasional.material.material', compact('title', 'materials'));
+        return view('admin.operasional.material.material', compact('title', 'materials'));
     }
 
     /**

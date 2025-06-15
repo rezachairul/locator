@@ -14,22 +14,31 @@ class MapsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Maps';
-        // $maps = Maps::paginate(10);
+        $search = $request->input('search', '');
 
-        // Filter data untuk hanya yang berumur 24 jam terakhir
-        // $maps = Maps::where('created_at', '>=', now()->subDay())
-        // ->orderBy('id', 'asc')
-        // ->get();
-        
-        // Filter data untuk reset pukul 00.00
+        // Pisahkan keyword search jadi array
+        $keywords = preg_split('/\s+/', $search);
+
+        // Query Maps: hanya data hari ini + multi-keyword + case-insensitive
         $maps = Maps::whereDate('created_at', now()->toDateString())
-        ->orderBy('id', 'asc')
-        ->paginate(10);
+            ->when($search, function ($query) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $query->where('fileName', 'ILIKE', "%{$word}%");
+                }
+            })
+            ->orderBy('id', 'asc')
+            ->paginate(10);
 
-        return view('maps/maps',compact('title', 'maps'));
+        // Jika request AJAX, balikin partial saja
+        if ($request->ajax()) {
+            return view('admin.maps.partials.table_body', compact('title', 'maps'))->render();
+        }
+
+        // Jika normal, balikin full page
+        return view('admin.maps.maps', compact('title', 'maps'));
     }
 
     /**
