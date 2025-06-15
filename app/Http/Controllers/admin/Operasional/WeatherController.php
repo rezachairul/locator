@@ -13,15 +13,31 @@ class WeatherController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Weather';
-        $weathers = Weather::all();
-        
-        // Ambil data cuaca terbaru
+
+        // Ambil input search (boleh kosong)
+        $search = $request->input('search');
+
+        // Pisahkan search jadi array kata
+        $keywords = preg_split('/\s+/', $search);
+
+        // Query Weather hanya untuk hari ini + search + order + paginate
+        $weathers = Weather::whereDate('created_at', now()->toDateString())
+            ->when($search, function ($query) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $query->where('cuaca', 'ILIKE', "%{$word}%")
+                          ->orWhere('curah_hujan', 'ILIKE', "%{$word}%");
+                }
+            })
+            ->orderBy('id', 'asc')
+            ->paginate(10);
+
+        // Ambil 1 data paling baru
         $latestWeather = Weather::latest()->first();
 
-        //Mapping Labels
+        // Mapping Labels
         $cuacaLabels = [
             'cerah' => 'Cerah',
             'cerah_berawan' => 'Cerah Berawan',
@@ -33,42 +49,34 @@ class WeatherController extends Controller
             'hujan_petir' => 'Hujan Petir',
             'kabut' => 'Kabut'
         ];
-        // foreach($weathers as $weather){
-        //     $weather->cuaca_label = $cuacaLabels[$weather->cuaca] ?? $weather->cuaca;
-        // }
 
         // Fetch data dari API BMKG
         $bmkgWeather = [];
         try {
-            $kodeWilayah = '64.03.03.2005'; // Kode wilayah Provinsi Kalimantan Timur, Kabupaten Berau, Kecamatan Sambaliung, Kampung pegat Bukur
+            $kodeWilayah = '64.03.03.2005';
             $url = "https://api.bmkg.go.id/publik/prakiraan-cuaca?adm4={$kodeWilayah}";
             $response = Http::get($url);
 
             if ($response->successful()) {
-                $bmkgWeather = $response->json(); // Data dari BMKG
-                // dd($bmkgWeather);
+                $bmkgWeather = $response->json();
             }
-            // Tambahkan log untuk mencatat data respons dari API BMKG
+
             Log::info('BMKG Response:', $bmkgWeather);
         } catch (\Exception $e) {
             $bmkgWeather = ['error' => 'Gagal mengambil data dari BMKG: ' . $e->getMessage()];
-            // dd($bmkgWeather);
-            // Tambahkan log untuk mencatat jika terjadi error
             Log::error('BMKG API Error:', ['message' => $e->getMessage()]);
         }
 
-        // Filter data untuk hanya yang berumur 24 jam terakhir
-        // $weathers = Weather::where('created_at', '>=', now()->subDay())
-        // ->orderBy('id', 'asc')
-        // ->get();
-        
-        // Filter data untuk reset pukul 00.00
-        $weathers = Weather::whereDate('created_at', now()->toDateString())
-        ->orderBy('id', 'asc')
-        ->paginate(10);
+        // Jika request AJAX, return partial table saja
+        if ($request->ajax()) {
+            return view('admin.operasional.weather.partials.table_body', compact('weathers'))->render();
+        }
 
-        return view('operasional/weather/weather', compact('title', 'weathers',  'latestWeather', 'bmkgWeather'));
+        // Normal render
+        return view('admin.operasional.weather.weather', compact(
+            'title', 'weathers', 'latestWeather', 'bmkgWeather', 'cuacaLabels'));
     }
+
 
     /**
      * Show the form for creating a new resource.
