@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Laporan;
+namespace App\Http\Controllers\admin\Laporan;
 
 use App\Models\IncidentUser;
 use App\Models\UserReport;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Operasional;
+namespace App\Http\Controllers\admin\Operasional;
 
 use App\Models\Exca;
 use App\Models\Dumping;
