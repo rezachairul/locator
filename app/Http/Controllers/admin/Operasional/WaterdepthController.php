@@ -11,16 +11,35 @@ class WaterdepthController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Water Depth';
-        
-        // Filter data untuk reset pukul 00.00
-        $waterdepths = WaterDepth::whereDate('created_at', now()->toDateString())
-        ->orderBy('id', 'asc')
-        ->paginate(10);
 
-        return view('operasional/waterdepth/waterdepth', compact('title', 'waterdepths'));
+        // Ambil input search
+        $search = $request->input('search');
+
+        // Pisahkan multi keyword
+        $keywords = preg_split('/\s+/', $search);
+
+        // Query hanya data hari ini + filter search + order + paginate
+        $waterdepths = WaterDepth::whereDate('created_at', now()->toDateString())
+            ->when($search, function ($query) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $query->where('shift', 'ILIKE', "%{$word}%")
+                          ->orWhere('qsv_1', 'ILIKE', "%{$word}%")
+                          ->orWhere('h4', 'ILIKE', "%{$word}%");
+                }
+            })
+            ->orderBy('id', 'asc')
+            ->paginate(10);
+
+        // Jika AJAX: return partial table saja
+        if ($request->ajax()) {
+            return view('admin.operasional.waterdepth.partials.table_body', compact('title','waterdepths'))->render();
+        }
+
+        // Jika normal: return full page
+        return view('admin.operasional.waterdepth.waterdepth', compact('title', 'waterdepths'));
     }
 
     /**
