@@ -18,17 +18,43 @@ class ExcaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Load Point';
-        
-        // Filter data untuk reset pukul 00.00
-        $excas = Exca::whereDate('created_at', now()->toDateString())
-        ->orderBy('id', 'asc')
-        ->paginate(10);
 
-        return view('operasional.exca.excavator', compact('title', 'excas'));
+        // Ambil input search, default ke '' biar aman
+        $search = $request->input('search', '');
+
+        // Pecah jadi multi keyword, kalau kosong = array kosong
+        $keywords = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+
+        // Query data: hanya hari ini + multi keyword + order + paginate
+        $excas = Exca::whereDate('created_at', now()->toDateString())
+            ->when($keywords, function ($query) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $query->where(function ($q) use ($word) {
+                        $q->where('loading_unit', 'ILIKE', "%{$word}%")
+                          ->orWhere('easting', 'ILIKE', "%{$word}%")
+                          ->orWhere('northing', 'ILIKE', "%{$word}%")
+                          ->orWhere('elevation_rl', 'ILIKE', "%{$word}%")
+                          ->orWhere('elevation_actual', 'ILIKE', "%{$word}%")
+                          ->orWhere('front_width', 'ILIKE', "%{$word}%")
+                          ->orWhere('front_height', 'ILIKE', "%{$word}%");
+                    });
+                }
+            })
+            ->orderBy('id', 'asc')
+            ->paginate(10);
+
+        // Jika AJAX: return partial table
+        if ($request->ajax()) {
+            return view('admin.operasional.exca.partials.table_body', compact('excas'))->render();
+        }
+
+        // Jika normal: return full page
+        return view('admin.operasional.exca.excavator', compact('title', 'excas'));
     }
+
 
 
     public function create()
