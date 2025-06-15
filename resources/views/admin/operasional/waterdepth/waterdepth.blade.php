@@ -6,7 +6,7 @@
         Table {{$title}}
     </h4>
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
-          <div class="flex items-center justify-between flex-wrap gap-2 p-4 bg-gray-50 dark:bg-gray-800 border-t dark:border-gray-700">
+        <div class="flex items-center justify-between flex-wrap gap-2 p-4 bg-gray-50 dark:bg-gray-800 border-t dark:border-gray-700">
             <!-- Bagian Pencarian -->
             <div class="flex flex-1 lg:mr-32">
                 <div class="relative w-full max-w-xl">

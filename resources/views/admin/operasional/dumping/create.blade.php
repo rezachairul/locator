@@ -21,6 +21,7 @@
             </div>
             <!-- Modal body -->
             <form action="{{route('dumping.store')}}" method="post">
+                @method('POST')
                 @csrf
                 <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
                     <div>

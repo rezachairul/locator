@@ -11,20 +11,38 @@ class DumpingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Waste Dump';
-        // Ambil data Dumpings
-        // $dumpings = Dumping::all();        
-        
-        // Filter data untuk reset pukul 00.00
+        $search = $request->input('search', '');
+
+        // Pisahkan multi keyword
+        $keywords = preg_split('/\s+/', $search);
+
+        // Filter hanya data hari ini + multi keyword + order + paginate
         $dumpings = Dumping::whereDate('created_at', now()->toDateString())
-        ->orderBy('id', 'asc')
-        ->paginate(10);
+            ->when($search, function ($query) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $query->where(function ($q) use ($word) {
+                        $q->where('disposial', 'ILIKE', "%{$word}%")
+                            ->orWhere('easting', 'ILIKE', "%{$word}%")
+                            ->orWhere('northing', 'ILIKE', "%{$word}%")
+                            ->orWhere('elevation_rl', 'ILIKE', "%{$word}%")
+                            ->orWhere('elevation_actual', 'ILIKE', "%{$word}%");
+                    });
+                }
+            })
+            ->orderBy('id', 'asc')
+            ->paginate(10);
 
-        return view('operasional/dumping/dumping', compact('title', 'dumpings'));
+        // Jika AJAX: balikin partial table
+        if ($request->ajax()) {
+            return view('admin.operasional.dumping.partials.table_body', compact('dumpings'))->render();
+        }
+
+        // Jika normal: full page
+        return view('admin.operasional.dumping.dumping', compact('title', 'dumpings'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -38,7 +56,7 @@ class DumpingController extends Controller
      */
     public function store(Request $request)
     {        
-        // dd($request->all());
+        //  dd($request->all());
         $request->validate([
             'disposial' => 'required',
             'easting' => 'required|numeric|between:0,999999.999999',

@@ -70,9 +70,9 @@
     <td colspan="6" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
         @if (request()->has('search') && request()->search != '')
             💧 Data kedalaman air ( {{ $title }} ) masih kosong nih.
-            @else
+        @else
             💧 Nggak ada data kedalaman air ( {{ $title }} ) yang cocok sama pencarianmu.
-            @endif
+        @endif
     </td>
 </tr>
 @endif
