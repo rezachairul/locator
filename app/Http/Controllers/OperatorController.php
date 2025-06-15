@@ -17,32 +17,42 @@ class OperatorController extends Controller
         $title = 'User';
         $search = $request->input('search');
 
-        // Ambil data sesuai kondisi pencarian atau tidak
+        // Pisah keyword
+        $keywords = preg_split('/\s+/', $search);
+
+        // Admins
         $admins = User::where('role', 'admin')
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('username', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
+            ->when($search, function ($query) use ($keywords) {
+                $query->where(function ($q) use ($keywords) {
+                    foreach ($keywords as $word) {
+                        $q->where(function ($qq) use ($word) {
+                            $qq->where('name', 'ILIKE', "%{$word}%")
+                            ->orWhere('username', 'ILIKE', "%{$word}%")
+                            ->orWhere('email', 'ILIKE', "%{$word}%");
+                        });
+                    }
                 });
             })
             ->get();
 
+        // Operators
         $operators = User::where('role', 'operator')
             ->whereDate('created_at', today())
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('username', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%");
+            ->when($search, function ($query) use ($keywords) {
+                $query->where(function ($q) use ($keywords) {
+                    foreach ($keywords as $word) {
+                        $q->where(function ($qq) use ($word) {
+                            $qq->where('name', 'ILIKE', "%{$word}%")
+                            ->orWhere('username', 'ILIKE', "%{$word}%")
+                            ->orWhere('email', 'ILIKE', "%{$word}%");
+                        });
+                    }
                 });
             })
             ->get();
 
-        // Gabungkan admin + operator
+        // Merge + Pagination Manual
         $merged = $admins->concat($operators);
-
-        // Custom pagination manual
         $perPage = 10;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $merged->slice(($currentPage - 1) * $perPage, $perPage)->values();
@@ -54,12 +64,10 @@ class OperatorController extends Controller
         $adminCount = $admins->count();
         $operatorCount = $operators->count();
 
-        // Cek apakah ini request AJAX (pencarian)
         if ($request->ajax()) {
             return view('operator.partials.table_body', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'))->render();
         }
 
-        // Return view normal (full page)
         return view('operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
     }
 

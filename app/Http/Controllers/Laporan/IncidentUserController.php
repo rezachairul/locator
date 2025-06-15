@@ -17,14 +17,20 @@ class IncidentUserController extends Controller
         $title = 'Incident User';
         $search = $request->input('search');
 
+        $keywords = preg_split('/\s+/', $search);
+
         $incident_users = IncidentUser::with('user_report')
-            ->when($search, function ($query) use ($search) {
-                $query->whereHas('user_report', function ($q) use ($search) {
-                    $q->where('victim_name', 'like', "%{$search}%")
-                    ->orWhere('activity', 'like', "%{$search}%")
-                    ->orWhere('incident_type', 'like', "%{$search}%")
-                    ->orWhere('incident_location', 'like', "%{$search}%")
-                    ->orWhere('incident_description', 'like', "%{$search}%");
+            ->when($search, function ($query) use ($keywords) {
+                $query->whereHas('user_report', function ($q) use ($keywords) {
+                    foreach ($keywords as $word) {
+                        $q->where(function ($qq) use ($word) {
+                            $qq->where('victim_name', 'ILIKE', "%{$word}%")
+                            ->orWhere('activity', 'ILIKE', "%{$word}%")
+                            ->orWhere('incident_type', 'ILIKE', "%{$word}%")
+                            ->orWhere('incident_location', 'ILIKE', "%{$word}%")
+                            ->orWhere('incident_description', 'ILIKE', "%{$word}%");
+                        });
+                    }
                 });
             })
             ->paginate(10);
