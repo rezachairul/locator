@@ -66,7 +66,7 @@ class OperatorController extends Controller
         $operatorCount = $operators->count();
 
         if ($request->ajax()) {
-            return view('operator.partials.table_body', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'))->render();
+            return view('admin.operator.partials.table_body', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'))->render();
         }
 
         return view('admin.operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));

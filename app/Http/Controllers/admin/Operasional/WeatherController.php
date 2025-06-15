@@ -69,7 +69,7 @@ class WeatherController extends Controller
 
         // Jika request AJAX, return partial table saja
         if ($request->ajax()) {
-            return view('admin.operasional.weather.partials.table_body', compact('weathers'))->render();
+            return view('admin.operasional.weather.partials.table_body', compact('title', 'weathers', 'latestWeather', 'bmkgWeather', 'cuacaLabels'))->render();
         }
 
         // Normal render
