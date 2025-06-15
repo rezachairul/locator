@@ -16,7 +16,7 @@ class OperatorController extends Controller
     public function index(Request $request)
     {
         $title = 'User';
-        $search = $request->input('search');
+        $search = $request->input('search', '');
 
         // Pisah keyword
         $keywords = preg_split('/\s+/', $search);

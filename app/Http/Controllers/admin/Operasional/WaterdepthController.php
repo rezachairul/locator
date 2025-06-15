@@ -16,7 +16,7 @@ class WaterdepthController extends Controller
         $title = 'Water Depth';
 
         // Ambil input search
-        $search = $request->input('search');
+        $search = $request->input('search', '');
 
         // Pisahkan multi keyword
         $keywords = preg_split('/\s+/', $search);

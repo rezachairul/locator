@@ -14,7 +14,7 @@ class MaterialController extends Controller
     public function index(Request $request)
     {
         $title = 'Materials';
-        $search = $request->input('search');
+        $search = $request->input('search', '');
         
         // Ambil data sesuai kondisi pencarian atau tidak
         $materials = Material::when($search, function ($query) use ($search) {

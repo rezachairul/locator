@@ -18,7 +18,7 @@ class WeatherController extends Controller
         $title = 'Weather';
 
         // Ambil input search (boleh kosong)
-        $search = $request->input('search');
+        $search = $request->input('search', '');
 
         // Pisahkan search jadi array kata
         $keywords = preg_split('/\s+/', $search);

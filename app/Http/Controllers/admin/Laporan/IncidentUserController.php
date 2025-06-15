@@ -15,7 +15,7 @@ class IncidentUserController extends Controller
     public function index(Request $request)
     {
         $title = 'Incident User';
-        $search = $request->input('search');
+        $search = $request->input('search', '');
 
         $keywords = preg_split('/\s+/', $search);
 
