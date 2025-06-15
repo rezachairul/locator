@@ -65,7 +65,11 @@
 @empty
 <tr>
     <td colspan="7" class="text-center py-4 text-gray-500">
-        Belum ada data {{ $title }} yang diinput hari ini.
+        @if (request()->has('search') && request()->search != '')
+            🏗️ Tidak ada data {{ $title }} yang digali dengan kata kunci ini!
+        @else
+            🚜 Tambang data masih sepi, belum ada catatan {{ $title }} yang masuk hari ini.
+        @endif
     </td>
 </tr>
 @endforelse

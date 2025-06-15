@@ -6,6 +6,7 @@ export default {
     "./resources/**/*.vue",
     "./node_modules/flowbite/**/*.js",
   ],
+  
   theme: {
     extend: {
       colors: {
