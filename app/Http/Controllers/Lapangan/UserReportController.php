@@ -14,12 +14,32 @@ class UserReportController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'User Report';
-        $user_reports = UserReport::paginate(10);
+        $search = $request->input('search', '');
+
+        $user_reports = UserReport::when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('victim_name', 'ILIKE', "%{$search}%")
+                    ->orWhere('activity', 'ILIKE', "%{$search}%")
+                    ->orWhere('incident_type', 'ILIKE', "%{$search}%")
+                    ->orWhere('incident_location', 'ILIKE', "%{$search}%")
+                    ->orWhere('incident_description', 'ILIKE', "%{$search}%")
+                    ->orWhere('report_by', 'ILIKE', "%{$search}%");
+            });
+        })
+        ->orderBy('id', 'asc')
+        ->paginate(10);
+
+        // Cek jika request AJAX (biar partial table body aja)
+        if ($request->ajax()) {
+            return view('lapangan.partials.table_body', compact('title', 'user_reports'))->render();
+        }
+
         return view('lapangan.user-report', compact('title', 'user_reports'));
     }
+
 
     /**
      * Show the form for creating a new resource.
