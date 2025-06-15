@@ -99,7 +99,7 @@
                     </tr>
                 </thead>
                 <tbody id="operator-tbody" class="bg-white divide-y text-sm font-normal dark:divide-gray-700 dark:bg-gray-800">
-                    @include('operator.partials.table_body')
+                    @include('admin.operator.partials.table_body')
                 </tbody>
             </table>
         </div>
@@ -132,8 +132,8 @@
         </div>
 
         <!-- modals create -->
-        @include('operator.create')
-        @include('operator.update')
+        @include('admin.operator.create')
+        @include('admin.operator.update')
     </div>
     <br>
 </x-admin.layouts>
