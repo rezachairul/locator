@@ -12,13 +12,28 @@ class IncidentUserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Incident User';
-        // Mengambil data incident_users dengan relasi user_report
-        $incident_users = IncidentUser::with('user_report')->paginate(10);
+        $search = $request->input('search');
 
-        return view('laporan/incident-user', compact('title', 'incident_users'));
+        $incident_users = IncidentUser::with('user_report')
+            ->when($search, function ($query) use ($search) {
+                $query->whereHas('user_report', function ($q) use ($search) {
+                    $q->where('victim_name', 'like', "%{$search}%")
+                    ->orWhere('activity', 'like', "%{$search}%")
+                    ->orWhere('incident_type', 'like', "%{$search}%")
+                    ->orWhere('incident_location', 'like', "%{$search}%")
+                    ->orWhere('incident_description', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10);
+
+        if ($request->ajax()) {
+            return view('laporan.partials.table_body', compact('title', 'incident_users'))->render();
+        }
+
+        return view('laporan.incident-user', compact('title', 'incident_users'));
     }
     /**
      * Show the form for creating a new resource.
