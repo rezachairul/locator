@@ -11,12 +11,30 @@ class MaterialController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Materials';
-        $materials = Material::orderBy('id', 'asc')->paginate(10);
+        $search = $request->input('search');
+        
+        // Ambil data sesuai kondisi pencarian atau tidak
+        $materials = Material::when($search, function ($query) use ($search) {
+            // Pisah kata kunci: spasi, tab, enter
+            $keywords = preg_split('/\s+/', $search);
 
-        return view('operasional/material/material', compact('title', 'materials'));
+            foreach ($keywords as $word) {
+                // Untuk PostgreSQL: ILIKE = case-insensitive LIKE
+                $query->where('name', 'ILIKE', '%' . $word . '%');
+            }
+        })
+        ->orderBy('id', 'asc')
+        ->paginate(10);
+
+        // Cek apakah ini request AJAX (pencarian)
+        if ($request->ajax()) {
+            return view('operasional.material.partials.table_body', compact('title', 'materials'))->render();
+        }
+
+        return view('operasional.material.material', compact('title', 'materials'));
     }
 
     /**
