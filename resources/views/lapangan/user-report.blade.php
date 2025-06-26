@@ -394,4 +394,25 @@
             </div>
         </div>
     </div>
+    <script>
+        function openModalShow(id) {
+            const modal = document.getElementById(`modalShow-${id}`);
+            if (modal) {
+                modal.classList.remove('hidden', 'opacity-0');
+                modal.classList.add('block', 'opacity-100');
+            }
+        }
+
+        document.querySelectorAll("[id^='closeShowModal-']").forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.id.replace('closeShowModal-', '');
+                const modal = document.getElementById(`modalShow-${id}`);
+                if (modal) {
+                    modal.classList.remove('block', 'opacity-100');
+                    modal.classList.add('hidden', 'opacity-0');
+                }
+            });
+        });
+        </script>
+
 </x-operator.layouts>

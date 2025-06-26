@@ -94,9 +94,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         Route::put('/operator/{id}',[OperatorController::class, 'update'])->name('operator.update');
         // Rute untuk menghapus data
         Route::delete('/operator/{id}',[OperatorController::class, 'destroy'])->name('operator.destroy');
-        // Rute untuk melakukan pencarian
-        // Route::get('/operator/search', [OperatorController::class, 'search'])->name('operator.search');
-
+        
     });
     
     // Route Operasional

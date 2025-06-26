@@ -19,18 +19,19 @@ class UserReportController extends Controller
         $title = 'User Report';
         $search = $request->input('search', '');
 
-        $user_reports = UserReport::when($search, function ($query) use ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('victim_name', 'ILIKE', "%{$search}%")
-                    ->orWhere('activity', 'ILIKE', "%{$search}%")
-                    ->orWhere('incident_type', 'ILIKE', "%{$search}%")
-                    ->orWhere('incident_location', 'ILIKE', "%{$search}%")
-                    ->orWhere('incident_description', 'ILIKE', "%{$search}%")
-                    ->orWhere('report_by', 'ILIKE', "%{$search}%");
-            });
-        })
-        ->orderBy('id', 'asc')
-        ->paginate(10);
+        $user_reports = UserReport::with('photos')
+            -> when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('victim_name', 'ILIKE', "%{$search}%")
+                        ->orWhere('activity', 'ILIKE', "%{$search}%")
+                        ->orWhere('incident_type', 'ILIKE', "%{$search}%")
+                        ->orWhere('incident_location', 'ILIKE', "%{$search}%")
+                        ->orWhere('incident_description', 'ILIKE', "%{$search}%")
+                        ->orWhere('report_by', 'ILIKE', "%{$search}%");
+                });
+            })
+            ->orderBy('id', 'asc')
+            ->paginate(10);
 
         // Cek jika request AJAX (biar partial table body aja)
         if ($request->ajax()) {
@@ -118,13 +119,13 @@ class UserReportController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {
-        // dd($id);
-        $user_report = UserReport::with('photos')->findOrFail($id);
-        return view('user-report.index', compact('user_report'));
+    // public function show($id)
+    // {
+    //     // dd($id);
+    //     $user_report = UserReport::with('photos')->findOrFail($id);
+    //     return view('user-report.index', compact('user_report'));
 
-    }
+    // }
 
     /**
      * Show the form for editing the specified resource.
