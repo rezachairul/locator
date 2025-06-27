@@ -142,7 +142,7 @@
         
         <!-- Script untuk menampilkan edit form & preview image saat edit form -->
         <script src="{{ asset('assets/js/form-edit.js') }}"></script>
-        <script src="{{ asset('assets/js/preview-img--edit.js') }}"></script>
+        <script src="{{ asset('assets/js/preview-img-edit.js') }}"></script>
 
     </body>
 </html>

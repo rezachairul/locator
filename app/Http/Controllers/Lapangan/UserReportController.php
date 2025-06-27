@@ -96,10 +96,11 @@ class UserReportController extends Controller
                     $uniqueName = date('Ymd_His') . '_' . uniqid() . '_' . $originalName;
 
                     // Simpan file ke storage
-                    $file->storeAs('public/image', $uniqueName);
-
+                    $file->storeAs('/uploads/images', $uniqueName);
+                    
                     // Path relatif agar bisa dipanggil di URL
-                    $relativePath = 'storage/image/' . $uniqueName;
+                    $relativePath = 'storage/uploads/images/' . $uniqueName;
+                    
 
                     UserReportPhoto::create([
                         'user_report_id' => $userReport->id,
@@ -121,9 +122,7 @@ class UserReportController extends Controller
      */
     // public function show($id)
     // {
-    //     // dd($id);
-    //     $user_report = UserReport::with('photos')->findOrFail($id);
-    //     return view('user-report.index', compact('user_report'));
+    //     //
 
     // }
 
@@ -176,10 +175,10 @@ class UserReportController extends Controller
             foreach ($request->file('incident_photo') as $file) {
                 $originalName = $file->getClientOriginalName();
                 $uniqueName = date('Ymd_His') . '_' . uniqid() . '_' . $originalName;
-                $destinationPath = storage_path('app/public/image');
+                $destinationPath = storage_path('app/public/uploads/images');
                 $file->move($destinationPath, $uniqueName);
 
-                $relativePath = 'storage/image/' . $uniqueName;
+                $relativePath = 'storage/uploads/images/' . $uniqueName;
 
                 UserReportPhoto::create([
                     'user_report_id' => $userReport->id,
@@ -203,7 +202,7 @@ class UserReportController extends Controller
         // Cari foto yang terkait dengan user report dan hapus file-nya
         $photos = UserReportPhoto::where('user_report_id', $user_reports->id)->get();
         foreach ($photos as $photo) {
-            $relativePath = str_replace('storage/image/', 'image/', $photo->photo_path);
+            $relativePath = str_replace('storage/uploads/images/', 'uploads/images/', $photo->photo_path);
             $filePath = storage_path('app/public/' . $relativePath);
         
             // Coba hapus file dengan unlink()
