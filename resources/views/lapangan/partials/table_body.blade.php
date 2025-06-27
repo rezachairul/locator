@@ -120,10 +120,10 @@
                                     <div class="border border-white p-4 mb-6">
                                         <h4 class="font-bold text-lg border-b border-white pb-1 mb-1 uppercase">B. Korban</h4>
 
-                                        <div class="grid grid-cols-1 md:grid-cols-1 gap-y-2 gap-x-4 text-sm">
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-y-2 gap-x-4 text-sm">
                                             <div><span class="font-semibold">Nama:</span> {{ $user_report->victim_name }}</div>
                                             <div><span class="font-semibold">Usia:</span> {{ $user_report->victim_age ?? '-' }}</div>
-                                            <div><span class="font-semibold">Bagian/Jabatan:</span> {{ $user_report->victim_position ?? '-' }}</div>
+                                            <!-- <div><span class="font-semibold">Bagian/Jabatan:</span> {{ $user_report->victim_position ?? '-' }}</div> -->
                                             <div><span class="font-semibold">Kategori Cidera:</span> {{ $user_report->injury_category ?? '-' }}</div>
                                         </div>
                                     </div>
@@ -148,6 +148,17 @@
                                             @else
                                             <p class="italic text-gray-500 mt-2">Belum ada dokumentasi foto.</p>
                                             @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- Section D - Pelaporan -->
+                                    <div class="border border-white p-4 mb-2">
+                                        <h4 class="font-bold text-lg border-b border-white pb-1 mb-1 uppercase">D. Pelaporan</h4>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-4 text-sm">
+                                            <div><span class="font-semibold">Nama Pelapor:</span> {{ $user_report->report_by }}</div>
+                                            <div><span class="font-semibold">Tanggal Lapor:</span> {{ date('d-m-Y H:i', strtotime($user_report->report_date_time)) }} WITA</div>
+                                            <div><span class="font-semibold">Kerusakan Aset:</span> {{ $user_report->asset_damage }}</div>
+                                            <div><span class="font-semibold">Dampak Lingkungan:</span> {{ $user_report->environmental_impact }}</div>
                                         </div>
                                     </div>
                                 </div>

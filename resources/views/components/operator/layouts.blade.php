@@ -124,6 +124,32 @@
                     }
                 }
             });
+
+            // ===============================
+            // Fungsi Search AJAX
+            // ===============================
+            $(document).ready(function () {
+                $('#search-input').on('input', function () {
+                    let query = $(this).val();
+                    let url = $(this).data('url');
+                    let target = $(this).data('target');
+
+                    console.log('AJAX triggered:', query, url, target);
+
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        data: { search: query },
+                        success: function (data) {
+                            console.log('AJAX success:', data);
+                            $('#' + target).html(data);
+                        },
+                        error: function (xhr) {
+                            console.log('AJAX error:', xhr.responseText);
+                        }
+                    });
+                });
+            });
         </script>
 
         <!-- Script User-Reports -->
