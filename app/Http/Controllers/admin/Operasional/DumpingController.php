@@ -72,7 +72,7 @@ class DumpingController extends Controller
             'elevation_actual' => $request->elevation_actual,
         ]);
         
-        return redirect()->route('dumping.index')->with('succes', 'Data added successfully.');
+        return redirect()->route('admin.operasional.dumping.index')->with('succes', 'Data added successfully.');
     }
 
     /**
@@ -103,7 +103,7 @@ class DumpingController extends Controller
 
         // Cek jika data ditemukan
         if (!$dumping) {
-            return redirect()->route('dumping.index')->with('error', 'Data updated successfully.');
+            return redirect()->route('admin.operasional.dumping.index')->with('error', 'Data updated successfully.');
         }
 
         // Validasi input
@@ -124,7 +124,7 @@ class DumpingController extends Controller
             'elevation_actual' => $request->elevation_actual,
         ]);
 
-        return redirect()->route('dumping.index')->with('error', 'Update data successfully.');
+        return redirect()->route('admin.operasional.dumping.index')->with('error', 'Update data successfully.');
     }
 
     /**
@@ -135,6 +135,6 @@ class DumpingController extends Controller
         // dd($id);
         $dumping = Dumping::findOrFail($id);
         $dumping->delete();
-        return redirect()->route('dumping.index')->with('success', 'Item deleted successfully.');
+        return redirect()->route('admin.operasional.dumping.index')->with('success', 'Item deleted successfully.');
     }
 }

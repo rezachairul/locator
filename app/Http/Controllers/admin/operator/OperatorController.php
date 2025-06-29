@@ -116,7 +116,7 @@ class OperatorController extends Controller
         ]);
 
         // Redirect ke halaman operator
-        return redirect()->route('operator.index')->with('success', 'Data User berhasil ditambahkan');
+        return redirect()->route('admin.operator.index')->with('success', 'Data User berhasil ditambahkan');
     }
 
     /**
@@ -145,7 +145,7 @@ class OperatorController extends Controller
         $user = User::findOrFail($id);
         // Jika data tidak ditemukan, kembalikan dengan pesan error
         if (!$user) {
-            return redirect()->route('operator.index')->with('error', 'Data tidak ditemukan.');
+            return redirect()->route('admin.operator.index')->with('error', 'Data tidak ditemukan.');
         }
         // Validasi input
         $request->validate([
@@ -181,7 +181,7 @@ class OperatorController extends Controller
         $user->save();
 
         // Redirect kembali dengan pesan sukses
-        return redirect()->route('operator.index')->with('success', 'Data User berhasil diperbarui.');
+        return redirect()->route('admin.operator.index')->with('success', 'Data User berhasil diperbarui.');
     }
 
     /**
@@ -194,12 +194,12 @@ class OperatorController extends Controller
         $operator = User::findOrFail($id);
         // Jika data tidak ditemukan, kembalikan dengan pesan error
         if (!$operator) {
-            return redirect()->route('operator.index')->with('error', 'Data tidak ditemukan.');
+            return redirect()->route('admin.operator.index')->with('error', 'Data tidak ditemukan.');
         }
         // Hapus data operator
         $operator->delete();
         // Redirect kembali dengan pesan sukses
-        return redirect()->route('operator.index')->with('success', 'Data User berhasil dihapus.');
+        return redirect()->route('admin.operator.index')->with('success', 'Data User berhasil dihapus.');
 
     }
 }

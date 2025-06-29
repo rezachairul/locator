@@ -86,7 +86,7 @@ class ExcaController extends Controller
             'front_height' => $request-> front_height,
         ]);
 
-        return redirect()->route('exca.index')->with('success', 'Berhasil Tambah Data Excavator');
+        return redirect()->route('admin.operasional.exca.index')->with('success', 'Berhasil Tambah Data Excavator');
     }
 
     public function show(exca $exca)
@@ -106,7 +106,7 @@ class ExcaController extends Controller
 
         // Cek jika data ditemukan
         if (!$exca) {
-            return redirect()->route('exca.index')->with('error', 'Data Excavator tidak ditemukan');
+            return redirect()->route('admin.operasional.exca.index')->with('error', 'Data Excavator tidak ditemukan');
         }
 
         // Validasi input
@@ -137,7 +137,7 @@ class ExcaController extends Controller
             'front_height' => $request-> front_height,
         ]);
 
-        return redirect()->route('exca.index')->with('success', 'Data Excavator berhasil diperbarui');
+        return redirect()->route('admin.operasional.exca.index')->with('success', 'Data Excavator berhasil diperbarui');
     }
 
     public function destroy($id)
@@ -145,7 +145,7 @@ class ExcaController extends Controller
         // dd($id);
         $exca = Exca::findOrFail($id);
         $exca->delete();
-        return redirect()->route('exca.index')->with('success', 'Item deleted successfully.');
+        return redirect()->route('admin.operasional.exca.index')->with('success', 'Item deleted successfully.');
     }
 
     // EXPORT dan IMPORT FILE
@@ -178,7 +178,7 @@ class ExcaController extends Controller
             Excel::import(new ExcasImport, $file);
     
             // Jika sukses, redirect ke 'exca.index' dengan pesan sukses
-            return redirect()->route('exca.index')->with('success', 'Data berhasil diimpor!');
+            return redirect()->route('admin.operasional.exca.index')->with('success', 'Data berhasil diimpor!');
         }
         catch (\Exception $e) {
             // Tangani error jika terjadi

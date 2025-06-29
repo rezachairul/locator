@@ -65,18 +65,8 @@ class MapsController extends Controller
         $originalName = $request->file('file')->getClientOriginalName();
         
         // Simpan file ke folder yang diinginkan
-        $path = $request->file('file')->storeAs('uploads', $originalName, 'public'); // menyimpan file dengan nama asli
+        $path = $request->file('file')->storeAs('uploads/maps', $originalName, 'public'); // menyimpan file dengan nama asli
         // dd($path);
-
-        // $ecwFile = '/path/to/input.ecw';
-        // $tiffFile = '/path/to/output.tif';
-        // $command = "gdal_translate -of GTiff " . escapeshellarg($ecwFile) . " " . escapeshellarg($tiffFile);
-        // exec($command, $output, $returnVar);
-        // if ($returnVar !== 0) {
-        //     // Handle the error
-        //     throw new \Exception("GDAL conversion failed: " . implode("\n", $output));
-        // }
-
 
         // Simpan data ke database
         Maps::create([
@@ -84,7 +74,7 @@ class MapsController extends Controller
             'file' => $path, // menyimpan path file yang disimpan
         ]);
 
-        return redirect()->route('maps.index')->with('success', 'File uploaded successfully!');
+        return redirect()->route('admin.maps.index')->with('success', 'File uploaded successfully!');
     }
 
 
@@ -115,7 +105,7 @@ class MapsController extends Controller
 
         // Jika data tidak ditemukan, kembalikan dengan pesan error
         if (!$maps) {
-            return redirect()->route('maps.index')->with('error', 'Data tidak ditemukan.');
+            return redirect()->route('admin.maps.index')->with('error', 'Data tidak ditemukan.');
         }
 
         // Validasi input
@@ -136,7 +126,7 @@ class MapsController extends Controller
 
             // Simpan file baru
             $originalName = $request->file('file')->getClientOriginalName();
-            $path = $request->file('file')->storeAs('uploads', $originalName, 'public');
+            $path = $request->file('file')->storeAs('uploads/maps', $originalName, 'public');
             $maps->file = $path;
         }
 
@@ -144,7 +134,7 @@ class MapsController extends Controller
         $maps->save();
 
         // Redirect kembali dengan pesan sukses
-        return redirect()->route('maps.index')->with('success', 'Data berhasil diperbarui.');
+        return redirect()->route('admin.maps.index')->with('success', 'Data berhasil diperbarui.');
     }
     // public function destroy($id)
     // {
@@ -169,7 +159,7 @@ class MapsController extends Controller
         $maps->delete();
 
         // Redirect kembali ke halaman index dengan pesan sukses
-        return redirect()->route('maps.index')->with('success', 'Data dan file berhasil dihapus.');
+        return redirect()->route('admin.maps.index')->with('success', 'Data dan file berhasil dihapus.');
     }
 
 }

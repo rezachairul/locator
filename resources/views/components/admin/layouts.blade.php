@@ -138,19 +138,19 @@
             const currentPage = window.location.pathname;
             const favicon = document.getElementById("favicon");
             const iconMap = {
-                "maps": 'maps.png',
-                "dashboard": 'dashoard.png',
-                "operator": 'menu-icons/operator.png',
-                "operasional/operasional": 'menu-icons/op_mining-2.png',
-                "operasional/exca": 'menu-icons/excavator.png',
-                "operasional/dump": 'menu-icons/dump-truck.png',
-                "operasional/weather": 'menu-icons/cloud.png',
-                "operasional/waterdepth": 'menu-icons/water-waves.png',
-                "operasional/material": 'menu-icons/mineral.png',
-                "laporan/incident-user": 'menu-icons/incident-user.png',
-                "informasi/tentang-sistem": 'menu-icons/about-system.png',
-                "informasi/bantuan": 'menu-icons/panduan.png',
-                "informasi/kontak": 'menu-icons/contact.png',
+                "admin/maps": 'maps.png',
+                "admin/dashboard": 'dashoard.png',
+                "admin/operator": 'menu-icons/operator.png',
+                "admin/operasional/operasional": 'menu-icons/op_mining-2.png',
+                "admin/operasional/exca": 'menu-icons/excavator.png',
+                "admin/operasional/dump": 'menu-icons/dump-truck.png',
+                "admin/operasional/weather": 'menu-icons/cloud.png',
+                "admin/operasional/waterdepth": 'menu-icons/water-waves.png',
+                "admin/operasional/material": 'menu-icons/mineral.png',
+                "admin/laporan/incident-user": 'menu-icons/incident-user.png',
+                "admin/informasi/tentang-sistem": 'menu-icons/about-system.png',
+                "admin/informasi/bantuan": 'menu-icons/panduan.png',
+                "admin/informasi/kontak": 'menu-icons/contact.png',
             };
 
             for (const [key, value] of Object.entries(iconMap)) {

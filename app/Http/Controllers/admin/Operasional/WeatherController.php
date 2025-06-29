@@ -101,7 +101,7 @@ class WeatherController extends Controller
             'cuaca' => $request->cuaca,
             'curah_hujan' => $request->curah_hujan,
         ]);
-        return redirect()->route('weather.index')->with('Success', 'Data added successfully.');
+        return redirect()->route('admin.operasional.weather.index')->with('Success', 'Data added successfully.');
     }
 
     /**
@@ -131,7 +131,7 @@ class WeatherController extends Controller
 
         // Cek jika data tidak ditemukan
         if(!$weather){
-            return redirect()->route('weather.index')->with('error', 'Data not found');
+            return redirect()->route('admin.operasional.weather.index')->with('error', 'Data not found');
         }
 
         // Validasi input
@@ -146,7 +146,7 @@ class WeatherController extends Controller
             'curah_hujan' => $request->curah_hujan,
         ]);
 
-        return redirect()->route('weather.index')->with('Success', 'Data updated successfully.');
+        return redirect()->route('admin.operasional.weather.index')->with('Success', 'Data updated successfully.');
     }
 
     /**
@@ -157,6 +157,6 @@ class WeatherController extends Controller
         // dd($id);
         $weather = Weather::findOrFail($id);
         $weather->delete();
-        return redirect()->route('weather.index')->with('Success', 'Item deleted successfully');
+        return redirect()->route('admin.operasional.weather.index')->with('Success', 'Item deleted successfully');
     }
 }

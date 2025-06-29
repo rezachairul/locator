@@ -65,7 +65,7 @@ class WaterdepthController extends Controller
             'qsv_1' => $request->qsv_1,
             'h4' => $request->h4,
         ]);
-        return redirect()->route('waterdepth.index')->with('success', 'Data added successfully.');
+        return redirect()->route('admin.operasional.waterdepth.index')->with('success', 'Data added successfully.');
     }
 
     /**
@@ -91,7 +91,7 @@ class WaterdepthController extends Controller
 
         // Cek jika data tidak ditemukan
         if (!$waterDepth) {
-            return redirect()->route('waterdepth.index')->with('error', 'Data not found');
+            return redirect()->route('admin.operasional.waterdepth.index')->with('error', 'Data not found');
         }
 
         // Validasi input
@@ -108,7 +108,7 @@ class WaterdepthController extends Controller
             'h4' => $request->h4,
         ]);
 
-        return redirect()->route('waterdepth.index')->with('success', 'Data updated successfully.');
+        return redirect()->route('admin.operasional.waterdepth.index')->with('success', 'Data updated successfully.');
     }
 
     /**
@@ -119,6 +119,6 @@ class WaterdepthController extends Controller
         // dd($id);
         $waterdepth = WaterDepth::findOrFail($id);
         $waterdepth->delete();
-        return redirect()->route('waterdepth.index')->with('Success', 'Data Delete successfully.');
+        return redirect()->route('admin.operasional.waterdepth.index')->with('Success', 'Data Delete successfully.');
     }
 }

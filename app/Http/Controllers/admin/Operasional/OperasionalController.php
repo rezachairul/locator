@@ -110,7 +110,7 @@ class OperasionalController extends Controller
             'dumping_id' => $request->dumping_id,
             'material_id' => $request->material_id,
         ]);
-        return redirect()->route('operasional.index')->with('success', 'Data berhasil disimpan');
+        return redirect()->route('admin.operasional.operasional.index')->with('success', 'Data berhasil disimpan');
     }
 
     /**
@@ -149,7 +149,7 @@ class OperasionalController extends Controller
             'dumping_id' => $request->dumping_id,
             'material_id' => $request->material_id,
         ]);
-        return redirect()->route('operasional.index')->with('success', 'Berhasil Update Data Operasional');
+        return redirect()->route('admin.operasional.operasional.index')->with('success', 'Berhasil Update Data Operasional');
     }
 
     /**
@@ -160,7 +160,7 @@ class OperasionalController extends Controller
         // dd($id);
         $operasional = Operasional::findOrFail($id);
         $operasional->delete();
-        return redirect()->route('operasional.index')->with('success', 'Item deleted successfully.');
+        return redirect()->route('admin.operasional.operasional.index')->with('success', 'Item deleted successfully.');
 
     }
 }

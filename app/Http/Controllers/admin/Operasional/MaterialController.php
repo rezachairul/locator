@@ -55,7 +55,7 @@ class MaterialController extends Controller
             'name' => 'required',
         ]);
         Material::create($request->all());
-        return redirect()->route('material.index')->with('success', 'File uploaded successfully!');
+        return redirect()->route('admin.operasional.material.index')->with('success', 'File uploaded successfully!');
     }
 
     /**
@@ -85,7 +85,7 @@ class MaterialController extends Controller
 
         // Jika data tidak ditemukan, kembalikan dengan pesan error
         if (!$materials) {
-            return redirect()->route('material.index')->with('error', 'Data tidak ditemukan!');
+            return redirect()->route('admin.operasional.material.index')->with('error', 'Data tidak ditemukan!');
         }
         // Validasi input
         $request->validate([
@@ -94,7 +94,7 @@ class MaterialController extends Controller
         // Update data
         $materials->update($request->all());
         // Redirect ke halaman index
-        return redirect()->route('material.index')->with('success', 'Data berhasil diupdate!');
+        return redirect()->route('admin.operasional.material.index')->with('success', 'Data berhasil diupdate!');
     }
 
     /**
@@ -107,11 +107,11 @@ class MaterialController extends Controller
         $materials = Material::find($id);
         // Jika data tidak ditemukan, kembalikan dengan pesan error
         if (!$materials) {
-        return redirect()->route('material.index')->with('error', 'Data tidak ditemukan!');
+        return redirect()->route('admin.operasional.material.index')->with('error', 'Data tidak ditemukan!');
         }
         // Hapus data
         $materials->delete();
         // Redirect ke halaman index
-        return redirect()->route('material.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('admin.operasional.material.index')->with('success', 'Data berhasil dihapus!');
     }
 }
