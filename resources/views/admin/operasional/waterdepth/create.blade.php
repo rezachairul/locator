@@ -20,7 +20,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{ route('waterdepth.store') }}" method="post">
+            <form action="{{ route('admin.operasional.waterdepth.store') }}" method="post">
                 @csrf
                 <div class="mt-2 mb-4 sm:col-span-2">
                     <div class="mt-6 sm:col-span-2">

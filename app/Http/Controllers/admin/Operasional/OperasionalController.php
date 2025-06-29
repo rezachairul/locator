@@ -73,11 +73,11 @@ class OperasionalController extends Controller
 
         // Jika request AJAX (pencarian)
         if ($request->ajax()) {
-            return view('operasional.operasional.partials.table_body', compact('title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'))->render();
+            return view('admin.operasional.operasional.partials.table_body', compact('title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'))->render();
         }
 
         // View full
-        return view('operasional.operasional.operasional', compact(
+        return view('admin.operasional.operasional.operasional', compact(
             'title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'));
     }
 

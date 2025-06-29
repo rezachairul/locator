@@ -17,7 +17,7 @@
             </a>
             <ul class="mt-6">
                 <li class="relative px-6 py-3">
-                    <a href="/user-report" class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
+                    <a href="operator/user-report" class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100">
                         <div class="invert-icon">
                             <img src="{{ asset('assets/img/menu-icons/user-report.png') }}" alt="Logo Icon by the best icon" class="h-5 w-5">
                         </div>

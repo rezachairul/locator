@@ -23,7 +23,7 @@
             </div>
             <!-- Modal body -->
             @if (isset($operasional))
-            <form action="{{route('operasional.update', $operasional->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('admin.operasional.operasional.update', $operasional->id)}}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">

@@ -15,7 +15,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{route('operasional.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('admin.operasional.operasional.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">
                     <!-- PIT -->

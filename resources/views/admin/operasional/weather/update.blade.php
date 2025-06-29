@@ -25,7 +25,7 @@
             </div>
             <!-- Modal body -->
             @if (isset($weather))
-            <form action="{{route('weather.update', $weather->id)}}" method="post">
+            <form action="{{route('admin.operasional.weather.update', $weather->id)}}" method="post">
                 @method('PUT')
                 @csrf
                 <div class="mt-2 mb-4 sm:col-span-2">

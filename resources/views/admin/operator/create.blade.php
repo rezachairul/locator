@@ -14,7 +14,7 @@
                     </svg>
                 </button>
             </div>
-            <form action="{{route('operator.store')}}" method="post" enctype="multipart/form-data" class="space-y-4">
+            <form action="{{route('admin.operator.store')}}" method="post" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('POST')
                 <div>

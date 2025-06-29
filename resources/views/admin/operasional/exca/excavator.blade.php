@@ -19,7 +19,7 @@
                     <!-- Input -->
                     <input id="search-input" type="text"
                         value="{{ request('search') }}"
-                        data-url="{{ route('exca.index') }}"
+                        data-url="{{ route('admin.operasional.exca.index') }}"
                         data-target="exca-tbody"
                         class="w-full pl-8 pr-8 text-sm text-gray-100 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-400 dark:bg-gray-700 focus:placeholder-gray-500 dark:focus:placeholder-gray-600 focus:bg-white dark:focus:bg-gray-600 focus:border-purple-300 focus:outline-none form-input"
                         placeholder="Search for {{ $title }}..." />

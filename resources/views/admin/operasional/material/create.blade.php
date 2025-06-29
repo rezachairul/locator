@@ -15,7 +15,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{route('material.store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('admin.operasional.material.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="mt-2 mb-4 sm:col-span-2">
                     <div>

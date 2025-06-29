@@ -22,7 +22,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form action="{{ route('operator.update', $user->id) }}" method="POST">
+            <form action="{{ route('admin.operator.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <!-- Form Fields -->

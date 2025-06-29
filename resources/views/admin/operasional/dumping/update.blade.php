@@ -24,7 +24,7 @@
             </div>
             <!-- Modal body -->
             @if (isset($dumping))
-            <form action="{{route('dumping.update', $dumping->id)}}" method="POST">
+            <form action="{{route('admin.operasional.dumping.update', $dumping->id)}}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">

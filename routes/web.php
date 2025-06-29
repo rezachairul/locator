@@ -2,6 +2,7 @@
 
 use App\Models\Operasional;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
@@ -49,8 +50,9 @@ Route::get('/test-500', function () {
     abort(500); // Menampilkan halaman 500
 });
 
-
+// =======================
 // Route Group Auth
+// =======================
 Route::prefix('auth')->group(function () {
     //Login
     Route::get('/login', [LoginController::class, 'login'])->name('login') -> middleware('guest');
@@ -62,43 +64,59 @@ Route::prefix('auth')->group(function () {
     Route::post('/register', [RegisterController::class, 'store']);
 });   
 
-// Route User Page
-Route::middleware(['auth', 'role:operator'])->group(function(){
-    // OP Lapangan
-    Route::get('/', [LapanganController::class, 'index']);
-    // User Report
+// =======================
+// Route untuk Operator
+// =======================
+Route::prefix('operator')->middleware(['auth', 'role:operator'])->name('operator.')->group(function () {
+    
+    // =======================
+    // Dashboard atau halaman utama operator
+    // =======================
+    Route::get('/', [LapanganController::class, 'index'])->name('dashboard');
+
+    // =======================
+    // Laporan yang dikirim user/operator
+    // =======================
     Route::resource('/user-report', UserReportController::class);
 });
 
-//Route Group Dashboard Admin
-Route::middleware(['auth', 'role:admin'])->group(function(){
+
+// =======================
+// Route untuk Administrator
+// =======================
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->group(function(){
     
-    // Rute untuk export
+    // =======================
+    // Export & Import
+    // =======================
     Route::get('/exca/export', [ExcaController::class, 'export'])->name('exca.export');
-    
-    // Rute untuk import
-    // Route::post('/exca/import', [ExcaController::class, 'import'])->name('exca.import');
     Route::match(['get', 'post'], '/exca/import', [ExcaController::class, 'import'])->name('exca.import');
+
     
-    Route::resource('/dashboard', DashboardController::class);
+    // =======================
+    // Dashboard
+    // =======================
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        
+    // =======================
+    // Maps
+    // =======================
     Route::resource('/maps', MapsController::class);
 
-
-    // Route untuk Kelola data user
-    Route::controller(OperatorController::class)->group(function () {
-        // Rute untuk halaman index
-        Route::get('/operator',[OperatorController::class, 'index'])->name('operator.index');
-        // Rute untuk menyimpan data baru
-        Route::post('/operator',[OperatorController::class, 'store'])->name('operator.store');
-        // Rute untuk memperbarui data
-        Route::put('/operator/{id}',[OperatorController::class, 'update'])->name('operator.update');
-        // Rute untuk menghapus data
-        Route::delete('/operator/{id}',[OperatorController::class, 'destroy'])->name('operator.destroy');
-        
+    // ======================================
+    // Kelola Data Administrator & Operator
+    // ======================================
+    Route::controller(OperatorController::class)->prefix('operator')->name('operator.')->group(function () {
+        Route::get('/','index')->name('index');
+        Route::post('/','store')->name('store');
+        Route::put('/{id}','update')->name('update');
+        Route::delete('/{id}','destroy')->name('destroy');        
     });
     
-    // Route Operasional
-    Route::prefix('operasional')->group(function () {
+    // =======================
+    // Operasional
+    // =======================
+    Route::prefix('operasional')->name('operasional.')->group(function () {
         // Rute untuk tiap page        
         Route::resource('/operasional', OperasionalController::class);
         Route::resource('/exca', ExcaController::class);
@@ -108,16 +126,36 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
         Route::resource('/material', MaterialController::class);
     });
 
-    // Route Admin Report
-     Route::prefix('laporan')->group(function () {
+    // =======================
+    // Laporan (Incident User)
+    // =======================
+     Route::prefix('laporan-user')->name('laporan-user.')->group(function () {
         Route::resource('/incident-user', IncidentUserController::class);
     });
         
-
-    // Route Informasi
-    // Route::prefix('Informasi')->group(function () {
+    // =======================
+    // Informasi (future use)
+    // ======================
+    // Route::prefix('Informasi')->name('informasi')->group(function () {
     //     Route::resource('/tentang-sistem', IncidentUserController::class);
     //     Route::resource('/bantuan', LaporanHarianController::class);
     //     Route::resource('/kontak', LaporanBulananController::class);
     // });
+});
+
+// =======================
+// Cek apakah user sudah login
+// =======================
+Route::get('/', function () {
+    if (Auth::check()) {
+        $user = Auth::user();
+        // Redirect berdasarkan role
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->role === 'operator') {
+            return redirect()->route('operator.dashboard');
+        }
+    }
+    // Kalau belum login, ke halaman login
+    return redirect()->route('login');
 });

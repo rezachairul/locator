@@ -24,7 +24,7 @@
             </div>
             <!-- Modal body -->
             @if (isset($exca))
-            <form action="{{route('exca.update', $exca->id)}}" method="POST">
+            <form action="{{route('admin.operasional.exca.update', $exca->id)}}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="grid gap-4 mt-2 mb-4 sm:grid-cols-2">

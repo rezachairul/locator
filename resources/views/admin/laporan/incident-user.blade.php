@@ -17,7 +17,7 @@
                 <!-- Input -->
                 <input id="search-input" type="text"
                     value="{{ request('search') }}"
-                    data-url="{{ route('incident-user.index') }}"
+                    data-url="{{ route('admin.laporan-user.incident-user.index') }}"
                     data-target="incident_user-tbody"
                     class="w-full pl-8 pr-8 text-sm text-gray-100 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-400 dark:bg-gray-700 focus:placeholder-gray-500 dark:focus:placeholder-gray-600 focus:bg-white dark:focus:bg-gray-600 focus:border-purple-300 focus:outline-none form-input"
                     placeholder="Search for {{ $title }}..." />
@@ -36,7 +36,7 @@
         <!-- Filter + Export -->
         <div class="flex items-center gap-2">
             <!-- Dropdown Filter -->
-            <form method="GET" action="{{ route('incident-user.index') }}">
+            <form method="GET" action="{{ route('admin.laporan-user.incident-user.index') }}">
                 <select name="filter" onchange="this.form.submit()" class="text-sm rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 p-2 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                     <option value="daily" {{ request('filter') == 'daily' ? 'selected' : '' }}>Hari Ini</option>
                     <option value="weekly" {{ request('filter') == 'weekly' ? 'selected' : '' }}>Minggu Ini</option>
@@ -76,7 +76,7 @@
                     </tr>
                 </thead>
                 <tbody id="incident_user-tbody" class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @include('laporan.partials.table_body')
+                    @include('admin.laporan.partials.table_body')
                 </tbody>
             </table>
         </div>

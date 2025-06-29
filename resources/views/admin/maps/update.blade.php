@@ -24,7 +24,7 @@
             </div>
             <!-- Modal body -->
             @if (isset($map))
-            <form action="{{route('maps.update', $map->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('admin.maps.update', $map->id)}}" method="post" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="mt-2 mb-4 sm:col-span-2">

@@ -8,7 +8,7 @@
             <div class="text-right">
                 <ol class="breadcrumb inline-flex space-x-2">
                     <li class="breadcrumb-item">
-                        <a href="/" class="text-blue-500 hover:text-blue-700">Operasional Lapangan</a>
+                        <a href="/operator" class="text-blue-500 hover:text-blue-700">Operasional Lapangan</a>
                     </li>
                     <li class="breadcrumb-item active text-gray-500"> / </li>
                     <li class="breadcrumb-item active text-gray-500">{{$title}}</li>
@@ -28,7 +28,7 @@
                     </svg>
                 </button>
             </div>
-            <form id="reportForm" action="{{route('user-report.store')}}" method="post" enctype="multipart/form-data">
+            <form id="reportForm" action="{{route('operator.user-report.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="grid gap-4 mb-4 mt-4 sm:grid-cols-2">
     
@@ -211,7 +211,7 @@
                     </svg>
                 </button>
             </div>
-            <form id="editFormReport" action="{{route('user-report.update', $user_report->id)}}" method="post" enctype="multipart/form-data">
+            <form id="editFormReport" action="{{route('operator.user-report.update', $user_report->id)}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="grid gap-4 mb-4 mt-4 sm:grid-cols-2">
@@ -320,7 +320,7 @@
                         <!-- Input -->
                         <input id="search-input" type="text"
                             value="{{ request('search') }}"
-                            data-url="{{ route('user-report.index') }}"
+                            data-url="{{ route('operator.user-report.index') }}"
                             data-target="user-report-tbody"
                             class="w-full pl-8 pr-8 text-sm text-gray-100 placeholder-gray-600 bg-gray-100 border-0 rounded-md dark:placeholder-gray-400 dark:bg-gray-700 focus:placeholder-gray-500 dark:focus:placeholder-gray-600 focus:bg-white dark:focus:bg-gray-600 focus:border-purple-300 focus:outline-none form-input"
                             placeholder="Search for {{ $title }}..." />

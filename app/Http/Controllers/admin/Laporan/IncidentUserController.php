@@ -36,10 +36,10 @@ class IncidentUserController extends Controller
             ->paginate(10);
 
         if ($request->ajax()) {
-            return view('laporan.partials.table_body', compact('title', 'incident_users'))->render();
+            return view('admin.laporan.partials.table_body', compact('title', 'incident_users'))->render();
         }
 
-        return view('laporan.incident-user', compact('title', 'incident_users'));
+        return view('admin.laporan.incident-user', compact('title', 'incident_users'));
     }
     /**
      * Show the form for creating a new resource.

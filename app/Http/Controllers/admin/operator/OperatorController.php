@@ -72,7 +72,6 @@ class OperatorController extends Controller
         return view('admin.operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
     }
 
-
     /**
      * Show the form for creating a new resource.
      */
