@@ -138,8 +138,8 @@
             const currentPage = window.location.pathname;
             const favicon = document.getElementById("favicon");
             const iconMap = {
-                "admin/maps": 'maps.png',
-                "admin/dashboard": 'dashoard.png',
+                "/admin/maps": 'menu-icons/maps.png',
+                "/admin": 'dashboard.png',
                 "admin/operator": 'menu-icons/operator.png',
                 "admin/operasional/operasional": 'menu-icons/op_mining-2.png',
                 "admin/operasional/exca": 'menu-icons/excavator.png',
