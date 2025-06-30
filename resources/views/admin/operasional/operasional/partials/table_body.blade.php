@@ -97,9 +97,9 @@
 <tr>
     <td colspan="10" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
         @if (request()->has('search') && request()->search != '')
-            ⚙️ Belum ada aktivitas {{ $title }} yang terekam.
-        @else
             ⚙️ Data {{ $title }} nggak ketemu.
+        @else
+            ⚙️ Belum ada aktivitas {{ $title }} yang terekam.
         @endif
     </td>
 </tr>

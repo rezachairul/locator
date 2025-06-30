@@ -95,9 +95,9 @@
 <tr>
     <td colspan="10" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
         @if (request()->has('search') && request()->search != '')
-            🚧 Belum ada {{ $title }} yang dicatat.
-        @else
             🚧 Wah, {{ $title }} yang dicari nggak ada.
+        @else
+            🚧 Belum ada {{ $title }} yang dicatat.
         @endif
     </td>
 </tr>

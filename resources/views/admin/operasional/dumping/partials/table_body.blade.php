@@ -88,9 +88,9 @@
     <tr>
         <td colspan="8" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
             @if (request()->has('search') && request()->search != '')
-                🚚 Data {{ $title }} material masih kosong.
-            @else
                 🚚 Nggak nemu {{ $title }} yang sesuai pencarian.
+            @else
+                🚚 Data {{ $title }} material masih kosong.
             @endif
         </td>
     </tr>

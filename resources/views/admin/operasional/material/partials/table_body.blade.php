@@ -70,9 +70,9 @@
 <tr>
     <td colspan="6" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
         @if (request()->has('search') && request()->search != '')
-            🏗️ Belum ada {{ $title }} yang terdata.
-        @else
             🏗️ {{ $title }} yang kamu cari nggak ditemukan.
+        @else
+            🏗️ Belum ada {{ $title }} yang terdata.
         @endif
     </td>
 </tr>

@@ -75,9 +75,9 @@
     <tr>
         <td colspan="6" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
             @if (request()->has('search') && request()->search != '')
-                🗺️ Belum ada {{ $title }} area yang dibuat nih.
-            @else
                 🗺️ Lokasi yang kamu cari nggak ketemu di {{ $title }}.
+            @else
+                🗺️ Belum ada {{ $title }} area yang dibuat nih.
             @endif
         </td>
     </tr>

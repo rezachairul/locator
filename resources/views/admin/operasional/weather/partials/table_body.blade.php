@@ -83,9 +83,9 @@
     <tr>
         <td colspan="6" class="px-4 py-3 text-center text-gray-500 dark:text-gray-300">
             @if (request()->has('search') && request()->search != '')
-            🌤️ Belum ada update {{ $title }} tambang hari ini.
+                🌤️ {{ $title }} yang kamu cari nggak ketemu.
             @else
-            🌤️ {{ $title }} yang kamu cari nggak ketemu.
+                🌤️ Belum ada update {{ $title }} tambang hari ini.
             @endif
         </td>
     </tr>
