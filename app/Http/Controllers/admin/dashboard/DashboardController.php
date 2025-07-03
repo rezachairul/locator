@@ -22,7 +22,6 @@ class DashboardController extends Controller
         $latestWeather = Weather::where('created_at', '>=', $today)->latest()->first();
         $latestWaterDepth = Waterdepth::where('created_at', '>=', $today)->latest()->first();
 
-
         return view('admin.dashboard', compact('title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth'));
     }
 }

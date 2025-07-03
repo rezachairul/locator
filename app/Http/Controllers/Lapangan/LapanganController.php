@@ -26,7 +26,6 @@ class LapanganController extends Controller
         $latestWeather = Weather::where('created_at', '>=', $today)->latest()->first();
         $latestWaterDepth = Waterdepth::where('created_at', '>=', $today)->latest()->first();
 
-
         return view('lapangan.lapangan', compact('title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth'));
     }
 }
