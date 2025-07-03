@@ -36,9 +36,27 @@ class OperatorController extends Controller
             })
             ->get();
 
+        // // Operators
+        // $operators = User::where('role', 'operator')
+        //     ->whereDate('created_at', today())
+        //     ->when($search, function ($query) use ($keywords) {
+        //         $query->where(function ($q) use ($keywords) {
+        //             foreach ($keywords as $word) {
+        //                 $q->where(function ($qq) use ($word) {
+        //                     $qq->where('name', 'ILIKE', "%{$word}%")
+        //                     ->orWhere('username', 'ILIKE', "%{$word}%")
+        //                     ->orWhere('email', 'ILIKE', "%{$word}%");
+        //                 });
+        //             }
+        //         });
+        //     })
+        //     ->get();
         // Operators
         $operators = User::where('role', 'operator')
-            ->whereDate('created_at', today())
+            ->where(function ($query) {
+                $query->whereDate('created_at', today())
+                    ->orWhere('email', 'operator.operator@locatorgis.test');
+            })
             ->when($search, function ($query) use ($keywords) {
                 $query->where(function ($q) use ($keywords) {
                     foreach ($keywords as $word) {
@@ -70,14 +88,6 @@ class OperatorController extends Controller
         }
 
         return view('admin.operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -117,22 +127,6 @@ class OperatorController extends Controller
 
         // Redirect ke halaman operator
         return redirect()->route('admin.operator.index')->with('success', 'Data User berhasil ditambahkan');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
