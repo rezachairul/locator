@@ -1,7 +1,5 @@
-@props([
-    'title' => '',
-    'hideSidebar' => false,
-])
+@props(['title', 'totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth', 'hideSidebar' => false])
+
 <!doctype html>
 <html lang="en" :class="{ 'theme-dark': dark }" x-data="data()">
     <head>

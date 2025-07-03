@@ -1,10 +1,4 @@
-@props([
-    'totalExca' => 0,
-    'totalDumping' => 0,
-    'latestWeather' => null,
-    'latestWaterDepth' => null,
-    'hideSidebar' => false,
-])
+@props(['totalExca', 'totalDumping', 'latestWeather', 'latestWaterDepth', 'hideSidebar'])
 
 <!-- Sidebar -->
 <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
