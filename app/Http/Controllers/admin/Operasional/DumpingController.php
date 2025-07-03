@@ -17,7 +17,7 @@ class DumpingController extends Controller
         $search = $request->input('search', '');
 
         // Pisahkan multi keyword
-        $keywords = preg_split('/\s+/', $search);
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         // Filter hanya data hari ini + multi keyword + order + paginate
         $dumpings = Dumping::whereDate('created_at', now()->toDateString())

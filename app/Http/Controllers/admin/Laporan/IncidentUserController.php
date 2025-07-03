@@ -17,7 +17,7 @@ class IncidentUserController extends Controller
         $title = 'Incident User';
         $search = $request->input('search', '');
 
-        $keywords = preg_split('/\s+/', $search);
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         $incident_users = IncidentUser::with('user_report')
             ->when($search, function ($query) use ($keywords) {

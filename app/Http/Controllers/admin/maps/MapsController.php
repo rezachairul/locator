@@ -20,7 +20,7 @@ class MapsController extends Controller
         $search = $request->input('search', '');
 
         // Pisahkan keyword search jadi array
-        $keywords = preg_split('/\s+/', $search);
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         // Query Maps: hanya data hari ini + multi-keyword + case-insensitive
         $maps = Maps::whereDate('created_at', now()->toDateString())

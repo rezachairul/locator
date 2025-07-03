@@ -19,7 +19,7 @@ class MaterialController extends Controller
         // Ambil data sesuai kondisi pencarian atau tidak
         $materials = Material::when($search, function ($query) use ($search) {
             // Pisah kata kunci: spasi, tab, enter
-            $keywords = preg_split('/\s+/', $search);
+            $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
             foreach ($keywords as $word) {
                 // Untuk PostgreSQL: ILIKE = case-insensitive LIKE

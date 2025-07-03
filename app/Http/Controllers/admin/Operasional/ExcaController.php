@@ -26,7 +26,7 @@ class ExcaController extends Controller
         $search = $request->input('search', '');
 
         // Pecah jadi multi keyword, kalau kosong = array kosong
-        $keywords = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         // Query data: hanya hari ini + multi keyword + order + paginate
         $excas = Exca::whereDate('created_at', now()->toDateString())

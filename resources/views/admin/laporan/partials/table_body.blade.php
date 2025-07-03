@@ -2,7 +2,7 @@
     <tr class="text-gray-700 dark:text-gray-400">
         <td colspan="10" class="px-2 py-1 text-center text-gray-500">
             @if (request()->has('search') && request()->search != '')
-                🚨 Belum ada laporan {{ $title }} dari user.
+                🚨 Belum ada laporan {{ $title }} dari Operator Lapangan.
             @else
                 🚨 Laporan {{ $title }} yang dicari nggak ketemu.
             @endif
@@ -24,7 +24,7 @@
             <td class="px-2 py-1 text-xs text-center">
                 {{ $incident_user->user_report->incident_location ?? 'Data tidak tersedia'}}
             </td>
-            <td class="px-2 py-1 text-xs text-center">
+            <td class="px-2 py-1 text-xs text-justify">
                 {{ \Illuminate\Support\Str::limit($incident_user->user_report->incident_description, 50, '...') ?? 'Data tidak tersedia' }}
             </td>
             <td class="px-2 py-1 text-xs text-center">

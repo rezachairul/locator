@@ -19,6 +19,8 @@ class UserReportController extends Controller
         $title = 'User Report';
         $search = $request->input('search', '');
 
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
+
         $user_reports = UserReport::with('photos')
             -> when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {

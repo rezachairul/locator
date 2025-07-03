@@ -22,7 +22,10 @@ class OperasionalController extends Controller
 
         // Ambil search keyword, aman kalau null
         $search = $request->input('search', '');
-        $keywords = preg_split('/\s+/', $search, -1, PREG_SPLIT_NO_EMPTY);
+
+        // Pisahkan Multi Keyword
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
+
 
         // Query Operasional: multi-keyword & relasi
         $operasionals = Operasional::when($keywords, function ($query) use ($keywords) {

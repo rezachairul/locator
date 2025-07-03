@@ -18,8 +18,8 @@ class OperatorController extends Controller
         $title = 'User';
         $search = $request->input('search', '');
 
-        // Pisah keyword
-        $keywords = preg_split('/\s+/', $search);
+        // Pisah multi keyword
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         // Admins
         $admins = User::where('role', 'admin')
@@ -35,23 +35,7 @@ class OperatorController extends Controller
                 });
             })
             ->get();
-
-        // // Operators
-        // $operators = User::where('role', 'operator')
-        //     ->whereDate('created_at', today())
-        //     ->when($search, function ($query) use ($keywords) {
-        //         $query->where(function ($q) use ($keywords) {
-        //             foreach ($keywords as $word) {
-        //                 $q->where(function ($qq) use ($word) {
-        //                     $qq->where('name', 'ILIKE', "%{$word}%")
-        //                     ->orWhere('username', 'ILIKE', "%{$word}%")
-        //                     ->orWhere('email', 'ILIKE', "%{$word}%");
-        //                 });
-        //             }
-        //         });
-        //     })
-        //     ->get();
-        // Operators
+            
         $operators = User::where('role', 'operator')
             ->where(function ($query) {
                 $query->whereDate('created_at', today())

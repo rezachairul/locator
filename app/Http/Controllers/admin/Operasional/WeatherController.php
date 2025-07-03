@@ -21,7 +21,7 @@ class WeatherController extends Controller
         $search = $request->input('search', '');
 
         // Pisahkan search jadi array kata
-        $keywords = preg_split('/\s+/', $search);
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         // Query Weather hanya untuk hari ini + search + order + paginate
         $weathers = Weather::whereDate('created_at', now()->toDateString())

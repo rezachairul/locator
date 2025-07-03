@@ -19,7 +19,7 @@ class WaterdepthController extends Controller
         $search = $request->input('search', '');
 
         // Pisahkan multi keyword
-        $keywords = preg_split('/\s+/', $search);
+        $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         // Query hanya data hari ini + filter search + order + paginate
         $waterdepths = WaterDepth::whereDate('created_at', now()->toDateString())
