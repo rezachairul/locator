@@ -13,7 +13,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output-2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/Chart.min.css') }}" />
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/Chart.min.css') }}" /> -->
 
     <!-- JS -->
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
