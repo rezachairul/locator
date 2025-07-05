@@ -2,9 +2,12 @@
 namespace App\Exports;
 
 use App\Models\Operasional;
+use App\Models\Material;
 use Carbon\Carbon;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class OperasionalExport
 {
@@ -32,6 +35,35 @@ class OperasionalExport
         $sheet->setCellValue('E10', ': '. $namept);
         $sheet->setCellValue('E11', ': '. $weekYear);
         $sheet->setCellValue('E12', ': '. $downloadDate);
+
+        // =========================
+        // Ambil semua material untuk header dinamis
+        // =========================
+        $materials = Material::all();
+        $startColIndex = 17;
+
+        // Tulis "MATERIAL" di kolom Q15
+        $sheet->setCellValue('Q14', 'MATERIAL');
+
+        // Jika ingin merge cell Q14 dan Q15 sampai kolom terakhir material
+        $lastColIndex = 16 + count($materials); // Q=16
+        $lastColLetter = Coordinate::stringFromColumnIndex($lastColIndex);
+        // Merge Q14 sampai kolom terakhir di baris 15
+        $sheet->mergeCells("Q14:{$lastColLetter}15");
+
+        // Atur alignment rata tengah horizontal dan vertikal
+        $sheet->getStyle("Q14:{$lastColLetter}15")->getAlignment()
+            ->setHorizontal(Alignment::HORIZONTAL_CENTER)
+            ->setVertical(Alignment::VERTICAL_CENTER);
+
+
+        // Header material di baris 16
+        foreach ($materials as $index => $material) {
+            $colLetter = Coordinate::stringFromColumnIndex(17 + $index);
+            $singkatan = strtoupper(substr($material->name,0,3));
+            $sheet->setCellValue($colLetter . '16', $singkatan);
+        }
+
 
         // =========================
         // Ambil data operasional
@@ -65,7 +97,16 @@ class OperasionalExport
             $sheet->setCellValue('O'.$row, $op->dumping->elevation_rl ?? '0.0'); // ELEVATION RL DUMP
             $sheet->setCellValue('P'.$row, $op->dumping->elevation_actual ?? '0.0'); // ELEVATION ACTUAL DUMP
 
-            $sheet->setCellValue('Q'.$row, $op->material->name ?? '-'); // MATERIAL
+            // $sheet->setCellValue('Q'.$row, $op->material->name ?? '-'); // MATERIAL
+            // =========================
+            // Ceklis material sesuai data operasional
+            // =========================
+            foreach ($materials as $index => $material) {
+                $colLetter = Coordinate::stringFromColumnIndex($startColIndex + $index);
+                if ($op->material && strtolower($op->material->name) == strtolower($material->name)) {
+                    $sheet->setCellValue($colLetter . $row, '✔');
+                }
+            }
         }
 
         // Tentukan folder sementara (misal storage/app/public/exports)
@@ -81,7 +122,7 @@ class OperasionalExport
 
         $writer = new Xlsx($spreadsheet);
         $writer->save($tempFile);
-        
+        dd('Exported to: ' . $tempFile);
         // Return sebagai download dan auto delete
         return response()->download($tempFile)->deleteFileAfterSend();
 
