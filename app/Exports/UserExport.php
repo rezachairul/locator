@@ -39,7 +39,8 @@ class UserExport
         // Ambil data user admin & operator
         $users = User::select('id', 'name', 'username', 'email', 'role')
             ->whereIn('role', ['admin', 'operator'])
-            ->orderByRaw("CASE role WHEN 'admin' THEN 1 WHEN 'operator' THEN 2 END")
+            ->whereDate('created_at', Carbon::today())
+            ->orderByRaw("CASE WHEN role = 'admin' THEN 1 ELSE 2 END")
             ->get();
 
         // Mulai baris data dari baris 15
