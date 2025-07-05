@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\admin\Laporan;
 
-use App\Models\IncidentUser;
 use App\Models\UserReport;
+use App\Models\IncidentUser;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use App\Exports\IncidentUserExport;
 
 class IncidentUserController extends Controller
 {
@@ -41,6 +42,15 @@ class IncidentUserController extends Controller
 
         return view('admin.laporan.incident-user', compact('title', 'incident_users'));
     }
+
+    public function export()
+    {
+        // dd('Exporting users...');
+        $export = new IncidentUserExport();
+        return $export->export();
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */

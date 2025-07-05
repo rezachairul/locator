@@ -137,6 +137,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     // Laporan (Incident User)
     // =======================
      Route::prefix('laporan-user')->name('laporan-user.')->group(function () {
+        Route::get('/incident-user/export', [IncidentUserController::class, 'export'])->name('export');
         Route::resource('/incident-user', IncidentUserController::class);
     });
         
