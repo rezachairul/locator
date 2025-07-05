@@ -99,7 +99,6 @@ class IncidentUserExport
             // Simpan file sementara
             $writer = new Xlsx($spreadsheet);
             $writer->save($tempFile);
-            dd('File saved to: ' . $tempFile);
 
             return response()->download($tempFile)->deleteFileAfterSend();
 
