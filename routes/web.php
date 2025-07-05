@@ -117,7 +117,11 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     // Operasional
     // =======================
     Route::prefix('operasional')->name('operasional.')->group(function () {
-        // Rute untuk tiap page        
+
+        // Rute untuk export data operasional
+        Route::get('/operasional/export', [OperasionalController::class, 'export'])->name('operasional.export');
+        
+        // Rute untuk tiap page
         Route::resource('/operasional', OperasionalController::class);
         Route::resource('/exca', ExcaController::class);
         Route::resource('/dumping', DumpingController::class);

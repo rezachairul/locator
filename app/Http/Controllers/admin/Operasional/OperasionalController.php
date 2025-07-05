@@ -9,7 +9,10 @@ use App\Models\Material;
 use App\Models\Waterdepth;
 use App\Models\Operasional;
 use Illuminate\Http\Request;
+use App\Exports\OperasionalExport;
+// use App\Services\OperasionalExport;
 use Illuminate\Routing\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OperasionalController extends Controller
 {
@@ -82,6 +85,17 @@ class OperasionalController extends Controller
         // View full
         return view('admin.operasional.operasional.operasional', compact(
             'title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'));
+    }
+
+     /**
+     * Export data to Excel.
+     */    
+    public function export(OperasionalExport $exportService)
+    {
+        // dd('Exporting data...');
+        return $exportService->export();
+        // $date = date('dmY');
+        // return Excel::download(new OperasionalExport(), "Operasional_{$date}.xlsx");
     }
 
     /**
