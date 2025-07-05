@@ -1,9 +1,13 @@
 <?php
 namespace App\Exports;
 
-use App\Models\Operasional;
-use App\Models\Material;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+
+use App\Models\Weather;
+use App\Models\Material;
+use App\Models\Waterdepth;
+use App\Models\Operasional;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -64,6 +68,41 @@ class OperasionalExport
             $sheet->setCellValue($colLetter . '16', $singkatan);
         }
 
+        // ============================
+        // GENERATE DAN TULIS DATA WATERDEPTH & WEATHER
+        // ============================
+
+        // Tentukan bulan dan tahun saat ini
+        $year = Carbon::now()->year;
+        $month = Carbon::now()->month;
+
+        // Ambil jumlah hari dalam bulan ini
+        $daysInMonth = Carbon::now()->daysInMonth;
+
+        // Generate tanggal dari 1 sampai jumlah hari
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $date = Carbon::create($year, $month, $day);
+            $row = 27 + $day;
+
+            // Ambil data waterdepth sesuai tanggal
+            $waterdepth = Waterdepth::whereDate('created_at', $date)->first();
+
+            // Ambil data weather sesuai tanggal
+            $weather = Weather::whereDate('created_at', $date)->first();
+
+            // ====================
+            // Tulis ke WATERDEPTH
+            // ====================
+            $sheet->setCellValue('B'.$row, $date->format('d')); // Tanggal
+            $sheet->setCellValue('E'.$row, $waterdepth->qsv_1 ?? '0.0'); // sump_qsv1
+            $sheet->setCellValue('G'.$row, $waterdepth->h4 ?? '0.0'); // sump_h4
+
+            // ====================
+            // Tulis ke WEATHER
+            // ====================
+            $sheet->setCellValue('L'.$row, $date->format('d')); // Tanggal
+            $sheet->setCellValue('N'.$row, $weather->curah_hujan ?? '0.0'); // curah hujan
+        }
 
         // =========================
         // Ambil data operasional
@@ -97,7 +136,6 @@ class OperasionalExport
             $sheet->setCellValue('O'.$row, $op->dumping->elevation_rl ?? '0.0'); // ELEVATION RL DUMP
             $sheet->setCellValue('P'.$row, $op->dumping->elevation_actual ?? '0.0'); // ELEVATION ACTUAL DUMP
 
-            // $sheet->setCellValue('Q'.$row, $op->material->name ?? '-'); // MATERIAL
             // =========================
             // Ceklis material sesuai data operasional
             // =========================
