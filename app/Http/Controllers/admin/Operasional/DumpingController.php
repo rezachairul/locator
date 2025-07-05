@@ -37,12 +37,13 @@ class DumpingController extends Controller
 
         // Jika AJAX: balikin partial table
         if ($request->ajax()) {
-            return view('admin.operasional.dumping.partials.table_body', compact('dumpings'))->render();
+            return view('admin.operasional.dumping.partials.table_body', compact('dumpings', 'title'))->render();
         }
 
         // Jika normal: full page
         return view('admin.operasional.dumping.dumping', compact('title', 'dumpings'));
     }
+
     /**
      * Show the form for creating a new resource.
      */

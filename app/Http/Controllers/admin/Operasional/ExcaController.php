@@ -48,7 +48,7 @@ class ExcaController extends Controller
 
         // Jika AJAX: return partial table
         if ($request->ajax()) {
-            return view('admin.operasional.exca.partials.table_body', compact('excas'))->render();
+            return view('admin.operasional.exca.partials.table_body', compact('excas', 'title'))->render();
         }
 
         // Jika normal: return full page
