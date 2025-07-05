@@ -160,7 +160,7 @@ class OperasionalExport
 
         $writer = new Xlsx($spreadsheet);
         $writer->save($tempFile);
-        dd('Exported to: ' . $tempFile);
+        
         // Return sebagai download dan auto delete
         return response()->download($tempFile)->deleteFileAfterSend();
 

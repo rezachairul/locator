@@ -110,7 +110,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
         Route::get('/','index')->name('index');
         Route::post('/','store')->name('store');
         Route::put('/{id}','update')->name('update');
-        Route::delete('/{id}','destroy')->name('destroy');        
+        Route::delete('/{id}','destroy')->name('destroy');
+        Route::get('/export',  'export')->name('export');
+
     });
     
     // =======================

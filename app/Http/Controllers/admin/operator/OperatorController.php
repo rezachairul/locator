@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\admin\operator;
 
 use App\Models\User;
+use App\Exports\UserExport;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class OperatorController extends Controller
@@ -72,6 +74,13 @@ class OperatorController extends Controller
         }
 
         return view('admin.operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
+    }
+
+    public function export()
+    {
+        // dd('Exporting users...');
+        $export = new UserExport();
+        return $export->export();
     }
 
     /**
