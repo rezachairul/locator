@@ -95,14 +95,20 @@ class UserReportController extends Controller
             if ($request->hasFile('incident_photo')) {
                 foreach ($request->file('incident_photo') as $file) {
                     $originalName = $file->getClientOriginalName();
-                    $uniqueName = date('Ymd_His') . '_' . uniqid() . '_' . $originalName;
+                    $filename = pathinfo($originalName, PATHINFO_FILENAME);
+                    $extension = $file->getClientOriginalExtension();
+
+                    // Sanitize nama file: hanya huruf, angka, underscore, dash. Ganti lainnya jadi dash
+                    $filename_sanitized = preg_replace('/[^A-Za-z0-9_\-]/', '-', $filename);
+
+                    // Buat nama file unik
+                    $uniqueName = date('Ymd_His') . '_' . uniqid() . '_' . $filename_sanitized . '.' . $extension;
 
                     // Simpan file ke storage
                     $file->storeAs('/uploads/images', $uniqueName);
                     
                     // Path relatif agar bisa dipanggil di URL
                     $relativePath = 'storage/uploads/images/' . $uniqueName;
-                    
 
                     UserReportPhoto::create([
                         'user_report_id' => $userReport->id,
