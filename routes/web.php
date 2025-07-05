@@ -77,6 +77,7 @@ Route::prefix('operator')->middleware(['auth', 'role:operator'])->name('operator
     // =======================
     // Laporan yang dikirim user/operator
     // =======================
+    Route::get('/user-report-export', [UserReportController::class, 'export'])->name('user-report.export');
     Route::resource('/user-report', UserReportController::class);
 });
 

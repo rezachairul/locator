@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Lapangan;
 
 use App\Models\UserReport;
-use App\Models\UserReportPhoto;
 use Illuminate\Http\Request;
+use App\Models\UserReportPhoto;
+use App\Exports\UserReportsExport;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class UserReportController extends Controller
@@ -43,6 +45,12 @@ class UserReportController extends Controller
         return view('lapangan.user-report', compact('title', 'user_reports'));
     }
 
+    public function export()
+    {
+        // dd('Exporting users...');
+        $export = new UserReportsExport();
+        return $export->export();
+    }
 
     /**
      * Show the form for creating a new resource.
