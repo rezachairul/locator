@@ -33,7 +33,7 @@ class OperasionalController extends Controller
                 $query->where(function ($q) use ($word) {
                     $q->where('pit', 'ILIKE', "%{$word}%")
                         ->orWhere('dop', 'ILIKE', "%{$word}%")
-                        ->orWhereHas('loading_unit', function ($q2) use ($word) {
+                        ->orWhereHas('exca', function ($q2) use ($word) {
                             $q2->where('loading_unit', 'ILIKE', "%{$word}%");
                         })
                         ->orWhereHas('dumping', function ($q2) use ($word) {
