@@ -17,6 +17,7 @@ class IncidentUserController extends Controller
     {
         $title = 'Incident User';
         $search = $request->input('search', '');
+        $filter = $request->input('filter', 'all');
 
         $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
@@ -26,13 +27,26 @@ class IncidentUserController extends Controller
                     foreach ($keywords as $word) {
                         $q->where(function ($qq) use ($word) {
                             $qq->where('victim_name', 'ILIKE', "%{$word}%")
-                            ->orWhere('activity', 'ILIKE', "%{$word}%")
-                            ->orWhere('incident_type', 'ILIKE', "%{$word}%")
-                            ->orWhere('incident_location', 'ILIKE', "%{$word}%")
-                            ->orWhere('incident_description', 'ILIKE', "%{$word}%");
+                                ->orWhere('activity', 'ILIKE', "%{$word}%")
+                                ->orWhere('incident_type', 'ILIKE', "%{$word}%")
+                                ->orWhere('incident_location', 'ILIKE', "%{$word}%")
+                                ->orWhere('incident_description', 'ILIKE', "%{$word}%");
                         });
                     }
                 });
+            })
+            ->when($filter != 'all', function ($query) use ($filter) {
+                if ($filter == 'today') {
+                    $query->whereDate('created_at', \Carbon\Carbon::today());
+                } elseif ($filter == 'last_week') {
+                    $query->whereBetween('created_at', [
+                        \Carbon\Carbon::now()->subWeek()->startOfWeek(),
+                        \Carbon\Carbon::now()->subWeek()->endOfWeek(),
+                    ]);
+                } elseif ($filter == 'last_month') {
+                    $query->whereMonth('created_at', \Carbon\Carbon::now()->subMonth()->month)
+                        ->whereYear('created_at', \Carbon\Carbon::now()->subMonth()->year);
+                }
             })
             ->paginate(10);
 
@@ -43,11 +57,13 @@ class IncidentUserController extends Controller
         return view('admin.laporan.incident-user', compact('title', 'incident_users'));
     }
 
-    public function export()
+
+    public function export(Request $request)
     {
         // dd('Exporting users...');
-        $export = new IncidentUserExport();
-        return $export->export();
+        $filter = $request->query('filter', 'all'); // mengambil filter dari query string
+        $exporter = new IncidentUserExport($filter);
+        return $exporter->export();
     }
 
 

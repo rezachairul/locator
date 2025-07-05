@@ -38,15 +38,15 @@
             <!-- Dropdown Filter -->
             <form method="GET" action="{{ route('admin.laporan-user.incident-user.index') }}">
                 <select name="filter" onchange="this.form.submit()" class="text-sm rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 p-2 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    <option value="daily" {{ request('filter') == 'daily' ? 'selected' : '' }}>Hari Ini</option>
-                    <option value="weekly" {{ request('filter') == 'weekly' ? 'selected' : '' }}>Minggu Ini</option>
-                    <option value="monthly" {{ request('filter') == 'monthly' ? 'selected' : '' }}>Bulan Ini</option>
+                    <option value="today" {{ request('filter') == 'today' ? 'selected' : '' }}>Hari Ini</option>
+                    <option value="last_week" {{ request('filter') == 'last_week' ? 'selected' : '' }}>Minggu Lalu</option>
+                    <option value="last_month" {{ request('filter') == 'last_month' ? 'selected' : '' }}>Bulan Lalu</option>
                     <option value="all" {{ request('filter') == 'all' ? 'selected' : '' }}>Semua</option>
                 </select>
             </form>
 
             <!-- Tombol Export -->
-            <a href="{{route('admin.laporan-user.export')}}">
+            <a href="{{ route('admin.laporan-user.export', ['filter' => request('filter')]) }}">
                 <button type="button" class="flex items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-3.5 w-3.5 mr-2" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
