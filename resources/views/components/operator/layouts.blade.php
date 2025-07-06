@@ -111,8 +111,8 @@
                 const currentPage = window.location.pathname;
                 const favicon = document.getElementById("favicon");
                 const iconMap = {
-                    "/opertor": 'logo-locatorgis/locatorgis-logo.png',
-                    "/opertor/user-report": 'menu-icons/user-report.png',
+                    "/operator/user-report": 'menu-icons/user-report.png',
+                    "/operator": 'logo-locatorgis/locatorgis-logo.png',
                 };
 
                 for (const [key, value] of Object.entries(iconMap)) {

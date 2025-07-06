@@ -6,7 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/css/app.css','resources/js/app.js'])
     <title>LocatorGIS | {{$title}} </title>
-    <link id="favicon" rel="shortcut icon" href="{{ asset('assets/img/${value}') }}" type="image/x-icon">
+
+    <!-- Favicon -->
+    <!-- <link id="favicon" rel="shortcut icon" href="{{ asset('assets/img/${value}') }}" type="image/x-icon"> -->
+    <link id="favicon" rel="shortcut icon"
+      href="{{ asset('assets/img/default-favicon.png') }}"
+      data-base-url="{{ asset('assets/img') }}"
+      type="image/x-icon">
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -137,25 +143,27 @@
             // ===============================
             const currentPage = window.location.pathname;
             const favicon = document.getElementById("favicon");
+            const baseUrl = favicon.dataset.baseUrl; // ambil base path dari data attribute
+
             const iconMap = {
                 "/admin/maps": 'menu-icons/maps.png',
+                "/admin/operator": 'menu-icons/operator.png',
+                "/admin/operasional/operasional": 'menu-icons/op_mining-2.png',
+                "/admin/operasional/exca": 'menu-icons/excavator.png',
+                "/admin/operasional/dump": 'menu-icons/dump-truck.png',
+                "/admin/operasional/weather": 'menu-icons/cloud.png',
+                "/admin/operasional/waterdepth": 'menu-icons/water-waves.png',
+                "/admin/operasional/material": 'menu-icons/mineral.png',
+                "/admin/laporan-user/incident-user": 'menu-icons/incident-user.png',
+                "/admin/informasi/tentang-sistem": 'menu-icons/about-system.png',
+                "/admin/informasi/bantuan": 'menu-icons/panduan.png',
+                "/admin/informasi/kontak": 'menu-icons/contact.png',
                 "/admin": 'dashboard.png',
-                "admin/operator": 'menu-icons/operator.png',
-                "admin/operasional/operasional": 'menu-icons/op_mining-2.png',
-                "admin/operasional/exca": 'menu-icons/excavator.png',
-                "admin/operasional/dump": 'menu-icons/dump-truck.png',
-                "admin/operasional/weather": 'menu-icons/cloud.png',
-                "admin/operasional/waterdepth": 'menu-icons/water-waves.png',
-                "admin/operasional/material": 'menu-icons/mineral.png',
-                "admin/laporan/incident-user": 'menu-icons/incident-user.png',
-                "admin/informasi/tentang-sistem": 'menu-icons/about-system.png',
-                "admin/informasi/bantuan": 'menu-icons/panduan.png',
-                "admin/informasi/kontak": 'menu-icons/contact.png',
             };
 
             for (const [key, value] of Object.entries(iconMap)) {
                 if (currentPage.includes(key)) {
-                    favicon.href = `{{ asset('assets/img/${value}') }}?v=${new Date().getTime()}`;
+                    favicon.href = `${baseUrl}/${value}?v=${new Date().getTime()}`;
                     break;
                 }
             }
