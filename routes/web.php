@@ -62,7 +62,7 @@ Route::prefix('auth')->group(function () {
     //Register
     Route::get('/register', [RegisterController::class, 'create']) -> middleware('guest');
     Route::post('/register', [RegisterController::class, 'store']);
-});   
+});
 
 // =======================
 // Route untuk Operator
@@ -138,6 +138,7 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     // =======================
     Route::prefix('laporan-user')->name('laporan-user.')->group(function () {
         Route::get('/incident-user/export', [IncidentUserController::class, 'export'])->name('export');
+        Route::patch('/{id}/update-status', [IncidentUserController::class, 'updateStatus'])->name('updateStatus');
         Route::resource('/incident-user', IncidentUserController::class);
     });
         

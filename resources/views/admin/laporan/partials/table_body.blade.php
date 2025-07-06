@@ -31,52 +31,37 @@
                 {{ $incident_user->user_report->report_by ?? 'Data tidak tersedia'}}
             </td>
             <!-- Status -->
-            <td class="px-2 py-1 text-xs text-center">
-                @if ($incident_user->status === 'pending')
-                <span class="relative group inline-block">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-yellow-500 inline">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                    <div class="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-1 
-                                                                    hidden group-hover:block bg-black text-white text-[10px] 
-                                                                    px-2 py-1 rounded shadow-lg">
-                        Pending
+            <td class="px-2 py-1 text-center">
+                <div x-data="{ open: false }" class="relative inline-block text-left">
+                    {{-- ✅ Tombol utama yang tampil status sekarang --}}
+                    <button @click="open = !open" type="button"
+                            class="w-8 h-8 flex items-center justify-center rounded border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-800">
+                        <x-admin.status-icons-bar :status="$incident_user->status" />
+                    </button>
+
+                    {{-- ✅ Dropdown yang muncul saat diklik --}}
+                    <div x-show="open" @click.away="open = false"
+                        x-transition
+                        class="absolute right-0 mt-1 w-44 rounded-md shadow-lg 
+                                bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 
+                                border border-gray-200 dark:border-gray-700 p-1 space-y-1 origin-top-right">
+
+                        <form method="POST" action="{{ route('admin.laporan-user.updateStatus', $incident_user->id) }}">
+                            @csrf
+                            @method('PATCH')
+
+                            {{-- ✅ Opsi status dalam dropdown --}}
+                            @foreach (['none', 'pending', 'in_progress', 'closed'] as $statusOption)
+                                <button type="submit" name="status" value="{{ $statusOption }}"
+                                    class="w-full px-3 py-1.5 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 
+                                        flex items-center gap-2 transition-colors duration-150">
+                                    <x-admin.status-icons-bar :status="$statusOption" />
+                                    <span>{{ ucfirst(str_replace('_', ' ', $statusOption)) }}</span>
+                                </button>
+                            @endforeach
+                        </form>
                     </div>
-                </span>
-                @elseif ($incident_user->status === 'in_progress')
-                <span class="relative group inline-block">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-blue-500 animate-spin inline">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-                    </svg>
-                    <div class="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-1 
-                                                                    hidden group-hover:block bg-black text-white text-[10px] 
-                                                                    px-2 py-1 rounded shadow-lg">
-                        In Progress
-                    </div>
-                </span>
-                @elseif ($incident_user->status === 'closed')
-                <span class="relative group inline-block">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500 inline">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                    <div class="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-1 
-                                                                    hidden group-hover:block bg-black text-white text-[10px] 
-                                                                    px-2 py-1 rounded shadow-lg">
-                        Done
-                    </div>
-                </span>
-                @else
-                <span class="relative group inline-block">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-500 inline">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                    </svg>
-                    <div class="absolute z-10 bottom-full left-1/2 -translate-x-1/2 mb-1 
-                                                                    hidden group-hover:block bg-black text-white text-[10px] 
-                                                                    px-2 py-1 rounded shadow-lg">
-                        None
-                    </div>
-                </span>
-                @endif
+                </div>
             </td>
             <!-- Actions -->
             <td class="px-2 py-1 text-xs text-center">

@@ -10,6 +10,7 @@ use App\Models\UserReportPhoto;
 use App\Exports\UserReportsExport;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\UserReportNotification;
 
@@ -43,6 +44,15 @@ class UserReportController extends Controller
         if ($request->ajax()) {
             return view('lapangan.partials.table_body', compact('title', 'user_reports'))->render();
         }
+
+        // Tandai semua notif user sebagai sudah dibaca
+        $user = Auth::user();
+
+        if ($user) {
+            $user->unreadNotifications
+                ->each->markAsRead();
+        }
+
 
         return view('lapangan.user-report', compact('title', 'user_reports'));
     }
@@ -85,6 +95,9 @@ class UserReportController extends Controller
         ]);
 
         try {
+
+            // Cek apakah user login
+            $userId = Auth::check() ? Auth::id() : null;
             // Simpan data ke tabel user_reports
             $userReport = UserReport::create([
                 'victim_name' => $request->input('victim_name'),
@@ -99,6 +112,7 @@ class UserReportController extends Controller
                 'incident_description' => $request->input('incident_description'),
                 'report_by' => $request->input('report_by'),
                 'report_date_time' => $request->input('report_date_time'),
+                'user_id' => $userId,
             ]);
 
             // Cek dan simpan foto ke tabel user_report_photos
@@ -141,7 +155,7 @@ class UserReportController extends Controller
 
 
 
-            return redirect()->route('user-report.index')->with('success', 'User Report Created Successfully');
+            return redirect()->route('operator.user-report.index')->with('success', 'User Report Created Successfully');
 
         } catch (\Exception $e) {
             // Handle the exception
@@ -221,7 +235,7 @@ class UserReportController extends Controller
         }
 
         // Redirect dengan pesan sukses
-        return redirect()->route('user-report.index')->with('success', 'User Report Updated Successfully');
+        return redirect()->route('operator.user-report.index')->with('success', 'User Report Updated Successfully');
     }
 
     /**
@@ -262,6 +276,6 @@ class UserReportController extends Controller
         }
 
         $user_reports->delete();
-        return redirect()->route('user-report.index')->with('success', 'User Report Deleted Successfully');
+        return redirect()->route('operator.user-report.index')->with('success', 'User Report Deleted Successfully');
     }
 }

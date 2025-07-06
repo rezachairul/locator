@@ -32,4 +32,10 @@ class UserReport extends Model
     {
         return $this->hasMany(UserReportPhoto::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

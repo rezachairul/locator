@@ -36,21 +36,54 @@
                     </button>
                 </li>
                 <!-- Notifications menu -->
-                <li class="relative">
-                    <button @click="toggleNotificationsMenu" @keydown.escape="closeNotificationsMenu" aria-label="Notifications" aria-haspopup="true" class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
+                <li class="relative" x-data="{ isNotificationsMenuOpen: false }">
+                    <button @click="isNotificationsMenuOpen = !isNotificationsMenuOpen" @keydown.escape="isNotificationsMenuOpen = false"
+                        aria-label="Notifications" aria-haspopup="true"
+                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
+                        
+                        <!-- Bell icon -->
                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 016 6v3.586l.707.707a1 1 0 01.293.707V14a1 1 0 01-1 1H4a1 1 0 01-1-1v-.293a1 1 0 01.293-.707L4 11.586V8a6 6 0 016-6zm-4 14a2 2 0 004 0H6z"></path>
+                            <path
+                                d="M10 2a6 6 0 016 6v3.586l.707.707a1 1 0 01.293.707V14a1 1 0 01-1 1H4a1 1 0 01-1-1v-.293a1 1 0 01.293-.707L4 11.586V8a6 6 0 016-6zm-4 14a2 2 0 004 0H6z">
+                            </path>
                         </svg>
+
                         <!-- Notification badge -->
-                        <span aria-hidden="true" class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-2 -translate-y-2 bg-red-600 border-2 border-white rounded-full"></span>
+                        @if(auth()->user()->unreadNotifications->count() > 0)
+                            @php
+                                $badgeColor = match(optional(auth()->user()->unreadNotifications->first())->data['status'] ?? null) {
+                                    'pending' => 'bg-yellow-500',
+                                    'in_progress' => 'bg-blue-500',
+                                    'closed' => 'bg-green-500',
+                                    'none' => 'bg-gray-400',
+                                    default => 'bg-red-600',
+                                };
+                            @endphp
+                            <span aria-hidden="true"
+                                class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-2 -translate-y-2 {{ $badgeColor }} border-2 border-white rounded-full">
+                            </span>
+                        @endif
                     </button>
+
+                    <!-- Dropdown menu -->
                     <template x-if="isNotificationsMenuOpen">
-                        <ul @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu" class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800">
-                            <li class="flex">
-                                <a class="inline-flex items-center justify-between w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="#">
-                                    <span>Alerts</span>
-                                </a>
-                            </li>
+                        <ul @click.away="isNotificationsMenuOpen = false" @keydown.escape="isNotificationsMenuOpen = false"
+                            class="absolute right-0 w-72 p-2 mt-2 space-y-2 text-sm text-gray-700 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800 max-h-96 overflow-y-auto z-50">
+
+                            @forelse (auth()->user()->notifications->take(10) as $notif)
+                                <li class="flex">
+                                    <div class="flex flex-col px-2 py-1">
+                                        <span class="font-semibold text-gray-800 dark:text-white">Notifikasi</span>
+                                        <span class="text-xs text-gray-500 dark:text-gray-400">
+                                            {{ $notif->data['message'] ?? 'Status laporan Anda diperbarui.' }}
+                                        </span>
+                                    </div>
+                                </li>
+                            @empty
+                                <li class="px-2 py-1 text-xs text-gray-500 dark:text-gray-400">
+                                    Tidak ada notifikasi terbaru.
+                                </li>
+                            @endforelse
                         </ul>
                     </template>
                 </li>

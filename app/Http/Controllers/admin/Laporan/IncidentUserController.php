@@ -9,6 +9,8 @@ use Illuminate\Routing\Controller;
 use App\Exports\IncidentUserExport;
 use Illuminate\Support\Facades\Auth;
 
+use App\Notifications\UserReportStatusUpdated;
+
 
 class IncidentUserController extends Controller
 {
@@ -59,13 +61,31 @@ class IncidentUserController extends Controller
         return view('admin.laporan.incident-user', compact('title', 'incident_users'));
     }
 
-
     public function export(Request $request)
     {
         // dd('Exporting users...');
         $filter = $request->query('filter', 'all'); // mengambil filter dari query string
         $exporter = new IncidentUserExport($filter);
         return $exporter->export();
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,in_progress,closed',
+        ]);
+
+        $incident = IncidentUser::findOrFail($id);
+        $incident->status = $request->status;
+        $incident->save();
+
+        // Kirim notifikasi ke user pelapor
+        $user = $incident->user_report->user ?? null; // relasi user dari laporan
+        if ($user) {
+            $user->notify(new UserReportStatusUpdated($request->status));
+        }
+
+        return back()->with('success', 'Status laporan berhasil diperbarui.');
     }
 
 

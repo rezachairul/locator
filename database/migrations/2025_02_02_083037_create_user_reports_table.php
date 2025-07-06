@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('incident_description');
             $table->string('report_by');
             $table->dateTime('report_date_time');
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

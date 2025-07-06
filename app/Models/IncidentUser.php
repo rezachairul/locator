@@ -9,7 +9,7 @@ class IncidentUser extends Model
 {
     /** @use HasFactory<\Database\Factories\IncidentUserFactory> */
     use HasFactory;
-    protected $fillable = ['user_report_id'];
+    protected $fillable = ['user_report_id', 'status'];
 
     public function user_report()
     {

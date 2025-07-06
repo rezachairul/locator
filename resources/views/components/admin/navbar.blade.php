@@ -62,6 +62,8 @@
                             </span>
                         @endif
                     </button>
+
+                    <!-- Notifications dropdown -->
                     <template x-if="isNotificationsMenuOpen">
                         <ul @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
                             class="absolute right-0 w-72 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800 max-h-96 overflow-y-auto">
