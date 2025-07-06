@@ -7,6 +7,8 @@ use App\Models\IncidentUser;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Exports\IncidentUserExport;
+use Illuminate\Support\Facades\Auth;
+
 
 class IncidentUserController extends Controller
 {
@@ -115,8 +117,34 @@ class IncidentUserController extends Controller
      */
     public function show(IncidentUser $incidentUser)
     {
-        //
+        $userReport = $incidentUser->user_report;
+        $title = 'Detail Laporan Insiden';
+
+        // Mark as read jika URL di notifikasi cocok
+        $url = route('admin.laporan-user.incident-user.show', $incidentUser->id);
+
+        $user = Auth::user(); // Ganti dari auth()->user()
+
+        if ($user) {
+            $user->unreadNotifications
+                ->where('data.url', $url)
+                ->each->markAsRead();
+        }
+
+        return view('admin.laporan.show', [
+            'incidentUser' => $incidentUser,
+            'userReport' => $userReport,
+            'title' => $title,
+        ]);
     }
+
+    // Bisa pakai view modal seperti di index, atau buat halaman show sendiri.
+//     return view('admin.laporan.show', [
+//         'title' => 'Laporan Insiden',
+//         'user_report' => $userReport,
+//     ]);
+
+
 
     /**
      * Show the form for editing the specified resource.

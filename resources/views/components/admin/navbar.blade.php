@@ -51,7 +51,6 @@
                                 class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-2 -translate-y-2 bg-red-600 border-2 border-white rounded-full">
                             </span>
                         @endif
-                        <!-- <span aria-hidden="true" class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-2 -translate-y-2 bg-red-600 border-2 border-white rounded-full"></span> -->
                     </button>
                     <template x-if="isNotificationsMenuOpen">
                         <ul @click.away="closeNotificationsMenu" @keydown.escape="closeNotificationsMenu"
@@ -68,7 +67,10 @@
                                     </a>
                                 </li>
                             @empty
-                                <li class="px-2 py-1 text-sm text-gray-500 dark:text-gray-400">Tidak ada notifikasi baru.</li>
+                                <li class="px-2 py-1 text-sm text-yellow-800 dark:text-yellow-200 flex items-center space-x-2">
+                                    <span>⛏️</span>
+                                    <span>Belum ada notifikasi insiden di area kerja tambang.</span>
+                                </li>
                             @endforelse
                         </ul>
                     </template>

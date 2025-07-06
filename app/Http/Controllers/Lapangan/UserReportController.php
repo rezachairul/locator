@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Lapangan;
 
 use App\Models\User;
 use App\Models\UserReport;
+use App\Models\IncidentUser;
 use Illuminate\Http\Request;
 use App\Models\UserReportPhoto;
 use App\Exports\UserReportsExport;
@@ -133,6 +134,11 @@ class UserReportController extends Controller
                 $admin->notify(new UserReportNotification($userReport));
             }
 
+            $incidentUser = IncidentUser::create([
+                'user_report_id' => $userReport->id
+            ]);
+
+
             return redirect()->route('user-report.index')->with('success', 'User Report Created Successfully');
 
         } catch (\Exception $e) {
@@ -140,6 +146,7 @@ class UserReportController extends Controller
             return redirect()->back()->with('error', 'Failed to create User Report: ' . $e->getMessage());
         }
     }
+    
 
     /**
      * Display the specified resource.

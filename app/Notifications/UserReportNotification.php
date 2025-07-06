@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\IncidentUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\DatabaseMessage;
@@ -23,11 +24,19 @@ class UserReportNotification extends Notification
     }
 
     public function toDatabase($notifiable)
-    {
-        return [
-            'title' => 'Laporan Insiden Baru',
-            'body' => $this->report->incident_type . ' korban ' . $this->report->victim_name,
-            'url' => route('admin.laporan-user.incident-user.index'),
-        ];
-    }
+{
+    // Cari incident_user berdasarkan user_report_id
+    $incident = IncidentUser::where('user_report_id', $this->report->id)->first();
+
+    // Jika tidak ditemukan, fallback ke halaman index
+    $url = $incident
+        ? route('admin.laporan-user.incident-user.show', $incident->id)
+        : route('admin.laporan-user.incident-user.index');
+
+   return [
+        'title' => '⚠️ Laporan Insiden Tambang',
+        'body' => '📍 ' . $this->report->incident_type . ' menimpa ' . $this->report->victim_name . ' di area kerja.',
+        'url' => $url,
+    ];
+}
 }
