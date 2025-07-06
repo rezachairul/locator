@@ -8,11 +8,7 @@
     <title>LocatorGIS | {{$title}} </title>
 
     <!-- Favicon -->
-    <!-- <link id="favicon" rel="shortcut icon" href="{{ asset('assets/img/${value}') }}" type="image/x-icon"> -->
-    <link id="favicon" rel="shortcut icon"
-      href="{{ asset('assets/img/default-favicon.png') }}"
-      data-base-url="{{ asset('assets/img') }}"
-      type="image/x-icon">
+    <link id="favicon" rel="shortcut icon" href="{{ asset('assets/img/default-favicon.png') }}" data-base-url="{{ asset('assets/img') }}" type="image/x-icon">
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />

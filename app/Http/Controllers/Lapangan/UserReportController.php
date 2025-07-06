@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Lapangan;
 
+use App\Models\User;
 use App\Models\UserReport;
 use Illuminate\Http\Request;
 use App\Models\UserReportPhoto;
 use App\Exports\UserReportsExport;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\UserReportNotification;
 
 class UserReportController extends Controller
 {
@@ -123,6 +124,13 @@ class UserReportController extends Controller
                         'photo_path' => $relativePath,
                     ]);
                 }
+            }
+            
+            // 🔔 Kirim notifikasi ke admin
+            $admins = User::where('role', 'admin')->get();
+
+            foreach ($admins as $admin) {
+                $admin->notify(new UserReportNotification($userReport));
             }
 
             return redirect()->route('user-report.index')->with('success', 'User Report Created Successfully');
