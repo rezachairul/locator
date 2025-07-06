@@ -1,29 +1,30 @@
 <?php
 
 use App\Models\Operasional;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\auth\LoginController;
-use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\NotificationController;
 
-use App\Http\Controllers\admin\dashboard\DashboardController;
+use App\Http\Controllers\auth\RegisterController;
 
 use App\Http\Controllers\admin\maps\MapsController;
 
-use App\Http\Controllers\admin\operator\OperatorController;
+use App\Http\Controllers\Lapangan\LapanganController;
 
-use App\Http\Controllers\admin\Operasional\OperasionalController;
+use App\Http\Controllers\Lapangan\UserReportController;
 use App\Http\Controllers\admin\Operasional\ExcaController;
+use App\Http\Controllers\admin\operator\OperatorController;
+use App\Http\Controllers\admin\dashboard\DashboardController;
 use App\Http\Controllers\admin\Operasional\DumpingController;
 use App\Http\Controllers\admin\Operasional\WeatherController;
-use App\Http\Controllers\admin\Operasional\WaterdepthController;
-use App\Http\Controllers\admin\Operasional\MaterialController;
 
 use App\Http\Controllers\admin\Laporan\IncidentUserController;
 
-use App\Http\Controllers\Lapangan\LapanganController;
-use App\Http\Controllers\Lapangan\UserReportController;
+use App\Http\Controllers\admin\Operasional\MaterialController;
+use App\Http\Controllers\admin\Operasional\WaterdepthController;
+use App\Http\Controllers\admin\Operasional\OperasionalController;
 
 // Testing 401 error
 Route::get('/test-401', function () {
@@ -63,6 +64,11 @@ Route::prefix('auth')->group(function () {
     Route::get('/register', [RegisterController::class, 'create']) -> middleware('guest');
     Route::post('/register', [RegisterController::class, 'store']);
 });
+
+// =======================
+// Route Notifications
+// =======================
+Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 
 // =======================
 // Route untuk Operator

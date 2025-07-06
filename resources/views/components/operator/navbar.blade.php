@@ -69,19 +69,59 @@
                     <template x-if="isNotificationsMenuOpen">
                         <ul @click.away="isNotificationsMenuOpen = false" @keydown.escape="isNotificationsMenuOpen = false"
                             class="absolute right-0 w-72 p-2 mt-2 space-y-2 text-sm text-gray-700 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800 max-h-96 overflow-y-auto z-50">
-
                             @forelse (auth()->user()->notifications->take(10) as $notif)
-                                <li class="flex">
-                                    <div class="flex flex-col px-2 py-1">
-                                        <span class="font-semibold text-gray-800 dark:text-white">Notifikasi</span>
+                                @php
+                                    $notifId = $notif->id;
+                                    $status = $notif->data['status'] ?? 'none';
+                                    switch ($status) {
+                                        case 'pending':
+                                            $colorClass = 'text-yellow-500';
+                                            $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-yellow-500 inline"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>';
+                                            break;
+                                        case 'in_progress':
+                                            $colorClass = 'text-blue-500';
+                                            $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-blue-500 animate-spin inline"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>';
+                                            break;
+                                        case 'closed':
+                                            $colorClass = 'text-green-500';
+                                            $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500 inline"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>';
+                                            break;
+                                        default:
+                                            $colorClass = 'text-gray-500';
+                                            $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-500 inline"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>';
+                                    }
+                                @endphp
+
+                                <li x-data="{ show: true }" x-show="show" class="flex justify-between items-center px-2 py-1">
+                                    <div class="flex flex-col">
+                                        <span class="font-semibold {{ $colorClass }} dark:text-white">
+                                            {!! $icon !!} Notifikasi
+                                        </span>
                                         <span class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ $notif->data['message'] ?? 'Status laporan Anda diperbarui.' }}
                                         </span>
                                     </div>
+
+                                    {{-- Tombol X delete via fetch --}}
+                                    <button
+                                        @click="
+                                            fetch('{{ route('notifications.destroy', $notifId) }}', {
+                                                method: 'DELETE',
+                                                headers: {
+                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                                    'Accept': 'application/json',
+                                                },
+                                            }).then(() => show = false)
+                                        "
+                                        type="button"
+                                        class="text-red-500 hover:text-red-700 text-xs ml-2">
+                                        ✕
+                                    </button>
                                 </li>
                             @empty
-                                <li class="px-2 py-1 text-xs text-gray-500 dark:text-gray-400">
-                                    Tidak ada notifikasi terbaru.
+                                <li class="px-2 py-1 text-sm text-yellow-800 dark:text-yellow-200 flex items-center space-x-2">
+                                    <span>⛏️</span>
+                                    <span>Belum ada notifikasi dari Administrator.</span>
                                 </li>
                             @endforelse
                         </ul>
