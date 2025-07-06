@@ -43,9 +43,13 @@
             </div>
         </div>
 
-        <!-- Script -->
+<!--    ===============================
+            Script Fungsional Halaman
+        ================================    -->
         <script>
-            // Function to scroll smoothly to the top of the page
+            // ===============================
+            // Scroll halaman ke atas dengan animasi halus
+            // ===============================
             function scrollToTop() {
                 window.scrollTo({
                     top: 0,
@@ -53,7 +57,9 @@
                 });
             }
 
-            // Function to apply theme and invert icons accordingly
+            // ===============================
+            // Terapkan tema (terang/gelap) dan invert ikon sesuai tema
+            // ===============================
             function applyTheme() {
                 const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
                 const icons = document.querySelectorAll('.invert-icon img');
@@ -63,53 +69,45 @@
                 });
             }
 
-            // Functionality for modals: toggle and hide
+            // ===============================
+            // Setup fungsi modal (toggle & hide)
+            // ===============================
             function setupModals() {
                 const modalToggleBtns = document.querySelectorAll('[data-modal-toggle]');
                 const modalHideBtns = document.querySelectorAll('[data-modal-hide]');
 
-                // Toggle modal visibility
+                // Tampilkan atau sembunyikan modal
                 modalToggleBtns.forEach(btn => {
                     btn.addEventListener('click', () => {
                         const modalId = btn.getAttribute('data-modal-toggle');
                         const modal = document.getElementById(modalId);
-                        if (modal) {
-                            modal.classList.toggle('hidden');
-                        }
+                        if (modal) modal.classList.toggle('hidden');
                     });
                 });
 
-                // Hide modal
+                // Sembunyikan modal saat tombol close diklik
                 modalHideBtns.forEach(btn => {
                     btn.addEventListener('click', () => {
                         const modalId = btn.getAttribute('data-modal-hide');
                         const modal = document.getElementById(modalId);
                         if (modal) {
                             modal.classList.add('hidden');
+                            // Reset form dalam modal jika ada
+                            const form = modal.querySelector('form');
+                            if (form) form.reset();
                         }
                     });
                 });
             }
 
-            // Event listener for DOMContentLoaded
-            document.addEventListener("DOMContentLoaded", function() {
-                // Apply theme on page load
-                applyTheme();
-
-                // Theme toggle functionality
-                const themeToggleButton = document.getElementById('theme-toggle');
-                if (themeToggleButton) {
-                    themeToggleButton.addEventListener('click', function() {
-                        document.body.classList.toggle('dark'); // Toggle 'dark' class
-                        applyTheme(); // Apply updated theme
-                    });
-                }
-
-                // Setup modal functionality
-                setupModals();
-                // Mengubah favicon berdasarkan halaman saat ini
+            // ===============================
+            // Ubah favicon berdasarkan halaman saat ini
+            // ===============================
+            function updateFavicon() {
                 const currentPage = window.location.pathname;
                 const favicon = document.getElementById("favicon");
+                const baseUrl = favicon.dataset.baseUrl || "{{ asset('assets/img') }}";
+
                 const iconMap = {
                     "/operator/user-report": 'menu-icons/user-report.png',
                     "/operator": 'logo-locatorgis/locatorgis-logo.png',
@@ -117,14 +115,32 @@
 
                 for (const [key, value] of Object.entries(iconMap)) {
                     if (currentPage.includes(key)) {
-                        favicon.href = `{{ asset('assets/img/${value}') }}?v=${new Date().getTime()}`;
+                        favicon.href = `${baseUrl}/${value}?v=${new Date().getTime()}`;
                         break;
                     }
+                }
+            }
+
+            // ===============================
+            // Eksekusi ketika DOM telah siap
+            // ===============================
+            document.addEventListener("DOMContentLoaded", function () {
+                applyTheme();           // Terapkan tema awal
+                setupModals();          // Inisialisasi modal
+                updateFavicon();        // Ubah favicon sesuai halaman
+
+                // Fungsi toggle tema saat tombol diklik
+                const themeToggleButton = document.getElementById('theme-toggle');
+                if (themeToggleButton) {
+                    themeToggleButton.addEventListener('click', function () {
+                        document.body.classList.toggle('dark');
+                        applyTheme();
+                    });
                 }
             });
 
             // ===============================
-            // Fungsi Search AJAX
+            // Fungsi Search AJAX Dinamis
             // ===============================
             $(document).ready(function () {
                 $('#search-input').on('input', function () {
