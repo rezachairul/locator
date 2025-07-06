@@ -47,8 +47,18 @@
                         </svg>
                         <!-- Notification badge -->
                          @if($notifications->count() > 0)
+                            @php
+                                $badgeColor = match(optional($notifications->first())->data['injury_category'] ?? null) {
+                                    'Ringan' => 'bg-green-500',
+                                    'Sedang' => 'bg-yellow-400',
+                                    'Berat' => 'bg-orange-500',
+                                    'Fatal' => 'bg-red-600',
+                                    default => 'bg-gray-400',
+                                };
+                            @endphp
+
                             <span aria-hidden="true"
-                                class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-2 -translate-y-2 bg-red-600 border-2 border-white rounded-full">
+                                class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-2 -translate-y-2 {{ $badgeColor }} border-2 border-white rounded-full">
                             </span>
                         @endif
                     </button>

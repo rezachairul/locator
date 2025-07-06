@@ -134,9 +134,11 @@ class UserReportController extends Controller
                 $admin->notify(new UserReportNotification($userReport));
             }
 
-            $incidentUser = IncidentUser::create([
+            // Hindari duplikat jika sudah ada
+            IncidentUser::firstOrCreate([
                 'user_report_id' => $userReport->id
             ]);
+
 
 
             return redirect()->route('user-report.index')->with('success', 'User Report Created Successfully');

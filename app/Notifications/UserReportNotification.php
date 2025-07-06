@@ -36,6 +36,7 @@ class UserReportNotification extends Notification
    return [
         'title' => '⚠️ Laporan Insiden Tambang',
         'body' => '📍 ' . $this->report->incident_type . ' menimpa ' . $this->report->victim_name . ' di area kerja.',
+        'injury_category' => $this->report->injury_category,
         'url' => $url,
     ];
 }
