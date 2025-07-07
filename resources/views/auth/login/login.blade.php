@@ -80,7 +80,7 @@
                     <div x-data="{ role: null }">
                         <!-- Pilih role -->
                         <div class="flex flex-col items-center space-y-4">
-                            <button @click="role = 'admin'" type="button" class="w-full px-4 py-2 text-white bg-purple-600 rounded hover:bg-purple-700">
+                            <button @click="role = 'admin'" type="button" class="w-full px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">
                                 Login as Administrator
                             </button>
                             <button @click="role = 'operator'" type="button" class="w-full px-4 py-2 text-white bg-amber-600 rounded hover:bg-amber-700">
@@ -95,14 +95,14 @@
                                 <input type="hidden" name="role" value="admin">
                                 <div class="block text-sm mt-4">
                                     <input type="email" name="email" placeholder="name@example.com" required
-                                        class="block w-full mt-1 text-gray-900 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+                                        class="block w-full mt-1 text-gray-900 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-blue-400 focus:outline-none focus:shadow-outline-blue dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
                                 </div>
                                 <div class="block text-sm mt-4">
                                     <input type="password" name="password" placeholder="Password" required
-                                        class="block w-full mt-1 text-gray-900 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
+                                        class="block w-full mt-1 text-gray-900 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-blue-400 focus:outline-none focus:shadow-outline-blue dark:text-gray-300 dark:focus:shadow-outline-gray form-input">
                                 </div>
                                 <button type="submit"
-                                    class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white bg-purple-600 rounded hover:bg-purple-700">
+                                    class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white bg-blue-600 rounded hover:bg-blue-700">
                                     Login as Administrator
                                 </button>
                             </form>
@@ -124,19 +124,9 @@
                             </form>
                         </div>
                     </div>
-                    <!-- <form action="/auth/login" method="post">
-                        @csrf
-                        <div class="block text-sm mt-8">
-                            <input type="email" name="email" id="email" class=" block w-full mt-1 text-gray-900 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="name@example.com" required autofocus value="{{old('email')}}">
-                        </div>
-                        <div class="block text-sm mt-8">
-                            <input type="password" name="password" id="password" class=" block w-full mt-1 text-gray-900 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" placeholder="Password" required>
-                        </div>
-                        <button type="submit" class="block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">Log In</button>
-                    </form> -->
                     <hr class="mt-4">
                     <p class="m-1">
-                        <a class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="#" >
+                        <a class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline" href="#" >
                             Forgot your password?
                         </a>
                     </p>
