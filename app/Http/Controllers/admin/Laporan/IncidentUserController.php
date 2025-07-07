@@ -76,8 +76,16 @@ class IncidentUserController extends Controller
         ]);
 
         $incident = IncidentUser::findOrFail($id);
+
+        // Update status di table incident_users
         $incident->status = $request->status;
         $incident->save();
+
+        // Update status di table user_reports
+        if ($incident->user_report) {
+            $incident->user_report->status = $request->status;
+            $incident->user_report->save();
+        }
 
         // Kirim notifikasi ke user pelapor
         $user = $incident->user_report->user ?? null; // relasi user dari laporan

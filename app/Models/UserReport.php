@@ -9,7 +9,7 @@ class UserReport extends Model
 {
     /** @use HasFactory<\Database\Factories\UserReportFactory> */
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'status'];
     public function incident_user()
     {
         return $this->hasMany(IncidentUser::class);
