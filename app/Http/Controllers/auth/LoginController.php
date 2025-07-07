@@ -16,28 +16,34 @@ class LoginController extends Controller
     }
     public function authenticate(Request $request)
     {
-        $credentials = $request -> validate([
-            'email' => 'required | email',
-            'password' => 'required | min:8'
-        ]);
-        Log::info('Attempting login for:', ['email' => $credentials['email']]);
-        if(Auth::attempt($credentials)){
-            $request -> session() -> regenerate();
-            
-            //ambil role user
-            $user = Auth::user();
-            // redirect berdasarkan role
-            if($user->role == 'admin'){
-                return redirect() -> route('admin.dashboard');
-            } elseif($user->role == 'operator'){
-                return redirect() -> route('operator.dashboard');
+        $role = $request->input('role');
+
+        if ($role == 'admin') {
+            $credentials = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:8'
+            ]);
+
+            if (Auth::attempt(array_merge($credentials, ['role' => 'admin']))) {
+                $request->session()->regenerate();
+                return redirect()->route('admin.dashboard');
             }
-            // Jika role tidak dikenali, redirect ke halaman login            
-            Auth::logout();
-            return redirect('/auth/login')->with('loginError', 'Role tidak dikenali!');
+            return back()->with('loginError', 'Email atau password salah!');
         }
-        // Handle login gagal
-        return redirect('/auth/login')->with('loginError', 'Email atau password salah!');
+
+        if ($role == 'operator') {
+            $credentials = $request->validate([
+                'username' => 'required',
+            ]);
+
+            if (Auth::attempt(['username' => $credentials['username'], 'role' => 'operator'])) {
+                $request->session()->regenerate();
+                return redirect()->route('operator.dashboard');
+            }
+            return back()->with('loginError', 'Username salah atau tidak terdaftar!');
+        }
+
+        return back()->with('loginError', 'Role tidak dikenali!');
     }
 
     public function logout()
