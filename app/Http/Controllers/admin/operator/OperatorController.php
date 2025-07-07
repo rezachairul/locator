@@ -19,42 +19,53 @@ class OperatorController extends Controller
     {
         $title = 'User';
         $search = $request->input('search', '');
+        $filter = $request->query('filter', 'all');
 
         // Pisah multi keyword
         $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
-        // Admins
-        $admins = User::where('role', 'admin')
-            ->when($search, function ($query) use ($keywords) {
-                $query->where(function ($q) use ($keywords) {
-                    foreach ($keywords as $word) {
-                        $q->where(function ($qq) use ($word) {
-                            $qq->where('name', 'ILIKE', "%{$word}%")
-                            ->orWhere('username', 'ILIKE', "%{$word}%")
-                            ->orWhere('email', 'ILIKE', "%{$word}%");
-                        });
-                    }
-                });
-            })
-            ->get();
-            
-        $operators = User::where('role', 'operator')
+        // Query builder awal
+        $adminQuery = User::where('role', 'admin');
+        $operatorQuery = User::where('role', 'operator')
             ->where(function ($query) {
                 $query->whereDate('created_at', today())
                     ->orWhere('email', 'operator.operator@locatorgis.test');
-            })
-            ->when($search, function ($query) use ($keywords) {
-                $query->where(function ($q) use ($keywords) {
-                    foreach ($keywords as $word) {
-                        $q->where(function ($qq) use ($word) {
-                            $qq->where('name', 'ILIKE', "%{$word}%")
-                            ->orWhere('username', 'ILIKE', "%{$word}%")
-                            ->orWhere('email', 'ILIKE', "%{$word}%");
-                        });
-                    }
-                });
-            })
-            ->get();
+            });
+
+        // Apply search jika ada
+        if ($search) {
+            $adminQuery->where(function ($q) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $q->where(function ($qq) use ($word) {
+                        $qq->where('name', 'ILIKE', "%{$word}%")
+                        ->orWhere('username', 'ILIKE', "%{$word}%")
+                        ->orWhere('email', 'ILIKE', "%{$word}%");
+                    });
+                }
+            });
+
+            $operatorQuery->where(function ($q) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $q->where(function ($qq) use ($word) {
+                        $qq->where('name', 'ILIKE', "%{$word}%")
+                        ->orWhere('username', 'ILIKE', "%{$word}%")
+                        ->orWhere('email', 'ILIKE', "%{$word}%");
+                    });
+                }
+            });
+        }
+
+        // Ambil data sesuai filter
+        if ($filter == 'admin') {
+            $admins = $adminQuery->get();
+            $operators = collect(); // kosong
+        } elseif ($filter == 'operator') {
+            $admins = collect(); // kosong
+            $operators = $operatorQuery->get();
+        } else { // all
+            $admins = $adminQuery->get();
+            $operators = $operatorQuery->get();
+        }
 
         // Merge + Pagination Manual
         $merged = $admins->concat($operators);
@@ -66,21 +77,28 @@ class OperatorController extends Controller
             'query' => request()->query(),
         ]);
 
-        $adminCount = $admins->count();
-        $operatorCount = $operators->count();
+        // Count card tetap dari semua data
+        $adminCount = User::where('role', 'admin')->count();
+        $operatorCount = User::where('role', 'operator')
+            ->where(function ($query) {
+                $query->whereDate('created_at', today())
+                    ->orWhere('email', 'operator.operator@locatorgis.test');
+            })->count();
 
+        // AJAX response
         if ($request->ajax()) {
             return view('admin.operator.partials.table_body', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'))->render();
         }
 
+        // View utama
         return view('admin.operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
     }
 
-    public function export()
+
+    public function export(Request $request)
     {
-        // dd('Exporting users...');
-        $export = new UserExport();
-        return $export->export();
+        $role = $request->query('filter'); // ambil dari query string
+        return (new UserExport($role))->export();
     }
 
     /**

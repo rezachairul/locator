@@ -11,21 +11,25 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 class UserExport
 {
+    
+    protected $role;
+
+    public function __construct($role = null)
+    {
+        $this->role = $role;
+    }
     public function export()
     {
         // Path ke template
         $templatePath = storage_path('app/templates/temp-export-user.xlsx');
 
-        // Pastikan file ada
         if (!file_exists($templatePath)) {
             throw new \Exception('Template file not found: ' . $templatePath);
         }
 
-        // Load template
         $spreadsheet = IOFactory::load($templatePath);
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Nama PT dan tanggal export
         $namept = 'PT. Fajar Anugerah Dinamika';
         $currentDate = Carbon::now();
         $weekYear = 'W' . $currentDate->format('W') . ' ' . $currentDate->year;
@@ -36,15 +40,17 @@ class UserExport
         $sheet->setCellValue('E11', ': '. $weekYear);
         $sheet->setCellValue('E12', ': '. $downloadDate);
 
-        // Ambil data user admin & operator
-        $users = User::select('id', 'name', 'username', 'email', 'role')
-            ->whereIn('role', ['admin', 'operator'])
-            ->whereDate('created_at', Carbon::today())
-            ->orderByRaw("CASE WHEN role = 'admin' THEN 1 ELSE 2 END")
-            ->get();
+        // 🔧 Query user sesuai role
+        $query = User::select('id', 'name', 'username', 'email', 'role');
 
-        // Mulai baris data dari baris 15
-        $startRow = 15;
+        if ($this->role) {
+            $query->where('role', $this->role);
+        } else {
+            $query->whereIn('role', ['admin', 'operator']);
+        }
+
+        $query->whereDate('created_at', Carbon::today());
+        $users = $query->orderByRaw("CASE WHEN role = 'admin' THEN 1 ELSE 2 END")->get();
 
         // Hitung total
         $totalUser = $users->count();
@@ -55,6 +61,9 @@ class UserExport
         $sheet->setCellValue('D32', ': ' . $totalUser . ' Orang'); // TOTAL USER
         $sheet->setCellValue('D33', ': ' . $totalAdmin . ' Orang'); // ADMIN
         $sheet->setCellValue('D34', ': ' . $totalOperator . ' Orang'); // OPERATOR
+
+        // Mulai baris data dari baris 15
+        $startRow = 15;
 
         foreach ($users as $i => $user) {
             $row = $startRow + $i;
@@ -72,9 +81,12 @@ class UserExport
             mkdir($tempDir, 0777, true);
         }
 
-        // Nama file dengan tanggal
-        $dateFormatted = $currentDate->format('dmY');
-        $tempFile = $tempDir . '/Export-User-' . $dateFormatted . '.xlsx';
+        // 🔥 Tentukan nama role di file
+        $roleName = $this->role ? strtoupper($this->role) : 'ALL';
+
+        // Nama file dengan ROLE + Tanggal
+        $dateFormatted = $currentDate->format('dmY_His');
+        $tempFile = $tempDir . '/Export-User-' . $roleName . '-' . $dateFormatted . '.xlsx';
 
         // Simpan file
         $writer = new Xlsx($spreadsheet);
@@ -83,4 +95,5 @@ class UserExport
         // Return response download
         return response()->download($tempFile)->deleteFileAfterSend();
     }
+
 }

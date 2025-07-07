@@ -66,25 +66,45 @@
                 </div>
             </div>
 
-            <!-- Bagian Tombol Tambah -->
-            <div class="flex-shrink-0">
-                <button id="defaultModalButton" data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="button" class="flex items-center justify-center text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800">
-                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                    </svg>
-                    Create
-                </button>
-            </div>
-            <!-- Bagian Tombol Unduh -->
-            <div class="flex-shrink-0">
-                <a href="{{route('admin.operator.export')}}">
-                    <button type="button" class="flex ml-2 items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-3.5 w-3.5 mr-2" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            <!-- Bagian Tombol: Filter -> Create -> Export -->
+            <div class="flex items-center gap-2">
+
+                <!-- Dropdown Filter -->
+                <form method="GET" action="{{ route('admin.operator.index') }}">
+                    <select name="filter" onchange="this.form.submit()"
+                        class="text-sm rounded-lg border border-gray-300 focus:ring-purple-500 focus:border-purple-500 p-2 bg-gray-100 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="all" {{ request('filter') == 'all' ? 'selected' : '' }}>Semua</option>
+                        <option value="admin" {{ request('filter') == 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="operator" {{ request('filter') == 'operator' ? 'selected' : '' }}>Operator</option>
+                    </select>
+                </form>
+
+                <!-- Tombol Create -->
+                <div class="flex-shrink-0">
+                    <button id="defaultModalButton" data-modal-target="defaultModal" data-modal-toggle="defaultModal" type="button"
+                        class="flex items-center justify-center text-white bg-amber-700 hover:bg-amber-800 focus:ring-4 focus:ring-amber-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-amber-600 dark:hover:bg-amber-700 focus:outline-none dark:focus:ring-amber-800">
+                        <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd"
+                                d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                        </svg>
+                        Create
+                    </button>
+                </div>
+
+                <!-- Tombol Export -->
+                <a href="{{ route('admin.operator.export', ['filter' => request('filter')]) }}">
+                    <button type="button"
+                        class="flex items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="h-3.5 w-3.5 mr-2" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                         </svg>
                         Export
                     </button>
                 </a>
+
             </div>
         </div>
         <div class="w-full overflow-x-auto">
