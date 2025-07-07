@@ -5,6 +5,7 @@ namespace App\Http\Controllers\auth;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -36,10 +37,16 @@ class LoginController extends Controller
                 'username' => 'required',
             ]);
 
-            if (Auth::attempt(['username' => $credentials['username'], 'role' => 'operator'])) {
+            $user = User::where('username', $credentials['username'])
+                        ->where('role', 'operator')
+                        ->first();
+
+            if ($user) {
+                Auth::login($user);
                 $request->session()->regenerate();
                 return redirect()->route('operator.dashboard');
             }
+
             return back()->with('loginError', 'Username salah atau tidak terdaftar!');
         }
 
