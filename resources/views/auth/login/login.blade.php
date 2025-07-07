@@ -123,13 +123,16 @@
                                 </button>
                             </form>
                         </div>
+                        <hr class="mt-4">
+                        <p class="m-1">
+                            <a x-show="role === 'admin'" class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline" href="#">
+                                Forgot your password?
+                            </a>
+                            <a x-show="role === 'operator'" class="text-sm font-medium text-amber-600 dark:text-amber-400 hover:underline" href="#">
+                                Forgot your username?
+                            </a>
+                        </p>
                     </div>
-                    <hr class="mt-4">
-                    <p class="m-1">
-                        <a class="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline" href="#" >
-                            Forgot your password?
-                        </a>
-                    </p>
                     <br class="mt-5">
                     <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">&copy; 2025 <a href="#">PT. Fajar Anugerah Dinamika </a></span>
                 </div>
