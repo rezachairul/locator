@@ -79,15 +79,17 @@
                     </div>
                     <div x-data="{ role: null }">
                         <!-- Pilih role -->
-                        <div class="flex flex-col items-center space-y-4">
-                            <button @click="role = 'admin'" type="button" class="w-full px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">
-                                Login as Administrator
+                        <div class="flex flex-row justify-center items-center space-x-8">
+                            <button @click="role = 'admin'" type="button" class="flex flex-col items-center justify-center transition transform hover:scale-105 hover:shadow-lg">
+                                <img src="{{ asset('assets/img/login/administrator.png') }}" alt="Administrator" class="w-16 h-16 mb-2">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Administrator</span>
                             </button>
-                            <button @click="role = 'operator'" type="button" class="w-full px-4 py-2 text-white bg-amber-600 rounded hover:bg-amber-700">
-                                Login as Operator
+
+                            <button @click="role = 'operator'" type="button" class="flex flex-col items-center justify-center transition transform hover:scale-105 hover:shadow-lg">
+                                <img src="{{ asset('assets/img/login/operators.png') }}" alt="Operator" class="w-16 h-16 mb-2">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-200">Operator</span>
                             </button>
                         </div>
-
                         <!-- Form Login Administrator -->
                         <div x-show="role === 'admin'" class="mt-6">
                             <form action="/auth/login" method="post">
