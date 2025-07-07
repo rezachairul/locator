@@ -11,13 +11,10 @@ use App\Models\Operasional;
 use Illuminate\Http\Request;
 use App\Exports\OperasionalExport;
 use Illuminate\Routing\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 
 class OperasionalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $title = 'Operasional';
@@ -27,7 +24,6 @@ class OperasionalController extends Controller
 
         // Pisahkan Multi Keyword
         $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
-
 
         // Query Operasional: multi-keyword & relasi
         $operasionals = Operasional::when($keywords, function ($query) use ($keywords) {
@@ -85,29 +81,13 @@ class OperasionalController extends Controller
         return view('admin.operasional.operasional.operasional', compact(
             'title', 'operasionals', 'excas', 'dumpings', 'materials', 'latestWeather', 'latestWaterDepth'));
     }
-
-     /**
-     * Export data to Excel.
-     */    
+  
     public function export(OperasionalExport $exportService)
     {
         // dd('Exporting data...');
         return $exportService->export();
-        // $date = date('dmY');
-        // return Excel::download(new OperasionalExport(), "Operasional_{$date}.xlsx");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // dd ($request->all());
@@ -129,25 +109,6 @@ class OperasionalController extends Controller
         return redirect()->route('admin.operasional.operasional.index')->with('success', 'Data berhasil disimpan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Operasional $operasional)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Operasional $operasional)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Operasional $operasional)
     {
         dd ($request->all());
@@ -168,9 +129,6 @@ class OperasionalController extends Controller
         return redirect()->route('admin.operasional.operasional.index')->with('success', 'Berhasil Update Data Operasional');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         // dd($id);

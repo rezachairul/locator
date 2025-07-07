@@ -14,17 +14,14 @@ class Dashboard extends Model
     {
         return $this->belongsTo(Exca::class);
     }
-
     public function dumping()
     {
         return $this->belongsTo(Dumping::class);
     }
-
     public function waterdepth()
     {
         return $this->belongsTo(WaterDepth::class);
     }
-
     public function weather()
     {
         return $this->belongsTo(Weather::class);

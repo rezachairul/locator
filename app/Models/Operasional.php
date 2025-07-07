@@ -18,22 +18,18 @@ class Operasional extends Model
     {
         return $this->belongsTo(Exca::class , 'loading_unit_id');
     }
-
     public function dumping(): BelongsTo
     {
         return $this->belongsTo(Dumping::class , 'dumping_id');
     }
-
     public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class , 'material_id');
     }
-
     public function weather(): BelongsTo
     {
         return $this->belongsTo(Weather::class , 'weather_id');
     }
-
     public function waterdepth(): BelongsTo
     {
         return $this->belongsTo(Waterdepth::class , 'waterdepth_id');

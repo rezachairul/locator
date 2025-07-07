@@ -11,12 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Notifications\UserReportStatusUpdated;
 
-
 class IncidentUserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $title = 'Incident User';
@@ -97,17 +93,6 @@ class IncidentUserController extends Controller
         return back()->with('success', 'Status laporan berhasil diperbarui.');
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // Validasi input yang datang
@@ -141,9 +126,7 @@ class IncidentUserController extends Controller
         // Redirect jika bukan request AJAX
         return redirect()->route('user-report.index')->with('success', 'User Report Created Successfully');
     }
-    /**
-     * Display the specified resource.
-     */
+
     public function show(IncidentUser $incidentUser)
     {
         $userReport = $incidentUser->user_report;
@@ -165,37 +148,5 @@ class IncidentUserController extends Controller
             'userReport' => $userReport,
             'title' => $title,
         ]);
-    }
-
-    // Bisa pakai view modal seperti di index, atau buat halaman show sendiri.
-//     return view('admin.laporan.show', [
-//         'title' => 'Laporan Insiden',
-//         'user_report' => $userReport,
-//     ]);
-
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(IncidentUser $incidentUser)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, IncidentUser $incidentUser)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(IncidentUser $incidentUser)
-    {
-        //
     }
 }

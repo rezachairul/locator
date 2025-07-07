@@ -5,11 +5,8 @@ namespace App\Exports;
 use App\Models\UserReport;
 use Illuminate\Support\Carbon;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\FromCollection;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+
 
 class UserReportsExport
 {

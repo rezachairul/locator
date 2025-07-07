@@ -11,11 +11,6 @@ class Waterdepth extends Model
     
     protected $table = 'waterdepths';
     protected $guarded = ['id'];
-    // protected $fillable = [
-    //     'shift',
-    //     'qsv_1',
-    //     'h4',
-    // ];
 
     public function dashboards()
     {

@@ -8,9 +8,7 @@ use Illuminate\Routing\Controller;
 
 class DumpingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $title = 'Waste Dump';
@@ -44,17 +42,6 @@ class DumpingController extends Controller
         return view('admin.operasional.dumping.dumping', compact('title', 'dumpings'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {        
         //  dd($request->all());
@@ -76,29 +63,9 @@ class DumpingController extends Controller
         return redirect()->route('admin.operasional.dumping.index')->with('succes', 'Data added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Dumping $dumping)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Dumping $dumping)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         // dd($request->all());
-
         // Mencari model berdasarkan ID
         $dumping = Dumping::find($id);
 
@@ -128,9 +95,6 @@ class DumpingController extends Controller
         return redirect()->route('admin.operasional.dumping.index')->with('error', 'Update data successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         // dd($id);

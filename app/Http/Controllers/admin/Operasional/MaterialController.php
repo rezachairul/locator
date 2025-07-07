@@ -8,9 +8,7 @@ use Illuminate\Routing\Controller;
 
 class MaterialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $title = 'Materials';
@@ -37,17 +35,6 @@ class MaterialController extends Controller
         return view('admin.operasional.material.material', compact('title', 'materials'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // dd($request->all());
@@ -58,25 +45,6 @@ class MaterialController extends Controller
         return redirect()->route('admin.operasional.material.index')->with('success', 'File uploaded successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Material $material)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Material $material)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         // dd($id);
@@ -97,9 +65,6 @@ class MaterialController extends Controller
         return redirect()->route('admin.operasional.material.index')->with('success', 'Data berhasil diupdate!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         // dd($id);

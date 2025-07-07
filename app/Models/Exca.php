@@ -11,7 +11,6 @@ class Exca extends Model
     use HasFactory;
     protected $table = 'excas';
 
-
     protected $guarded = ['id'];
 
     public function dashboards()

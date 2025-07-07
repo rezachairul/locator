@@ -7,14 +7,11 @@ use App\Exports\UserExport;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class OperatorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $title = 'User';
@@ -94,16 +91,12 @@ class OperatorController extends Controller
         return view('admin.operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
     }
 
-
     public function export(Request $request)
     {
         $role = $request->query('filter'); // ambil dari query string
         return (new UserExport($role))->export();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // dd($request->all());
@@ -140,9 +133,6 @@ class OperatorController extends Controller
         return redirect()->route('admin.operator.index')->with('success', 'Data User berhasil ditambahkan');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         // dd(request()->all());
@@ -189,9 +179,6 @@ class OperatorController extends Controller
         return redirect()->route('admin.operator.index')->with('success', 'Data User berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         // dd($id);
@@ -205,6 +192,5 @@ class OperatorController extends Controller
         $operator->delete();
         // Redirect kembali dengan pesan sukses
         return redirect()->route('admin.operator.index')->with('success', 'Data User berhasil dihapus.');
-
     }
 }

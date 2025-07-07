@@ -16,9 +16,7 @@ use App\Notifications\UserReportNotification;
 
 class UserReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $title = 'User Report';
@@ -55,7 +53,6 @@ class UserReportController extends Controller
                 ->each->markAsRead();
         }
 
-
         return view('lapangan.user-report', compact('title', 'user_reports'));
     }
 
@@ -66,17 +63,6 @@ class UserReportController extends Controller
         return $export->export();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // dd($request->all());
@@ -155,8 +141,6 @@ class UserReportController extends Controller
                 'user_report_id' => $userReport->id
             ]);
 
-
-
             return redirect()->route('operator.user-report.index')->with('success', 'User Report Created Successfully');
 
         } catch (\Exception $e) {
@@ -164,28 +148,7 @@ class UserReportController extends Controller
             return redirect()->back()->with('error', 'Failed to create User Report: ' . $e->getMessage());
         }
     }
-    
 
-    /**
-     * Display the specified resource.
-     */
-    // public function show($id)
-    // {
-    //     //
-
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(UserReport $userReport)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         dd($id);
@@ -240,9 +203,6 @@ class UserReportController extends Controller
         return redirect()->route('operator.user-report.index')->with('success', 'User Report Updated Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
         // dd($id);

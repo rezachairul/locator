@@ -2,7 +2,6 @@
 namespace App\Exports;
 
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 
 use App\Models\Weather;
 use App\Models\Material;
@@ -40,9 +39,7 @@ class OperasionalExport
         $sheet->setCellValue('E11', ': '. $weekYear);
         $sheet->setCellValue('E12', ': '. $downloadDate);
 
-        // =========================
         // Ambil semua material untuk header dinamis
-        // =========================
         $materials = Material::all();
         $startColIndex = 17;
 
@@ -68,9 +65,7 @@ class OperasionalExport
             $sheet->setCellValue($colLetter . '16', $singkatan);
         }
 
-        // ============================
         // GENERATE DAN TULIS DATA WATERDEPTH & WEATHER
-        // ============================
 
         // Tentukan bulan dan tahun saat ini
         $year = Carbon::now()->year;
@@ -90,23 +85,17 @@ class OperasionalExport
             // Ambil data weather sesuai tanggal
             $weather = Weather::whereDate('created_at', $date)->first();
 
-            // ====================
             // Tulis ke WATERDEPTH
-            // ====================
             $sheet->setCellValue('B'.$row, $date->format('d')); // Tanggal
             $sheet->setCellValue('E'.$row, $waterdepth->qsv_1 ?? '0.0'); // sump_qsv1
             $sheet->setCellValue('G'.$row, $waterdepth->h4 ?? '0.0'); // sump_h4
 
-            // ====================
             // Tulis ke WEATHER
-            // ====================
             $sheet->setCellValue('L'.$row, $date->format('d')); // Tanggal
             $sheet->setCellValue('N'.$row, $weather->curah_hujan ?? '0.0'); // curah hujan
         }
 
-        // =========================
         // Ambil data operasional
-        // =========================
         $data = Operasional::with(['exca', 'dumping', 'material', 'weather', 'waterdepth'])
             ->get();
 
@@ -136,9 +125,7 @@ class OperasionalExport
             $sheet->setCellValue('O'.$row, $op->dumping->elevation_rl ?? '0.0'); // ELEVATION RL DUMP
             $sheet->setCellValue('P'.$row, $op->dumping->elevation_actual ?? '0.0'); // ELEVATION ACTUAL DUMP
 
-            // =========================
             // Ceklis material sesuai data operasional
-            // =========================
             foreach ($materials as $index => $material) {
                 $colLetter = Coordinate::stringFromColumnIndex($startColIndex + $index);
                 if ($op->material && strtolower($op->material->name) == strtolower($material->name)) {

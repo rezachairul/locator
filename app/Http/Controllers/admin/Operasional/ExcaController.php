@@ -3,21 +3,12 @@
 namespace App\Http\Controllers\admin\Operasional;
 
 use App\Models\Exca;
-use App\Models\Dumping;
-use App\Models\Material;
-use App\Exports\ExcasExport;
-use App\Imports\ExcasImport;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Maatwebsite\Excel\Facades\Excel;
-
-
 
 class ExcaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $title = 'Load Point';
@@ -55,14 +46,6 @@ class ExcaController extends Controller
         return view('admin.operasional.exca.excavator', compact('title', 'excas'));
     }
 
-
-
-    public function create()
-    {
-        //
-    }
-
-
     public function store(Request $request)
     {
         // dd($request->all()); 
@@ -87,18 +70,7 @@ class ExcaController extends Controller
         ]);
 
         return redirect()->route('admin.operasional.exca.index')->with('success', 'Berhasil Tambah Data Excavator');
-    }
-
-    public function show(exca $exca)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
     }    
-    
 
     public function update(Request $request, $id)
     {
@@ -120,11 +92,9 @@ class ExcaController extends Controller
             'front_height' => 'required|numeric',
         ]);
 
-
         // Validate input update
         $easting = str_replace(',', '.', $request->easting);
         $northing = str_replace(',', '.', $request->northing);
-
 
         // Update data
         $exca->update([
@@ -146,47 +116,5 @@ class ExcaController extends Controller
         $exca = Exca::findOrFail($id);
         $exca->delete();
         return redirect()->route('admin.operasional.exca.index')->with('success', 'Item deleted successfully.');
-    }
-
-    // EXPORT dan IMPORT FILE
-    //Export
-    public function export ()
-    {
-        $data = Exca::with(['dumping', 'material'])->get();
-        // dd($data->toArray());
-
-        // Pastikan memberikan data ke constructor
-        $export = new ExcasExport($data);
-        return $export->export();
-    }
-    public function import (Request $request)
-    {
-        // dd($request->all()); 
-        // Validasi file upload
-        $request->validate([
-            'file' => 'required|mimes:xlsx,xls,csv|max:2048', // Hanya menerima file Excel/CSV
-        ]);
-        try {
-            // Ambil file yang diupload
-            $file = $request->file('file');
-            
-            // Tentukan lokasi penyimpanan
-            $path = $file->storeAs('imports', $file->getClientOriginalName());
-            
-            // dd($file, $path);
-            // Mengimpor file menggunakan ExcasImport
-            Excel::import(new ExcasImport, $file);
-    
-            // Jika sukses, redirect ke 'exca.index' dengan pesan sukses
-            return redirect()->route('admin.operasional.exca.index')->with('success', 'Data berhasil diimpor!');
-        }
-        catch (\Exception $e) {
-            // Tangani error jika terjadi
-            return response()->json([
-                'success' => false,
-                'message' => 'Terjadi kesalahan saat mengimpor data.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
     }
 }

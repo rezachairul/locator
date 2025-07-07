@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers\admin\maps;
 
-
 use App\Models\Maps;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 
-
 class MapsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $title = 'Maps';
@@ -41,18 +37,6 @@ class MapsController extends Controller
         return view('admin.maps.maps', compact('title', 'maps'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {        
         // dd($request->all());
@@ -77,26 +61,6 @@ class MapsController extends Controller
         return redirect()->route('admin.maps.index')->with('success', 'File uploaded successfully!');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Maps $maps)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Maps $maps)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         // dd($id);
@@ -136,13 +100,7 @@ class MapsController extends Controller
         // Redirect kembali dengan pesan sukses
         return redirect()->route('admin.maps.index')->with('success', 'Data berhasil diperbarui.');
     }
-    // public function destroy($id)
-    // {
-        
-    //     $maps = Maps::findOrFail($id);
-    //     $maps->delete();
-    //     return redirect()->route('maps.index');
-    // }
+
     public function destroy($id)
     {
         // dd($id);

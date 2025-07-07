@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 class WeatherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index(Request $request)
     {
         $title = 'Weather';
@@ -77,18 +75,6 @@ class WeatherController extends Controller
             'title', 'weathers', 'latestWeather', 'bmkgWeather', 'cuacaLabels'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         // dd($request->all());
@@ -104,25 +90,6 @@ class WeatherController extends Controller
         return redirect()->route('admin.operasional.weather.index')->with('Success', 'Data added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Weather $weather)
-    {
-        //
-    }  
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Weather $weather)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
         // dd($request);
@@ -149,9 +116,6 @@ class WeatherController extends Controller
         return redirect()->route('admin.operasional.weather.index')->with('Success', 'Data updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {   
         // dd($id);

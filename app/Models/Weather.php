@@ -26,7 +26,6 @@ class Weather extends Model
         ];
         return $cuacaLabels[$this->cuaca] ?? $this->cuaca;
     }
-
     public function dashboards()
     {
         return $this->hasMany(Dashboard::class);

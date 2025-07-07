@@ -1,13 +1,10 @@
 <?php
 
-use App\Models\Operasional;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\NotificationController;
-
-use App\Http\Controllers\auth\RegisterController;
 
 use App\Http\Controllers\admin\maps\MapsController;
 
@@ -60,15 +57,14 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', [LoginController::class, 'authenticate']);
     //logout
     Route::post('/logout', [LoginController::class, 'logout']);
-    //Register
-    Route::get('/register', [RegisterController::class, 'create']) -> middleware('guest');
-    Route::post('/register', [RegisterController::class, 'store']);
 });
+
 
 // =======================
 // Route Notifications
 // =======================
 Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+
 
 // =======================
 // Route untuk Operator
