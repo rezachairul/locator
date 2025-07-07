@@ -11,8 +11,9 @@ class Material extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
-    public function exca(): HasMany
+
+    public function dashboards()
     {
-        return $this->hasMany(Exca::class);
+        return $this->hasMany(Dashboard::class);
     }
 }

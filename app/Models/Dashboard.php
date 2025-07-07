@@ -29,4 +29,8 @@ class Dashboard extends Model
     {
         return $this->belongsTo(Weather::class);
     }
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
 }
