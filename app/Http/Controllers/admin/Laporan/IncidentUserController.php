@@ -52,6 +52,7 @@ class IncidentUserController extends Controller
                         ->whereYear('created_at', \Carbon\Carbon::now()->subMonth()->year);
                 }
             })
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
 
         if ($request->ajax()) {

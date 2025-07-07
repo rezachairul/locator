@@ -25,9 +25,9 @@ class UserReportController extends Controller
         $search = $request->input('search', '');
 
         $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
-
+        
         $user_reports = UserReport::with('photos')
-            -> when($search, function ($query) use ($search) {
+            ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
                     $q->where('victim_name', 'ILIKE', "%{$search}%")
                         ->orWhere('activity', 'ILIKE', "%{$search}%")
@@ -37,8 +37,10 @@ class UserReportController extends Controller
                         ->orWhere('report_by', 'ILIKE', "%{$search}%");
                 });
             })
+            ->whereDate('created_at', \Carbon\Carbon::today())
             ->orderBy('id', 'asc')
             ->paginate(10);
+
 
         // Cek jika request AJAX (biar partial table body aja)
         if ($request->ajax()) {
