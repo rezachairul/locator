@@ -8,7 +8,7 @@
             <div class="text-right">
                 <ol class="breadcrumb inline-flex space-x-2">
                     <li class="breadcrumb-item">
-                        <a href="/operator" class="text-blue-500 hover:text-blue-700">Operasional Lapangan</a>
+                        <a href="/operator" class="text-blue-500 hover:text-blue-700">Dashboard Operator</a>
                     </li>
                     <li class="breadcrumb-item active text-gray-500"> / </li>
                     <li class="breadcrumb-item active text-gray-500">{{$title}}</li>
