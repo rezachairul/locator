@@ -2,8 +2,6 @@
     <x-slot:title>{{$title}}</x-slot:title>
 
     <!-- Divider -->
-    <hr class="my-4 border-gray-600">
-
     <!-- New MBTiles Map Viewer -->
     <div class="min-w-0 p-4 text-white mt-10 bg-white rounded-lg shadow-xs dark:bg-gray-800">
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
@@ -98,10 +96,9 @@
         }
 
         // Layer control with MBTiles overlay (will populate after fetch)
-        var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(mbtilesMap);
+        var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: true }).addTo(mbtilesMap);
 
     </script>
-
     <br>
 
     <!-- Table -->

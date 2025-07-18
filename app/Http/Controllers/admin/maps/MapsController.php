@@ -53,6 +53,13 @@ class MapsController extends Controller
             return back()->withErrors(['file' => 'File harus bertipe .ecw atau .mbtiles']);
         }
 
+         // === AUTO-REPLACE LOGIC START ===
+        $latestMap = Maps::orderBy('created_at', 'desc')->first();
+        if ($latestMap) {
+            Storage::disk('public')->delete($latestMap->path);
+            $latestMap->delete();
+        }
+
         $filename = time() . '_' . $file->getClientOriginalName();
         $path = $file->storeAs('uploads/maps', $filename, 'public');
 
@@ -65,7 +72,7 @@ class MapsController extends Controller
         ]);
         // dd($map);
 
-        return redirect()->route('admin.maps.index')->with('success', 'File uploaded successfully!');
+        return redirect()->route('admin.maps.index')->with('success', 'File uploaded and replaced successfully!');
     }
 
     public function show($id)
@@ -89,21 +96,42 @@ class MapsController extends Controller
         $maps = Maps::findOrFail($id);
 
         $request->validate([
-            'fileName' => 'required|string|max:255',
-            'file' => 'nullable|mimes:sqlite,octet-stream|max:51200',
+            'name' => 'required|string|max:255',
+            'file' => 'nullable|file|max:2097152', // sama seperti store, 2GB
         ]);
 
-        $maps->fileName = $request->fileName;
+        $maps->name = $request->name;
 
+        // Jika ada file baru diupload
         if ($request->hasFile('file')) {
-            if ($maps->file && Storage::exists($maps->file)) {
-                Storage::delete($maps->file);
+            $file = $request->file('file');
+            $ext = strtolower($file->getClientOriginalExtension());
+
+            // Tentukan type file
+            $type = match ($ext) {
+                'ecw' => 'ecw',
+                'mbtiles' => 'mbtiles',
+                default => null,
+            };
+
+            if (!$type) {
+                return back()->withErrors(['file' => 'File harus bertipe .ecw atau .mbtiles']);
             }
 
-            $file = $request->file('file');
-            $originalName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('uploads/maps', $originalName, 'public');
-            $maps->file = $path;
+            // Hapus file lama jika ada
+            if ($maps->path && Storage::disk('public')->exists($maps->path)) {
+                Storage::disk('public')->delete($maps->path);
+            }
+
+            // Upload file baru
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads/maps', $filename, 'public');
+
+            // Update kolom terkait
+            $maps->filename = $filename;
+            $maps->path = $path;
+            $maps->size = $file->getSize();
+            $maps->type = $type;
         }
 
         $maps->save();

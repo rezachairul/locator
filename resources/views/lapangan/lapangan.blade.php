@@ -91,7 +91,7 @@
         }
 
         // Layer control with MBTiles overlay (will populate after fetch)
-        var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(mbtilesMap);
+        var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: true }).addTo(mbtilesMap);
 
     </script>
 </x-operator.layouts>
