@@ -12,16 +12,16 @@
         </div>
     </td>
     <td class="px-2 py-1 text-xs text-center">
-        {{ $exca->easting }}
+        {{ rtrim(rtrim(number_format($exca->easting, 5, '.', ''), '0'), '.') }}
     </td>
     <td class="px-2 py-1 text-xs text-center">
-        {{ $exca->northing }}
+        {{ rtrim(rtrim(number_format($exca->northing, 5, '.', ''), '0'), '.') }}
     </td>
     <td class="px-2 py-1 text-xs text-center">
-        {{ ($exca->elevation_rl)  }}
+        {{ rtrim(rtrim(number_format($exca->elevation_rl, 5, '.', ''), '0'), '.') }}
     </td>
     <td class="px-2 py-1 text-xs text-center">
-        {{ $exca->elevation_actual }}
+        {{ rtrim(rtrim(number_format($exca->elevation_actual, 5, '.', ''), '0'), '.') }}
     </td>
     <td class="px-2 py-1 text-xs text-center">
         {{ $exca->front_width }}

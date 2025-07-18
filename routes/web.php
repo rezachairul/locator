@@ -77,6 +77,14 @@ Route::prefix('operator')->middleware(['auth', 'role:operator'])->name('operator
     Route::get('/', [LapanganController::class, 'index'])->name('dashboard');
 
     // =======================
+    // Maps
+    // =======================
+    // Routes untuk MBTiles viewer di operator
+    Route::get('/maps/{id}', [MapsController::class, 'show'])->name('maps.show');
+    Route::get('/maps/tiles/{id}/{z}/{x}/{y}', [MapsController::class, 'getTile'])->name('maps.tiles');
+    
+
+    // =======================
     // Laporan yang dikirim user/operator
     // =======================
     Route::get('/user-report-export', [UserReportController::class, 'export'])->name('user-report.export');
@@ -105,6 +113,9 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->name('admin.')->grou
     // Maps
     // =======================
     Route::resource('/maps', MapsController::class);
+    Route::get('/maps/tiles/{id}/{z}/{x}/{y}', [MapsController::class, 'getTile']);
+
+
 
     // ======================================
     // Kelola Data Administrator & Operator

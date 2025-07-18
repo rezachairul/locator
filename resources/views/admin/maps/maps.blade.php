@@ -1,11 +1,107 @@
 <x-admin.layouts>
     <x-slot:title>{{$title}}</x-slot:title>
-    <!-- Cards Notice -->
-    <div class="min-w-0 p-4 text-white bg-white rounded-lg shadow-xs dark:bg-gray-800">
-        <div class="relative w-full h-96">
-            <iframe class="absolute top-0 left-0 w-full h-full rounded-lg shadow-xs" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d8297.885022528028!2d117.42045017766056!3d2.02715899014462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x320def43f33ea91b%3A0x7e4dcd38dcbb294c!2sWorkshop%20MTL%20Binungan%20KM1!5e1!3m2!1sid!2sid!4v1721883321328!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
+
+    <!-- Divider -->
+    <hr class="my-4 border-gray-600">
+
+    <!-- New MBTiles Map Viewer -->
+    <div class="min-w-0 p-4 text-white mt-10 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+        <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+            Preview MBTiles Layer
+        </h4>
+        @php
+            $firstMapId = $maps->first()->id ?? null;
+        @endphp
+        <div id="mbtiles-map" class="w-full h-96 rounded-lg shadow-xs z-0 relative"></div>
     </div>
+    <script>
+        // Initialize map for MBTiles only (no baselayer)
+        var mbtilesMap = L.map('mbtiles-map');
+
+        // === BASELAYERS ===
+        var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        });
+
+        var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles © Esri'
+        }).addTo(mbtilesMap); // set default;
+
+        var terrain = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenTopoMap'
+        });
+
+        // === MBTILES LAYER ===
+        var firstMapId = "{{ $firstMapId }}";
+        var mbtilesLayer;
+
+        if (firstMapId) {
+            fetch('/admin/maps/{{ $firstMapId }}')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.metadata) {
+                        var bounds, minZoom, maxZoom;
+
+                        const boundsMeta = data.metadata.find(m => m.name === 'bounds');
+                        if (boundsMeta) {
+                            const b = boundsMeta.value.split(',').map(parseFloat);
+                            bounds = [[b[1], b[0]], [b[3], b[2]]];
+                        }
+
+                        const minZoomMeta = data.metadata.find(m => m.name === 'minzoom');
+                        if (minZoomMeta) minZoom = parseInt(minZoomMeta.value);
+
+                        const maxZoomMeta = data.metadata.find(m => m.name === 'maxzoom');
+                        if (maxZoomMeta) maxZoom = parseInt(maxZoomMeta.value);
+
+                        mbtilesLayer = L.tileLayer('/admin/maps/tiles/' + firstMapId + '/{z}/{x}/{y}', {
+                            minZoom: minZoom || 0,
+                            maxZoom: maxZoom || 18,
+                            tileSize: 256,
+                            attribution: 'MBTiles Layer'
+                        }).addTo(mbtilesMap);
+
+                        // Setelah mbtilesLayer dibuat
+                        overlayMaps["MBTiles Layer"] = mbtilesLayer;
+                        layerControl.addOverlay(mbtilesLayer, "MBTiles Layer");
+
+                        if (bounds) {
+                            // Tambahkan rectangle di atas map untuk menandai area MBTiles
+                            var mbtilesBorder = L.rectangle(bounds, {
+                                color: "red",     // warna border
+                                weight: 2,        // ketebalan garis
+                                fill: false       // agar hanya border
+                            }).addTo(mbtilesMap);
+                            mbtilesMap.fitBounds(bounds);
+                            if (minZoom && mbtilesMap.getZoom() < minZoom) {
+                                mbtilesMap.setZoom(minZoom);
+                            }
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching metadata:", error);
+                });
+        }
+
+        // === LAYER CONTROL ===
+        var baseMaps = {
+            "Street": street,
+            "Satellite": satellite,
+            "Terrain": terrain
+        };
+
+        var overlayMaps = {};
+
+        if (mbtilesLayer) {
+            overlayMaps["MBTiles Layer"] = mbtilesLayer;
+        }
+
+        // Layer control with MBTiles overlay (will populate after fetch)
+        var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(mbtilesMap);
+
+    </script>
+
     <br>
 
     <!-- Table -->

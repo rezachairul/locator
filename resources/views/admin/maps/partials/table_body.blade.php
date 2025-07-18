@@ -5,10 +5,10 @@
                 {{ $maps->firstItem() + $key }}
             </td>
             <td class="px-4 py-3 text-sm text-center">
-                {{$map->fileName}}
+                {{$map->name}}
             </td>
             <td class="px-4 py-3 text-sm text-center">
-                {{ basename($map->file) }}
+                {{ $map->path }}
             </td>
             <td class="px-4 py-3 text-xs text-center">
                 {{$map->created_at->format('d-m-Y')}}

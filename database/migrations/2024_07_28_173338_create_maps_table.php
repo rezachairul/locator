@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+
         Schema::create('maps', function (Blueprint $table) {
             $table->id();
-            $table->string('fileName');
-            $table->string('file');
-            $table->string('outputFile')->nullable();
-            $table->integer('size')->nullable();
-            $table->string('path')->nullable();
+            $table->string('name'); // nama file user-friendly
+            $table->string('type'); // ecw / mbtiles
+            $table->string('filename'); // nama file asli di storage
+            $table->string('path'); // path storage
+            $table->bigInteger('size')->nullable();
             $table->timestamps();
         });
     }

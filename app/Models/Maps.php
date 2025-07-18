@@ -10,10 +10,12 @@ class Maps extends Model
     use HasFactory;
     protected $table = 'maps';
     
-    protected $fillable =[
-        'fileName',
-        'file',
-        'outputFile',
+    protected $fillable = [
+        'name',
+        'type',
+        'filename',
+        'path',
+        'size',
     ];
 
     public function lapangans()

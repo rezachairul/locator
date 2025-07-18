@@ -70,7 +70,7 @@ class ExcaController extends Controller
         ]);
 
         return redirect()->route('admin.operasional.exca.index')->with('success', 'Berhasil Tambah Data Excavator');
-    }    
+    }
 
     public function update(Request $request, $id)
     {
