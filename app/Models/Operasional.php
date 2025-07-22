@@ -6,6 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * @property int $id
+ * @property string $pit
+ * @property int $loading_unit_id     // relasi ke tabel excas
+ * @property string $dop              // Date of Processing? (silakan sesuaikan maknanya)
+ * @property int $dumping_id          // relasi ke tabel dumpings
+ * @property int $material_id         // relasi ke tabel materials
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ *
+ * @property \App\Models\Exca $loadingUnit
+ * @property \App\Models\Dumping $dumping
+ * @property \App\Models\Material $material
+ */
+
 class Operasional extends Model
 {
     /** @use HasFactory<\Database\Factories\OperasionalFactory> */

@@ -5,6 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $cuaca // Nilai enum: cerah, cerah_berawan, berawan, berawan_tebal, hujan_ringan, hujan_sedang, hujan_lebat, hujan_petir, kabut
+ * @property float $curah_hujan
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ */
+
 class Weather extends Model
 {
     use HasFactory;

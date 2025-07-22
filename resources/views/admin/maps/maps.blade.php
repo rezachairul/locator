@@ -5,7 +5,7 @@
     <!-- New MBTiles Map Viewer -->
     <div class="min-w-0 p-4 text-white mt-10 bg-white rounded-lg shadow-xs dark:bg-gray-800">
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-            Preview MBTiles Layer
+            Preview Maps
         </h4>
         @php
             $firstMapId = $maps->first()->id ?? null;
