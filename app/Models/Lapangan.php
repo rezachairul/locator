@@ -24,7 +24,7 @@ class Lapangan extends Model
 
     public function maps()
     {
-        return $this->belongsTo(Maps::class);
+        return $this->belongsTo(Maps::class ); // maps_id
     }
     public function exca()
     {
