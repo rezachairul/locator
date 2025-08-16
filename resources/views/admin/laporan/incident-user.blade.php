@@ -57,7 +57,6 @@
         </div>
     </div>
 
-
     <div class="max-w-screen-lg mx-auto">
         <div class="w-full overflow-x-auto">
             <table class="whitespace-normal table-auto min-w-full">
@@ -102,7 +101,6 @@
                 @endif
             </div>
         </div>
-    </div>
     </div>
     <br>
 </x-admin.layouts>

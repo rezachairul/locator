@@ -30,39 +30,67 @@
             <td class="px-2 py-1 text-xs text-center">
                 {{ $incident_user->user_report->report_by ?? 'Data tidak tersedia'}}
             </td>
-            <!-- Status -->
             <td class="px-2 py-1 text-center">
-                <div x-data="{ open: false }" class="relative inline-block text-left">
-                    {{-- ✅ Tombol utama yang tampil status sekarang --}}
-                    <button @click="open = !open" type="button"
-                            class="w-8 h-8 flex items-center justify-center rounded border border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-800">
+                <div 
+                    x-data="{ 
+                        open: false, 
+                        pos: { top: 0, left: 0, width: 0 },
+                        toggle($el) { 
+                            let rect = $el.getBoundingClientRect();
+                            this.pos = { 
+                                top: rect.top + rect.height + window.scrollY, 
+                                left: rect.left + window.scrollX, 
+                                width: rect.width 
+                            };
+                            this.open = !this.open; 
+                        }
+                    }"
+                    class="inline-block text-left"
+                >
+                    {{-- ✅ Tombol utama --}}
+                    <button 
+                        @click="toggle($el)" 
+                        type="button"
+                        class="w-8 h-8 flex items-center justify-center rounded-lg border 
+                            border-gray-400 dark:border-gray-600 
+                            bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700
+                            transition"
+                    >
                         <x-admin.status-icons-bar :status="$incident_user->status" />
                     </button>
 
-                    {{-- ✅ Dropdown yang muncul saat diklik --}}
-                    <div x-show="open" @click.away="open = false"
+                    {{-- ✅ Dropdown di posisi yang tepat --}}
+                    <div 
+                        x-show="open" 
+                        @click.away="open = false"
                         x-transition
-                        class="absolute right-0 mt-1 w-44 rounded-md shadow-lg 
-                                bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 
-                                border border-gray-200 dark:border-gray-700 p-1 space-y-1 origin-top-right">
-
+                        class="fixed w-48 rounded-xl shadow-lg bg-white dark:bg-gray-800 
+                            ring-1 ring-black ring-opacity-5 z-50 border border-gray-200 dark:border-gray-700 
+                            overflow-hidden"
+                        :style="`top: ${pos.top}px; left: ${pos.left - 160 + pos.width}px`"
+                    >
                         <form method="POST" action="{{ route('admin.laporan-user.updateStatus', $incident_user->id) }}">
                             @csrf
                             @method('PATCH')
 
-                            {{-- ✅ Opsi status dalam dropdown --}}
-                            @foreach (['none', 'pending', 'in_progress', 'closed'] as $statusOption)
-                                <button type="submit" name="status" value="{{ $statusOption }}"
-                                    class="w-full px-3 py-1.5 text-sm rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 
-                                        flex items-center gap-2 transition-colors duration-150">
-                                    <x-admin.status-icons-bar :status="$statusOption" />
-                                    <span>{{ ucfirst(str_replace('_', ' ', $statusOption)) }}</span>
-                                </button>
-                            @endforeach
+                            <div class="py-1 divide-y divide-gray-200 dark:divide-gray-700">
+                                @foreach (['none', 'pending', 'in_progress', 'closed'] as $statusOption)
+                                    <button type="submit" 
+                                            name="status" 
+                                            value="{{ $statusOption }}"
+                                            class="w-full flex items-center gap-2 px-4 py-2 text-sm 
+                                                text-left hover:bg-gray-100 dark:hover:bg-gray-700 
+                                                transition-colors duration-150">
+                                        <x-admin.status-icons-bar :status="$statusOption" />
+                                        <span class="capitalize">{{ str_replace('_', ' ', $statusOption) }}</span>
+                                    </button>
+                                @endforeach
+                            </div>
                         </form>
                     </div>
                 </div>
             </td>
+
             <!-- Actions -->
             <td class="px-2 py-1 text-xs text-center">
                 <div class="flex justify-center space-x-2">

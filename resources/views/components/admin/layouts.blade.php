@@ -21,10 +21,6 @@
     <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/js/alpine.min.js') }}"></script>
     <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
-    <script src="{{ asset('assets/js/Chart.min.js') }}"></script>
-    <script src="{{ asset('assets/js/charts-lines.js') }}"></script>
-    <script src="{{ asset('assets/js/charts-pie.js') }}"></script>
-    <script src="{{ asset('assets/js/chart.js') }}"></script>
     <script src="{{ asset('assets/js/focus-trap.js') }}" defer></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
