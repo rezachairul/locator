@@ -6,7 +6,12 @@ import 'flowbite';
 
 
 // Admin
-// Isi Bagian Admin
+import './components/admin/theme';
+import './components/admin/scroll';
+import './components/admin/favicon';
+import './components/admin/modal';
+import './components/admin/clock';
+import './components/admin/search';
 
 
 // User Lapangan

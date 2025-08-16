@@ -1,4 +1,3 @@
-// Scroll ke atas dengan smooth
 export function scrollToTop() {
     window.scrollTo({
         top: 0,
