@@ -93,14 +93,14 @@
                                 @endphp
 
                                 <li x-data="{ show: true }" x-show="show" class="flex justify-between items-center px-2 py-1">
-                                    <div class="flex flex-col">
+                                    <a href="operator/user-report" class="flex flex-col">
                                         <span class="font-semibold {{ $colorClass }} dark:text-white">
                                             {!! $icon !!} Notifikasi
                                         </span>
                                         <span class="text-xs text-gray-500 dark:text-gray-400">
                                             {{ $notif->data['message'] ?? 'Status laporan Anda diperbarui.' }}
                                         </span>
-                                    </div>
+                                    </a>
 
                                     {{-- Tombol X delete via fetch --}}
                                     <button
