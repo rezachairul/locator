@@ -3,25 +3,30 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+// Auth
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\NotificationController;
 
+// Admin
+use App\Http\Controllers\admin\dashboard\DashboardController;
+
 use App\Http\Controllers\admin\maps\MapsController;
 
-use App\Http\Controllers\Lapangan\LapanganController;
-
-use App\Http\Controllers\Lapangan\UserReportController;
-use App\Http\Controllers\admin\Operasional\ExcaController;
 use App\Http\Controllers\admin\operator\OperatorController;
-use App\Http\Controllers\admin\dashboard\DashboardController;
-use App\Http\Controllers\admin\Operasional\DumpingController;
-use App\Http\Controllers\admin\Operasional\WeatherController;
 
 use App\Http\Controllers\admin\Laporan\IncidentUserController;
 
-use App\Http\Controllers\admin\Operasional\MaterialController;
-use App\Http\Controllers\admin\Operasional\WaterdepthController;
 use App\Http\Controllers\admin\Operasional\OperasionalController;
+use App\Http\Controllers\admin\Operasional\ExcaController;
+use App\Http\Controllers\admin\Operasional\DumpingController;
+use App\Http\Controllers\admin\Operasional\WeatherController;
+use App\Http\Controllers\admin\Operasional\WaterdepthController;
+use App\Http\Controllers\admin\Operasional\MaterialController;
+
+// Operator Lapangan
+use App\Http\Controllers\Lapangan\LapanganController;
+use App\Http\Controllers\Lapangan\UserReportController;
+
 
 // Testing 401 error
 Route::get('/test-401', function () {
