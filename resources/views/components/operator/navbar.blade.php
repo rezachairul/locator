@@ -49,9 +49,9 @@
                         </svg>
 
                         <!-- Notification badge -->
-                        @if(auth()->user()->unreadNotifications->count() > 0)
+                        @if(auth()->user()->unreadNotifications()->count() > 0)
                             @php
-                                $badgeColor = match(optional(auth()->user()->unreadNotifications->first())->data['status'] ?? null) {
+                                $badgeColor = match(optional(auth()->user()->unreadNotifications()->first())->data['status'] ?? null) {
                                     'pending' => 'bg-yellow-500',
                                     'in_progress' => 'bg-blue-500',
                                     'closed' => 'bg-green-500',
@@ -69,7 +69,7 @@
                     <template x-if="isNotificationsMenuOpen">
                         <ul @click.away="isNotificationsMenuOpen = false" @keydown.escape="isNotificationsMenuOpen = false"
                             class="absolute right-0 w-72 p-2 mt-2 space-y-2 text-sm text-gray-700 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800 max-h-96 overflow-y-auto z-50">
-                            @forelse (auth()->user()->notifications->take(10) as $notif)
+                            @forelse (auth()->user()->notifications()->take(10)->get() as $notif)
                                 @php
                                     $notifId = $notif->id;
                                     $status = $notif->data['status'] ?? 'none';
