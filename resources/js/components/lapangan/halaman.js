@@ -93,25 +93,38 @@ document.addEventListener("DOMContentLoaded", function () {
 // ===============================
 // Fungsi Search AJAX Dinamis
 // ===============================
-$(document).ready(function () {
-    $("#search-input").on("input", function () {
-        let query = $(this).val();
-        let url = $(this).data("url");
-        let target = $(this).data("target");
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-input");
 
-        console.log("AJAX triggered:", query, url, target);
+    if (searchInput) {
+        searchInput.addEventListener("input", function () {
+            const query = this.value;
+            const url = this.dataset.url;
+            const target = this.dataset.target;
 
-        $.ajax({
-            url: url,
-            type: "GET",
-            data: { search: query },
-            success: function (data) {
+            console.log("AJAX triggered:", query, url, target);
+
+            fetch(`${url}?search=${encodeURIComponent(query)}`, {
+                method: "GET",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest"
+                }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                return response.text();
+            })
+            .then(data => {
                 console.log("AJAX success:", data);
-                $("#" + target).html(data);
-            },
-            error: function (xhr) {
-                console.log("AJAX error:", xhr.responseText);
-            },
+                const targetEl = document.getElementById(target);
+                if (targetEl) {
+                    targetEl.innerHTML = data;
+                }
+            })
+            .catch(error => {
+                console.error("AJAX error:", error);
+            });
         });
-    });
+    }
 });
+
