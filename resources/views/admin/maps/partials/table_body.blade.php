@@ -8,7 +8,7 @@
                 {{$map->name}}
             </td>
             <td class="px-4 py-3 text-sm text-center">
-                {{ $map->path }}
+                {{ $map->filename }}
             </td>
             <td class="px-4 py-3 text-xs text-center">
                 {{$map->created_at->format('d-m-Y')}}
