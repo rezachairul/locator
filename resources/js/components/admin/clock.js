@@ -18,7 +18,8 @@ export function initClock() {
         }).format(now);
 
         const dateTimeString = `${formattedDate}, ${formattedTime} ${timeZoneName}`;
-        document.getElementById('local_time').textContent = dateTimeString;
+        const el = document.getElementById('local_time');
+        if (el) el.textContent = dateTimeString;
     }
 
     updateClock();
@@ -27,3 +28,6 @@ export function initClock() {
 
 // supaya bisa dipanggil inline
 window.initClock = initClock;
+
+// 🔥 auto-jalankan saat DOM siap
+document.addEventListener("DOMContentLoaded", initClock);

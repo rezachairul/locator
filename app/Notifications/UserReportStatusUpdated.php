@@ -5,6 +5,10 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Notifications\Messages\BroadcastMessage;
+
+
 
 /**
  * @property string $id
@@ -19,7 +23,7 @@ use Illuminate\Notifications\Notification;
  * @property \Carbon\Carbon|null $updated_at
  */
 
-class UserReportStatusUpdated extends Notification
+class UserReportStatusUpdated extends Notification implements ShouldBroadcast
 {
     use Queueable;
 
@@ -32,15 +36,26 @@ class UserReportStatusUpdated extends Notification
 
     public function via($notifiable)
     {
-        return ['database']; // kita pakai database, bukan email
+        return ['database', 'broadcast']; // kita pakai database, bukan email
     }
 
     public function toDatabase($notifiable)
     {
         return [
-            'message' => 'Status laporan Anda telah diperbarui menjadi "' . ucfirst(str_replace('_', ' ', $this->status)) . '".',
+            'message' => '⛏️ Status laporan insiden tambang Anda telah diperbarui menjadi "' 
+                        . ucfirst(str_replace('_', ' ', $this->status)) . '".',
             'status' => $this->status,
             'url' => route('operator.user-report.index'),
         ];
+    }
+    
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'message' => '⛏️ Status laporan insiden tambang Anda telah diperbarui menjadi "' 
+                        . ucfirst(str_replace('_', ' ', $this->status)) . '".',
+            'status' => $this->status,
+            'url' => route('operator.user-report.index'),
+        ]);
     }
 }

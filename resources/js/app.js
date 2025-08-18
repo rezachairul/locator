@@ -12,6 +12,7 @@ import './components/admin/favicon';
 import './components/admin/modal';
 import './components/admin/clock';
 import './components/admin/search';
+import './components/admin/notification';
 
 
 // User Lapangan

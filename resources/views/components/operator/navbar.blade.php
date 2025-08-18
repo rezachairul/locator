@@ -34,98 +34,117 @@
                             </svg>
                         </template>
                     </button>
-                </li>
-                <!-- Notifications menu -->
-                <li class="relative" x-data="{ isNotificationsMenuOpen: false }">
-                    <button @click="isNotificationsMenuOpen = !isNotificationsMenuOpen" @keydown.escape="isNotificationsMenuOpen = false"
-                        aria-label="Notifications" aria-haspopup="true"
-                        class="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple">
-                        
-                        <!-- Bell icon -->
-                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M10 2a6 6 0 016 6v3.586l.707.707a1 1 0 01.293.707V14a1 1 0 01-1 1H4a1 1 0 01-1-1v-.293a1 1 0 01.293-.707L4 11.586V8a6 6 0 016-6zm-4 14a2 2 0 004 0H6z">
-                            </path>
+                </li>                
+                
+                <!-- Notifications Operator -->
+                <li class="relative" x-data="{ open: false }">
+                    <button id="operator-bell-icon" id="operator-bell-icon" @click="open = !open" class="relative p-2 rounded-full text-gray-600 hover:text-purple-600 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405M19 13V8a7 7 0 10-14 0v5L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                         </svg>
+                        @php
+                            $latest = Auth::user()->unreadNotifications->first();
+                            $status = $latest->data['status'] ?? null;
 
-                        <!-- Notification badge -->
-                        @if(auth()->user()->unreadNotifications()->count() > 0)
-                            @php
-                                $badgeColor = match(optional(auth()->user()->unreadNotifications()->first())->data['status'] ?? null) {
-                                    'pending' => 'bg-yellow-500',
-                                    'in_progress' => 'bg-blue-500',
-                                    'closed' => 'bg-green-500',
-                                    'none' => 'bg-gray-400',
-                                    default => 'bg-red-600',
-                                };
-                            @endphp
-                            <span aria-hidden="true"
-                                class="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-2 -translate-y-2 {{ $badgeColor }} border-2 border-white rounded-full">
-                            </span>
-                        @endif
+                            switch ($status) {
+                                case 'pending':
+                                    $badgeClass = 'bg-yellow-500 text-yellow-100';
+                                    break;
+                                case 'in_progress':
+                                    $badgeClass = 'bg-blue-500 text-blue-100';
+                                    break;
+                                case 'closed':
+                                    $badgeClass = 'bg-green-500 text-green-100';
+                                    break;
+                                default:
+                                    $badgeClass = 'bg-gray-300 text-gray-700'; // none / default
+                            }
+                        @endphp
+                        <span id="operator-unread-count"
+                            class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold 
+                            leading-none rounded-full {{ $badgeClass }}">
+                            {{ Auth::user()->unreadNotifications->count() }}
+                        </span>
                     </button>
 
-                    <!-- Dropdown menu -->
-                    <template x-if="isNotificationsMenuOpen">
-                        <ul @click.away="isNotificationsMenuOpen = false" @keydown.escape="isNotificationsMenuOpen = false"
-                            class="absolute right-0 w-72 p-2 mt-2 space-y-2 text-sm text-gray-700 bg-white border border-gray-100 rounded-md shadow-md dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800 max-h-96 overflow-y-auto z-50">
-                            @forelse (auth()->user()->notifications()->take(10)->get() as $notif)
-                                @php
-                                    $notifId = $notif->id;
-                                    $status = $notif->data['status'] ?? 'none';
-                                    switch ($status) {
-                                        case 'pending':
-                                            $colorClass = 'text-yellow-500';
-                                            $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-yellow-500 inline"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>';
-                                            break;
-                                        case 'in_progress':
-                                            $colorClass = 'text-blue-500';
-                                            $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-blue-500 animate-spin inline"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>';
-                                            break;
-                                        case 'closed':
-                                            $colorClass = 'text-green-500';
-                                            $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500 inline"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>';
-                                            break;
-                                        default:
-                                            $colorClass = 'text-gray-500';
-                                            $icon = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-500 inline"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" /></svg>';
-                                    }
-                                @endphp
+                    <!-- Dropdown -->
+                    <div x-show="open" @click.away="open=false" class="absolute right-0 mt-2 w-80 bg-white border rounded shadow-lg z-50">
+                        <ul class="divide-y divide-gray-200 max-h-64 overflow-y-auto" id="operator-notification-list">
+                            @forelse(auth()->user()->notifications as $notification)
+                                @php $status = $notification->data['status'] ?? 'none'; @endphp
 
-                                <li x-data="{ show: true }" x-show="show" class="flex justify-between items-center px-2 py-1">
-                                    <a href="operator/user-report" class="flex flex-col">
-                                        <span class="font-semibold {{ $colorClass }} dark:text-white">
-                                            {!! $icon !!} Notifikasi
+                                <li class="flex items-start justify-between p-3 hover:bg-gray-100 gap-2">
+                                    {{-- Link area (title, waktu, body) --}}
+                                    <a href="{{ $notification->data['url'] }}" class="flex-1 flex items-start gap-2">
+                                        {{-- Status Icon --}}
+                                        <span class="mt-1">
+                                            @if ($status === 'pending')
+                                                <svg class="w-5 h-5 text-yellow-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
+                                            @elseif ($status === 'in_progress')
+                                                <svg class="w-5 h-5 text-blue-500 animate-spin" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/>
+                                                </svg>
+                                            @elseif ($status === 'closed')
+                                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/>
+                                                </svg>
+                                            @endif
                                         </span>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400">
-                                            {{ $notif->data['message'] ?? 'Status laporan Anda diperbarui.' }}
-                                        </span>
+
+                                        {{-- Konten notif --}}
+                                        <div class="flex-1">
+                                            <div class="flex items-center justify-between">
+                                                <div class="text-sm font-medium text-gray-700">
+                                                    {{ $notification->data['title'] ?? 'Notifikasi' }}
+                                                </div>
+                                                <span class="text-xs text-gray-400 whitespace-nowrap">
+                                                    {{ $notification->updated_at->format('H:i') }}
+                                                </span>
+                                            </div>
+                                            <div class="text-xs text-gray-500">
+                                                {{ $notification->data['body'] ?? $notification->data['message'] }}
+                                            </div>
+                                        </div>
                                     </a>
 
-                                    {{-- Tombol X delete via fetch --}}
-                                    <button
-                                        @click="
-                                            fetch('{{ route('notifications.destroy', $notifId) }}', {
+                                    {{-- Tombol hapus --}}
+                                    <button type="button"
+                                        @click.stop="
+                                            fetch('{{ route('notifications.destroy', $notification) }}', {
                                                 method: 'DELETE',
                                                 headers: {
                                                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                                                     'Accept': 'application/json',
                                                 },
-                                            }).then(() => show = false)
+                                            }).then(() => {
+                                                $el.closest('li').remove();
+                                                let badge = document.getElementById('operator-unread-count');
+                                                badge.innerText = parseInt(badge.innerText) - 1;
+                                                if (badge.innerText == '0') badge.classList.add('hidden');
+                                            });
                                         "
-                                        type="button"
-                                        class="text-red-500 hover:text-red-700 text-xs ml-2">
-                                        ✕
+                                        class="ml-2 text-gray-400 hover:text-red-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                                        </svg>
                                     </button>
                                 </li>
                             @empty
-                                <li class="px-2 py-1 text-sm text-yellow-800 dark:text-yellow-200 flex items-center space-x-2">
-                                    <span>⛏️</span>
-                                    <span>Belum ada notifikasi dari Administrator.</span>
+                                <li class="p-4 text-center text-gray-600 mb-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-gray-600 mb-1">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                    </svg>
+                                    Tidak ada notifikasi untuk saat ini.<br>
                                 </li>
                             @endforelse
                         </ul>
-                    </template>
+                    </div>
                 </li>
 
                 @php
@@ -214,3 +233,70 @@
         </div>
     </header>
 </div>
+
+<script>
+    Echo.private('App.Models.User.{{ $user->id }}')
+        .notification((notification) => {
+            let list = document.getElementById('operator-notification-list');
+            let count = document.getElementById('operator-unread-count');
+            let bell = document.getElementById('operator-bell-icon');
+
+            // tambahkan data-status
+            let item = `<li class="p-3 hover:bg-gray-100" data-status="${notification.status ?? 'none'}">
+                            <a href="${notification.url}">
+                                <div class="text-sm font-medium text-gray-700">${notification.title ?? 'Notifikasi'}</div>
+                                <div class="text-xs text-gray-500">${notification.body ?? notification.message}</div>
+                            </a>
+                            <button type="button" class="ml-2 text-gray-400 hover:text-red-500"
+                                    onclick="deleteNotification('${notification.id}', this)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </li>`;
+            list.insertAdjacentHTML('afterbegin', item);
+
+            // update badge count
+            count.innerText = parseInt(count.innerText) + 1;
+            count.classList.remove('hidden');
+
+            // update bell color
+            bell.classList.remove('text-yellow-500','text-blue-500','text-green-500','text-gray-300');
+            switch(notification.status){
+                case 'pending': bell.classList.add('text-yellow-500'); break;
+                case 'in_progress': bell.classList.add('text-blue-500'); break;
+                case 'closed': bell.classList.add('text-green-500'); break;
+                default: bell.classList.add('text-gray-300'); break;
+            }
+        });
+
+    // delete via fetch
+    function deleteNotification(id, el) {
+        fetch(`/notifications/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            }
+        }).then(() => {
+            let li = el.closest('li');
+            li.remove();
+
+            // update badge
+            let badge = document.getElementById('operator-unread-count');
+            badge.innerText = parseInt(badge.innerText) - 1;
+            if(badge.innerText == '0') badge.classList.add('hidden');
+
+            // update bell color ke notif terbaru
+            let latest = document.querySelector('#operator-notification-list li:first-child')?.dataset.status || 'none';
+            let bell = document.getElementById('operator-bell-icon');
+            bell.classList.remove('text-yellow-500','text-blue-500','text-green-500','text-gray-300');
+            switch(latest){
+                case 'pending': bell.classList.add('text-yellow-500'); break;
+                case 'in_progress': bell.classList.add('text-blue-500'); break;
+                case 'closed': bell.classList.add('text-green-500'); break;
+                default: bell.classList.add('text-gray-300'); break;
+            }
+        });
+    }
+</script>

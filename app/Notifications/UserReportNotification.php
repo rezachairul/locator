@@ -5,7 +5,9 @@ namespace App\Notifications;
 use App\Models\IncidentUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Notifications\Messages\DatabaseMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 /**
  * @property string $id
@@ -18,7 +20,7 @@ use Illuminate\Notifications\Messages\DatabaseMessage;
  * @property \Carbon\Carbon|null $updated_at
  */
 
-class UserReportNotification extends Notification
+class UserReportNotification extends Notification implements ShouldBroadcast
 {
     use Queueable;
 
@@ -31,24 +33,41 @@ class UserReportNotification extends Notification
 
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     public function toDatabase($notifiable)
-{
-    // Cari incident_user berdasarkan user_report_id
-    $incident = IncidentUser::where('user_report_id', $this->report->id)->first();
+    {
+        // Cari incident_user berdasarkan user_report_id
+        $incident = IncidentUser::where('user_report_id', $this->report->id)->first();
 
-    // Jika tidak ditemukan, fallback ke halaman index
-    $url = $incident
-        ? route('admin.laporan-user.incident-user.show', $incident->id)
-        : route('admin.laporan-user.incident-user.index');
+        // Jika tidak ditemukan, fallback ke halaman index
+        $url = $incident
+            ? route('admin.laporan-user.incident-user.show', $incident->id)
+            : route('admin.laporan-user.incident-user.index');
 
-   return [
-        'title' => '⚠️ Laporan Insiden Tambang',
-        'body' => '📍 ' . $this->report->incident_type . ' menimpa ' . $this->report->victim_name . ' di area kerja.',
-        'injury_category' => $this->report->injury_category,
-        'url' => $url,
-    ];
-}
+        return [
+            'title' => '⛏️🚨 Laporan Insiden Tambang',
+            'body'  => '🪨 Insiden *' . $this->report->incident_type . '* melibatkan ' . $this->report->victim_name . 
+                    ' di area operasi tambang. Kategori cedera: ' . $this->report->injury_category . '.',
+            'injury_category' => $this->report->injury_category,
+            'url'    => $url,
+        ];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        $incident = IncidentUser::where('user_report_id', $this->report->id)->first();
+        $url = $incident
+            ? route('admin.laporan-user.incident-user.show', $incident->id)
+            : route('admin.laporan-user.incident-user.index');
+
+        return new BroadcastMessage([
+            'title' => '⛏️🚨 Laporan Insiden Tambang',
+            'body'  => '🪨 Insiden *' . $this->report->incident_type . '* melibatkan ' . $this->report->victim_name . 
+                    ' di area operasi tambang. Kategori cedera: ' . $this->report->injury_category . '.',
+            'injury_category' => $this->report->injury_category,
+            'url' => $url,
+        ]);
+    }
 }

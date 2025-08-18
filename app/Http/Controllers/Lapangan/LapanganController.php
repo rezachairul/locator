@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\lapangan;
+namespace App\Http\Controllers\Lapangan;
 
 use App\Models\Maps;
 use App\Models\Exca;

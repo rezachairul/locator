@@ -68,7 +68,28 @@ Route::prefix('auth')->group(function () {
 // =======================
 // Route Notifications
 // =======================
+Route::get('/notifications', function () {
+    $notifications = Auth::user()->unreadNotifications;
+    
+    return response()->json([
+        'count' => $notifications->count(),
+        'data' => $notifications->map(function ($notif) {
+            return [
+                'id' => $notif->id,
+                'title' => $notif->data['title'] ?? 'Notifikasi',
+                'body' => $notif->data['body'] ?? '',
+                'url' => $notif->data['url'] ?? '#',
+                'injury_category' => $notif->data['injury_category'] ?? null,
+                'time' => $notif->created_at->diffForHumans(),
+            ];
+        }),
+    ]);
+})->middleware('auth');
+
+Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::get('/notifications/fetch', [NotificationController::class, 'fetch'])->name('notifications.fetch');
 Route::delete('/notifications/{id}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
+
 
 
 // =======================
