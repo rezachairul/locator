@@ -33,46 +33,54 @@ class MapsController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
-            'file' => 'required|file|max:2097152', // 2GB, satuannya KB
+            'file_maps' => 'required|file|max:102400', // 100MB
+            'file_point' => 'nullable|file|max:102400',
         ]);
 
-        $file = $request->file('file');
-        $ext = strtolower($file->getClientOriginalExtension());
-
-        // Tentukan type file
-        $type = match ($ext) {
+        // ==== FILE MAPS ====
+        $fileMaps = $request->file('file_maps');
+        $extMaps = strtolower($fileMaps->getClientOriginalExtension());
+        $typeMaps = match($extMaps) {
             'ecw' => 'ecw',
             'mbtiles' => 'mbtiles',
+            'tif', 'tiff' => 'tiff',
             default => null,
         };
-
-        if (!$type) {
-            return back()->withErrors(['file' => 'File harus bertipe .ecw atau .mbtiles']);
+        if (!$typeMaps) {
+            return back()->withErrors(['file_maps' => 'File Maps harus bertipe .ecw, .mbtiles, .tif, atau .tiff']);
         }
 
-         // === AUTO-REPLACE LOGIC START ===
-        $latestMap = Maps::orderBy('created_at', 'desc')->first();
-        if ($latestMap) {
-            Storage::disk('public')->delete($latestMap->path);
-            $latestMap->delete();
+        $filenameMaps = time().'_'.$fileMaps->getClientOriginalName();
+        $pathMaps = $fileMaps->storeAs('uploads/maps', $filenameMaps, 'public');
+
+        // ==== FILE POINT (optional) ====
+        $filenamePoint = null;
+        $pathPoint = null;
+        if ($request->hasFile('file_point')) {
+            $filePoint = $request->file('file_point');
+            $extPoint = strtolower($filePoint->getClientOriginalExtension());
+            if (!in_array($extPoint, ['json','geojson'])) {
+                return back()->withErrors(['file_point' => 'File Points harus JSON / GeoJSON']);
+            }
+
+            $filenamePoint = time().'_'.$filePoint->getClientOriginalName();
+            $pathPoint = $filePoint->storeAs('uploads/points', $filenamePoint, 'public');
         }
 
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('uploads/maps', $filename, 'public');
-
-        $map = Maps::create([
+        // ==== CREATE MAP RECORD ====
+        Maps::create([
             'name' => $request->name,
-            'type' => $type,
-            'filename' => $filename,
-            'path' => $path,
-            'size' => $file->getSize(),
+            'type' => $typeMaps,
+            'filename' => $filenameMaps,
+            'path' => $pathMaps,
+            'size' => $fileMaps->getSize(),
+            'point_filename' => $filenamePoint,
+            'point_path' => $pathPoint,
         ]);
-        // dd($map);
 
-        return redirect()->route('admin.maps.index')->with('success', 'File uploaded and replaced successfully!');
+        return redirect()->route('admin.maps.index')->with('success', 'File uploaded successfully!');
     }
 
     public function show($id)
@@ -91,50 +99,67 @@ class MapsController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+     public function update(Request $request, $id)
     {
-        $maps = Maps::findOrFail($id);
+        $map = Maps::findOrFail($id);
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'file' => 'nullable|file|max:2097152', // sama seperti store, 2GB
+            'file_maps' => 'nullable|file|max:102400',
+            'file_point' => 'nullable|file|max:102400',
         ]);
 
-        $maps->name = $request->name;
+        $map->name = $request->name;
 
-        // Jika ada file baru diupload
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $ext = strtolower($file->getClientOriginalExtension());
-
-            // Tentukan type file
-            $type = match ($ext) {
+        // ==== FILE MAPS ====
+        if ($request->hasFile('file_maps')) {
+            $fileMaps = $request->file('file_maps');
+            $extMaps = strtolower($fileMaps->getClientOriginalExtension());
+            $typeMaps = match($extMaps) {
                 'ecw' => 'ecw',
                 'mbtiles' => 'mbtiles',
+                'tif', 'tiff' => 'tiff',
                 default => null,
             };
-
-            if (!$type) {
-                return back()->withErrors(['file' => 'File harus bertipe .ecw atau .mbtiles']);
+            if (!$typeMaps) {
+                return back()->withErrors(['file_maps' => 'File Maps harus bertipe .ecw, .mbtiles, .tif, atau .tiff']);
             }
 
-            // Hapus file lama jika ada
-            if ($maps->path && Storage::disk('public')->exists($maps->path)) {
-                Storage::disk('public')->delete($maps->path);
+            // Hapus file lama
+            if ($map->path && Storage::disk('public')->exists($map->path)) {
+                Storage::disk('public')->delete($map->path);
             }
 
-            // Upload file baru
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('uploads/maps', $filename, 'public');
+            $filenameMaps = time().'_'.$fileMaps->getClientOriginalName();
+            $pathMaps = $fileMaps->storeAs('uploads/maps', $filenameMaps, 'public');
 
-            // Update kolom terkait
-            $maps->filename = $filename;
-            $maps->path = $path;
-            $maps->size = $file->getSize();
-            $maps->type = $type;
+            $map->filename = $filenameMaps;
+            $map->path = $pathMaps;
+            $map->size = $fileMaps->getSize();
+            $map->type = $typeMaps;
         }
 
-        $maps->save();
+        // ==== FILE POINT ====
+        if ($request->hasFile('file_point')) {
+            $filePoint = $request->file('file_point');
+            $extPoint = strtolower($filePoint->getClientOriginalExtension());
+            if (!in_array($extPoint, ['json','geojson'])) {
+                return back()->withErrors(['file_point' => 'File Points harus JSON / GeoJSON']);
+            }
+
+            // Hapus file lama
+            if ($map->point_path && Storage::disk('public')->exists($map->point_path)) {
+                Storage::disk('public')->delete($map->point_path);
+            }
+
+            $filenamePoint = time().'_'.$filePoint->getClientOriginalName();
+            $pathPoint = $filePoint->storeAs('uploads/points', $filenamePoint, 'public');
+
+            $map->point_filename = $filenamePoint;
+            $map->point_path = $pathPoint;
+        }
+
+        $map->save();
 
         return redirect()->route('admin.maps.index')->with('success', 'Data updated successfully!');
     }
@@ -187,10 +212,19 @@ class MapsController extends Controller
 
     public function destroy($id)
     {
-        $maps = Maps::findOrFail($id);
-        Storage::disk('public')->delete($maps->path);
-        
-        $maps->delete();
+        $map = Maps::findOrFail($id);
+
+        // Hapus file maps
+        if ($map->path && Storage::disk('public')->exists($map->path)) {
+            Storage::disk('public')->delete($map->path);
+        }
+
+        // Hapus file point
+        if ($map->point_path && Storage::disk('public')->exists($map->point_path)) {
+            Storage::disk('public')->delete($map->point_path);
+        }
+
+        $map->delete();
 
         return redirect()->route('admin.maps.index')->with('success', 'Data and file deleted.');
     }

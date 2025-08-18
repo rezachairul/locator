@@ -14,11 +14,16 @@ return new class extends Migration
 
         Schema::create('maps', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // nama file user-friendly
-            $table->string('type'); // ecw / mbtiles
-            $table->string('filename'); // nama file asli di storage
-            $table->string('path'); // path storage
+            $table->string('name');       // nama file user-friendly
+            $table->string('type');       // ecw / mbtiles / tif / tiff
+            $table->string('filename');   // nama file maps di storage
+            $table->string('path');       // path file maps
             $table->bigInteger('size')->nullable();
+
+            // Kolom baru untuk file points
+            $table->string('point_filename')->nullable(); // nama file JSON / GeoJSON
+            $table->string('point_path')->nullable();     // path file point
+
             $table->timestamps();
         });
     }

@@ -27,7 +27,10 @@ class Maps extends Model
         'filename',
         'path',
         'size',
+        'point_filename', // untuk file JSON / GeoJSON
+        'point_path',     // path storage file point
     ];
+
 
     public function lapangans()
     {

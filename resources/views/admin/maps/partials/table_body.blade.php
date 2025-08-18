@@ -10,6 +10,9 @@
             <td class="px-4 py-3 text-sm text-center">
                 {{ $map->filename }}
             </td>
+            <td class="px-4 py-3 text-sm text-center">
+                {{ $map->point_filename }}
+            </td>
             <td class="px-4 py-3 text-xs text-center">
                 {{$map->created_at->format('d-m-Y')}}
             </td>

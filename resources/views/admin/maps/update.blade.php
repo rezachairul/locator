@@ -28,17 +28,57 @@
                 @method('PUT')
                 @csrf
                 <div class="mt-2 mb-4 sm:col-span-2">
+                    <!-- Nama File -->
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white text-left">Nama File</label>
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Nama file" required autofocus value="{{ old('name', $map->name) }}">
+                        <input 
+                            type="text" 
+                            name="name" 
+                            id="name" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+                            placeholder="Nama file" 
+                            required 
+                            autofocus 
+                            value="{{ old('name', $map->name) }}"
+                        >
                     </div>
-                    <div>
-                        <label for="file" class="block mt-3 mb-1 text-sm font-medium text-gray-900 dark:text-white text-left">File</label>
-                        <p class="text-sm text-gray-500 mt-1 mb-2 text-left">File saat ini: {{ basename($map->filename) }}</p>
-                        <input type="file" name="file" id="file" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Unggah file baru (opsional)">
+
+                    <!-- File Maps -->
+                    <div class="mt-4">
+                        <label for="file_maps" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white text-left">File Maps</label>
+                        <p class="text-sm text-gray-500 mt-1 mb-2 text-left">
+                            File saat ini: {{ basename($map->filename) }}
+                        </p>
+                        <input 
+                            type="file" 
+                            name="file_maps" 
+                            id="file_maps" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+                            accept=".mbtiles,.ecw,.tif,.tiff"
+                        >
+                        <p class="text-sm text-gray-500 mt-1 text-left">
+                            Format file yang didukung: mbtiles, ecw, tif, tiff. Ukuran maksimal: 100MB.
+                        </p>
+                    </div>
+
+                    <!-- File Points -->
+                    <div class="mt-4">
+                        <label for="file_point" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white text-left">File Points</label>
+                        <p class="text-sm text-gray-500 mt-1 mb-2 text-left">
+                            File saat ini: {{ $map->point_filename ? basename($map->point_filename) : '-' }}
+                        </p>
+                        <input 
+                            type="file" 
+                            name="file_point" 
+                            id="file_point" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" 
+                            accept=".json,.geojson"
+                        >
+                        <p class="text-sm text-gray-500 mt-1 text-left">
+                            Format file yang didukung: JSON / GeoJSON. Ukuran maksimal: 100MB.
+                        </p>
                     </div>
                 </div>
-
                 <!-- Submit and Cancel Buttons -->
                 <div class="flex justify-end space-x-2 pt-4">
                     <button type="submit" class="text-white m-1 inline-flex items-center bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
