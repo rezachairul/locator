@@ -43,7 +43,5 @@ class NotificationController extends Controller
             'data' => $notifications
         ]);
     }
-
-
 }
 

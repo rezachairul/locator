@@ -1,9 +1,0 @@
-
-.icon {
-    filter: invert(1) grayscale(1) brightness(2);
-    transition: filter 0.3s;
-}
-
-a:hover .icon {
-    filter: invert(0.5) sepia(1) saturate(5) hue-rotate(180deg) brightness(1);
-}
