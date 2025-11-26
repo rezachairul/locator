@@ -17,38 +17,82 @@
             <form action="{{route('admin.operator.store')}}" method="post" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 @method('POST')
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                    <input type="text" name="name" id="name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                        placeholder="Name" required>
+                {{-- NAME + USERNAME --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <input type="text" name="name" id="name"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                            placeholder="Name" required>
+                    </div>
+
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                        <input type="text" name="username" id="username"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                            placeholder="Username" required>
+                    </div>
                 </div>
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                    <input type="text" name="username" id="username"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                        placeholder="Username" required>
+
+
+                {{-- ROLE + LOAD POINT --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label for="role" class="block text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                        <select name="role" id="role" 
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                            required>
+                            <option value="">-- Pilih Role --</option>
+                            <option value="admin">Admin</option>
+                            <option value="operator">Operator</option>
+                        </select>
+                    </div>
+
+                    {{-- Load Point hanya muncul jika role = operator --}}
+                    <div id="loadPointWrapper" class="{{ old('role') == 'operator' ? '' : 'hidden' }}">
+                        <label for="exca_id" class="block text-sm font-medium text-gray-900 dark:text-white">Load Point</label>
+                        <select name="exca_id" id="exca_id"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500">
+                            <option value="">-- Pilih Load Point --</option>
+                            @foreach ($excas as $exca)
+                                <option value="{{ $exca->id }}">{{ $exca->loading_unit }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div>
-                    <label for="role" class="block text-sm font-medium text-gray-900 dark:text-white">Role</label>
-                    <select name="role" id="role"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                        required>
-                        <option value="">-- Pilih Role --</option>
-                        <option value="admin">Admin</option>
-                        <option value="operator">Operator</option>
-                    </select>
-                </div>
-                <div>
+
+
+                {{-- EMAIL --}}
+                <div class="mt-4">
                     <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white">Email</label>
                     <input type="email" name="email" id="email" readonly
-                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg
+                            focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                            dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         placeholder="Email akan terisi otomatis">
                 </div>
-                <div>
+
+                {{-- PASSWORD --}}
+                <div class="mt-4">
                     <label for="password" class="block text-sm font-medium text-gray-900 dark:text-white">Password</label>
                     <input type="password" name="password" id="password"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                            focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                            dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
                         placeholder="Password" required>
                 </div>
 
@@ -74,7 +118,7 @@
                     </button>
                 </div>
 
-                <!-- Script untuk mengisi email otomatis berdasarkan nama dan role -->
+                {{-- Script untuk mengisi email otomatis berdasarkan nama dan role --}}
                 <script>
                     const nameInput = document.getElementById('name');
                     const roleSelect = document.getElementById('role');
@@ -91,6 +135,19 @@
                     nameInput.addEventListener('input', generateEmail);
                     roleSelect.addEventListener('change', generateEmail);
                 </script>
+
+                {{-- Script untuk load otomatis load point --}}
+                <script>
+                    document.getElementById('role').addEventListener('change', function () {
+                        const wrapper = document.getElementById('loadPointWrapper');
+                        if (this.value === 'operator') {
+                            wrapper.classList.remove('hidden');
+                        } else {
+                            wrapper.classList.add('hidden');
+                        }
+                    });
+                    </script>
+
             </form>
         </div>
     </div>

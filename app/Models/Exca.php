@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -30,8 +29,15 @@ class Exca extends Model
     {
         return $this->hasMany(Dashboard::class);
     }
+
     public function lapangans()
     {
         return $this->hasMany(Lapangan::class);
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
 }

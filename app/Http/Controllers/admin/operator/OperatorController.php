@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin\operator;
 
 use App\Models\User;
+use App\Models\Exca;
 use App\Exports\UserExport;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -22,8 +23,9 @@ class OperatorController extends Controller
         $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         // Query builder awal
-        $adminQuery = User::where('role', 'admin');
-        $operatorQuery = User::where('role', 'operator')
+        $adminQuery = User::with('excas')->where('role', 'admin');
+        $operatorQuery = User::with('excas')
+            ->where('role', 'operator')
             ->where(function ($query) {
                 $query->whereDate('created_at', today())
                     ->orWhere('email', 'operator.operator@locatorgis.test');
@@ -87,8 +89,10 @@ class OperatorController extends Controller
             return view('admin.operator.partials.table_body', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'))->render();
         }
 
+        $excas = Exca::all();
+
         // View utama
-        return view('admin.operator.operator', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'));
+        return view('admin.operator.operator', compact('title', 'admins', 'users', 'excas', 'operators', 'adminCount', 'operatorCount'));
     }
 
     public function export(Request $request)
@@ -106,6 +110,7 @@ class OperatorController extends Controller
             'username' => 'required|string|max:255|unique:users,username',
             'role' => 'required|string|in:admin,operator',
             'password' => 'required|string|min:8',
+            'exca_id' => 'required_if:role,operator|unique:users,exca_id',
         ]);
 
         // Ambil nama depan dari input name
@@ -125,7 +130,8 @@ class OperatorController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'role' => $request->role,
-            'email' => $request->email,
+            'exca_id' => $request->exca_id,
+            'email' => $email,
             'password' => Hash::make($request->password),
         ]);
 
