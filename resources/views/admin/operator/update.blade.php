@@ -25,47 +25,94 @@
             <form action="{{ route('admin.operator.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <!-- Form Fields -->
+                {{-- NAME + USERNAME --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                        <input type="text" name="name" id="name"
+                            value="{{ old('name', $user->name) }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                            placeholder="Name" required>
+                    </div>
 
-                <!-- Name Field -->
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Name</label>
-                    <input type="text" name="name" id="name-update-{{ $user->id }}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                        placeholder="Name" required autofocus value="{{ old('name', $user->name) }}">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                        <input type="text" name="username" id="username"
+                            value="{{ old('username', $user->username) }}"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                            placeholder="Username" required>
+                    </div>
                 </div>
-                <!-- username Field -->
-                <div>
-                    <label for="username" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Username</label>
-                    <input type="text" name="username" id="username-update-{{ $user->id }}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                        placeholder="Username" required value="{{ old('username', $user->username) }}">
+
+
+                {{-- ROLE + LOAD POINT --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label for="role" class="block text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                        <select name="role" id="role"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                            required>
+                            <option value="">-- Pilih Role --</option>
+                            <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="operator" {{ old('role', $user->role) == 'operator' ? 'selected' : '' }}>Operator</option>
+                        </select>
+                    </div>
+
+                    {{-- Load Point --}}
+                    <div id="loadPointWrapper" class="{{ old('role', $user->role) == 'operator' ? '' : 'hidden' }}">
+                        <label for="exca_id" class="block text-sm font-medium text-gray-900 dark:text-white">Load Point</label>
+                        <select name="exca_id" id="exca_id"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                                focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                                dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500">
+
+                            <option value="">-- Pilih Load Point --</option>
+
+                            @foreach ($exca as $e)
+                                <option value="{{ $e->id }}"
+                                    {{ old('exca_id', $user->exca_id) == $e->id ? 'selected' : '' }}>
+                                    {{ $e->loading_unit }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <!-- Role Field -->
-                <div>
-                    <label for="role" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Role</label>
-                    <select name="role" id="role-update-{{ $user->id }}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                        required>
-                        <option value="">-- Pilih Role --</option>
-                        <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="operator" {{ $user->role == 'operator' ? 'selected' : '' }}>Operator</option>
-                    </select>
+
+
+                {{-- EMAIL --}}
+                <div class="mt-4">
+                    <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                    <input type="email" name="email" id="email" readonly
+                        value="{{ old('email', $user->email) }}"
+                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg
+                            focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                            dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                        placeholder="Email otomatis dari username">
                 </div>
-                <!-- Email Field -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Email</label>
-                    <input type="email" name="email" id="email-update-{{ $user->id }}" readonly
-                        value="{{ $user->email }}"
-                        class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                        placeholder="Email akan terisi otomatis">
-                </div>
-                <!-- Password Field -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-900 dark:text-white text-left mt-2">Password</label>
-                    <input type="password" name="password" id="password-update-{{ $user->id }}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
-                        placeholder="Biarkan kosong jika tidak ingin diubah">
+
+
+                {{-- PASSWORD --}}
+                <div class="mt-4">
+                    <label for="password" class="block text-sm font-medium text-gray-900 dark:text-white">
+                        Password (kosongkan jika tidak diubah)
+                    </label>
+                    <input type="password" name="password" id="password"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+                            focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5
+                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                            dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+                        placeholder="Password baru (opsional)">
                 </div>
                 <!-- Submit and Cancel Buttons -->
                 <div class="flex justify-end space-x-2 pt-4">
@@ -121,6 +168,17 @@
 
                         nameUpdate.addEventListener('input', generateEmailUpdate);
                         roleUpdate.addEventListener('change', generateEmailUpdate);
+                    });
+                </script>
+
+                <script>
+                    document.getElementById("role").addEventListener("change", function () {
+                        const loadPointWrapper = document.getElementById("loadPointWrapper");
+                        if (this.value === "operator") {
+                            loadPointWrapper.classList.remove("hidden");
+                        } else {
+                            loadPointWrapper.classList.add("hidden");
+                        }
                     });
                 </script>
             </form>

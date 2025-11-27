@@ -23,8 +23,8 @@ class OperatorController extends Controller
         $keywords = !empty($search) ? preg_split('/\s+/', (string) $search) : [];
 
         // Query builder awal
-        $adminQuery = User::with('excas')->where('role', 'admin');
-        $operatorQuery = User::with('excas')
+        $adminQuery = User::with('exca')->where('role', 'admin');
+        $operatorQuery = User::with('exca')
             ->where('role', 'operator')
             ->where(function ($query) {
                 $query->whereDate('created_at', today())
@@ -89,10 +89,10 @@ class OperatorController extends Controller
             return view('admin.operator.partials.table_body', compact('title', 'admins', 'users', 'operators', 'adminCount', 'operatorCount'))->render();
         }
 
-        $excas = Exca::all();
+        $exca = Exca::all();
 
         // View utama
-        return view('admin.operator.operator', compact('title', 'admins', 'users', 'excas', 'operators', 'adminCount', 'operatorCount'));
+        return view('admin.operator.operator', compact('title', 'admins', 'users', 'exca', 'operators', 'adminCount', 'operatorCount'));
     }
 
     public function export(Request $request)
@@ -152,7 +152,8 @@ class OperatorController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,' . $user->id,
-            'role' => 'required|string|in:admin,operator',
+            'role' => 'required|string|in:admin,operator',            
+            'exca_id' => 'required_if:role,operator|unique:users,exca_id',
             'password' => 'nullable|string|min:8',
         ]);
         // Ambil nama depan & generate ulang email
@@ -169,6 +170,7 @@ class OperatorController extends Controller
         $user->name = $request->name;
         $user->username = $request->username;
         $user->role = $request->role;
+        $user->exca_id = $request->exca_id;
 
         // Optional: Auto-generate email (kalau kamu gak ambil dari input)
         $firstName = strtolower(strtok($request->name, ' '));

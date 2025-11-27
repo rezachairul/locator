@@ -66,7 +66,7 @@
                                 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
                                 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500">
                             <option value="">-- Pilih Load Point --</option>
-                            @foreach ($excas as $exca)
+                            @foreach ($exca as $exca)
                                 <option value="{{ $exca->id }}">{{ $exca->loading_unit }}</option>
                             @endforeach
                         </select>

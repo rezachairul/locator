@@ -115,7 +115,7 @@
                         <th class="px-2 py-1 text-center">Name</th>
                         <th class="px-2 py-1 text-center">Username</th>
                         <th class="px-2 py-1 text-center">Email</th>
-                        <th class="px-2 py-1 text-center">Load Point (For User)</th>
+                        <th class="px-2 py-1 text-center">Load Point (For Operator)</th>
                         <th class="px-2 py-1 text-center">Role</th>                        
                         <th class="px-2 py-1 text-center">Actions</th>
                     </tr>

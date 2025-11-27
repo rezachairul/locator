@@ -34,6 +34,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'exca_id',
     ];
 
     /**
@@ -59,7 +60,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function excas()
+    public function exca()
     {
         return $this->belongsTo(Exca::class);
     }

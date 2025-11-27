@@ -5,11 +5,9 @@
     <td class="px-2 py-1 text-center">{{ $user->username }}</td>
     <td class="px-2 py-1 text-center">{{ $user->email }}</td>
     <td class="px-2 py-1 text-center">
-        @if ($user->role === 'operator' && $user->exca)
-            {{ $user->exca->loading_unit }}
-        @else
-            -
-        @endif
+        {{ $user->role === 'operator' && optional($user->exca)->loading_unit 
+            ? $user->exca->loading_unit 
+            : 'N/A' }}
     </td>
     <td class="px-2 py-1 text-center">{{ $user->role }}</td>
     <!-- Actions -->
