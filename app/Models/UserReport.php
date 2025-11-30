@@ -40,7 +40,7 @@ class UserReport extends Model
         static::created(function ($userReport) {
             // Menambahkan entri ke tabel incident_users
             IncidentUser::create([
-                'user_report_id' => $userReport->id, 
+                'user_report_id' => $userReport->id,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -56,5 +56,4 @@ class UserReport extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }

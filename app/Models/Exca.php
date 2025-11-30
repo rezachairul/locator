@@ -22,22 +22,18 @@ class Exca extends Model
 {
     use HasFactory;
     protected $table = 'excas';
-
     protected $guarded = ['id'];
 
     public function dashboards()
     {
         return $this->hasMany(Dashboard::class);
     }
-
     public function lapangans()
     {
         return $this->hasMany(Lapangan::class);
     }
-
     public function user()
     {
         return $this->hasOne(User::class);
     }
-
 }

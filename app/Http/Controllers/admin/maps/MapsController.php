@@ -20,8 +20,8 @@ class MapsController extends Controller
                 foreach ($keywords as $word) {
                     $query->where(function ($q) use ($word) {
                         $q->where('name', 'ILIKE', "%{$word}%")
-                          ->orWhere('type', 'ILIKE', "%{$word}%")
-                          ->orWhere('filename', 'ILIKE', "%{$word}%");
+                        ->orWhere('type', 'ILIKE', "%{$word}%")
+                        ->orWhere('filename', 'ILIKE', "%{$word}%");
                     });
                 }
             })
@@ -33,6 +33,7 @@ class MapsController extends Controller
 
     public function store(Request $request)
     {
+        dd ($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'file_maps' => 'required|file|max:102400', // 100MB
@@ -99,7 +100,7 @@ class MapsController extends Controller
 
     }
 
-     public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $map = Maps::findOrFail($id);
 

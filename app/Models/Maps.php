@@ -20,7 +20,6 @@ class Maps extends Model
 {
     use HasFactory;
     protected $table = 'maps';
-    
     protected $fillable = [
         'name',
         'type',
@@ -30,8 +29,6 @@ class Maps extends Model
         'point_filename', // untuk file JSON / GeoJSON
         'point_path',     // path storage file point
     ];
-
-
     public function lapangans()
     {
         return $this->hasMany(Lapangan::class);
